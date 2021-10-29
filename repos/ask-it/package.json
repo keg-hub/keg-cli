@@ -19,9 +19,6 @@
   "engines": {
     "node": ">= 12.15.0"
   },
-  "bin": {
-    "askIt": "./src/askIt"
-  },
   "files": [
     "src/"
   ],
