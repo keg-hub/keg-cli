@@ -1,6 +1,6 @@
 {
   "name": "@keg-hub/cli-utils",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Utility methods for writing Custom Tasks consumed by the Keg-CLI",
   "main": "index.js",
   "repository": "https://github.com/lancetipton/keg-cli/tree/master/repos/cli-utils",
@@ -40,9 +40,6 @@
     "colors": "1.4.0",
     "fs-extra": "9.0.1",
     "module-alias": "2.2.2"
-  },
-  "resolutions": {
-    "@keg-hub/jsutils": "8.6.0"
   },
   "devDependencies": {
     "jest-cli": "26.6.3",
