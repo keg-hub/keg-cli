@@ -22,9 +22,6 @@ const platforms = {
  * @returns {string} - dockerCmd string with the file paths added
  */
  const addBuildPlatform = (dockerCmd, value) => {
-  console.log(`------- value -------`) 
-  console.log(value)
-  
   return !value
     ? dockerCmd
     : `${dockerCmd} --platform ${platforms[value] || value}`
