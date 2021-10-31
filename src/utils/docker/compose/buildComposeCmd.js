@@ -2,6 +2,7 @@ const { addComposeConfigs } = require('./addComposeConfigs')
 const { getComposeContextData } = require('./getComposeContextData')
 const { get, exists, reduceObj, noOpObj } = require('@keg-hub/jsutils')
 const { getImgNameContext } = require('../../getters/getImgNameContext')
+const { addBuildPlatform } = require('../addBuildPlatform')
 
 /**
  * Mapping of available params to docker-compose arguments
@@ -58,11 +59,13 @@ const addCmdOpts = (dockerCmd, cmdArgs, params) => {
 
     return !cmdArgs[key]
       ? added
-      : addDockerArg(
-          added,
-          cmdArgs[key],
-          condition
-        )
+      : key === 'platform'
+        ? addBuildPlatform(added, value)
+        : addDockerArg(
+            added,
+            cmdArgs[key],
+            condition
+          )
   }, dockerCmd)
 }
 
@@ -116,6 +119,7 @@ const buildComposeCmd = async args => {
   // So only add the cmd if it's not pull
   dockerCmd = cmd !== `pull` ? `${dockerCmd} ${cmd}` : dockerCmd
 
+  // Arguments specific to the current command
   const cmdArgs = composeArgs[cmd]
 
   switch(cmd){

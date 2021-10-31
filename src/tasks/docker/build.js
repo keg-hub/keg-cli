@@ -119,6 +119,10 @@ const dockerBuild = async args => {
 
   const buildImg = image || cmdContext || contextEnvs.IMAGE
   
+  console.log(`------- dockerCmd -------`)
+  console.log(dockerCmd)
+  process.exit(0)
+  
   // Run the built docker command
   const exitCode = await docker.build(
     dockerCmd,

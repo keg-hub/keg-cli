@@ -1,6 +1,7 @@
 const { buildTags } = require('./tags/buildTags')
 const { getBuildArgs } = require('./getBuildArgs')
 const { getBuildLabels } = require('./getBuildLabels')
+const { addBuildPlatform } = require('./addBuildPlatform')
 const { getDockerCmdArgs } = require('./getDockerCmdArgs')
 
 /**
@@ -17,6 +18,9 @@ const { getDockerCmdArgs } = require('./getDockerCmdArgs')
 const createBuildCmd = async (args, dockerCmd) => {
   const { globalConfig, params } = args
   const { location } = params
+
+  // Add the build platform for the image
+  dockerCmd = addBuildPlatform(dockerCmd, params?.platform)
 
   // Add any build tags
   dockerCmd = await buildTags(args, params, dockerCmd)
