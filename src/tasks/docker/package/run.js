@@ -280,7 +280,7 @@ module.exports = {
       mergeTaskOptions(`docker package`, 'run', 'run', {
         package: {
           description: 'Pull request package url or name',
-          example: `keg docker package --package lancetipton/keg-core/keg-core:bug-fixes`,
+          example: `keg docker package --package KegHub/keg-core/keg-core:bug-fixes`,
           required: true,
           ask: {
             message: 'Enter the docker package url or path (<user>/<repo>/<package>:<tag>)',

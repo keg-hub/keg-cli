@@ -3,7 +3,7 @@
   "displayName": "Keg CLI",
   "docker": {
     "providerUrl": "ghcr.io",
-    "namespace": "lancetipton",
+    "namespace": "KegHub",
     "user": "",
     "token": ""
   },
@@ -11,8 +11,8 @@
     "paths": {
     },
     "git": {
-      "orgName": "lancetipton",
-      "orgUrl": "https://github.com/lancetipton",
+      "orgName": "KegHub",
+      "orgUrl": "https://github.com/KegHub",
       "provider": "https://github.com",
       "publicToken": "",
       "repos": {

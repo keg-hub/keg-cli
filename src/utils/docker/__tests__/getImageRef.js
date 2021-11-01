@@ -25,10 +25,10 @@ const testArgs = {
       image: 'keg-base',
       tag: 'develop',
       provider: 'ghcr.io',
-      namespace: 'lancetipton',
+      namespace: 'KegHub',
       imageWTag: 'keg-base:develop',
-      full: 'ghcr.io/lancetipton/keg-base:develop',
-      providerImage: 'ghcr.io/lancetipton/keg-base',
+      full: 'ghcr.io/KegHub/keg-base:develop',
+      providerImage: 'ghcr.io/KegHub/keg-base',
     },
     outputs: {
       imgRef: dockerData.images.base,
@@ -40,11 +40,11 @@ const testArgs = {
     inputs: {
       image: 'keg-core',
       provider: 'ghcr.io',
-      namespace: 'lancetipton',
+      namespace: 'KegHub',
       tag: 'develop',
       imageWTag: 'keg-core:develop',
-      full: 'ghcr.io/lancetipton/keg-core:develop',
-      providerImage: 'ghcr.io/lancetipton/keg-core',
+      full: 'ghcr.io/KegHub/keg-core:develop',
+      providerImage: 'ghcr.io/KegHub/keg-core',
     },
     outputs: {
       imgRef: dockerData.images.core,
@@ -56,15 +56,15 @@ const testArgs = {
     inputs: {
       image: 'tap',
       provider: 'ghcr.io',
-      namespace: 'lancetipton',
+      namespace: 'KegHub',
       tag: 'zen-371-booking-button-states',
       imageWTag: 'tap:zen-371-booking-button-states',
-      full: 'ghcr.io/lancetipton/tap:zen-371-booking-button-states',
-      providerImage: 'ghcr.io/lancetipton/tap',
+      full: 'ghcr.io/KegHub/tap:zen-371-booking-button-states',
+      providerImage: 'ghcr.io/KegHub/tap',
     },
     outputs: {
       imgRef: dockerData.images.tap,
-      refFrom: 'ghcr.io/lancetipton/tap:zen-371-booking-button-states'
+      refFrom: 'ghcr.io/KegHub/tap:zen-371-booking-button-states'
     }
   },
   Injected: {
@@ -72,15 +72,15 @@ const testArgs = {
     inputs: {
       image: 'tap-injected-test',
       provider: 'ghcr.io',
-      namespace: 'lancetipton',
+      namespace: 'KegHub',
       tag: 'develop',
       imageWTag: 'tap-injected-test:develop',
-      full: 'ghcr.io/lancetipton/tap-injected-test:develop',
-      providerImage: 'ghcr.io/lancetipton/tap-injected-test',
+      full: 'ghcr.io/KegHub/tap-injected-test:develop',
+      providerImage: 'ghcr.io/KegHub/tap-injected-test',
     },
     outputs: {
       imgRef: dockerData.images.injected,
-      refFrom: 'ghcr.io/lancetipton/tap-injected-test:develop'
+      refFrom: 'ghcr.io/KegHub/tap-injected-test:develop'
     }
   },
 }
