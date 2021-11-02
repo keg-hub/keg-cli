@@ -1,12 +1,11 @@
 #! /usr/bin/env bash
 
-KEG_IS_ZSH=""
 KEG_SHELL_TYPE="$(ps -o comm= $$)"
 
 # Check for the shell type
 # Could be run in bash || zsh
-if [[ "$KEG_SHELL_TYPE" == "/bin/zsh" ]]; then
-  KEG_IS_ZSH="true"
+if [[ "$KEG_SHELL_TYPE" == "/bin/zsh" || "$KEG_SHELL_TYPE" == "-zsh" ]]; then
+  KEG_IS_ZSH=1
 else
   unset KEG_IS_ZSH
 fi

@@ -1,6 +1,6 @@
 const path = require('path')
 const { Logger } = require('KegLog')
-const platform = require('os').platform()
+const osType = require('os').platform()
 const qrcode = require('qrcode-terminal')
 const { DOCKER } = require('KegConst/docker')
 const { isObj, isStr } = require('@keg-hub/jsutils')
@@ -10,7 +10,7 @@ const { PACKAGE, IMAGE } = CONTAINER_PREFIXES
 const { pipeCmd } = require('KegProc')
 
 const NODE_MODULES_BIN = path.join(CLI_ROOT, `node_modules/.bin`)
-const NGROK_BIN = './ngrok' + (platform === 'win32' ? '.exe' : '')
+const NGROK_BIN = './ngrok' + (osType === 'win32' ? '.exe' : '')
 
 /**
  * Adds the http protocol to the found host header if it does not exist

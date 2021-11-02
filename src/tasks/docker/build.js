@@ -118,7 +118,7 @@ const dockerBuild = async args => {
   Logger.pair(`\nBuilding docker image`, image || cmdContext)
 
   const buildImg = image || cmdContext || contextEnvs.IMAGE
-  
+
   // Run the built docker command
   const exitCode = await docker.build(
     dockerCmd,
