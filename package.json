@@ -48,7 +48,7 @@
     "js-yaml": "4.1.0",
     "log-update": "4.0.0",
     "module-alias": "2.2.2",
-    "ngrok": "npm:@expo/ngrok-bin-darwin-arm64@2.3.40",
+    "ngrok": "4.2.2",
     "open": "8.4.0",
     "qrcode-terminal": "0.12.0",
     "rimraf": "3.0.2",
