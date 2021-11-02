@@ -87,10 +87,10 @@ describe('Yaml files', () => {
       }
     })
 
-    it('should throw when the path is invalid', () => {
+    it('should throw when the path is invalid', async () => {
       const location = `/some/invalid/yml/path`
       try {
-        yml.load({ location, data })
+        await yml.load({ location, data })
       }
       catch (err) {
         expect(err.message.trim()).toEqual(

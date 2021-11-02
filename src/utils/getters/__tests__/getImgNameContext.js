@@ -36,11 +36,11 @@ const testArgs = {
     outputs: {
       image: 'keg-core',
       provider: 'ghcr.io',
-      namespace: 'lancetipton',
+      namespace: 'KegHub',
       tag: 'develop',
       imageWTag: 'keg-core:develop',
-      full: 'ghcr.io/lancetipton/keg-core:develop',
-      providerImage: 'ghcr.io/lancetipton/keg-core',
+      full: 'ghcr.io/KegHub/keg-core:develop',
+      providerImage: 'ghcr.io/KegHub/keg-core',
     }
   },
   imgTag: {
@@ -49,11 +49,11 @@ const testArgs = {
     outputs: {
       image: 'tap-injected-test',
       provider: 'ghcr.io',
-      namespace: 'lancetipton',
+      namespace: 'KegHub',
       tag: 'test-tag',
       imageWTag: 'tap-injected-test:test-tag',
-      full: 'ghcr.io/lancetipton/tap-injected-test:test-tag',
-      providerImage: 'ghcr.io/lancetipton/tap-injected-test',
+      full: 'ghcr.io/KegHub/tap-injected-test:test-tag',
+      providerImage: 'ghcr.io/KegHub/tap-injected-test',
     }
   },
   context: {
@@ -63,10 +63,10 @@ const testArgs = {
       image: 'components',
       tag: 'develop',
       provider: 'ghcr.io',
-      namespace: 'lancetipton',
+      namespace: 'KegHub',
       imageWTag: 'components:develop',
-      full: 'ghcr.io/lancetipton/components:develop',
-      providerImage: 'ghcr.io/lancetipton/components',
+      full: 'ghcr.io/KegHub/components:develop',
+      providerImage: 'ghcr.io/KegHub/components',
     }
   },
   injected: {
@@ -76,10 +76,10 @@ const testArgs = {
       image: 'tap-injected-test',
       tag: 'develop',
       provider: 'ghcr.io',
-      namespace: 'lancetipton',
+      namespace: 'KegHub',
       imageWTag: 'tap-injected-test:develop',
-      full: 'ghcr.io/lancetipton/tap-injected-test:develop',
-      providerImage: 'ghcr.io/lancetipton/tap-injected-test',
+      full: 'ghcr.io/KegHub/tap-injected-test:develop',
+      providerImage: 'ghcr.io/KegHub/tap-injected-test',
     }
   },
   tagOverride: {
@@ -89,10 +89,10 @@ const testArgs = {
       image: 'components',
       tag: 'test-tag',
       provider: 'ghcr.io',
-      namespace: 'lancetipton',
+      namespace: 'KegHub',
       imageWTag: 'components:test-tag',
-      full: 'ghcr.io/lancetipton/components:test-tag',
-      providerImage: 'ghcr.io/lancetipton/components',
+      full: 'ghcr.io/KegHub/components:test-tag',
+      providerImage: 'ghcr.io/KegHub/components',
     }
   },
   providerOverride: {
@@ -102,10 +102,10 @@ const testArgs = {
       image: 'keg-core',
       tag: 'develop',
       provider: 'my.test-provider.com',
-      namespace: 'lancetipton',
+      namespace: 'KegHub',
       imageWTag: 'keg-core:develop',
-      full: 'my.test-provider.com/lancetipton/keg-core:develop',
-      providerImage: 'my.test-provider.com/lancetipton/keg-core',
+      full: 'my.test-provider.com/KegHub/keg-core:develop',
+      providerImage: 'my.test-provider.com/KegHub/keg-core',
     }
   },
   namespaceOverride: {
@@ -180,10 +180,10 @@ const testArgs = {
       image: 'keg-items',
       tag: 'test',
       provider: 'ghcr.io',
-      namespace: 'lancetipton',
+      namespace: 'KegHub',
       imageWTag: 'keg-items:test',
-      full: 'ghcr.io/lancetipton/keg-items:test',
-      providerImage: 'ghcr.io/lancetipton/keg-items'
+      full: 'ghcr.io/KegHub/keg-items:test',
+      providerImage: 'ghcr.io/KegHub/keg-items'
     }
   },
   fromOnlyImage: {
@@ -193,10 +193,10 @@ const testArgs = {
       image: 'keg-items',
       tag: 'develop',
       provider: 'ghcr.io',
-      namespace: 'lancetipton',
+      namespace: 'KegHub',
       imageWTag: 'keg-items:develop',
-      full: 'ghcr.io/lancetipton/keg-items:develop',
-      providerImage: 'ghcr.io/lancetipton/keg-items'
+      full: 'ghcr.io/KegHub/keg-items:develop',
+      providerImage: 'ghcr.io/KegHub/keg-items'
     }
   },
   imageId: {
@@ -206,10 +206,10 @@ const testArgs = {
       image: 'keg-core',
       tag: '0.0.1',
       provider: 'ghcr.io',
-      namespace: 'lancetipton',
+      namespace: 'KegHub',
       imageWTag: 'keg-core:0.0.1',
-      full: 'ghcr.io/lancetipton/keg-core:0.0.1',
-      providerImage: 'ghcr.io/lancetipton/keg-core',
+      full: 'ghcr.io/KegHub/keg-core:0.0.1',
+      providerImage: 'ghcr.io/KegHub/keg-core',
     }
   },
   contextId: {
@@ -219,10 +219,10 @@ const testArgs = {
       image: 'keg-core',
       tag: 'develop',
       provider: 'ghcr.io',
-      namespace: 'lancetipton',
+      namespace: 'KegHub',
       imageWTag: 'keg-core:develop',
-      full: 'ghcr.io/lancetipton/keg-core:develop',
-      providerImage: 'ghcr.io/lancetipton/keg-core',
+      full: 'ghcr.io/KegHub/keg-core:develop',
+      providerImage: 'ghcr.io/KegHub/keg-core',
     }
   },
   contextIdOverride: {

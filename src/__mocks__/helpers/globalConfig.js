@@ -14,7 +14,7 @@ module.exports = deepMerge(defaultConfig, {
   displayName: 'Keg CLI',
   docker: {
     providerUrl: 'ghcr.io',
-    namespace: "lancetipton",
+    namespace: "KegHub",
     user: 'testuser',
     token: ''
   },
