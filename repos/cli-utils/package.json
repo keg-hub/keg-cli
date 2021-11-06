@@ -31,7 +31,7 @@
     "test": "NODE_ENV=test jest --no-cache --verbose --config=./configs/jest.config.js"
   },
   "dependencies": {
-    "axios": "0.21.1",
+    "axios": "0.21.2",
     "@keg-hub/args-parse": "6.3.2",
     "@keg-hub/ask-it": "1.0.0",
     "@keg-hub/jsutils": "8.7.0",
