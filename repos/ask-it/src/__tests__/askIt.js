@@ -8,13 +8,12 @@ describe('ask', () => {
 
   afterAll(() => jest.resetAllMocks())
 
-  it('should call inquirer.prompt with passed in questions', async done => {
+  it('should call inquirer.prompt with passed in questions', async () => {
 
     const resp = await ask(Models.input)
 
     expect(mockInquirer.prompt).toHaveBeenCalled()
 
-    done()
   })
 
 })

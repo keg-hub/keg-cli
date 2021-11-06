@@ -1,9 +1,8 @@
-const path = require('path')
 const spawn = require('cross-spawn')
 const killProc = require('tree-kill')
 const rootDir = require('app-root-path').path
-const { exitError, errorHandler } = require('./utils')
-const { logData, mapObj, reduceObj, checkCall, deepMerge, isFunc } = require('@keg-hub/jsutils')
+const { errorHandler } = require('./utils')
+const { logData, mapObj, checkCall, deepMerge, isFunc } = require('@keg-hub/jsutils')
 
 /**
  * Cache to hold child processes
