@@ -1,10 +1,9 @@
 const docker = require('KegDocCli')
-const { get, checkCall } = require('@keg-hub/jsutils')
-const { DOCKER } = require('KegConst/docker')
 const { Logger } = require('KegLog')
+const { get, checkCall } = require('@keg-hub/jsutils')
 
 /**
- * Execute a docker prune command
+ * Execute a docker command to test that it's working
  * @function
  * @param {Object} args - arguments passed from the runTask method
  * @param {string} args.command - Initial command being run
@@ -13,7 +12,7 @@ const { Logger } = require('KegLog')
  * @returns {void}
  */
 const dockerTest = async args => {
-  const { globalConfig, params, task, __internal } = args
+  const { params } = args
   const { method, options } = params
   const opts = options && options.split(',')
 
@@ -26,8 +25,8 @@ module.exports = {
   test: {
     name: 'test',
     action: dockerTest,
-    description: 'Remove unused docker items',
-    example: 'keg docker prune <options>',
+    description: 'Tests a docker-lib command by running it',
+    example: 'keg docker test <cmd> <options>',
     options: {
       method: {
         description: 'Docker method to run. Use dot notation to access sub methods of the docker lib',
