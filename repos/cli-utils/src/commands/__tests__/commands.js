@@ -165,18 +165,22 @@ describe('commands', () => {
         expect(spawnCmdMock.mock.calls[0][1].cwd).toBe('/test/custom/path')
       })
 
-      it('should accept undefined args, but defined options', async done => {
-        expect(async () => {
-          await method(undefined, {})
-          done()
-        }).not.toThrow()
+      it('should accept undefined args, but defined options', done => {
+        (() => {
+          expect(async () => {
+            await method(undefined, {})
+            done()
+          }).not.toThrow()
+        })()
       })
 
-      it('should accept undefined args and options, but defined cwd', async done => {
-        expect(async () => {
-          await method(undefined, undefined, '/custom/test/path')
-          done()
-        }).not.toThrow()
+      it('should accept undefined args and options, but defined cwd', done => {
+        (() => {
+          expect(async () => {
+            await method(undefined, undefined, '/custom/test/path')
+            done()
+          }).not.toThrow()
+        })()
       })
 
       it('should log a warning if args exists but not an array, string, or falsy', async () => {

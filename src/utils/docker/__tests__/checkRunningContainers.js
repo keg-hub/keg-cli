@@ -11,13 +11,12 @@ describe('checkRunningContainers', () => {
 
   afterAll(() => jest.resetAllMocks())
 
-  it('should call docker.container.ps to get a list of all containers', async done => {
+  it('should call docker.container.ps to get a list of all containers', async () => {
 
     await checkRunningContainers()
 
     expect(docker.container.ps).toHaveBeenCalled()
 
-    done()
   })
 
   it('should return a list of running containers managed by the Keg-CLI', async () => {
@@ -30,7 +29,7 @@ describe('checkRunningContainers', () => {
 
   })
 
-  it('should NOT return containers NOT managed by the Keg-CLI', async done => {
+  it('should NOT return containers NOT managed by the Keg-CLI', async () => {
 
     const containers = await docker.container.list()
     const random = containers.find(cont => cont.name === 'test-random')
@@ -45,7 +44,6 @@ describe('checkRunningContainers', () => {
       expect(run.name).not.toBe(random.name)
     })
 
-    done()
   })
 
 })

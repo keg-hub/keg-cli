@@ -44,17 +44,18 @@ describe('checkImageExists', () => {
 
   afterAll(() => jest.resetAllMocks())
 
-  it(`should throw when no image or context is passed`, async done => {
-    let error
-    try { await checkImageExists({}) }
-    catch(err){ error = err }
-    
-    setTimeout(() => {
-      expect(error).not.toBe(undefined)
-      expect(generalErrorMock).toHaveBeenCalled()
-      done()
-    }, 100)
-
+  it(`should throw when no image or context is passed`, done => {
+    (async () => {
+      let error
+      try { await checkImageExists({}) }
+      catch(err){ error = err }
+      
+      setTimeout(() => {
+        expect(error).not.toBe(undefined)
+        expect(generalErrorMock).toHaveBeenCalled()
+        done()
+      }, 100)
+    })()
   })
 
   testEnum(testArgs, checkImageExists)
