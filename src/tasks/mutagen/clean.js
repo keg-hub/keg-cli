@@ -19,10 +19,10 @@ const clean = async args => {
   const syncs = await mutagen.sync.list({
     format: 'json'
   })
-  
+
   isArr(syncs) && await Promise.all(
     syncs.filter(sync =>{
-      if('noSessionsFound' in sync) return false
+      if('noSessionsFound' in sync || 'noSynchronizationSessionsFound' in sync) return false
 
       const nameMatch = Boolean(context && sync.name.indexOf(context) === 0)
       const orphaned = get(sync, 'beta.connectionState') === 'Disconnected'

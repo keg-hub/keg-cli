@@ -17,6 +17,7 @@ module.exports = {
       ...require('./list'),
       ...require('./log'),
       ...require('./new'),
+      ...require('./open'),
       ...require('./path'),
       ...require('./package'),
       ...require('./print'),

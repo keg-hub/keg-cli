@@ -114,6 +114,10 @@ const loadValuesFiles = args => {
 
   const extraData = buildExtraData(args)
 
+  
+  // TODO - Make this more granular
+  // should load from general to more specific
+  // Currently it's all over the place
   const globalPaths = [
     // ENVs in the global config folder based on current environment
     // Example => ~/.kegConfig/values_local.yml
@@ -128,11 +132,12 @@ const loadValuesFiles = args => {
   // Otherwise load the internal values paths
   const ymlPaths = containerPath
   ? [
-      // Load the global values before the external values
-      // This allows apps to overwrite global defaults
-      ...globalPaths,
       // Add the main injected values path first
       valuesPath,
+      // Load the global values after the default values, but before the injected envs
+      // This allows apps to overwrite global defaults
+      // But global values to overwrite the default values
+      ...globalPaths,
       // Also try to load an injected ENV values file that override the default
       ...buildValueDup(containerPath, env),
     ]
