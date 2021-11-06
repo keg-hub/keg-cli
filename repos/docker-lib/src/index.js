@@ -1,7 +1,12 @@
+
 module.exports = {
+  ...require('./utils/buildArgs'),
+  ...require('./utils/compareItems'),
+  ...require('./utils/containerEnv'),
+  ...require('./utils/isDockerId'),
   ...require('./cmds'),
-  ...require('./compose'),
-  ...require('./container'),
-  ...require('./image'),
-  ...require('./utils'),
+  compose: require('./compose'),
+  container: require('./container'),
+  image: require('./image'),
+  volume: require('./volume'),
 }
