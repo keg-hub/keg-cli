@@ -1,6 +1,5 @@
-const { executeCmd } = require('../process')
-const { Logger } = require('@keg-hub/cli-utils')
 const { apiError } = require('../utils/error/apiError')
+\const { Logger, execCmd } = require('@keg-hub/cli-utils')
 const { noLoginError } = require('../utils/error/noLoginError')
 
 /**
@@ -24,7 +23,7 @@ const { noLoginError } = require('../utils/error/noLoginError')
   Logger.info(`  Logging into docker provider "${ providerUrl }", with user "${ user }"`)
   Logger.empty()
 
-  const { error, data } = await executeCmd(loginCmd)
+  const { error, data } = await execCmd(loginCmd)
 
   return error && !data
     ? apiError(error)

@@ -1,8 +1,8 @@
-const { Logger } = require('@keg-hub/cli-utils')
+const { pipeCmd } = require('../process')
 const { asJson } = require('../utils/output/asJson')
 const { apiError } = require('../utils/error/apiError')
+const { Logger, execCmd } = require('@keg-hub/cli-utils')
 const { ensureDocker } = require('../utils/ensureDocker')
-const { executeCmd, pipeCmd } = require('../process')
 
 const {
   isArr,
@@ -37,7 +37,7 @@ const {
 
   log && Logger.spacedMsg(`Running command: `, cmdToRun)
 
-  const { error, data } = await executeCmd(
+  const { error, data } = await execCmd(
     cmdToRun,
     cmdOpts
   )

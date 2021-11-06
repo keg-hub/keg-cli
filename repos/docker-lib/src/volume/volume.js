@@ -1,31 +1,14 @@
-const { dockerCli } = require('../cmds/cmds')
-const { isArr, isStr } = require('@keg-hub/jsutils')
+const { dynamicCmd } = require('../cmds/dynamicCmd')
 
 /**
- * Calls the docker cli and gets a list of current columes
+ * Root docker volume method to run docker volume commands
  * @function
- * @param {Object} args - Arguments used to modify the docker api call
- * @param {string} args.opts - Options used to build the docker command
- * @param {string} args.format - Format of the docker command output
+ * @param {string} args - Arguments to pass to the docker volume command
  *
- * @returns {Array} - JSON array of containers
+ * @returns {string|Array} - Response from docker cli
  */
-const list = (args={}, opts) => {
-  opts = opts || args.opts
-  return dockerCli({
-    format: args.format || 'json',
-    ...args,
-    opts: [ `volume`, `ls` ].concat(
-      isArr(opts)
-        ? opts
-        : isStr(opts)
-          ? opts.split(' ')
-          : []
-    )
-  })
-}
-
+const volume = (args={}) => dynamicCmd(args, 'volume')
 
 module.exports = {
-  list
+  volume
 }

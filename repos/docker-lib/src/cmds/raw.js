@@ -1,8 +1,8 @@
-const { Logger } = require('@keg-hub/cli-utils')
 const { apiError } = require('../utils/error/apiError')
+const { noOpArr, noOpObj } = require('@keg-hub/jsutils')
+const { Logger, runCmd } = require('@keg-hub/cli-utils')
 const { isSafeExitCode } = require('../utils/exitCodes')
 const { ensureDocker } = require('../utils/ensureDocker')
-const { spawnProc } = require('../process')
 
 /**
  * Runs a raw docker cli command by spawning a child process
@@ -14,8 +14,8 @@ const { spawnProc } = require('../process')
  *
  * @returns {*} - Response from the docker cli command
  */
- const raw = async (cmd, args={}, loc=process.cwd()) => {
-  const { log, ...cmdArgs } = args
+ const raw = async (cmd, options=noOpObj, location) => {
+  const { log, args=noOpArr, ...cmdOpts } = options
 
   // Build the command to be run
   // Add docker if needed
@@ -23,15 +23,19 @@ const { spawnProc } = require('../process')
   log && Logger.spacedMsg(`Running command: `, cmdToRun)
 
   // Run the docker command
-  const exitCode = await spawnProc(cmdToRun, cmdArgs, loc)
+  const exitCode = await runCmd(
+    cmdToRun,
+    args,
+    { ...cmdOpts, cwd: cmdOpts.cwd || location }
+  )
 
   // Get the exit code message
   const exitMessage = isSafeExitCode(exitCode)
 
   // Log the message or an error
   ;exitMessage
-    ? Logger.success(exitMessage)
-    : apiError(`Docker command exited with non-zero exit code!`)
+    ? log && Logger.success(exitMessage)
+    : apiError(`Docker command exited with non-zero exit code: ${exitCode}`)
   
   return exitCode
 }

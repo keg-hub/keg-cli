@@ -1,13 +1,11 @@
-const { Logger } = require('@keg-hub/cli-utils')
 const { Loading } = require('./loading')
-const { spawnCmd, asyncCmd } = require('@keg-hub/spawn-cmd')
+const { Logger } = require('@keg-hub/cli-utils')
+const { spawnCmd } = require('@keg-hub/spawn-cmd')
 const {
   get,
-  checkCall,
-  deepMerge,
   isFunc,
-  isArr,
-  noOpObj
+  noOpObj,
+  checkCall
 } = require('@keg-hub/jsutils')
 
 
@@ -117,7 +115,7 @@ const buildEvents = (config=noOpObj, logs=noOpObj, loading) => {
  * @param {Object} options - extra options to pass to the child process
  * @param {string} location - Where the command should be run
  *
- * @returns {*} - Response from async exec cmd
+ * @returns {*} - Response from async spawnCmd
  */
 const pipeCmd = (cmd, options={}, location=process.cwd()) => {
   // Pull the logConfig from the passed in options
@@ -136,7 +134,6 @@ const pipeCmd = (cmd, options={}, location=process.cwd()) => {
 
   // Execute the command, and return the response
   return spawnCmd(cmd, spawnOpts)
-
 }
 
 

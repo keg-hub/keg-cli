@@ -1,8 +1,6 @@
-const { spawnProc } = require('../process')
-const { Logger } = require('@keg-hub/cli-utils')
-const { apiError } = require('../utils/error/apiError')
-
 const { isStr } = require('@keg-hub/jsutils')
+const { apiError } = require('../utils/error/apiError')
+const { Logger, runCmd } = require('@keg-hub/cli-utils')
 
 
 /**
@@ -19,12 +17,13 @@ const { isStr } = require('@keg-hub/jsutils')
 
   toPush.log && Logger.spacedMsg(`Pushing docker image to`, toPush.url)
 
-  const exitCode = await spawnProc(`docker push ${toPush.url}`)
+  const exitCode = await runCmd(`docker`, [`push`, toPush.url])
 
-  if(exitCode)
-    return toPush.skipError ? false : apiError(`docker push ${toPush.url}`)
-
-  toPush.log && Logger.success(`\nFinished pushing ${toPush.url} to provider!\n`)
+  !exitCode
+    ? toPush.log && Logger.success(`\nFinished pushing ${toPush.url} to provider!\n`)
+    : !toPush.skipError
+      ? apiError(`docker push ${toPush.url}`)
+      : false
 
   return exitCode
 }
