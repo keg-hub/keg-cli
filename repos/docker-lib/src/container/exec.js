@@ -1,5 +1,5 @@
 const { raw } = require('../cmds/raw')
-const { isArr } = require('@keg-hub/jsutils')
+const { pickKeys, isArr } = require('@keg-hub/jsutils')
 const { noItemError } = require('../utils/error/noItemError')
 const { toContainerEnvs } = require('../utils/toContainerEnvs')
 
@@ -13,24 +13,36 @@ const { toContainerEnvs } = require('../utils/toContainerEnvs')
  * @returns {void}
  */
 const exec = async (args, cmdOpts={}) => {
-  const { cmd, container, detach, item, location, opts, workdir } = args
+  const {
+    cmd,
+    opts,
+    detach,
+    workdir,
+    location,
+    container
+  } = pickKeys(args, [
+    'cmd',
+    'opts',
+    'detach',
+    'workdir',
+    'location',
+    'container'
+  ])
+  
+  !container && noItemError('exec')
 
   const { options:cmdOptions } = cmdOpts
-  const execEnvs = cmdOptions && cmdOptions.env && toContainerEnvs(cmdOptions.env) || ''
+  const execEnvs = (cmdOptions && cmdOptions.env && toContainerEnvs(cmdOptions.env)) || ''
 
-  // Ensure a container is passed
-  const cont = container || item
-  if(!cont) return noItemError('exec')
-  
   // Ensure options is an array
   const options = isArr(opts) ? opts : [ opts ]
 
   // Add any extra options passed
   detach && options.push(`--detach`)
-  workdir && options.push(`--workdir ${ workdir }`)
+  workdir && options.push(`--workdir`, workdir)
 
   const execOpts = `${ execEnvs } ${ options.join(' ').trim() }`.trim()
-  const toRun = `exec ${ execOpts } ${ cont } ${ cmd }`.trim()
+  const toRun = `exec ${ execOpts } ${ container } ${ cmd }`.trim()
 
   return raw(toRun, cmdOpts, location)
 

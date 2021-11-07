@@ -1,6 +1,6 @@
 const { dockerCli } = require('../cmds/dockerCli')
-const { isArr, isStr } = require('@keg-hub/jsutils')
 const { noItemError } = require('../utils/error/noItemError')
+const { isArr, isStr, noOpObj, noPropArr } = require('@keg-hub/jsutils')
 
 // Container commands the require an item argument of the container id or name
 const containerItemCmds = [
@@ -51,7 +51,7 @@ const containerCmds = containerItemCmds.reduce((commands, command) => {
  *
  * @returns {*} - Response from the docker command call
  */
-const containerCmd = (args={}, opts) => {
+const containerCmd = (args=noOpObj, opts) => {
   opts = opts || args.opts
   return dockerCli({
     ...args,
@@ -60,7 +60,7 @@ const containerCmd = (args={}, opts) => {
         ? opts
         : isStr(opts)
           ? opts.split(' ')
-          : []
+          : noPropArr
     )
   })
 }

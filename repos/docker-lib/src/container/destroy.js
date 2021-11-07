@@ -1,6 +1,6 @@
 const { remove } = require('./remove')
-const { isStr } = require('@keg-hub/jsutils')
 const { containerCmds } = require('./containerCmd')
+const { formatParams } = require('../utils/formatParams')
 
 /**
  * Kills, then removes a docker container based on passed in arguments
@@ -12,14 +12,16 @@ const { containerCmds } = require('./containerCmd')
  * @returns {boolean} - If the Docker command successfully ran
  */
 const destroy = async (args={}) => {
-  const opts = isStr(args) ? { item: args, type: 'container' } : args
-  await containerCmds.kill({ ...opts, skipError: true, errResponse: false })
+  const opts = formatParams(
+    'item',
+    args,
+    ['opts', 'format', 'type', 'skipError', 'errResponse'],
+    { type: 'container', skipError: true, errResponse: false }
+  )
+  
+  await containerCmds.kill(opts)
 
-  return await remove({
-    ...opts,
-    skipError: true,
-    errResponse: false
-  })
+  return await remove(opts)
 }
 
 module.exports = {

@@ -2,7 +2,6 @@ const { list } = require('./list')
 const { isArr } = require('@keg-hub/jsutils')
 const { compareItems } = require('../utils/compareItems')
 
-
 /**
  * Checks if an container already exists ( is built )
  * @function
