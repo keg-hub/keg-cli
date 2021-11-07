@@ -8,7 +8,7 @@ const { checkReplaceImage } = require('../docker/checkReplaceImage')
  * If the image already exists, ask the user if it should be replaced
  * @function
  * @param {Object} params - Formatted options as an object
- * @param {string} params.id - Id of the running container
+ * @param {string} params.container - Name or Id of the running container
  * @param {string} params.author - Name of the user who's creating the image
  * @param {string} params.imgWTag - Image and Tag joined as a string
  * @param {string} params.message - Message to add to the image when it's created
@@ -19,11 +19,11 @@ const { checkReplaceImage } = require('../docker/checkReplaceImage')
  */
 const imageFromContainer = async params => {
   const {
-    id,
     log,
     author,
     imgWTag,
     message,
+    container,
     cleanedTag,
     globalConfig,
   } = params
@@ -33,8 +33,8 @@ const imageFromContainer = async params => {
 
   await docker.container.commit({
     log,
+    container,
     tag: imgWTag,
-    container: id,
     message: message,
     author: getAuthor(author, globalConfig),
   })

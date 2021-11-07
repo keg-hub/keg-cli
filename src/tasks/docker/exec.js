@@ -54,7 +54,13 @@ const dockerExec = async args => {
 
   !containerRef && throwContainerNotFound(containerName)
 
-  const execArgs = { cmd, container: containerRef.id, opts: options, location }
+  const execArgs = {
+    cmd,
+    location,
+    opts: options,
+    container: containerRef.id
+  }
+
   workdir && (execArgs.workdir = workdir)
   detach && (execArgs.detach = detach)
 
@@ -63,13 +69,15 @@ const dockerExec = async args => {
   Logger.empty()
 
   // Run the exec command on the container
-  await docker.container
-    .exec(execArgs, { options: { env: {
+  await docker.container.exec(execArgs, { 
+    options: {
+      env: {
       // Add the default KEG_DOCKER_EXEC ENV
       [KEG_DOCKER_EXEC]: KEG_EXEC_OPTS.dockerExec,
       // contextEnvs should already have the KEG_DOCKER_EXEC set to override it if needed
       ...contextEnvs
-    }}})
+    }
+  }})
 
   return execContext
 

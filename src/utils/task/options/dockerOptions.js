@@ -5,16 +5,16 @@ const dockerOptions = (task, action, options) => {
     provider: {
       alias: [ 'pro' ],
       description: 'Use custom provider (registry url) instead of the default defined in the globalConfig',
-      example: 'keg ${ task } ${action} --provider ghcr.io',
+      example: `keg ${ task } ${action} --provider ghcr.io`,
     },
     namespace: {
       alias: [ 'account' ],
       description: 'Use custom namespace (organization) instead of default defined in the globalConfig',
-      example: 'keg ${ task } ${action} --namespace KegHub',
+      example: `keg ${ task } ${action} --namespace KegHub`,
     },
     tag: {
       description: 'Specify the tag tied to the image',
-      example: 'keg ${ task } ${action} --tag my-tag-name'
+      example: `keg ${ task } ${action} --tag my-tag-name`
     },
   }
 

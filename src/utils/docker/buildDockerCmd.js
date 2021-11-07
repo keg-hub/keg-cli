@@ -77,7 +77,7 @@ const buildDockerCmd = args => {
     cmd,
     context,
     args: dockerOpts,
-    dockerCmd: `docker ${cmd} ${docker}`.trim()
+    dockerCmd: `${docker}`.trim()
   })
 
   return createBuildCmd(args, dockerCmd)
