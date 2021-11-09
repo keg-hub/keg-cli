@@ -26,7 +26,7 @@ const removeYmlTest = async () => {
   await removeYmlFile(testYmlWrite)
 }
 
-const writeYmlTest = async (file, data) => {
+const writeYmlTest = async () => {
   await removeYmlTest()
   await writeYmlFile(testYmlPath, testYmlData)
 }

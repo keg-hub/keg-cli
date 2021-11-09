@@ -1,0 +1,5 @@
+# Do Not delete, used from tests
+env:
+  DISPLAY_NAME: '{{displayName}}'
+  CUSTOM_CONFIG_LOCATION: path/to/custom/config
+# Do Not delete, used from tests
