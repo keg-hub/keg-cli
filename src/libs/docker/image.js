@@ -276,6 +276,7 @@ const runImage = async (args) => {
     location,
     log,
     name,
+    privileged,
     network,
     opts=[],
     ports=[],
@@ -295,6 +296,7 @@ const runImage = async (args) => {
 
   network && opts.push(`--network ${network}`)
   remove && opts.push(`--rm`)
+  privileged && opts.push([`--privileged`])
 
   isArr(ports) &&
     ports.map(port => (

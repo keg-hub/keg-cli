@@ -72,6 +72,12 @@ const runOptions = (task, action, options) => {
         example: `keg ${task} ${action} --log`,
         default: false,
       },
+      privileged: {
+        alias: [ 'priv' ],
+        description: 'Set the docker run --privileged flag',
+        example: `keg ${task} ${action} --no-privileged`,
+        default: true,
+      },
     ...dockerOptions(task, action),
   }
 }
