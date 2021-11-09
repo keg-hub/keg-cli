@@ -20,7 +20,6 @@ const {
  * @param {boolean} args.fill - Should the content be treated as a template
  * @param {RegEx} args.pattern - Pattern to match against template values
  * @param {string} args.location - Path to the ENV file
- * @param {RegEx} args.pattern - Pattern to match against template values
  * @param {boolean} [args.error=true] - Should errors be thrown
  *
  * @returns {Object|string} - Parse YML file

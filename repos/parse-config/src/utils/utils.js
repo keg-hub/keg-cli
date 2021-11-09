@@ -130,10 +130,10 @@ const mergeFiles = async ({ files, loader = noOp, ...args }) => {
   const loaded = await Promise.all(
     await files.reduce(async (toResolve, file) => {
       const loaded = await toResolve
-      const loadedYml =
+      const loadedContent =
         isStr(file) && (await loader({ location: file, ...args }))
 
-      loadedYml && loaded.push(loadedYml)
+      loadedContent && loaded.push(loadedContent)
 
       return loaded
     }, Promise.resolve([]))

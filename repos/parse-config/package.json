@@ -7,6 +7,11 @@
   "author": "Lance Tipton",
   "license": "MIT",
   "private": false,
+  "files": [
+    "index.js",
+    "src/",
+    "README.md"
+  ],
   "keywords": [
     "env",
     "yml",
