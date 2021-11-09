@@ -58,8 +58,9 @@ const runDockerImage = async args => {
     name,
     ports,
     pull,
+    privileged,
     options=[],
-    volumes=[]
+    volumes=[],
   } = params
 
   // TODO: investigate add imageSelect to root docker image run
@@ -126,6 +127,8 @@ const runDockerImage = async args => {
   await docker.image.run({
     log,
     ports,
+    volumes,
+    privileged,
     opts: options,
     remove: cleanup,
     image: imgRef.id,
