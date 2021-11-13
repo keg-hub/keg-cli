@@ -7,7 +7,7 @@ const { findTask } = require('./task/findTask')
 const { throwExitError } = require('./error')
 const { getKegGlobalConfig } = require('./task/getKegGlobalConfig')
 
-const defParams = { env: process.env.NODE_ENV || 'development' }
+const defParams = { env: process.env.NODE_ENV || 'local' }
 
 /**
  * Runs a local task matching the Keg-CLI task definition
