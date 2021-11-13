@@ -23,7 +23,7 @@
   "dependencies": {
     "@keg-hub/cli-utils": "0.2.1",
     "@keg-hub/jsutils": "8.6.0",
-    "@keg-hub/spawn-cmd": "0.1.3"
+    "@keg-hub/spawn-cmd": "0.1.4"
   },
   "devDependencies": {
     "jest": "27.3.1",

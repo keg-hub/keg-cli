@@ -1,9 +1,5 @@
-const tap = require('./tap')
-const path = require('./path')
 const error = require('./error')
-const network = require('./network')
 const fileSys = require('./fileSys')
-const commands = require('./commands')
 const { Logger } = require('./logger')
 const constants = require('./constants')
 const { runTask } = require('./runTask')
@@ -18,10 +14,11 @@ const {
 } = require('./task')
 
 module.exports = {
-  ...commands,
-  ...network,
-  ...tap,
-  ...path,
+  ...require('./process'),
+  ...require('./commands'),
+  ...require('./network'),
+  ...require('./tap'),
+  ...require('./path'),
   constants,
   getKegGlobalConfig,
   findTask,
