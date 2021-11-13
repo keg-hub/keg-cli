@@ -936,10 +936,10 @@
     shell-exec "1.0.2"
     tree-kill "1.2.2"
 
-"@keg-hub/spawn-cmd@0.1.3":
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@keg-hub/spawn-cmd/-/spawn-cmd-0.1.3.tgz#52feae73d86a087ae7c5f11d82950049e6518578"
-  integrity sha512-lEzc7Cv+1DKK3c1t3araAUpVdv0RZgYmBVVHOYdBBsHVbwc1hh51/+n56O/gjgGHFndDXRCGp6tOuYzwMR53jg==
+"@keg-hub/spawn-cmd@0.1.4":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@keg-hub/spawn-cmd/-/spawn-cmd-0.1.4.tgz#cac600b01a0e677f8e04fc1886560e9bb2ae79d4"
+  integrity sha512-xtUc1c9wyRAXaNA4M6Grnj6WtdC6FFCPHZQXCjKrUrMuyqJS5Y4noP2j01k+oikVHsxPe35APE7/iSjArucZ0A==
   dependencies:
     "@keg-hub/jsutils" "8.7.0"
     app-root-path "3.0.0"
