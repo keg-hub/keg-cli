@@ -46,7 +46,7 @@ module.exports = (...args) => {
   const { cmd, config, cwd } = getArgs(...args)
 
   return new Promise((res, rej) => {
-    create({
+    return create({
       ...config,
       ...checkExtraArgs(cmd, get(config, 'args', [])),
       ...defEvents(config, res, rej),
