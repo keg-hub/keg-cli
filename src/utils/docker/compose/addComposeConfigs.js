@@ -81,7 +81,11 @@ const addInjectedTemplate = async (dockerCmd, data={}, composeData) => {
  * @returns {string} - dockerCmd string with the file path added
  */
 const addComposeFile = (dockerCmd='', container, env, composeFile) => {
-  const compPath = composeFile || getContainerConst(container, `ENV.${ env }`)
+  // TODO: on next major release, switch the order to process.env first, then container const 
+  const compPath = composeFile ||
+    getContainerConst(container, `ENV.${ env }`) ||
+    process.env[env]
+
   const addedComposeFile = compPath ? `-f ${ compPath }` : ''
 
   return `${dockerCmd} ${ addedComposeFile }`.trim()
