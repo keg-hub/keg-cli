@@ -7,6 +7,12 @@ const { ensureDocker } = require('../utils/ensureDocker')
  * Builds a Docker command to be run in a child process
  * @param {string} cmd - The docker build command to run including the `build`
  * @param {Object} options - Options for building the docker image
+ * @param {boolean} options.log - Log the docker cmds before running them
+ * @param {Array} options.args - Arguments for the docker build command
+ * @param {string} [options.context] - The name of the item running the build cmd for
+ * @param {Array} options.cwd - Location where the command should be run, overrides location
+ * @param {Array} options.* - Extra arguments to pass to the spawned child process
+ * @param {Array} location - Location where the command should be run
  */
 const build = async (cmd, options=noOpObj, location) => {
   const { log=true, context, args=noOpArr, ...cmdOpts } = options

@@ -20,8 +20,9 @@ const checkStart = (cmd, check) => {
  * @returns {string} - cmd with docker and action added if needed
  */
 const ensureDocker = (cmd, action) => {
+  cmd = cmd || ''
   const dockerCmd = isStr(action) ? checkStart(cmd, action) : cmd
-  return checkStart(dockerCmd, 'docker')
+  return checkStart(dockerCmd, 'docker').trim()
 }
 
 module.exports = {
