@@ -1,6 +1,6 @@
 {
   "name": "@keg-hub/cli-utils",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Utility methods for writing Custom Tasks consumed by the Keg-CLI",
   "main": "index.js",
   "repository": "https://github.com/KegHub/keg-cli/tree/master/repos/cli-utils",
@@ -13,7 +13,6 @@
   "files": [
     "__mocks__",
     "mocks.js",
-    "configs/",
     "index.js",
     "src/"
   ],
@@ -28,7 +27,7 @@
     "format:eslint": "eslint --config ./configs/eslintrc.config.js . --fix --quiet",
     "format:prettier": "prettier --config ./configs/prettier.config.js --ignore-path .eslintignore --write '**/*.{js,jsx}'",
     "format": "yarn format:prettier && yarn format:eslint",
-    "test": "NODE_ENV=test jest --no-cache --verbose --config=./configs/jest.config.js"
+    "test": "NODE_ENV=test jest --no-cache --verbose --config=./configs/jest.config.js --maxWorkers=50%"
   },
   "dependencies": {
     "axios": "0.21.2",
@@ -38,8 +37,7 @@
     "@keg-hub/spawn-cmd": "0.1.4",
     "app-root-path": "3.0.0",
     "colors": "1.4.0",
-    "fs-extra": "9.0.1",
-    "module-alias": "2.2.2"
+    "fs-extra": "9.0.1"
   },
   "devDependencies": {
     "babel-eslint": "10.1.0",
