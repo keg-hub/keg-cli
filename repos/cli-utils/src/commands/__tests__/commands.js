@@ -14,6 +14,8 @@ const inDockerdMock = jest.fn(() => {
 })
 jest.setMock('../inDocker', { inDocker: inDockerdMock })
 
+const cwd = `/keg/tap`
+
 const {
   runCmd,
   execCmd,
@@ -109,11 +111,48 @@ describe('commands', () => {
       expect(asyncCmdMock.mock.calls[0][0]).toBe(`docker exec -it container-id yarn install`)
     })
 
+    it(`Should pass on envs from env and envs object`, async () => {
+      const opts = {env:{ENV_ONLY: 'test'}, envs: {ENVS_ONLY: 'test'}}
+      await dockerCmd('container-id', [], opts, cwd, true)
+      const cmdStr = asyncCmdMock.mock.calls[0][0]
+      
+      expect(cmdStr.includes(`--env ENVS_ONLY=test`)).toBe(true)
+      expect(cmdStr.includes(`--env ENV_ONLY=test`)).toBe(true)
+    })
+
+    it(`Should set env values to override envs values`, async () => {
+      const opts = {env:{ ENV_OVERRIDE: 'from-env'}, envs: {ENV_OVERRIDE: 'from-envs'}}
+      await dockerCmd('container-id', [], opts, cwd, true)
+      const cmdStr = asyncCmdMock.mock.calls[0][0]
+
+      expect(cmdStr.includes(`--env ENV_OVERRIDE=from-env`)).toBe(true)
+    })
+    
     it(`Should not include container-id method when is in docker`, async () => {
       testInDocker = true
-      await dockerCmd('container-id', [ 'yarn', 'install'], {}, process.cwd(), true)
+      await dockerCmd('container-id', [ 'yarn', 'install'], {}, cwd, true)
       expect(asyncCmdMock.mock.calls[0][0]).toBe(`yarn install`)
     })
+
+    it(`Should include env and envs when in docker`, async () => {
+      testInDocker = true
+      const opts = {env:{ENV_ONLY: 'env-test'}, envs: {ENVS_ONLY: 'envs-test'}}
+      await dockerCmd('container-id', '', opts, cwd, true)
+      const cmdOpts = asyncCmdMock.mock.calls[0][1]
+
+      expect(cmdOpts.env.ENV_ONLY).toBe('env-test')
+      expect(cmdOpts.env.ENVS_ONLY).toBe('envs-test')
+    })
+
+    it(`Should set env values to override envs values`, async () => {
+      testInDocker = true
+      const opts = {env:{ENV_OVERRIDE: 'from-env'}, envs: {ENV_OVERRIDE: 'from-envs'}}
+      await dockerCmd('container-id', '', opts, cwd, true)
+      const cmdOpts = asyncCmdMock.mock.calls[0][1]
+
+      expect(cmdOpts.env.ENV_OVERRIDE).toBe('from-env')
+    })
+    
   })
 
   Object.entries(shortcutCmds).map(([ key, method ]) => {

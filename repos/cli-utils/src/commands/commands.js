@@ -27,6 +27,19 @@ const ensureArray = (data=noPropArr) => (
           ) || noPropArr
 )
 
+
+/**
+ * Normalize the env(s) options by checking for both env && envs
+ * Then merges them together
+ * @param {Object} options - Options forwarded to the child process
+ * 
+ * @return {Object} - Merged env from options object
+ */
+const normalizeEnv = options => {
+  const { envs=noOpObj, env=noOpObj } = options
+  return {...envs, ...env}
+}
+
 /**
  * Runs a child process using spawnCmd
  * Passes along the current process.env object
@@ -47,13 +60,21 @@ const runCmd = async (cmd, args=noPropArr, options=noOpObj, cwd, asExec) => {
     onStdErr,
     onError,
     onExit,
+    env,
+    envs,
     ...opts
   } = options
 
+  const cmdOpts = {
+    ...opts,
+    // Normalize the env(s) options
+    env: {...process.env, ...normalizeEnv(options)}
+  }
+  
   return (exec || asExec)
     ? await execCmd(
         `${cmd} ${ensureArray(args).join(' ')}`,
-        { ...opts, env: { ...process.env, ...opts.env } },
+        cmdOpts,
         cwd || getAppRoot()
       )
     : await spawnCmd(cmd, {
@@ -62,7 +83,7 @@ const runCmd = async (cmd, args=noPropArr, options=noOpObj, cwd, asExec) => {
         onError,
         onExit,
         args: ensureArray(args),
-        options: { ...opts, env: { ...process.env, ...opts.env } },
+        options: cmdOpts,
         cwd: cwd || getAppRoot(),
       })
 }
@@ -111,35 +132,37 @@ const envToStr = envs => Object.keys(envs)
  * dockerExec('<container-name>', 'yarn install')
  */
 const dockerExec = (containerName, args, opts=noOpObj, ...extra) => {
-  const { envs=noOpObj } = opts
-  const allArgs = [
+  const cmdEnvs = normalizeEnv(opts)
+  const cmdArgs = [
     'exec',
     '-it',
-    ...envToStr(envs),
+    ...envToStr(cmdEnvs),
     containerName,
     ...ensureArray(args)
   ]
 
-  return runCmd('docker', allArgs, opts, ...extra)
+  return runCmd('docker', cmdArgs, {...opts, env: cmdEnvs}, ...extra)
 }
 
 /**
  * Runs a command inside the docker container
  * @param {String} containerName - name of container to run command within ( **Ignored** )
- * @param {Array<string>} args - docker exec args
- * @param  {Array<string>} extra.opts - docker exec opts
- * @param  {Array<string>} extra.envs - docker exec envs
+ * @param {string|Array<string>} args - docker exec args
+ * @param  {Object} opts - docker exec opts
+ * @param  {Object} opts.envs - docker exec envs
+ * @param  {Object} opts.env - docker exec envs
+ * @param  {Array<string>} [extra] - Directory to run the command from
  * @example
- * dockerExec('*', 'npx playwright install firefox')
+ * dockerExec('container', 'npx playwright install firefox')
  */
-const containerExec = (_, args, options=noOpObj, ...extra) => {
-  const cmd = args.shift()
-  const { opts=[], envs={} } = options
+const containerExec = (_, args, opts=noOpObj, ...extra) => {
+  const argsArr = ensureArray(args)
+  const cmd = argsArr.shift()
 
   return runCmd(
     cmd,
-    ensureArray(args),
-    {...options, ...opts, envs},
+    argsArr,
+    {...opts, env: normalizeEnv(opts)},
     ...extra
   )
 }
