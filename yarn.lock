@@ -1329,8 +1329,10 @@
     "@keg-hub/jsutils" "6.2.1"
     app-root-path "3.0.0"
 
-"@keg-hub/args-parse@6.3.2", "@keg-hub/args-parse@file:./repos/args-parse":
+"@keg-hub/args-parse@6.3.2", "@keg-hub/args-parse@^6.3.2":
   version "6.3.2"
+  resolved "https://registry.yarnpkg.com/@keg-hub/args-parse/-/args-parse-6.3.2.tgz#f2e15c9257114dcffdaf9fcc4a198a14fe04d602"
+  integrity sha512-YL6p/QMbUM864wTexxsEk19FWxnNkUzsLbw/to+py6F4TZDIGG+p4i72aOAfAcNCRceH2bDDbGIS+wYpSnk9Jw==
   dependencies:
     "@keg-hub/ask-it" "1.0.0"
     "@keg-hub/jsutils" "8.7.0"
@@ -1345,17 +1347,10 @@
     colors "1.4.0"
     inquirer "7.0.6"
 
-"@keg-hub/ask-it@1.0.0":
+"@keg-hub/ask-it@1.0.0", "@keg-hub/ask-it@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@keg-hub/ask-it/-/ask-it-1.0.0.tgz#dd17584c091a1eefe05329f63a8e55d908381bdd"
   integrity sha512-vGq06xVOf5JKwUJRGKjWfIA4kTYADTGJOacscfrw4Duu+Hr3w9l239KQj9BZvwvdBak6R2yG8XfcPHQVOdglvA==
-  dependencies:
-    "@keg-hub/jsutils" "8.7.0"
-    colors "1.4.0"
-    inquirer "7.3.3"
-
-"@keg-hub/ask-it@file:./repos/ask-it":
-  version "1.0.0"
   dependencies:
     "@keg-hub/jsutils" "8.7.0"
     colors "1.4.0"
@@ -1391,8 +1386,10 @@
     fs-extra "9.0.1"
     module-alias "2.2.2"
 
-"@keg-hub/cli-utils@file:./repos/cli-utils":
+"@keg-hub/cli-utils@^0.4.2":
   version "0.4.2"
+  resolved "https://registry.yarnpkg.com/@keg-hub/cli-utils/-/cli-utils-0.4.2.tgz#a10b04bff34e02badcc94e3304ed56b224a37082"
+  integrity sha512-95y8UnspCwXz0tH0QIO+6M5pzQxR3Loy7q4kgTuJTd7AFCwmKTVNVICz87jXiZhoMAYi+8MlsKdHWMWFRFM9Eg==
   dependencies:
     "@keg-hub/args-parse" "6.3.2"
     "@keg-hub/ask-it" "1.0.0"
@@ -1414,13 +1411,15 @@
     cli-spinners "2.6.1"
     log-update "4.0.0"
 
-"@keg-hub/git-lib@file:./repos/git-lib":
+"@keg-hub/git-lib@^0.0.2":
   version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@keg-hub/git-lib/-/git-lib-0.0.2.tgz#4a2cbb0d67f05ddbafca84a62871095117324380"
+  integrity sha512-a3duDftUDMX/yd7/0AkCIMVneiwKzuhby4YdHpJjZhZsVz2FFT1ctWQ1xqGzfU5h9HRMOv6O1pt7HgrJJEz+UQ==
   dependencies:
     "@keg-hub/ask-it" "1.0.0"
     "@keg-hub/cli-utils" "0.2.1"
     "@keg-hub/jsutils" "8.7.0"
-    "@keg-hub/spawn-cmd" "0.1.4"
+    "@keg-hub/spawn-cmd" "0.1.3"
 
 "@keg-hub/jsutils@0.0.1":
   version "0.0.1"
@@ -1447,7 +1446,7 @@
   resolved "https://registry.yarnpkg.com/@keg-hub/jsutils/-/jsutils-8.6.0.tgz#c6a4511b5439ffe73ff50aa9319f17d1d7701e2a"
   integrity sha512-J6o5lOL4p3idqxJkh+VHmppNFuQhC2IbwUrJiMFjXJbKLsylPQVOKZvRJ7ICHidc9fLw9Qvyd7BIgwo0Nn4iAg==
 
-"@keg-hub/jsutils@8.7.0":
+"@keg-hub/jsutils@8.7.0", "@keg-hub/jsutils@^8.7.0":
   version "8.7.0"
   resolved "https://registry.yarnpkg.com/@keg-hub/jsutils/-/jsutils-8.7.0.tgz#ee05638b2b6df0c251cdf28634694ac198f9211f"
   integrity sha512-ipbvP/yDZIYnneG8bAFjBGwR7QOGT3U5Dp5Y6Y1kPHbe6LFEoKhBVt6x9f5MavluGgofjulNpmwDcomCl+zbeA==
@@ -1459,7 +1458,7 @@
     "@keg-hub/jsutils" "8.6.0"
     "@keg-hub/spawn-cmd" "0.1.4"
 
-"@keg-hub/parse-config@0.2.1":
+"@keg-hub/parse-config@0.2.1", "@keg-hub/parse-config@^0.2.1":
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/@keg-hub/parse-config/-/parse-config-0.2.1.tgz#457181c6eeed4d3422e7c87fdfde859b9293fcef"
   integrity sha512-13utx3FoXYzR9PbcQBZVZsVdxcvBTjjgiNgnLBaowDJw+9hcqH5wcHZwtsXhtUl3xuOA3hUhmIzaC3I6IX0fhw==
@@ -1467,15 +1466,6 @@
     "@keg-hub/cli-utils" "0.4.0"
     "@keg-hub/jsutils" "8.7.0"
     "@keg-hub/spawn-cmd" "0.1.3"
-    js-yaml "3.14.1"
-    write-yaml-file "4.2.0"
-
-"@keg-hub/parse-config@file:./repos/parse-config":
-  version "0.2.1"
-  dependencies:
-    "@keg-hub/cli-utils" "0.4.0"
-    "@keg-hub/jsutils" "8.7.0"
-    "@keg-hub/spawn-cmd" "0.1.4"
     js-yaml "3.14.1"
     write-yaml-file "4.2.0"
 
@@ -1501,19 +1491,10 @@
     shell-exec "1.0.2"
     tree-kill "1.2.2"
 
-"@keg-hub/spawn-cmd@0.1.4":
+"@keg-hub/spawn-cmd@0.1.4", "@keg-hub/spawn-cmd@^0.1.4":
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/@keg-hub/spawn-cmd/-/spawn-cmd-0.1.4.tgz#cac600b01a0e677f8e04fc1886560e9bb2ae79d4"
   integrity sha512-xtUc1c9wyRAXaNA4M6Grnj6WtdC6FFCPHZQXCjKrUrMuyqJS5Y4noP2j01k+oikVHsxPe35APE7/iSjArucZ0A==
-  dependencies:
-    "@keg-hub/jsutils" "8.7.0"
-    app-root-path "3.0.0"
-    cross-spawn "7.0.3"
-    shell-exec "1.0.2"
-    tree-kill "1.2.2"
-
-"@keg-hub/spawn-cmd@file:./repos/spawn-cmd":
-  version "0.1.4"
   dependencies:
     "@keg-hub/jsutils" "8.7.0"
     app-root-path "3.0.0"

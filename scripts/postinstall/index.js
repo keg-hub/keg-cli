@@ -2,6 +2,7 @@ const path = require('path')
 const rootDir = path.join(__dirname, '../../')
 const { makeExecutable } = require('./makeExecutable')
 const { installRepos } = require('./installRepos')
+const { linkRepos } = require('./linkRepos')
 
 ;(async () => {
 
@@ -14,5 +15,8 @@ const { installRepos } = require('./installRepos')
   // Finds all sub-repos with a package.json
   // Then runs yarn install on them
   installRepos()
+
+  // Then link each one to the root node_modules directory
+  linkRepos()
 
 })()
