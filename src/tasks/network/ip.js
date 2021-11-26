@@ -20,10 +20,11 @@ const getIp = async args => {
     return ips.map(ip => console.log(ip))
   }
 
-  if (!public && !private) return console.log({
-    public: await getPublicIP(),
-    private: (await getPrivateIPs())[0]
-  })
+  if (!public && !private)
+    return console.log({
+      public: await getPublicIP(),
+      private: (await getPrivateIPs())[0]
+    })
 
   public && console.log(await getPublicIP())
   private && console.log((await getPrivateIPs())[0])
