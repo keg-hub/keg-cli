@@ -1,5 +1,5 @@
 const path = require('path')
-const { Logger } = require('KegLog')
+const { Logger } = require('@keg-hub/cli-utils')
 const { DOCKER } = require('KegConst/docker')
 const { runInternalTask } = require('KegUtils/task/runInternalTask')
 

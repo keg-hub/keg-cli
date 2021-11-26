@@ -1,7 +1,8 @@
-const { Logger } = require('KegLog')
 const { get, set, isObj } = require('@keg-hub/jsutils')
-const { constants: { GLOBAL_CONFIG_PATHS } } = require('KegRepos/cli-utils')
+const { constants, Logger } = require('@keg-hub/cli-utils')
 const { addGlobalConfigProp } = require('./addGlobalConfigProp')
+
+const { GLOBAL_CONFIG_PATHS } = constants
 
 /**
  * Adds the tap link to the global config object and saves it

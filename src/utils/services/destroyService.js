@@ -1,5 +1,5 @@
 const { get, deepMerge } = require('@keg-hub/jsutils')
-const { Logger } = require('KegLog')
+const { Logger } = require('@keg-hub/cli-utils')
 const { runInternalTask } = require('../task/runInternalTask')
 const { getServiceArgs } = require('./getServiceArgs')
 const { optionsHasArg } = require('../helpers/optionsHasArg')

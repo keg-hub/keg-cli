@@ -4,7 +4,7 @@ const { getPathFromConfig } = require('KegUtils/globalConfig')
 const { spawnCmd } = require('KegProc')
 const { CONTAINERS } = require('KegConst/docker/containers')
 const docker = require('KegDocCli')
-const { Logger } = require('KegLog')
+const { Logger } = require('@keg-hub/cli-utils')
 
 /**
  * Run a docker container command

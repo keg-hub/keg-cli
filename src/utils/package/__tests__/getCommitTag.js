@@ -3,7 +3,7 @@ const { testEnum } = require('KegMocks/jest/testEnum')
 const locs = { test: 'test/location', anotherTest: 'another/test/location' }
 const gitMock = { branch: { current: jest.fn(({ location }) => ({ name: locs[location] })) }}
 
-jest.setMock('KegGitCli', { git: gitMock })
+jest.setMock('@keg-hub/git-lib', { git: gitMock })
 
 const testArgs = {
   commitTagOverride: {

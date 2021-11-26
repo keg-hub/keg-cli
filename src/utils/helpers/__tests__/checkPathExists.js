@@ -1,9 +1,16 @@
+const cliUtils = require('@keg-hub/cli-utils')
 const generalError = jest.fn()
 jest.setMock('../../error/generalError', { generalError })
 
 let existsMock = []
 const pathExists = jest.fn(() => { return existsMock })
-jest.setMock('KegFileSys', { pathExists })
+jest.setMock('@keg-hub/cli-utils', {
+  ...cliUtils,
+  fileSys: {
+    ...cliUtils.fileSys,
+    pathExists
+  }
+})
 
 const { checkPathExists } = require('../checkPathExists')
 

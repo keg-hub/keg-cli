@@ -1,6 +1,6 @@
 
-const { Logger } = require('KegLog')
-const { get, checkCall, deepMerge, isFunc, isArr } = require('@keg-hub/jsutils')
+const { Logger } = require('@keg-hub/cli-utils')
+const { deepMerge, isFunc, isArr } = require('@keg-hub/jsutils')
 const cliProgress = require('cli-progress')
 const cliSpinners = require('cli-spinners')
 const logUpdate = require('log-update')

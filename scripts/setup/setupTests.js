@@ -1,17 +1,17 @@
 // Ensure our aliases work in Jest
-require('module-alias/register')
+require('../cli/aliases')
 // Override the console methods
 require('KegMocks/logger/console')
-const { __updateGlobalConfig } = require('KegUtils/globalConfig/globalConfigCache')
 
 const path = require('path')
 
 // Override the logger by default
 // Will get reset in the Logger tests
 const { Logger } = require('KegMocks/logger')
-jest.setMock('KegLog', { Logger })
+const cliUtils = require('@keg-hub/cli-utils')
+jest.setMock('@keg-hub/cli-utils', { ...cliUtils, Logger })
 
-const Tasks = require('KegTasks')
+const Tasks = require('../../src/tasks')
 const { getTask } = require('KegMocks/helpers/testTasks')
 
 // Globally set the timeout

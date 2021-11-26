@@ -2,7 +2,7 @@ const globalConfig = global.getGlobalCliConfig()
 const { injectedTest } = require('KegMocks/injected/injectedTest')
 const { DOCKER } = require('KegConst/docker')
 const { isStr } = require('@keg-hub/jsutils')
-const kegFileSys = require('KegFileSys')
+const cliUtils = require('@keg-hub/cli-utils')
 const { removeInjectedCompose } = require('../removeInjectedCompose')
 
 const writeFileError = false
@@ -12,7 +12,13 @@ const writeFileMock = jest.fn(data => {
     : [ false, true ]
 })
 
-jest.setMock('KegFileSys', { ...kegFileSys, writeFile: writeFileMock })
+jest.setMock('@keg-hub/cli-utils', {
+  ...cliUtils,
+  fileSys: {
+    ...cliUtils.fileSys,
+    writeFile: writeFileMock
+  }
+})
 
 const getKegProxyDomainMock = jest.fn((data, contextEnvs) => {
   return contextEnvs.IMAGE 

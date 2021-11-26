@@ -1,4 +1,4 @@
-const { git } = require('KegGitCli')
+const { git } = require('@keg-hub/git-lib')
 const { get } = require('@keg-hub/jsutils')
 const { throwNoGitBranch } = require('KegUtils/error/throwNoGitBranch')
 

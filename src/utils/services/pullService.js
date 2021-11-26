@@ -1,5 +1,5 @@
 const docker = require('KegDocCli')
-const { Logger } = require('KegLog')
+const { Logger } = require('@keg-hub/cli-utils')
 const { exists, get, isObj, deepMerge } = require('@keg-hub/jsutils')
 const { runInternalTask } = require('../task/runInternalTask')
 const { getImgNameContext } = require('../getters/getImgNameContext')

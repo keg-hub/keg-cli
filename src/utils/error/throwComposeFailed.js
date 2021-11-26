@@ -1,5 +1,5 @@
 const { get, isStr } = require('@keg-hub/jsutils')
-const { Logger } = require('KegLog')
+const { Logger } = require('@keg-hub/cli-utils')
 const { throwTaskFailed } = require('./throwTaskFailed')
 
 /**

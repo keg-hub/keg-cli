@@ -1,5 +1,5 @@
 const docker = require('KegDocCli')
-const { Logger } = require('KegLog')
+const { Logger } = require('@keg-hub/cli-utils')
 const { isStr, noOpObj } = require('@keg-hub/jsutils')
 const { throwComposeFailed } = require('KegUtils/error/throwComposeFailed')
 const { mergeTaskOptions } = require('KegUtils/task/options/mergeTaskOptions')

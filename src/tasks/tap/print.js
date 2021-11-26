@@ -1,8 +1,7 @@
-const { getTapConfig, getTapPackage } = require('KegRepos/cli-utils')
-const { Logger } = require('KegLog')
+const nodePath = require('path')
 const { get, isObj } = require('@keg-hub/jsutils')
 const { generalError } = require('KegUtils/error')
-const nodePath = require('path')
+const { getTapConfig, getTapPackage, Logger } = require('@keg-hub/cli-utils')
 
 /**
  * Helper that splits the full path into parts: fileType and subPath

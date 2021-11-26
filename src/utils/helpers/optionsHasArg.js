@@ -1,5 +1,5 @@
-const { isArr, isStr, isBool } = require('@keg-hub/jsutils')
-const { checkBoolValue } = require('KegRepos/args-parse/src/options/checkBoolValue')
+const { isArr, isStr } = require('@keg-hub/jsutils')
+const { checkBoolValue } = require('@keg-hub/args-parse/src/options/checkBoolValue')
 
 /**
  * Checks if the passed in arg is in the options array

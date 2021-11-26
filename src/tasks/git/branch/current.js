@@ -1,8 +1,8 @@
 const { getGitPath } = require('KegUtils/git')
-const { Logger } = require('KegLog')
+const { Logger } = require('@keg-hub/cli-utils')
 const { throwNoGitBranch } = require('KegUtils/error/throwNoGitBranch')
 const { DOCKER } = require('KegConst/docker')
-const { git } = require('KegGitCli')
+const { git } = require('@keg-hub/git-lib')
 const { generalError } = require('KegUtils/error')
 
 /**

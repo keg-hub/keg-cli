@@ -1,4 +1,4 @@
-require('module-alias/register')
+require('../../../scripts/cli/aliases')
 
 const { executeCmd } = require('../../libs/process/runCommand')
 const { apiSuccess } = require('../../libs/docker/helpers')

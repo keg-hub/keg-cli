@@ -1,5 +1,5 @@
 const path = require('path')
-const { Logger } = require('KegLog')
+const { Logger } = require('@keg-hub/cli-utils')
 const { findPathByName } = require('../helpers/findPathByName')
 const { checkPathExists } = require('../helpers/checkPathExists')
 /**

@@ -3,7 +3,7 @@
 // Update the Max listeners, to ensure all processes can exit properly
 require('events').EventEmitter.defaultMaxListeners = 0
 
-require('module-alias/register')
+require('../aliases')
 require('KegConst/constants')
 
 const testTasks = require('./tasks')

@@ -1,6 +1,7 @@
-const { getPathFromConfig } = require('../globalConfig/getPathFromConfig')
-const { getTapPath } = require('KegRepos/cli-utils')
+const { getTapPath } = require('@keg-hub/cli-utils')
 const { getGlobalConfig } = require('../globalConfig/getGlobalConfig')
+const { getPathFromConfig } = require('../globalConfig/getPathFromConfig')
+
 /**
  * Get the path to a git repo
  * @param {Object} globalConfig - Global config object for the keg-cli

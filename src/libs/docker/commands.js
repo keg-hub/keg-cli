@@ -1,4 +1,4 @@
-const { Logger } = require('KegLog')
+const { Logger } = require('@keg-hub/cli-utils')
 const { executeCmd, spawnProc, pipeCmd } = require('KegProc')
 const {
   apiError,

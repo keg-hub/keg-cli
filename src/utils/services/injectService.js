@@ -1,8 +1,10 @@
 const path = require('path')
+const { fileSys } = require('@keg-hub/cli-utils')
 const { get, isStr } = require('@keg-hub/jsutils')
-const { pathExists } = require('KegFileSys')
 const { throwMissingFile } = require('../error/throwMissingFile')
 const { getServiceName } = require('../docker/compose/getServiceName')
+
+const { pathExists } = fileSys
 
 /**
  * Checks if the passed in path exists on the local file system

@@ -1,6 +1,6 @@
 const docker = require('KegDocCli')
 const { isStr, get, checkCall } = require('@keg-hub/jsutils')
-const { Logger } = require('KegLog')
+const { Logger } = require('@keg-hub/cli-utils')
 const { buildContainerContext } = require('KegUtils/builders/buildContainerContext')
 const { throwRequired, throwContainerNotFound } = require('KegUtils/error')
 

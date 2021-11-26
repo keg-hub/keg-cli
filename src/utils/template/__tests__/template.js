@@ -1,13 +1,13 @@
 jest.resetAllMocks()
 
 const path = require('path')
-const KegPConf = require('KegPConf')
+const parseConfig = require('@keg-hub/parse-config')
 const { Logger } = require('KegMocks/logger')
-jest.setMock('KegLog', { Logger })
+jest.setMock('@keg-hub/cli-utils', { Logger })
 
-const fillTemplateMock = jest.fn((...args) => KegPConf.fillTemplate(...args))
-jest.setMock('KegPConf', {
-  ...KegPConf,
+const fillTemplateMock = jest.fn((...args) => parseConfig.fillTemplate(...args))
+jest.setMock('@keg-hub/parse-config', {
+  ...parseConfig,
   fillTemplate: fillTemplateMock
 })
 const generalErrorMock = jest.fn(message => {

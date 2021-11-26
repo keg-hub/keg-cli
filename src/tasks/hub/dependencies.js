@@ -1,6 +1,6 @@
 const semver = require('semver')
 const semverCompareLoose = require('semver/functions/compare-loose')
-const { Logger } = require('KegLog')
+const { Logger } = require('@keg-hub/cli-utils')
 const { getHubRepos } = require('KegUtils/hub/getHubRepos')
 const { updateVersionInDependencies } = require('KegUtils/version/updateVersionInDependencies')
 const {

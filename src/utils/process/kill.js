@@ -1,6 +1,6 @@
 const { executeCmd } = require('KegProc')
 const { generalError } = require('KegUtils/error')
-const { Logger } = require('KegLog')
+const { Logger } = require('@keg-hub/cli-utils')
 
 /**
  * Attempts to kill the process identified by pid

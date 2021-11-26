@@ -1,4 +1,4 @@
-const { Logger } = require('KegLog')
+const { Logger } = require('@keg-hub/cli-utils')
 const { NEWLINES_MATCH, SPACE_MATCH } = require('KegConst/patterns')
 const { DOCKER } = require('KegConst/docker')
 const { CLI_KEY_MAP } = DOCKER

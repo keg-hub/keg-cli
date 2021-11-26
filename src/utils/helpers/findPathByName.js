@@ -1,5 +1,7 @@
-const { getFolderContent } = require('KegFileSys')
+const { fileSys } = require('@keg-hub/cli-utils')
 const { isArr, exists } = require('@keg-hub/jsutils')
+
+const { getFolderContent } = fileSys
 
 /**
  * Searches a path recursively for a file or folder by name

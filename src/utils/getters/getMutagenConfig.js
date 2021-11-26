@@ -1,5 +1,4 @@
-const path = require('path')
-const { yml } = require('KegPConf')
+const { yml } = require('@keg-hub/parse-config')
 const { DOCKER } = require('KegConst/docker')
 const { getContainerConst } = require('../docker/getContainerConst')
 const { get, deepMerge, isStr, styleCase, checkCall } = require('@keg-hub/jsutils')

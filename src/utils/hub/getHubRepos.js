@@ -1,10 +1,11 @@
 const path = require('path')
-const { Logger } = require('KegLog')
 const { executeCmd } = require('KegProc')
-const { readFileSync } = require('KegFileSys')
-const { isFunc, pickKeys, checkCall, eitherArr } = require('@keg-hub/jsutils')
+const { fileSys, Logger } = require('@keg-hub/cli-utils')
+const { isFunc, pickKeys, eitherArr } = require('@keg-hub/jsutils')
 const { getRepoPath } = require('../getters/getRepoPath')
 const { generalError } = require('../error/generalError')
+
+const { readFileSync } = fileSys
 
 // TODO: Convert repo object to pretty prints
 const convertToPretty = repoObj => {

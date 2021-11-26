@@ -1,9 +1,13 @@
 const { AskIt } = require('KegMocks/ask')
-const { Logger } = require('KegMocks/logger')
 const { set } = require('@keg-hub/jsutils')
+const { Logger } = require('KegMocks/logger')
+const cliUtils = require('@keg-hub/cli-utils')
 
-jest.setMock('KegLog', { Logger })
-jest.setMock('KegRepos/ask-it', { ask: AskIt })
+jest.setMock('@keg-hub/cli-utils', {
+  ...cliUtils,
+  Logger
+})
+jest.setMock('@keg-hub/ask-it', { ask: AskIt })
 
 const publishContext =  {
   "name": "test",

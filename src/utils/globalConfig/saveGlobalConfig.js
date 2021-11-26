@@ -1,11 +1,13 @@
 const path = require('path')
-const { isObj, checkCall } = require('@keg-hub/jsutils')
+const { fileSys } = require('@keg-hub/cli-utils')
+const { checkCall } = require('@keg-hub/jsutils')
 const { throwExitError } = require('../error/throwExitError')
 const { __updateGlobalConfig } = require('./globalConfigCache')
 const { validateGlobalConfig } = require('./validateGlobalConfig')
-const { ensureDirSync, writeFile } = require('KegFileSys')
 const { GLOBAL_CONFIG_FOLDER, GLOBAL_CONFIG_FILE } = require('../../constants/constants')
+
 const { NODE_ENV } = process.env
+const { ensureDirSync, writeFile } = fileSys
 
 /**
  * Validate the config is the global config and that then global config path exists

@@ -1,4 +1,3 @@
-const { Logger } = require('KegLog')
 const { GLOBAL_CONFIG_EDITOR_CMD } = require('KegConst/constants')
 const { confirmExec, addGlobalConfigProp } = require('KegUtils')
 

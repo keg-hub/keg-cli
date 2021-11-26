@@ -1,5 +1,7 @@
-const { pathExists } = require('KegFileSys')
+const { fileSys } = require('@keg-hub/cli-utils')
 const { generalError } = require('../error/generalError')
+
+const { pathExists } = fileSys
 
 /**
  * Checks that a path exists locally

@@ -1,6 +1,5 @@
-const { Logger } = require('KegLog')
-const { mutagen } = require('KegMutagen')
-const { isObj } = require('@keg-hub/jsutils')
+const { Logger } = require('@keg-hub/cli-utils')
+const { mutagen } = require('@keg-hub/mutagen-lib')
 
 /**
  * Default daemon task options

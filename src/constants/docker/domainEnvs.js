@@ -1,5 +1,5 @@
 const path = require('path')
-const { env } = require('KegPConf')
+const { env } = require('@keg-hub/parse-config')
 const { cliRootDir } = require('./values')
 const { deepFreeze, reduceObj } = require('@keg-hub/jsutils')
 

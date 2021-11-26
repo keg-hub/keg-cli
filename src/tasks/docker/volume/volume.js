@@ -1,5 +1,5 @@
 const docker = require('KegDocCli')
-const { Logger } = require('KegLog')
+const { Logger } = require('@keg-hub/cli-utils')
 
 /**
  * Execute a docker prune command

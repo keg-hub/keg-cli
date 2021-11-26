@@ -1,5 +1,5 @@
-const { Logger } = require('KegLog')
-const { mutagen } = require('KegMutagen')
+const { Logger } = require('@keg-hub/cli-utils')
+const { mutagen } = require('@keg-hub/mutagen-lib')
 const { isArr, get } = require('@keg-hub/jsutils')
 
 /**

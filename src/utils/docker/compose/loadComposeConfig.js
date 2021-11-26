@@ -1,4 +1,4 @@
-const { yml } = require('KegPConf')
+const { yml } = require('@keg-hub/parse-config')
 const { throwNoComposeService } = require('../../error/throwNoComposeService')
 const { getContainerConst } = require('../getContainerConst')
 

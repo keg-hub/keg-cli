@@ -1,4 +1,4 @@
-const { Logger } = require('KegLog')
+const { Logger } = require('@keg-hub/cli-utils')
 const { getServiceArgs } = require('./getServiceArgs')
 const { runInternalTask } = require('KegUtils/task/runInternalTask')
 const { checkEnvConstantValue } = require('KegUtils/helpers/checkEnvConstantValue')

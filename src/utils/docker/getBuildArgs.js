@@ -1,8 +1,8 @@
 const docker = require('KegDocCli')
-const { git } = require('KegGitCli')
-const { DOCKER } = require('KegConst/docker')
 const { getGitKey } = require('KegUtils')
-const { getTapPath } = require('KegRepos/cli-utils')
+const { git } = require('@keg-hub/git-lib')
+const { DOCKER } = require('KegConst/docker')
+const { getTapPath } = require('@keg-hub/cli-utils')
 const { get, reduceObj, isObj, noOpObj, exists } = require('@keg-hub/jsutils')
 
 /**

@@ -1,13 +1,12 @@
 const docker = require('KegDocCli')
-const { Logger } = require('KegLog')
+const { error, Logger } = require('@keg-hub/cli-utils')
 const { DOCKER } = require('KegConst/docker')
 const { buildDockerCmd } = require('KegUtils/docker')
 const { throwRequired, generalError } = require('KegUtils/error')
-const { error: { throwNoTapLoc } } = require('KegRepos/cli-utils')
 const { runInternalTask } = require('KegUtils/task/runInternalTask')
 const { mergeTaskOptions } = require('KegUtils/task/options/mergeTaskOptions')
 const { buildContainerContext } = require('KegUtils/builders/buildContainerContext')
-
+const { throwNoTapLoc } = error
 /**
  * Converts buildArgs param array into an object
  * @function

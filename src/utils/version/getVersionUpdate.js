@@ -1,9 +1,9 @@
 const semver = require('semver')
-const { Logger } = require('KegLog')
-const { ask } = require('KegRepos/ask-it')
+const { ask } = require('@keg-hub/ask-it')
 const { get } = require('@keg-hub/jsutils')
-const { validateVersion } = require('./validateVersion')
+const { Logger } = require('@keg-hub/cli-utils')
 const { VERSION } = require('KegConst/constants')
+const { validateVersion } = require('./validateVersion')
 
 /**
  * Gets the version to update a repo or repos to

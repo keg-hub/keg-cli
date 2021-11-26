@@ -1,4 +1,4 @@
-const { showHelp } = require('KegLog')
+const { showHelp } = require('@keg-hub/cli-utils')
 const { isFunc } = require('@keg-hub/jsutils')
 const { throwNoAction } = require('KegUtils/error')
 const { parseArgs } = require('KegUtils/helpers/parseArgs')

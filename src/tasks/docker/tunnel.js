@@ -1,5 +1,5 @@
 const path = require('path')
-const { Logger } = require('KegLog')
+const { Logger } = require('@keg-hub/cli-utils')
 const osType = require('os').platform()
 const qrcode = require('qrcode-terminal')
 const { DOCKER } = require('KegConst/docker')

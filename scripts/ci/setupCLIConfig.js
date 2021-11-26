@@ -21,8 +21,8 @@
  * @returns {void}
 */
 
-require('module-alias/register')
 
+require('../cli/aliases')
 const path = require('path')
 const fs = require('fs-extra')
 const ciConfig = require('./ci.config.json')

@@ -1,9 +1,9 @@
-const { ask } = require('KegRepos/ask-it')
 const docker = require('KegDocCli')
-const { checkCall, get } = require('@keg-hub/jsutils')
-const { throwNoContainers } = require('../error/throwNoContainers')
-const { kegLabelKeys } = require('KegConst/docker/labels')
+const { ask } = require('@keg-hub/ask-it')
 const { KEG_ENVS } = require('KegConst/envs')
+const { checkCall, get } = require('@keg-hub/jsutils')
+const { kegLabelKeys } = require('KegConst/docker/labels')
+const { throwNoContainers } = require('../error/throwNoContainers')
 
 /**
  * Prompts user to select a container from the current docker containers

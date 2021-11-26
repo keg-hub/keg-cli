@@ -1,16 +1,17 @@
-const { git } = require('KegGitCli')
-const { Logger } = require('KegLog')
+const { git } = require('@keg-hub/git-lib')
 const { spawnCmd } = require('KegProc')
-const { ask } = require('KegRepos/ask-it')
-const { copySync, emptyDirSync } = require('KegFileSys')
+const { ask } = require('@keg-hub/ask-it')
 const { get, exists } = require('@keg-hub/jsutils')
 const { getHubRepos } = require('../hub/getHubRepos')
 const { versionService } = require('./versionService')
+const { fileSys, Logger } = require('@keg-hub/cli-utils')
 const { generalError } = require('../error/generalError')
 const { runRepoScript } = require('../hub/runRepoScript')
 const { getPublishContext } = require('../publish/getPublishContext')
 const { getPublishContextOrder } = require('../publish/getPublishContextOrder')
 const { getVersionUpdate, getValidSemver } = require('KegUtils/version')
+
+const { copySync, emptyDirSync } = fileSys
 
 /**
  * Validates the package command and runs it if exists

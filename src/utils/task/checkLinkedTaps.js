@@ -1,12 +1,13 @@
-const { Logger } = require('KegLog')
 const { getTask } = require('./getTask')
+const { constants, Logger } = require('@keg-hub/cli-utils')
 const { parseArgs } = require('KegUtils/helpers/parseArgs')
 const { addTapLink } = require('../globalConfig/addTapLink')
-const { constants: { GLOBAL_CONFIG_PATHS } } = require('KegRepos/cli-utils')
 const { buildTaskData } = require('../builders/buildTaskData')
 const { injectService } = require('../services/injectService')
 const { get, isFunc, reduceObj } = require('@keg-hub/jsutils')
 const { checkCustomTaskFolder } = require('./checkCustomTaskFolder')
+
+const { GLOBAL_CONFIG_PATHS } = constants
 const { TAP_LINKS } = GLOBAL_CONFIG_PATHS
 
 /**

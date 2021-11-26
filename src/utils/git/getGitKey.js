@@ -1,9 +1,9 @@
-const { get } = require('@keg-hub/jsutils')
-const { ask } = require('KegRepos/ask-it')
 const { decrypt } = require('KegCrypto')
-const { throwWrongPassword } = require('../error/throwWrongPassword')
+const { ask } = require('@keg-hub/ask-it')
+const { get } = require('@keg-hub/jsutils')
 const { getSetting } = require('../globalConfig/getSetting')
-const { constants: { GLOBAL_CONFIG_PATHS } } = require('KegRepos/cli-utils')
+const { throwWrongPassword } = require('../error/throwWrongPassword')
+const { constants: { GLOBAL_CONFIG_PATHS } } = require('@keg-hub/cli-utils')
 
 /**
  * Gets the git key to allow cloning private repos

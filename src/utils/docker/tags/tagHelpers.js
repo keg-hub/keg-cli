@@ -1,6 +1,6 @@
 const path = require('path')
-const { Logger } = require('KegLog')
-const { git } = require('KegGitCli')
+const { Logger } = require('@keg-hub/cli-utils')
+const { git } = require('@keg-hub/git-lib')
 const { get, isArr } = require('@keg-hub/jsutils')
 
 /**

@@ -1,5 +1,5 @@
-const { getPrivateIPs, getPublicIP, getPublicIPsForUrl } = require('KegRepos/cli-utils')
 const { generalError } = require('KegUtils/error')
+const { getPrivateIPs, getPublicIP, getPublicIPsForUrl } = require('@keg-hub/cli-utils')
 
 /**
  * Prints out public or private ip information for either

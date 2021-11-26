@@ -1,11 +1,11 @@
-const { getTapConfig } = require('KegRepos/cli-utils')
-const { Logger } = require('KegLog')
+const { ask } = require('@keg-hub/ask-it')
 const { get, isEmpty } = require('@keg-hub/jsutils')
-const { ask } = require('KegRepos/ask-it')
-const { constants: { GLOBAL_CONFIG_PATHS } } = require('KegRepos/cli-utils')
 const { addTapLink } = require('KegUtils/globalConfig/addTapLink')
+const { constants, getTapConfig, Logger } = require('@keg-hub/cli-utils')
 const { checkCustomTaskFolder } = require('KegUtils/task/checkCustomTaskFolder')
 const { generalError } = require('KegUtils/error')
+
+const { GLOBAL_CONFIG_PATHS } = constants
 
 /**
  * Checks if the link already exists, and if it does asks if the user wants to overwrite

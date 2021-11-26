@@ -1,7 +1,6 @@
-require('module-alias/register')
-
+require('./aliases')
 const axios = require('axios')
-const { Logger } = require('KegLog')
+const { Logger } = require('@keg-hub/cli-utils')
 const { get, limbo, keyMap } = require('@keg-hub/jsutils')
 const localPackage = require('../../package.json')
 const localVersion = get(localPackage, 'version')

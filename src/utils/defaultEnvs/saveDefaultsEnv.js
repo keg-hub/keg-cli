@@ -1,8 +1,9 @@
 const path = require('path')
-const { Logger } = require('KegLog')
-const { writeFile } = require('KegFileSys')
+const { fileSys, Logger } = require('@keg-hub/cli-utils')
 const { DEFAULT_ENV, GLOBAL_CONFIG_FOLDER } = require('KegConst/constants')
 const { generalError } = require('../error/generalError')
+
+const { writeFile } = fileSys
 const { NODE_ENV } = process.env
 /**
  * Saves the Defaults.env file to the global config folder path

@@ -1,4 +1,4 @@
-const { git } = require('KegGitCli')
+const { git } = require('@keg-hub/git-lib')
 const { get, isStr, isBool } = require('@keg-hub/jsutils')
 const { getTagFromBranchEnv } = require('./getTagFromBranchEnv')
 const { getSetting } = require('KegUtils/globalConfig/getSetting')

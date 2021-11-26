@@ -1,4 +1,4 @@
-const { Logger } = require('KegLog')
+const { Logger } = require('@keg-hub/cli-utils')
 const { spawnCmd } = require('KegProc')
 const { throwComposeFailed } = require('KegUtils/error/throwComposeFailed')
 const { buildComposeCmd } = require('KegUtils/docker/compose/buildComposeCmd')

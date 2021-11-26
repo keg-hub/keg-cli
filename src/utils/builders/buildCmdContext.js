@@ -1,6 +1,6 @@
-const { generalError } = require('../error/generalError')
+const { getTapPath } = require('@keg-hub/cli-utils')
 const { getContext } = require('../getters/getContext')
-const { getTapPath } = require('KegRepos/cli-utils')
+const { generalError } = require('../error/generalError')
 
 /**
  * Gets the cmdContext for the task based on the passed in params

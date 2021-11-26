@@ -1,4 +1,4 @@
-const { Logger } = require('KegLog')
+const { Logger } = require('@keg-hub/cli-utils')
 const { get } = require('@keg-hub/jsutils')
 const { getPrefix } = require('../getters/getPrefix')
 const { CONTEXT_KEYS } = require('KegConst/constants')

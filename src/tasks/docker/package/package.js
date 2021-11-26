@@ -1,5 +1,5 @@
 const docker = require('KegDocCli')
-const { Logger } = require('KegLog')
+const { Logger } = require('@keg-hub/cli-utils')
 const { DOCKER } = require('KegConst/docker')
 const { get, noOpObj } = require('@keg-hub/jsutils')
 const { getImgTags } = require('KegUtils/docker/getImgTags')

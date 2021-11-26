@@ -1,6 +1,6 @@
+const { ask } = require('@keg-hub/ask-it')
+const { Logger } = require('@keg-hub/cli-utils')
 const { checkCall } = require('@keg-hub/jsutils')
-const { ask } = require('KegRepos/ask-it')
-const { Logger } = require('KegLog')
 
 /**
  * Confirms that a tasks should be preformed, then executes it when true

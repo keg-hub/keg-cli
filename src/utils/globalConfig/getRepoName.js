@@ -1,8 +1,8 @@
+const {git} = require('@keg-hub/git-lib')
 const { get } = require('@keg-hub/jsutils')
-const { getGlobalConfig } = require('./getGlobalConfig')
-const {git} = require('KegGitCli')
-const { getTapPath } = require('KegRepos/cli-utils')
+const { getTapPath } = require('@keg-hub/cli-utils')
 const { throwNoRepo } = require('../error/throwNoRepo')
+const { getGlobalConfig } = require('./getGlobalConfig')
 
 /**
  * returns the repo name from your global config

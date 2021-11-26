@@ -1,6 +1,6 @@
-jest.mock('KegRepos/cli-utils')
+jest.mock('@keg-hub/cli-utils')
 
-const { publicMock: public, privateMock: private } = require('KegRepos/cli-utils')
+const { publicMock: public, privateMock: private } = require('@keg-hub/cli-utils')
 const { ip } = require('../ip')
 
 describe('ip', () => {

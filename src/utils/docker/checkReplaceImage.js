@@ -1,6 +1,6 @@
 const docker = require('KegDocCli')
-const { Logger } = require('KegLog')
-const { ask } = require('KegRepos/ask-it')
+const { ask } = require('@keg-hub/ask-it')
+const { Logger } = require('@keg-hub/cli-utils')
 
 /**
  * Checks if an image already exists with the passed in tag

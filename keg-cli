@@ -2,10 +2,9 @@
 
 // Update the Max listeners, to ensure all processes can exit properly
 require('events').EventEmitter.defaultMaxListeners = 0
-
-require('module-alias/register')
+require('./scripts/cli/aliases')
 require('KegConst/constants')
-const { get } = require('@keg-hub/jsutils')
+
 
 /**
  * Checks if the Keg-CLI has been updated
@@ -26,7 +25,7 @@ const doCheckUpdates = () => {
     const globalConfig = await loadGlobalConfig()
 
     // // Pull in the runTask method, and call it immediately
-    const { runTask } = require('KegRunTask')
+    const { runTask } = require('./src/runTask')
     await runTask(globalConfig)
 
     // Check for Keg CLI updates if setting is true, then check for updates

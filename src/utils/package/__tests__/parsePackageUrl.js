@@ -1,6 +1,6 @@
 
 const { Logger } = require('KegMocks/logger')
-jest.setMock('KegLog', { Logger })
+jest.setMock('@keg-hub/cli-utils', { Logger })
 
 const toParse = 'ghcr.io/test-user/test-repo/test-img:1591977796609'
 const { parsePackageUrl } = require('../parsePackageUrl')

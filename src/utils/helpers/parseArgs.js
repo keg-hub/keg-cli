@@ -1,6 +1,6 @@
-const { ensureArgs, argsParse } = require('KegRepos/args-parse')
-const { getGlobalConfig } = require('../globalConfig/getGlobalConfig')
 const { getGlobalOptions } = require('../task/globalOptions')
+const { ensureArgs, argsParse } = require('@keg-hub/args-parse')
+const { getGlobalConfig } = require('../globalConfig/getGlobalConfig')
 
 /**
  * Wrapper around args parse to allow passing in the globalConfig

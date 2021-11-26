@@ -1,5 +1,5 @@
 jest.resetAllMocks()
-const { Logger } = require('KegLog')
+const { Logger } = require('@keg-hub/cli-utils')
 
 const repos = [{
   repo: 'test-repo',

@@ -1,4 +1,4 @@
-const { Logger } = require('KegLog')
+const { Logger } = require('@keg-hub/cli-utils')
 const { throwTaskFailed } = require('./throwTaskFailed')
 /**
  * Logs an error when the current git branch can not be found

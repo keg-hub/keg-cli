@@ -1,12 +1,10 @@
-const { Logger } = require('KegLog')
+const { Logger } = require('@keg-hub/cli-utils')
 const { Loading } = require('./loading')
-const { spawnCmd } = require('KegRepos/spawn-cmd')
+const { spawnCmd } = require('@keg-hub/spawn-cmd')
 const {
   get,
   checkCall,
-  deepMerge,
   isFunc,
-  isArr,
   noOpObj
 } = require('@keg-hub/jsutils')
 

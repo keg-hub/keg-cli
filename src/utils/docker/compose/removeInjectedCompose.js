@@ -1,10 +1,11 @@
 const path = require('path')
-const { Logger } = require('KegLog')
+const { fileSys, Logger } = require('@keg-hub/cli-utils')
 const { GLOBAL_INJECT_FOLDER } = require('KegConst/constants')
 const { getRepoPath } = require('KegUtils/getters/getRepoPath')
-const { removeFile, pathExists } = require('KegFileSys')
 const { getGlobalConfig } = require('KegUtils/globalConfig/getGlobalConfig')
 const { getProxyDomainFromBranch } = require('KegUtils/proxy/getProxyDomainFromBranch')
+
+const { removeFile, pathExists } = fileSys
 
 /**
  * Removes an injected compose file from the global injected folder

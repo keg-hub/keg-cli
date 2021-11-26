@@ -1,5 +1,5 @@
 const path = require('path')
-const { yml, env:envLoader } = require('KegPConf')
+const { yml, env:envLoader } = require('@keg-hub/parse-config')
 const { get, deepMerge } = require('@keg-hub/jsutils')
 const { GLOBAL_CONFIG_FOLDER } = require('../constants')
 const { cliRootDir, containersPath } = require('./values')

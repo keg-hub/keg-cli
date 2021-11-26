@@ -1,5 +1,5 @@
 const { DOCKER } = require('KegConst/docker')
-const { Logger } = require('KegLog')
+const { Logger } = require('@keg-hub/cli-utils')
 const { throwRequired } = require('KegUtils/error/throwRequired')
 /**
  * Git clone task

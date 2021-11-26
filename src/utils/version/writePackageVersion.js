@@ -1,4 +1,6 @@
-const { writeFileSync } = require('KegFileSys')
+const { fileSys } = require('@keg-hub/cli-utils')
+
+const { writeFileSync } = fileSys
 
 /**
  * Rewrites the package.json for the passed in location

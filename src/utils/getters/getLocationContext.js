@@ -1,8 +1,9 @@
 const { DOCKER } = require('KegConst/docker')
 const { throwNoConfigPath } = require('../error')
+const { getTapPath } = require('@keg-hub/cli-utils')
 const { getPathFromConfig } = require('../globalConfig')
-const { getTapPath } = require('KegRepos/cli-utils')
 const { getContainerConst } = require('../docker/getContainerConst')
+
 const { LOCATION_CONTEXT } = DOCKER
 
 /**

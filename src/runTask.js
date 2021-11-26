@@ -1,14 +1,14 @@
 /**
  * Sometimes this file is called directly with out using the keg-cli entry point
- * So we call module-alias/register here to ensure the alias still work
+ * So we call require aliases here to ensure the alias still work
 */
-require('module-alias/register')
+require('../scripts/cli/aliases')
 
-const Tasks = require('KegTasks')
+const Tasks = require('./tasks')
 const { findTask, executeTask } = require('KegUtils/task')
 const { throwExitError } = require('KegUtils/error')
 const { hasHelpArg } = require('KegUtils/helpers/hasHelpArg')
-const { showHelp } = require('KegLog')
+const { showHelp } = require('@keg-hub/cli-utils')
 
 /**
  * Runs a Keg CLI command
