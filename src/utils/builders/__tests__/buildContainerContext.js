@@ -3,7 +3,7 @@ const globalConfig = global.getGlobalCliConfig()
 const testTask = global.getTask()
 const unloadEnvs = global.loadMockEnvs()
 
-jest.setMock('KegDocCli', docker)
+jest.setMock('@keg-hub/docker-lib', docker)
 const { buildContainerContext } = require('../buildContainerContext')
 
 describe('buildContainerContext', () => {

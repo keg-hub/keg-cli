@@ -1,6 +1,6 @@
-const docker = require('KegDocCli')
-const { Logger } = require('@keg-hub/cli-utils')
+const docker = require('@keg-hub/docker-lib')
 const { exists } = require('@keg-hub/jsutils')
+const { Logger } = require('@keg-hub/cli-utils')
 const { generalError } = require('KegUtils/error')
 const { dockerLog } = require('KegUtils/log/dockerLog')
 const { confirmExec } = require('KegUtils/helpers/confirmExec')

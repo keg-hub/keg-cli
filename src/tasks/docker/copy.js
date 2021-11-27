@@ -1,8 +1,8 @@
-const docker = require('KegDocCli')
-const { error, Logger } = require('@keg-hub/cli-utils')
 const { get } = require('@keg-hub/jsutils')
+const docker = require('@keg-hub/docker-lib')
 const { DOCKER } = require('KegConst/docker')
 const { throwRequired } = require('KegUtils/error')
+const { error, Logger } = require('@keg-hub/cli-utils')
 const { buildContainerContext } = require('KegUtils/builders/buildContainerContext')
 
 const { throwNoTapLoc } = error

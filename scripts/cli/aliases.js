@@ -10,7 +10,6 @@ const aliases = {
   KegMocks: path.join(rootDir, 'src/__mocks__'),
   KegConst: path.join(rootDir, 'src/constants'),
   KegCrypto: path.join(rootDir, 'src/libs/crypto'),
-  KegDocCli: path.join(rootDir, 'src/libs/docker'),
   KegProc: path.join(rootDir, 'src/libs/process'),
 }
 

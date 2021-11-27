@@ -1,4 +1,4 @@
-const docker = require('KegDocCli')
+const docker = require('@keg-hub/docker-lib')
 const { Logger } = require('@keg-hub/cli-utils')
 const { exists, get, isObj, deepMerge } = require('@keg-hub/jsutils')
 const { runInternalTask } = require('../task/runInternalTask')

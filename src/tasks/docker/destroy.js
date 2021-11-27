@@ -1,5 +1,5 @@
-const docker = require('KegDocCli')
 const { executeCmd } = require('KegProc')
+const docker = require('@keg-hub/docker-lib')
 const { Logger } = require('@keg-hub/cli-utils')
 const { plural, uniqArr } = require('@keg-hub/jsutils')
 const { generalError } = require('KegUtils/error/generalError')

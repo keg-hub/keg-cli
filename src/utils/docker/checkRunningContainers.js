@@ -1,4 +1,4 @@
-const docker = require('KegDocCli')
+const docker = require('@keg-hub/docker-lib')
 const { DOCKER } = require('KegConst/docker')
 const { get, reduceObj } = require('@keg-hub/jsutils')
 const { getContext } = require('../getters/getContext')

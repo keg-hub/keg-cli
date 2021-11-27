@@ -1,4 +1,4 @@
-const docker = require('KegDocCli')
+const docker = require('@keg-hub/docker-lib')
 const { loadValuesFiles } = require('KegConst/docker/loaders')
 const { generalError } = require('KegUtils/error/generalError')
 const { getSetting } = require('KegUtils/globalConfig/getSetting')

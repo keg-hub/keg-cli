@@ -1,4 +1,4 @@
-const docker = require('KegDocCli')
+const docker = require('@keg-hub/docker-lib')
 const { get, deepMerge } = require('@keg-hub/jsutils')
 const { proxyService } = require('./proxyService')
 const { getServiceArgs } = require('./getServiceArgs')

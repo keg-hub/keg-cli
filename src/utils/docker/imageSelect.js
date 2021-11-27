@@ -1,4 +1,4 @@
-const docker = require('KegDocCli')
+const docker = require('@keg-hub/docker-lib')
 const { ask } = require('@keg-hub/ask-it')
 /**
  * Prompts user to select a container from the current docker containers

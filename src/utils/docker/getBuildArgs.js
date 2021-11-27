@@ -1,4 +1,4 @@
-const docker = require('KegDocCli')
+const docker = require('@keg-hub/docker-lib')
 const { getGitKey } = require('KegUtils')
 const { git } = require('@keg-hub/git-lib')
 const { DOCKER } = require('KegConst/docker')

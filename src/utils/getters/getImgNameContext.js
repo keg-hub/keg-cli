@@ -1,4 +1,4 @@
-const docker = require('KegDocCli')
+const docker = require('@keg-hub/docker-lib')
 const { getImgFrom } = require('./getImgFrom')
 const { get, isObj, noOpObj, isStr, exists } = require('@keg-hub/jsutils')
 const { getKegContext } = require('./getKegContext')

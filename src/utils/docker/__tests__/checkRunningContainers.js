@@ -1,7 +1,6 @@
 const { docker } = require('KegMocks/libs/docker')
 
-const container = global.testDocker.containers.core
-jest.setMock('KegDocCli', docker)
+jest.setMock('@keg-hub/docker-lib', docker)
 
 
 const { checkRunningContainers } = require('../checkRunningContainers')

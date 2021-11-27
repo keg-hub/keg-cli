@@ -1,22 +1,22 @@
-const docker = require('KegDocCli')
-const { Logger } = require('@keg-hub/cli-utils')
+const docker = require('@keg-hub/docker-lib')
 const { DOCKER } = require('KegConst/docker')
 const { KEG_ENVS } = require('KegConst/envs')
 const { logVirtualUrl } = require('KegUtils/log')
+const { constants, Logger } = require('@keg-hub/cli-utils')
 const { isUrl, get, pickKeys } = require('@keg-hub/jsutils')
-const { proxyLabels, kegLabelKeys } = require('KegConst/docker/labels')
 const { generalError } = require('KegUtils/error/generalError')
 const { buildLabel } = require('KegUtils/docker/getBuildLabels')
 const { removeLabels } = require('KegUtils/docker/removeLabels')
+const { proxyLabels, kegLabelKeys } = require('KegConst/docker/labels')
 const { parsePackageUrl } = require('KegUtils/package/parsePackageUrl')
+const { KEG_DOCKER_EXEC, KEG_EXEC_OPTS } = require('KegConst/constants')
 const { buildContextEnvs } = require('KegUtils/builders/buildContextEnvs')
 const { mergeTaskOptions } = require('KegUtils/task/options/mergeTaskOptions')
 const { checkContainerExists } = require('KegUtils/docker/checkContainerExists')
 const { getImgInspectContext } = require('KegUtils/getters/getImgInspectContext')
 const { getOptsWithProxyRule } = require('KegUtils/docker/getOptsWithProxyRule')
 
-const { CONTAINER_PREFIXES, KEG_DOCKER_EXEC, KEG_EXEC_OPTS } = require('KegConst/constants')
-const { PACKAGE } = CONTAINER_PREFIXES
+const { PACKAGE } = constants.CONTAINER_PREFIXES
 
 /**
  * Search for the keg-proxy-port to use for registering with the keg-proxy

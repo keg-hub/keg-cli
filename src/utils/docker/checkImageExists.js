@@ -1,4 +1,4 @@
-const docker = require('KegDocCli')
+const docker = require('@keg-hub/docker-lib')
 const { isBool } = require('@keg-hub/jsutils')
 const { getImgNameContext } = require('../getters/getImgNameContext')
 const { generalError } = require('../error/generalError')

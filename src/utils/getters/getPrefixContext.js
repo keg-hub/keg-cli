@@ -1,6 +1,9 @@
-const { CONTAINER_PREFIXES, CONTAINER_TO_CONTEXT } = require('KegConst/constants')
-const { getKegContext } = require('./getKegContext')
 const { isStr } = require('@keg-hub/jsutils')
+const { constants } = require('@keg-hub/cli-utils')
+const { getKegContext } = require('./getKegContext')
+const { CONTAINER_TO_CONTEXT } = require('KegConst/constants')
+
+const { CONTAINER_PREFIXES } = constants
 
 /**
  * Builds the context and prefix data

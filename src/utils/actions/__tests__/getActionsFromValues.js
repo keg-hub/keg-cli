@@ -1,6 +1,6 @@
 const { testEnum } = require('KegMocks/jest/testEnum')
 const { docker } = require('KegMocks/libs/docker')
-jest.setMock('KegDocCli', docker)
+jest.setMock('@keg-hub/docker-lib', docker)
 
 const getKegContextMock = jest.fn(containerName => containerName)
 jest.setMock('KegUtils/getters/getKegContext', { getKegContext: getKegContextMock })

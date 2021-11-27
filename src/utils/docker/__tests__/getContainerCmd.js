@@ -1,8 +1,7 @@
-const globalConfig = global.getGlobalCliConfig()
 const { docker } = require('KegMocks/libs/docker')
 const throwNoDockerImg = jest.fn()
 
-jest.setMock('KegDocCli', docker)
+jest.setMock('@keg-hub/docker-lib', docker)
 jest.setMock('../../error/throwNoDockerImg', { throwNoDockerImg })
 
 

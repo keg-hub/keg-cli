@@ -1,7 +1,7 @@
 const { docker } = require('KegMocks/libs/docker')
 const globalConfig = global.getGlobalCliConfig()
 
-jest.setMock('KegDocCli', docker)
+jest.setMock('@keg-hub/docker-lib', docker)
 
 const internalTaskMock = jest.fn(args => {
   return args

@@ -1,6 +1,6 @@
-const docker = require('KegDocCli')
+const docker = require('@keg-hub/docker-lib')
+const { noOpObj } = require('@keg-hub/jsutils')
 const { Logger } = require('@keg-hub/cli-utils')
-const { isStr, noOpObj } = require('@keg-hub/jsutils')
 const { throwComposeFailed } = require('KegUtils/error/throwComposeFailed')
 const { mergeTaskOptions } = require('KegUtils/task/options/mergeTaskOptions')
 const { buildComposeCmd } = require('KegUtils/docker/compose/buildComposeCmd')

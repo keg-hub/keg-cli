@@ -86,7 +86,6 @@
       "^KegConst/envs$": "<rootDir>/src/__mocks__/constants/envs",
       "^KegConst(.*)$": "<rootDir>/src/constants$1",
       "^KegCrypto(.*)$": "<rootDir>/src/libs/crypto$1",
-      "^KegDocCli(.*)$": "<rootDir>/src/libs/docker$1",
       "^KegLibs(.*)$": "<rootDir>/src/libs$1",
       "^KegMocks(.*)$": "<rootDir>/src/__mocks__$1",
       "^KegProc(.*)$": "<rootDir>/src/libs/process$1",

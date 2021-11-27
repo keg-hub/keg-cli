@@ -1,7 +1,6 @@
-const docker = require('KegDocCli')
+const docker = require('@keg-hub/docker-lib')
 const { Logger } = require('@keg-hub/cli-utils')
 const { findContainer } = require('KegUtils/docker/findContainer')
-const { containerSelect } = require('KegUtils/docker/containerSelect')
 const { KEG_DOCKER_EXEC, KEG_EXEC_OPTS } = require('KegConst/constants')
 const { throwRequired, throwContainerNotFound } = require('KegUtils/error')
 const { buildContainerContext } = require('KegUtils/builders/buildContainerContext')

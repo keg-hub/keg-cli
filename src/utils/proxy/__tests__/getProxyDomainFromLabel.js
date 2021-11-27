@@ -1,5 +1,5 @@
 const { docker, dockerObjLabels } = require('KegMocks/libs/docker')
-jest.setMock('KegDocCli', docker)
+jest.setMock('@keg-hub/docker-lib', docker)
 const KEG_PROXY_DOMAIN = 'com.keg.proxy.domain'
 
 const { getProxyDomainFromLabel } = require('../getProxyDomainFromLabel')
