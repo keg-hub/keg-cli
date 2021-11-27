@@ -1,10 +1,9 @@
 const path = require('path')
 const { KEG_ENVS } = require('../envs')
 const { isStr } = require('@keg-hub/jsutils')
-const { constants, fileSys } = require('@keg-hub/cli-utils')
+const { fileSys } = require('@keg-hub/cli-utils')
 const { defineProperty } = require('../../utils/helpers/defineProperty')
 
-const { CLI_ROOT } = constants
 const { getFoldersSync, pathExistsSync } = fileSys
 
 /**
@@ -54,11 +53,8 @@ const injectImage = image => {
  * @object
  */
 const values = {
-  cliKeyMap,
-  mutagenMap,
   injectImage,
   containersPath,
-  cliRootDir: CLI_ROOT,
 }
 
 /**

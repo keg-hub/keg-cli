@@ -1,10 +1,12 @@
 const path = require('path')
-const { yml, env:envLoader } = require('@keg-hub/parse-config')
+const { containersPath } = require('./values')
+const { constants } = require('@keg-hub/cli-utils')
 const { get, deepMerge } = require('@keg-hub/jsutils')
-const { GLOBAL_CONFIG_FOLDER } = require('../constants')
-const { cliRootDir, containersPath } = require('./values')
+const { yml, env:envLoader } = require('@keg-hub/parse-config')
 const { getRepoPath } = require('KegUtils/getters/getRepoPath')
 const { getSetting } = require('KegUtils/globalConfig/getSetting')
+
+const { CLI_ROOT, GLOBAL_CONFIG_FOLDER } = constants
 
 /*
  * Adds extra data to the object passed to the template fill function
@@ -20,7 +22,7 @@ const buildExtraData = ({ container, env, __internal={} }) => {
   return {
     container,
     containersPath,
-    cliPath: cliRootDir,
+    cliPath: CLI_ROOT,
     context: context || container,
     env: env || getSetting('defaultEnv'),
     globalConfigPath: GLOBAL_CONFIG_FOLDER,

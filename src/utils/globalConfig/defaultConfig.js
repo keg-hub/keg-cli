@@ -1,16 +1,17 @@
 const path = require('path')
 const { deepMerge } = require('@keg-hub/jsutils')
-const { GLOBAL_CONFIG_FOLDER } = require('KegConst/constants')
+const { constants } = require('@keg-hub/cli-utils')
 const packageJson = require('KegRoot/package.json')
 const cliJson = require('KegRoot/scripts/setup/cli.config.json')
 const homeDir = require('os').homedir()
 
+const { CLI_ROOT, GLOBAL_CONFIG_FOLDER } = constants
 const kegHub = path.join(homeDir, '/keg-hub')
 const kegRepos = path.join(kegHub, 'repos')
 const kegTaps = path.join(kegHub, 'taps')
 
 const defPaths = {
-  cli: path.join(kegRepos, 'keg-cli'),
+  cli: CLI_ROOT,
   containers: path.join(kegRepos, 'keg-cli/containers'),
   core: path.join(kegRepos, 'keg-core'),
   hub: kegHub,
