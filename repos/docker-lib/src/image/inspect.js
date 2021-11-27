@@ -1,5 +1,5 @@
-const { inspectCmd } = require('../cmds/inspect')
-
+const { noOpObj } = require('@keg-hub/jsutils')
+const { inspect:inspectCmd } = require('../cmds/inspect')
 
 /**
  * Runs docker image inspect for the passed in image
@@ -12,7 +12,9 @@ const { inspectCmd } = require('../cmds/inspect')
  *
  * @returns {string|Object} - Docker image information
  */
- const inspect = async ({ image, item, ...args }) => {
+ const inspect = async (_args=noOpObj) => {
+  const { image, item, ...args } = _args
+
   return await inspectCmd({
     format: 'json',
     ...args,

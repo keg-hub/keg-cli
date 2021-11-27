@@ -1,4 +1,5 @@
-const { removeCmd } = require('../cmds/remove')
+const { noOpObj } = require('@keg-hub/jsutils')
+const { remove:removeCmd } = require('../cmds/remove')
 
 /**
  * Removes a docker image based on passed in toRemove argument
@@ -7,7 +8,7 @@ const { removeCmd } = require('../cmds/remove')
  *
  * @returns {Promise<string|Array>} - Response from the docker cli command
  */
-const remove = args => {
+const remove = (args=noOpObj) => {
   return removeCmd({ ...args, type: 'image' })
 } 
 

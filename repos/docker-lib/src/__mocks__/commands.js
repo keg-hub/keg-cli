@@ -64,8 +64,8 @@ const push = jest.fn(() => {
 
 })
 
-const inspect = jest.fn(() => {
-  
+const inspect = jest.fn(args => {
+  return args
 })
 
 const raw = jest.fn(() => {
@@ -76,8 +76,12 @@ const remove = jest.fn((args) => {
   return args
 })
 
+const containerCmd = jest.fn((args) => {
+  return args
+})
 
 module.exports = {
+  containerCmd,
   dockerCli,
   dynamicCmd,
   inspect,

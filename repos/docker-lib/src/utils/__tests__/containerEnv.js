@@ -65,19 +65,25 @@ const asTests = [
 
 const { asContainerEnv, toContainerEnvs } = require('../containerEnvs')
 
-describe('toContainerEnvs', () => {
-  toTests.map(test => {
-    it(test.title, async () => {
-      expect(toContainerEnvs(...test.input)).toEqual(test.output)
-    })
-  })
-})
+describe('Container ENVs', () => {
 
-describe('asContainerEnv', () => {
-  asTests.map(test => {
-    it(test.title, async () => {
-      expect(asContainerEnv(...test.input)).toEqual(test.output)
+  afterAll(() => jest.resetAllMocks())
+
+  describe('toContainerEnvs', () => {
+    toTests.map(test => {
+      it(test.title, async () => {
+        expect(toContainerEnvs(...test.input)).toEqual(test.output)
+      })
     })
   })
+
+  describe('asContainerEnv', () => {
+    asTests.map(test => {
+      it(test.title, async () => {
+        expect(asContainerEnv(...test.input)).toEqual(test.output)
+      })
+    })
+  })
+
 })
 

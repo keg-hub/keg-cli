@@ -65,18 +65,23 @@ const asTests = [
 
 const { asBuildArg, toBuildArgs } = require('../buildArgs')
 
-describe('toBuildArgs', () => {
-  toTests.map(test => {
-    it(test.title, async () => {
-      expect(toBuildArgs(...test.input)).toEqual(test.output)
+describe('Build Args', () => {
+
+  afterAll(() => jest.resetAllMocks())
+
+  describe('toBuildArgs', () => {
+    toTests.map(test => {
+      it(test.title, async () => {
+        expect(toBuildArgs(...test.input)).toEqual(test.output)
+      })
     })
   })
-})
-
-describe('asBuildArg', () => {
-  asTests.map(test => {
-    it(test.title, async () => {
-      expect(asBuildArg(...test.input)).toEqual(test.output)
+  
+  describe('asBuildArg', () => {
+    asTests.map(test => {
+      it(test.title, async () => {
+        expect(asBuildArg(...test.input)).toEqual(test.output)
+      })
     })
   })
 })
