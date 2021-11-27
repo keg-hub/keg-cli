@@ -10,10 +10,8 @@ const platforms = {
   amd64: `amd64`,
   arm: `arm/v7,arm64/v8`,
   arm32: `arm/v7`,
-  arm64: `arm64/v8`,
-  all: `arm/v7,arm64/v8,amd64`,
-  arm: 'arm/v6',
   arm64: 'arm64',
+  all: `arm/v7,arm64/v8,amd64`,
 }
 
 /**

@@ -28,11 +28,6 @@ const runOptions = (task, action, options) => {
         description: 'Override the default entrypoint of the docker image',
         example: 'keg ${task} ${action} --entry /bin/bash',
       },
-      log: {
-        description: 'Log the docker run command to the terminal',
-        example: `keg ${task} ${action} --log`,
-        default: false,
-      },
       connect: {
         alias: [ 'conn', 'con', 'it' ],
         description: 'Auto connects to the docker containers stdio',

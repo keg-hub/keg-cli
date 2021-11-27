@@ -10,7 +10,7 @@ const { linkRepos } = require('./linkRepos')
   await makeExecutable(rootDir, 'keg')
 
   // Makes <root_dir>/keg-cli executable
-  await makeExecutable(rootDir, 'keg-cli')
+  await makeExecutable(rootDir, 'keg-cli.js')
 
   // Finds all sub-repos with a package.json
   // Then runs yarn install on them

@@ -20,7 +20,7 @@ const createBuildCmd = async (args, dockerCmd) => {
   const { location } = params
 
   // Add the build platform for the image
-  dockerCmd = addBuildPlatform(dockerCmd, params?.platform)
+  dockerCmd = addBuildPlatform(dockerCmd, params.platform)
 
   // Add any build tags
   dockerCmd = await buildTags(args, params, dockerCmd)

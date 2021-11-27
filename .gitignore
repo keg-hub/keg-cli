@@ -163,3 +163,6 @@ reports
 .kegConfig
 
 repos/**/node_modules
+dist/*
+!dist/.gitkeep
+keg-cli-bundle.js

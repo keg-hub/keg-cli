@@ -8,8 +8,7 @@ const { buildTaskData } = require('../utils/builders/buildTaskData')
  *
  * @returns {Object} - All loaded CLI tasks
  */
-const initialize = (name, globalConfig) => {
-  const tasks = require(`./${ name }`)
+const initialize = (tasks, name, globalConfig) => {
 
   const parentTasks = isFunc(tasks) ? tasks(globalConfig) : isObj(tasks) ? tasks : {}
 
@@ -25,18 +24,18 @@ const initialize = (name, globalConfig) => {
 
 module.exports = globalConfig => {
   return {
-    ...initialize('base', globalConfig),
-    ...initialize('cli', globalConfig),
-    ...initialize('config', globalConfig),
-    ...initialize('core', globalConfig),
-    ...initialize('docker', globalConfig),
-    ...initialize('git', globalConfig),
-    ...initialize('global', globalConfig),
-    ...initialize('generate', globalConfig),
-    ...initialize('hub', globalConfig),
-    ...initialize('mutagen', globalConfig),
-    ...initialize('network', globalConfig),
-    ...initialize('proxy', globalConfig),
-    ...initialize('tap', globalConfig),
+    ...initialize(require('./base'), 'base', globalConfig),
+    ...initialize(require('./cli'), 'cli', globalConfig),
+    ...initialize(require('./config'), 'config', globalConfig),
+    ...initialize(require('./core'), 'core', globalConfig),
+    ...initialize(require('./docker'), 'docker', globalConfig),
+    ...initialize(require('./git'), 'git', globalConfig),
+    ...initialize(require('./global'), 'global', globalConfig),
+    ...initialize(require('./generate'), 'generate', globalConfig),
+    ...initialize(require('./hub'), 'hub', globalConfig),
+    ...initialize(require('./mutagen'), 'mutagen', globalConfig),
+    ...initialize(require('./network'), 'network', globalConfig),
+    ...initialize(require('./proxy'), 'proxy', globalConfig),
+    ...initialize(require('./tap'), 'tap', globalConfig),
   }
 }

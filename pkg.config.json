@@ -1,0 +1,13 @@
+{
+  "assets": [
+    "containers/**/*",
+    "scripts/**/*"
+  ],
+  "scripts": [
+    "scripts/**/*.js"
+  ],
+  "targets": [ "node12-macos-x64", "node14-linux-arm64" ],
+  "outputPath": "dist",
+  "debug": true,
+  "publicPackages": "*"
+}
