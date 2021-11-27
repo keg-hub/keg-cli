@@ -2,6 +2,7 @@ const { checkEnvArg } = require('./checkEnvArg')
 const { optionsAsk } = require('../options/optionsAsk')
 const { exists, reduceObj } = require('@keg-hub/jsutils')
 const { checkRequired } = require('../utils/checkRequired')
+const { checkENVValue } = require('../options/checkENVValue')
 const { checkBoolValue } = require('../options/checkBoolValue')
 const { checkValueType } = require('../options/checkValueType')
 
@@ -17,6 +18,10 @@ const { checkValueType } = require('../options/checkValueType')
  * @returns {Object} - Mapped args object
  */
 const ensureArg = async (task, args, key, meta) => {
+
+  // Check if meta-data has an env set
+  // If no value exists, then use the ENV value (process.env.<SOME_ENV>)
+  args[key] = checkENVValue(args[key], meta.env)
 
   // Ensure any boolean shortcuts are mapped to true or false
   // Allows for using shortcuts like 'yes' or 'no' for 'true' and 'false'

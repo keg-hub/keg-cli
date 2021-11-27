@@ -9,6 +9,7 @@ const { addDefaultOptions } = require('./options/addDefaultOptions')
 const { optionsHasIdentifiers } = require('./options/optionsHasIdentifiers')
 const { parseQuotes } = require('./utils/parseQuotes')
 const { convertNoArgs } = require('./utils/convertNoArgs')
+
 /**
  * Loops the task options looking to a match in the passed in options array
  * @function
@@ -91,7 +92,7 @@ const argsParse = async (toParse, config) => {
   // If no args to parse, Add the defaults and return it
   if(!args.length) return ensureArgs(task, params)
 
-  // Get all the name of the options for the task
+  // Get all the names of the options for the task
   // This is used later to compare the keys with the passed in options
   const taskKeys = isObj(task.options) && Object.keys(task.options)
 
