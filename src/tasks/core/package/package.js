@@ -1,5 +1,4 @@
 const { packageService } = require('KegUtils/services/packageService')
-const { DOCKER } = require('KegConst/docker')
 
 /**
  * Package a running keg-core container into an image and push a docker provider
@@ -21,7 +20,7 @@ module.exports = {
     alias: [ 'pack', 'pk' ],
     inject: true,
     action: package,
-    locationContext: DOCKER.LOCATION_CONTEXT.REPO,
+    locationContext: 'REPO',
     description: `Package keg-core into an image and push to the docker provider`,
     example: 'keg core package <options>',
     tasks: {

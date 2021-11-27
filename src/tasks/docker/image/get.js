@@ -1,8 +1,4 @@
-const docker = require('KegDocCli')
 const { Logger } = require('@keg-hub/cli-utils')
-const { get } = require('@keg-hub/jsutils')
-const { DOCKER } = require('KegConst/docker')
-const { dockerLog } = require('KegUtils/log/dockerLog')
 const { getImageRef } = require('KegUtils/docker/getImageRef')
 const { throwNoDockerImg } = require('KegUtils/error/throwNoDockerImg')
 const { getImgNameContext } = require('KegUtils/getters/getImgNameContext')

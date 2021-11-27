@@ -1,6 +1,5 @@
 const docker = require('KegDocCli')
-const { DOCKER } = require('KegConst/docker')
-const { throwRequired, generalError } = require('KegUtils/error')
+const { throwRequired } = require('KegUtils/error')
 const { buildContainerContext } = require('KegUtils/builders/buildContainerContext')
 
 /**
@@ -42,10 +41,9 @@ module.exports = {
     action: dockerRemove,
     description: `Runs docker build command for a container`,
     example: 'keg docker build <options>',
-    locationContext: DOCKER.LOCATION_CONTEXT.REPO,
+    locationContext: 'REPO',
     options: {
       context: {
-        allowed: DOCKER.IMAGES,
         description: 'Name of the docker container to remove',
         enforced: true,
       },

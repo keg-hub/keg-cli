@@ -2,13 +2,13 @@ const path = require('path')
 const { ask } = require('@keg-hub/ask-it')
 const { isStr } = require('@keg-hub/jsutils')
 const { env } = require('@keg-hub/parse-config')
-const { fileSys, Logger } = require('@keg-hub/cli-utils')
 const { saveDefaultsEnv } = require('./saveDefaultsEnv')
 const { removeDefaultEnv } = require('./removeDefaultEnv')
 const { generalError } = require('../error/generalError')
-const { DEFAULT_ENV, GLOBAL_CONFIG_FOLDER } = require('KegConst/constants')
+const { constants, fileSys, Logger } = require('@keg-hub/cli-utils')
 
 const { readFile } = fileSys
+const { DEFAULT_ENV, GLOBAL_CONFIG_FOLDER } = constants
 
 /**
  * Adds an ENV to the Global Defaults.env file

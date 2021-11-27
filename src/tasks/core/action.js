@@ -1,5 +1,4 @@
 const { syncService } = require('KegUtils/services')
-const { DOCKER } = require('KegConst/docker')
 
 /**
  * Runs a sync action on the tap docker container
@@ -24,7 +23,7 @@ module.exports = {
     alias: [ 'act', 'actions' ],
     inject: true,
     action: action,
-    locationContext: DOCKER.LOCATION_CONTEXT.CONTAINERS,
+    locationContext: 'CONTAINERS',
     description: `Run a sync action in the keg-core docker container`,
     example: '',
     options: {

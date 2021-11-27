@@ -1,6 +1,5 @@
 const { Logger } = require('@keg-hub/cli-utils')
 const { spawnCmd } = require('KegProc')
-const { DOCKER } = require('KegConst/docker')
 const { pickKeys } = require('@keg-hub/jsutils')
 const { logVirtualUrl } = require('KegUtils/log')
 const { buildContainerContext } = require('KegUtils/builders')
@@ -72,7 +71,6 @@ module.exports = {
     options: pickKeys(
       mergeTaskOptions('docker compose', 'restart', 'startService', {
         context: {
-          allowed: DOCKER.IMAGES,
           description: 'Context of docker compose up command (core || tap)',
           example: 'keg docker compose restart --context core',
           required: true

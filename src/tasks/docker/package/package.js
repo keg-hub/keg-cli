@@ -1,6 +1,5 @@
 const docker = require('KegDocCli')
 const { Logger } = require('@keg-hub/cli-utils')
-const { DOCKER } = require('KegConst/docker')
 const { get, noOpObj } = require('@keg-hub/jsutils')
 const { getImgTags } = require('KegUtils/docker/getImgTags')
 const { CONTEXT_TO_CONTAINER } = require('KegConst/constants')
@@ -149,7 +148,7 @@ module.exports = {
     action: dockerPackage,
     description: `Packages a docker container for deploying to a docker provider`,
     example: 'keg docker package <options>',
-    locationContext: DOCKER.LOCATION_CONTEXT.REPO,
+    locationContext: 'REPO',
     tasks: {
       ...require('./run'),
     },

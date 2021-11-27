@@ -1,6 +1,8 @@
 const semver = require('semver')
 const { toBool } = require('@keg-hub/jsutils')
-const { VERSION } = require('KegConst/constants')
+const { constants } = require('@keg-hub/cli-utils')
+
+const { SEMVER_TYPES } = constants
 
 /**
  * Validates if version is one of: minor,major,patch or specific semver version
@@ -10,7 +12,7 @@ const { VERSION } = require('KegConst/constants')
  * @returns {Boolean} - true if valid
  */
 const isValidSemver = (version) => {
-  const valid = VERSION.TYPES.indexOf(version) !== -1
+  const valid = SEMVER_TYPES.indexOf(version) !== -1
     ? true
     : semver.valid(version)
   

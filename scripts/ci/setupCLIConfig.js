@@ -32,7 +32,7 @@ const {
   GITHUB_TOKEN,
   KEG_CLI_PATH=path.join(__dirname, '../../'),
   KEG_CONFIG_FILE=`cli.config.json`,
-  KEG_CONFIG_PATH=path.join(KEG_CLI_ROOT, '.kegConfig'),
+  KEG_CONFIG_PATH=path.join(KEG_CLI_PATH, '.kegConfig'),
   KEG_ROOT_DIR,
   NODE_ENV,
   USER,

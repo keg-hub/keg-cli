@@ -1,9 +1,6 @@
-const path = require('path')
 const docker = require('KegDocCli')
 const { Logger } = require('@keg-hub/cli-utils')
-const { DOCKER } = require('KegConst/docker')
 const { throwRequired, generalError } = require('KegUtils/error')
-const { buildContainerContext } = require('KegUtils/builders/buildContainerContext')
 const { getImgNameContext } = require('KegUtils/getters/getImgNameContext')
 
 /**

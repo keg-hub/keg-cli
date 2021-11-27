@@ -1,13 +1,12 @@
-const { Logger } = require('@keg-hub/cli-utils')
 const { spawnCmd } = require('KegProc')
-const { DOCKER } = require('KegConst/docker')
+const { Logger } = require('@keg-hub/cli-utils')
 const { pickKeys } = require('@keg-hub/jsutils')
 const { logVirtualUrl } = require('KegUtils/log')
+const { buildContainerContext } = require('KegUtils/builders')
 const { runInternalTask } = require('KegUtils/task/runInternalTask')
 const { throwComposeFailed } = require('KegUtils/error/throwComposeFailed')
 const { mergeTaskOptions } = require('KegUtils/task/options/mergeTaskOptions')
 const { buildComposeCmd } = require('KegUtils/docker/compose/buildComposeCmd')
-const { buildContainerContext } = require('KegUtils/builders')
 
 const buildDockerImg = async (args, cmdContext, tap) => {
   return await runInternalTask(`tasks.docker.tasks.build`, {
@@ -90,7 +89,6 @@ module.exports = {
     options: pickKeys(
       mergeTaskOptions('docker compose', 'up', 'startService', {
         context: {
-          allowed: DOCKER.IMAGES,
           description: 'Context of docker compose up command (core || tap)',
           example: 'keg docker compose up --context core',
           required: true

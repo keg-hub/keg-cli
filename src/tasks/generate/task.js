@@ -1,10 +1,10 @@
 const path = require('path')
 const { ask } = require('@keg-hub/ask-it')
-const { CLI_ROOT } = require('KegConst/constants')
 const { loadTemplate } = require('KegUtils/template')
-const { Logger, fileSys } = require('@keg-hub/cli-utils')
 const { generalError } = require('KegUtils/error/generalError')
+const { constants, Logger, fileSys } = require('@keg-hub/cli-utils')
 
+const { CLI_ROOT } = constants
 const { writeFile, pathExists, mkDir } = fileSys
 
 const getParentPath = (parent, name) => {

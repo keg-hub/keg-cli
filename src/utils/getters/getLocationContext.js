@@ -1,10 +1,8 @@
-const { DOCKER } = require('KegConst/docker')
 const { throwNoConfigPath } = require('../error')
 const { getTapPath } = require('@keg-hub/cli-utils')
 const { getPathFromConfig } = require('../globalConfig')
 const { getContainerConst } = require('../docker/getContainerConst')
 
-const { LOCATION_CONTEXT } = DOCKER
 
 /**
  * Gets the location for an injected app
@@ -34,7 +32,7 @@ const getInjectedLocation = (task, __injected) => {
  * @returns {string} - The location where a command should be executed
  */
 const getConfigLocation = (task, globalConfig, context, tap) => {
-  return Boolean(task.locationContext !== LOCATION_CONTEXT.REPO)
+  return Boolean(task.locationContext !== 'REPO')
     // For the docker-compose commands, The context to be the keg-cli/containers folder
     ? `${ getPathFromConfig(globalConfig, 'containers') }/${ context }`
     // If it's a repoContext, then get the location for the repo from the context

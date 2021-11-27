@@ -1,7 +1,5 @@
-const { Logger } = require('@keg-hub/cli-utils')
 const { spawnCmd } = require('KegProc')
-const { DOCKER } = require('KegConst/docker')
-const { get, reduceObj } = require('@keg-hub/jsutils')
+const { Logger } = require('@keg-hub/cli-utils')
 const { buildComposeCmd } = require('KegUtils/docker/compose/buildComposeCmd')
 const { getComposeServiceName } = require('KegUtils/getters/getComposeServiceName')
 const { buildContainerContext } = require('KegUtils/builders/buildContainerContext')
@@ -58,7 +56,6 @@ module.exports = {
     example: 'keg docker compose build <options>',
     options: {
       context: {
-        allowed: DOCKER.IMAGES,
         description: 'Context of docker compose build command (tap || core)',
         example: 'keg docker compose build --context core',
         default: 'base'

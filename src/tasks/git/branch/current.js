@@ -1,9 +1,9 @@
+const { git } = require('@keg-hub/git-lib')
 const { getGitPath } = require('KegUtils/git')
 const { Logger } = require('@keg-hub/cli-utils')
-const { throwNoGitBranch } = require('KegUtils/error/throwNoGitBranch')
-const { DOCKER } = require('KegConst/docker')
-const { git } = require('@keg-hub/git-lib')
 const { generalError } = require('KegUtils/error')
+const { throwNoGitBranch } = require('KegUtils/error/throwNoGitBranch')
+
 
 /**
  * Git branch task
@@ -54,7 +54,6 @@ module.exports = {
     options: {
       context: {
         alias: [ 'name' ],
-        allowed: DOCKER.IMAGES,
         description: `Name or context to use when finding the current git branch`,
         enforce: true
       },

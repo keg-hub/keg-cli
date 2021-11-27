@@ -40,11 +40,6 @@ const printData = async args => {
       toPrint = KEG_ENVS
       break
     }
-    case 'machine':
-    case 'mach': {
-      toPrint = DOCKER.MACHINE
-      break
-    }
     case 'patterns':
     case 'pattern':
     case 'pat': {

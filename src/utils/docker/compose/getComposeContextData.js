@@ -1,7 +1,6 @@
 const { get } = require('@keg-hub/jsutils')
 const { DOCKER } = require('KegConst/docker')
 const { getKegProxyDomain } = require('KegUtils/proxy/getKegProxyDomain')
-const { getImgNameContext } = require('KegUtils/getters/getImgNameContext')
 
 /**
  * Builds context data needed to create the injected docker-compose file

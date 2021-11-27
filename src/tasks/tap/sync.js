@@ -1,5 +1,4 @@
 const { syncService } = require('KegUtils/services')
-const { DOCKER } = require('KegConst/docker')
 
 /**
  * Sync a local folder into the tap docker container
@@ -21,7 +20,7 @@ module.exports = {
     alias: [ 'sy' ],
     inject: true,
     action: sync,
-    locationContext: DOCKER.LOCATION_CONTEXT.CONTAINERS,
+    locationContext: 'CONTAINERS',
     description: `Sync a local folder into the tap docker container`,
     example: '',
     options: {

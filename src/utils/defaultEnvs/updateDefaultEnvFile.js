@@ -4,10 +4,10 @@ const { env } = require('@keg-hub/parse-config')
 const packConf = require('KegRoot/package.json')
 const { capitalize } = require('@keg-hub/jsutils')
 const { saveDefaultsEnv } = require('./saveDefaultsEnv')
-const { fileSys, Logger } = require('@keg-hub/cli-utils')
-const { CLI_ROOT, DEFAULT_ENV, GLOBAL_CONFIG_FOLDER } = require('KegConst/constants')
+const { constants, fileSys, Logger } = require('@keg-hub/cli-utils')
 
 const { readFile } = fileSys
+const { CLI_ROOT, DEFAULT_ENV, GLOBAL_CONFIG_FOLDER } = constants
 
 /**
  * Logs the changes to the global Defaults.env

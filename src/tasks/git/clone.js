@@ -1,4 +1,3 @@
-const { DOCKER } = require('KegConst/docker')
 const { Logger } = require('@keg-hub/cli-utils')
 const { throwRequired } = require('KegUtils/error/throwRequired')
 /**
@@ -36,7 +35,6 @@ module.exports = {
     options: {
       context: {
         alias: [ 'name' ],
-        allowed: DOCKER.IMAGES,
         description: "Context or name of the repo to clone",
         example: 'keg clone context=<name of repo>',
         enforced: true,

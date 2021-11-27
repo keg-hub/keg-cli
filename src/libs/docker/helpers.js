@@ -1,7 +1,6 @@
 const { Logger } = require('@keg-hub/cli-utils')
 const { NEWLINES_MATCH, SPACE_MATCH } = require('KegConst/patterns')
-const { DOCKER } = require('KegConst/docker')
-const { CLI_KEY_MAP } = DOCKER
+
 const {
   camelCase,
   checkCall,
@@ -15,6 +14,14 @@ const {
   reduceObj,
   uniqArr,
 } = require('@keg-hub/jsutils')
+
+/**
+ * Maps keys from the docker cli response to a different key value
+ * @object
+ */
+ const CLI_KEY_MAP = {
+  Names: 'name'
+}
 
 /**
  * Docker container exit codes and relative messages

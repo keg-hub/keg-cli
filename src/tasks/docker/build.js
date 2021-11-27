@@ -1,7 +1,6 @@
 const docker = require('KegDocCli')
-const { error, Logger } = require('@keg-hub/cli-utils')
-const { DOCKER } = require('KegConst/docker')
 const { buildDockerCmd } = require('KegUtils/docker')
+const { error, Logger } = require('@keg-hub/cli-utils')
 const { throwRequired, generalError } = require('KegUtils/error')
 const { runInternalTask } = require('KegUtils/task/runInternalTask')
 const { mergeTaskOptions } = require('KegUtils/task/options/mergeTaskOptions')
@@ -166,7 +165,7 @@ module.exports = {
     action: dockerBuild,
     description: `Runs docker build command for a container`,
     example: 'keg docker build <options>',
-    locationContext: DOCKER.LOCATION_CONTEXT.REPO,
+    locationContext: 'REPO',
     options: mergeTaskOptions(`docker`, `build`, `build`)
   }
 }

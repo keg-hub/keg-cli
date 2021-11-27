@@ -1,4 +1,3 @@
-const { DOCKER } = require('KegConst/docker')
 const { runInternalTask } = require('KegUtils/task/runInternalTask')
 const { mergeTaskOptions } = require('KegUtils/task/options/mergeTaskOptions')
 const { updateLocationContext } = require('KegUtils/helpers/updateLocationContext')

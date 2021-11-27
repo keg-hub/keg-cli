@@ -1,12 +1,24 @@
-const { Logger } = require('@keg-hub/cli-utils')
 const { get } = require('@keg-hub/jsutils')
+const { Logger } = require('@keg-hub/cli-utils')
 const { getPrefix } = require('../getters/getPrefix')
-const { CONTEXT_KEYS } = require('KegConst/constants')
 const { buildCmdContext } = require('./buildCmdContext')
 const { buildContextEnvs } = require('./buildContextEnvs')
 const { getContainerConst } = require('../docker/getContainerConst')
 const { getLocationContext } = require('../getters/getLocationContext')
 const { getContainerFromContext } = require('../docker/getContainerFromContext')
+
+/**
+ * Keys in the object that should be returned by the buildContainerContext method
+ * Allows reusing a cached context if it has the following keys
+ * @type {Array}
+ */
+const CONTEXT_KEYS = [
+  `cmdContext`,
+  'contextEnvs',
+  `image`,
+  'location',
+  'tap'
+],
 
 /**
  * Checks that the __internal object contains all required keys

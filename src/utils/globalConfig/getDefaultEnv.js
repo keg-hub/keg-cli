@@ -1,4 +1,5 @@
 const { KEG_DEFAULT_ENV } = process.env
+const { getSetting } = require('./getSetting')
 
 /**
  * Cache holder for the default env
@@ -15,10 +16,7 @@ let __defaultEnv = KEG_DEFAULT_ENV
  * @returns {string} - Default env from the global config 
  */
 const getDefaultEnv = () => {
-  if(__defaultEnv) return __defaultEnv
-  
-  const { getSetting } = require('./getSetting')
-  __defaultEnv = getSetting('defaultEnv')
+  __defaultEnv = __defaultEnv || getSetting('defaultEnv')
 
   return __defaultEnv
 }

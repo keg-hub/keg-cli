@@ -3,9 +3,9 @@ require('./aliases')
 const { get } = require('@keg-hub/jsutils')
 const { getGlobalConfig } = require('KegUtils/globalConfig/getGlobalConfig')
 const { constants, Logger } = require('@keg-hub/cli-utils')
-const { GLOBAL_CONFIG_FOLDER } = require('KegConst/constants')
 
-const { GLOBAL_CONFIG_PATHS: { CLI_PATHS, TAP_LINKS } } = constants
+const { GLOBAL_CONFIG_FOLDER } = constants
+const { CLI_PATHS, TAP_LINKS } = constants.GLOBAL_CONFIG_PATHS
 
 /**
  * Logs the found path so the bash script can use it to change dirs

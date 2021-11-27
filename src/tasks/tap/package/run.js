@@ -1,5 +1,4 @@
 const { packageService } = require('KegUtils/services/packageService')
-const { DOCKER } = require('KegConst/docker')
 const { mergeTaskOptions } = require('KegUtils/task/options/mergeTaskOptions')
 
 /**
@@ -29,7 +28,7 @@ module.exports = {
     alias: [ 'rn' ],
     inject: true,
     action: packageRun,
-    locationContext: DOCKER.LOCATION_CONTEXT.REPO,
+    locationContext: 'REPO',
     description: `Package a running tap container into an image and push to the docker provider`,
     example: 'keg tap package run <options>',
     options: mergeTaskOptions(`keg tap package`, 'run', 'run', {

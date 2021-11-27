@@ -1,9 +1,13 @@
 const path = require('path')
 const { env } = require('@keg-hub/parse-config')
-const { fileSys, Logger } = require('@keg-hub/cli-utils')
-const { CLI_ROOT, GLOBAL_CONFIG_FOLDER, DEFAULT_ENV } = require('../constants')
-const { copyFileSync } = fileSys
+const { constants, fileSys, Logger } = require('@keg-hub/cli-utils')
 
+const { copyFileSync } = fileSys
+const { 
+  CLI_ROOT,
+  DEFAULT_ENV,
+  GLOBAL_CONFIG_FOLDER,
+} = constants
 
 /**
  * Holds the loaded env file, so we don't keep reloading it

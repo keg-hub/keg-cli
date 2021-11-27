@@ -1,5 +1,4 @@
 const { get } = require('@keg-hub/jsutils')
-const { DOCKER } = require('KegConst/docker')
 const { destroyService } = require('KegUtils/services')
 
 /**
@@ -28,7 +27,7 @@ module.exports = {
     alias: [ 'dest', 'des', 'kill', 'down' ],
     inject: true,
     action: destroyTap,
-    locationContext: DOCKER.LOCATION_CONTEXT.CONTAINERS,
+    locationContext: 'CONTAINERS',
     description: `Destroys the docker items for a tap`,
     example: 'keg tap destroy <options>',
     options: {

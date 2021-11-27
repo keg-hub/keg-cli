@@ -1,21 +1,21 @@
 #!/usr/bin/env node
+!process.env.KEG_CLI_PATH && (process.env.KEG_CLI_PATH = __dirname)
 
 // Update the Max listeners, to ensure all processes can exit properly
 require('events').EventEmitter.defaultMaxListeners = 0
 require('./scripts/cli/aliases')
-require('KegConst/constants')
-
+require('./src/constants')
 
 /**
  * Checks if the Keg-CLI has been updated
  *
  * @returns {Promise} - Response from the checkUpdates method
  */
-const doCheckUpdates = () => {
-  // Load the checkUpdates module inline to speed up load times
-  const { checkUpdates } = require('KegScripts/cli/checkUpdates')
-  return checkUpdates()
-}
+// const doCheckUpdates = () => {
+//   // Load the checkUpdates module inline to speed up load times
+//   const { checkUpdates } = require('KegScripts/cli/checkUpdates')
+//   return checkUpdates()
+// }
 
 ;(async () => {
   try {

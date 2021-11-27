@@ -2,10 +2,10 @@ const path = require('path')
 const { spawnProc } = require('KegProc')
 const pkg = require('../../../package.json')
 const { isFunc } = require('@keg-hub/jsutils')
-const { fileSys } = require('@keg-hub/cli-utils')
-const { CLI_ROOT } = require('KegConst/constants')
 const { generalError } = require('KegUtils/error')
+const { constants, fileSys } = require('@keg-hub/cli-utils')
 
+const { CLI_ROOT } = constants
 const { stat, requireFile } = fileSys
 
 const updateCliError = (message, error) => {

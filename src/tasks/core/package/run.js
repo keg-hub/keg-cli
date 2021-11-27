@@ -1,5 +1,4 @@
 const { packageService } = require('KegUtils/services/packageService')
-const { DOCKER } = require('KegConst/docker')
 
 /**
  * Run a keg-core container pulled from a docker provider
@@ -25,7 +24,7 @@ module.exports = {
     alias: [ 'rn' ],
     inject: true,
     action: packageRun,
-    locationContext: DOCKER.LOCATION_CONTEXT.REPO,
+    locationContext: 'REPO',
     description: `Package a running tap container into an image and push to the docker provider`,
     example: 'keg core package run <options>',
     options: {

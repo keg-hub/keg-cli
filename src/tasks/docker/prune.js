@@ -1,7 +1,6 @@
 const docker = require('KegDocCli')
-const { isStr, get, checkCall } = require('@keg-hub/jsutils')
-const { DOCKER } = require('KegConst/docker')
 const { Logger } = require('@keg-hub/cli-utils')
+const { isStr, checkCall } = require('@keg-hub/jsutils')
 
 /**
  * Execute a docker prune command

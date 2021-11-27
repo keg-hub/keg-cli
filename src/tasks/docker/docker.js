@@ -1,7 +1,6 @@
 const { generalError } = require('KegUtils/error')
 const { isStr, get } = require('@keg-hub/jsutils')
 const { findTask, executeTask } = require('KegUtils/task')
-const docker = require('KegDocCli')
 
 /**
  * Docker sub task alias map
@@ -11,7 +10,6 @@ const dockerSubTasks = {
   dc: 'container',
   di: 'image',
   dcp: 'compose',
-  dm: 'machine',
   dp: 'provider',
   dpg: 'package',
   dr: 'restart',
@@ -81,7 +79,6 @@ module.exports = {
       ...require('./image'),
       ...require('./inspect'),
       ...require('./log'),
-      ...require('./machine'),
       ...require('./package'),
       ...require('./provider'),
       ...require('./prune'),

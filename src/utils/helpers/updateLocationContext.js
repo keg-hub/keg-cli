@@ -1,4 +1,3 @@
-const { DOCKER } = require('KegConst/docker')
 const { deepMerge, noOpObj } = require('@keg-hub/jsutils')
 
 /**
@@ -21,7 +20,7 @@ const updateLocationContext = (args, exArgs=noOpObj) => {
   // It no tap is defined, then the task was called directly, and not with a linked tap
   // Like this => keg tap build
   // NOT like this => keg "link-tap-name" build
-  const locationContext = tap ? DOCKER.LOCATION_CONTEXT.REPO : DOCKER.LOCATION_CONTEXT.CONTAINERS
+  const locationContext = tap ? 'REPO' : 'CONTAINERS'
 
   // Rebuild the args with the updated locationContext
   return deepMerge({

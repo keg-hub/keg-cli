@@ -1,11 +1,11 @@
 const path = require('path')
 const { KegTpl } = require('../../templates')
-const { fileSys } = require('@keg-hub/cli-utils')
-const { CLI_ROOT } = require('KegConst/constants')
 const { generalError } = require('../error/generalError')
+const { constants, fileSys } = require('@keg-hub/cli-utils')
 const { fillTemplate:PFillTemplate, fillTemplateSync } = require('@keg-hub/parse-config')
 
 const { getFiles } = fileSys
+const { CLI_ROOT } = constants
 
 // Cache holder for our templates
 let __TEMPLATES

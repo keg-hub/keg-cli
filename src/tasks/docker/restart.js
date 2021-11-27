@@ -1,10 +1,9 @@
 const docker = require('KegDocCli')
 const { Logger } = require('@keg-hub/cli-utils')
-const { DOCKER } = require('KegConst/docker')
 const { throwRequired, generalError } = require('KegUtils/error')
-const { buildContainerContext } = require('KegUtils/builders/buildContainerContext')
-const { containerSelect } = require('KegUtils/docker/containerSelect')
 const { getSetting } = require('KegUtils/globalConfig/getSetting')
+const { containerSelect } = require('KegUtils/docker/containerSelect')
+const { buildContainerContext } = require('KegUtils/builders/buildContainerContext')
 
 /**
  * Builds a docker container so it can be run
@@ -68,7 +67,7 @@ module.exports = {
     action: dockerRestart,
     description: `Restarts a docker container`,
     example: 'keg docker restart <options>',
-    locationContext: DOCKER.LOCATION_CONTEXT.REPO,
+    locationContext: 'REPO',
     options: {
       context: {
         description: 'Context, name, or Id of the docker container to restart',

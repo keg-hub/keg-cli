@@ -1,4 +1,3 @@
-const { DOCKER } = require('KegConst/docker')
 const { runService } = require('KegUtils/services')
 const { mergeTaskOptions } = require('KegUtils/task/options/mergeTaskOptions')
 
@@ -22,7 +21,7 @@ module.exports = {
     alias: [ 'rn' ],
     action: runCore,
     inject: true,
-    locationContext: DOCKER.LOCATION_CONTEXT.REPO,
+    locationContext: 'REPO',
     description: `Runs the core image outside of docker-compose`,
     example: 'keg core run <options>',
     options: mergeTaskOptions('core', 'run', 'run', {}, [])

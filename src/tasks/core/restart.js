@@ -1,4 +1,3 @@
-const { DOCKER } = require('KegConst/docker')
 const { restartService } = require('KegUtils/services')
 
 /**
