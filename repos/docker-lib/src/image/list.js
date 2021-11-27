@@ -28,5 +28,5 @@ const list = (args={}) => {
 
 
 module.exports = {
-  list
+  list,
 }

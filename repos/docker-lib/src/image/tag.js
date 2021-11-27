@@ -25,7 +25,7 @@ const tag = async (args, imgTag) => {
   const { item, tag, log, provider } = args
 
   // Get the image as an object
-  let image = isObj(args.image) ? args.image : await getImage(item)
+  let image = isObj(args.image) ? args.image : await get(item)
 
   // If no image is found, then throw
   !image && noItemFoundError('image', image)

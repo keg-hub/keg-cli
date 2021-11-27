@@ -1,5 +1,5 @@
 const { apiError } = require('../utils/error/apiError')
-\const { Logger, execCmd } = require('@keg-hub/cli-utils')
+const { Logger, execCmd } = require('@keg-hub/cli-utils')
 const { noLoginError } = require('../utils/error/noLoginError')
 
 /**

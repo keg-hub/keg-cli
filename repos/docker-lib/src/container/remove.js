@@ -1,5 +1,5 @@
-const { remove } = require('../cmds/remove')
 const { isStr } = require('@keg-hub/jsutils')
+const { remove:removeCmd } = require('../cmds/remove')
 const { noItemError } = require('../utils/error/noItemError')
 
 /**
@@ -18,7 +18,7 @@ const remove = async (args={}, shouldThrow=true) => {
     : args
 
   return opts.item
-      ? await remove({ ...opts, type: 'container' })
+      ? await removeCmd({ ...opts, type: 'container' })
       : noItemError(`docker.container.remove`, opts.shouldThrow || shouldThrow)
 } 
 

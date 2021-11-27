@@ -41,5 +41,4 @@ const { list } = require('./list')
 
 module.exports = {
   get,
-  getImage,
 }

@@ -1,5 +1,5 @@
 
-const { isObj, reduceObj } = require('@keg-hub/jsutils')
+const { isObj, reduceObj, isArr, noPropArr, noOpObj } = require('@keg-hub/jsutils')
 
 /**
  * Converts a key and value into docker build-args ( --build-arg key=value )
@@ -7,10 +7,13 @@ const { isObj, reduceObj } = require('@keg-hub/jsutils')
  * @param {Object} key - Name of the build-arg
  * @param {Object} value - value of the build-arg
  * @param {string} [cmd=''] - Cmd to add the build-args to
+ * @param {Array} [filters=[]] - Filter out specific envs items
  *
  * @returns {string} - Passed in cmd, with the key/value converted to docker build-args
  */
-const asBuildArg = (key, value, cmd='', filters=[]) => {
+const asBuildArg = (key, value, cmd='', filters) => {
+  filters = isArr(filters) ? filters : noPropArr
+
   return !filters.includes(key) && value
     ? `${cmd} --build-arg ${ key }=${ value }`.trim()
     : cmd
@@ -21,10 +24,11 @@ const asBuildArg = (key, value, cmd='', filters=[]) => {
  * @function
  * @param {Object} [envs={}] - Envs to be converted
  * @param {string} [cmd=''] - Cmd to add the build-args to
+ * @param {Array} [filters=[]] - Filter out specific envs items
  *
  * @returns {string} - Passed in cmd, with the envs converted to docker build-args
  */
-const toBuildArgs = (envs={}, cmd='', filters=[]) => {
+const toBuildArgs = (envs=noOpObj, cmd='', filters=noPropArr) => {
   return !isObj(envs)
     ? cmd
     : reduceObj(

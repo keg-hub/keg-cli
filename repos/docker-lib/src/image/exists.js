@@ -27,5 +27,5 @@ const exists = async (compare, doCompare, log) => {
 }
 
 module.exports = {
-  exists
+  exists,
 }

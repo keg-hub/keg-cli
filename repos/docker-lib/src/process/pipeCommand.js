@@ -21,9 +21,8 @@ const filterAllowedLogs = (filters, data) => {
   const isFiltered = filters.reduce((inFilter, filter) => {
     return inFilter || data.trim().indexOf(filter) === 0
   }, false)
-  
+
   return isFiltered
-  
 }
 
 /**

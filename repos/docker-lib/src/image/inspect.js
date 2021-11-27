@@ -1,4 +1,4 @@
-const { inspect } = require('../cmds/inspect')
+const { inspectCmd } = require('../cmds/inspect')
 
 
 /**
@@ -12,8 +12,8 @@ const { inspect } = require('../cmds/inspect')
  *
  * @returns {string|Object} - Docker image information
  */
- const inspectImage = async ({ image, item, ...args }) => {
-  return await inspect({
+ const inspect = async ({ image, item, ...args }) => {
+  return await inspectCmd({
     format: 'json',
     ...args,
     type: 'image',
@@ -22,5 +22,5 @@ const { inspect } = require('../cmds/inspect')
 }
 
 module.exports = {
-  inspect: inspectImage
+  inspect,
 }

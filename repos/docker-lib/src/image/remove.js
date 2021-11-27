@@ -1,4 +1,4 @@
-const { remove } = require('../cmds/remove')
+const { removeCmd } = require('../cmds/remove')
 
 /**
  * Removes a docker image based on passed in toRemove argument
@@ -7,11 +7,11 @@ const { remove } = require('../cmds/remove')
  *
  * @returns {Promise<string|Array>} - Response from the docker cli command
  */
-const removeImage = args => {
-  return remove({ ...args, type: 'image' })
+const remove = args => {
+  return removeCmd({ ...args, type: 'image' })
 } 
 
 
 module.exports = {
-  remove: removeImage,
+  remove,
 }

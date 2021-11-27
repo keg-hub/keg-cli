@@ -2,7 +2,7 @@ module.exports = {
   ...require('./error'),
   ...require('./output'),
   ...require('./buidArgs'),
-  ...require('./containerEnv'),
+  ...require('./containerEnvs'),
   ...require('./compareItems'),
   ...require('./ensureDocker'),
   ...require('./exitCodes'),

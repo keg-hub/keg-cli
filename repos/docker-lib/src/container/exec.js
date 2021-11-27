@@ -1,7 +1,7 @@
 const { raw } = require('../cmds/raw')
 const { pickKeys, isArr } = require('@keg-hub/jsutils')
 const { noItemError } = require('../utils/error/noItemError')
-const { toContainerEnvs } = require('../utils/toContainerEnvs')
+const { toContainerEnvs } = require('../utils/containerEnvs')
 
 /**
  * Connects to a running container, and runs a command

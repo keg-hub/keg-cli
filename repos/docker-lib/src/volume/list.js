@@ -1,4 +1,4 @@
-const { dockerCli } = require('../cmds/cmds')
+const { dockerCli } = require('../cmds/dockerCli')
 const { isArr, isStr } = require('@keg-hub/jsutils')
 
 /**

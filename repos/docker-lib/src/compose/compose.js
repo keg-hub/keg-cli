@@ -1,7 +1,5 @@
-const path = require('path')
-const { appRoot } = require('../../paths')
 const { loadEnvs } = require('../envs/loadEnvs')
-const { dockerCompose } = require('@keg-hub/cli-utils')
+const { dockerCompose, getAppRoot } = require('@keg-hub/cli-utils')
 const { noOpObj, noPropArr, isStr, deepMerge } = require('@keg-hub/jsutils')
 
 /**
@@ -28,8 +26,7 @@ const compose = async (cmd, preArgs=noPropArr, postArgs=noPropArr, opts=noOpObj)
   const envs = loadEnvs(env, envFile ? [envFile] : undefined)
   const options = deepMerge({ env: envs, log: true }, cmdOpts)
   const cmdArgs = [...toArr(preArgs), cmd, ...toArr(postArgs)].filter(arg => arg)
-
-  return await dockerCompose(cmdArgs, options, appRoot)
+  return await dockerCompose(cmdArgs, options, getAppRoot())
 }
 
 compose.up = (...args) => compose('up', ...args)

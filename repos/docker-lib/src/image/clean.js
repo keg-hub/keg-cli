@@ -32,5 +32,5 @@ const clean = async ({ force, opts='', log=false }) => {
 }
 
 module.exports = {
-  clean
+  clean,
 }

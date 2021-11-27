@@ -1,8 +1,9 @@
+const { get } = require('./get')
 const { raw } = require('../cmds/raw')
 const { Logger } = require('@keg-hub/cli-utils')
 const { isArr, isStr } = require('@keg-hub/jsutils')
 const { isDockerId } = require('../utils/isDockerId')
-const { toContainerEnvs } = require('../utils/containerEnv')
+const { toContainerEnvs } = require('../utils/containerEnvs')
 
 /**
  * Gets an images name from it's ID
@@ -12,7 +13,7 @@ const { toContainerEnvs } = require('../utils/containerEnv')
  * @returns {string} - Built image name
  */
  const getNameFromId = async id => {
-  imgRef = await getImage(id)
+  const imgRef = await get(id)
   return imgRef && `${imgRef.repository}:${imgRef.tag}`
 }
 
