@@ -18,7 +18,7 @@ const CONTEXT_KEYS = [
   `image`,
   'location',
   'tap'
-],
+]
 
 /**
  * Checks that the __internal object contains all required keys
