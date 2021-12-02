@@ -1,7 +1,8 @@
 const yaml = require('js-yaml')
 const { throwError } = require('../error')
-const { limbo, noOpObj, noPropArr } = require('@keg-hub/jsutils')
 const writeYamlFile = require('write-yaml-file')
+const { convertValue } = require('../utils/expand')
+const { limbo, noOpObj, noPropArr, isObj, isStr } = require('@keg-hub/jsutils')
 const {
   getContent,
   getContentSync,
@@ -10,6 +11,27 @@ const {
   removeFile,
   resolveArgs,
 } = require('../utils')
+
+/**
+ * Recursively loops through the passed in content object
+ * Checks each key/value pair looking for a string value
+ * When found, calls convertValue to run bash expansion on it
+ * 
+ * @param {Object} content - Parsed yaml file values
+ * 
+ * @returns {Object} Parsed yaml file values including bash expansion where needed
+ */
+const recurseExpand = content => {
+  return Object.entries(content)
+    .reduce((acc, [key, value]) => {
+      if(isObj(value))
+        acc[key] = recurseExpand(value)
+      else if(isStr(value))
+        acc[key] = convertValue(content, value)
+
+      return acc
+    }, content)
+}
 
 /**
  * Loads a YML file from a path and parses it synchronously
@@ -28,8 +50,9 @@ const loadYmlSync = args => {
   const { location, error } = resolveArgs(args)
   // Load the yaml file content
   const content = getContentSync(location, error, `Yml`)
+  const loaded = loadTemplate(args, content, yaml.safeLoad)
 
-  return loadTemplate(args, content, yaml.safeLoad)
+  return recurseExpand(loaded)
 }
 
 /**
@@ -50,8 +73,9 @@ const loadYml = async args => {
   const { location, error } = resolveArgs(args)
   // Load the yaml file content
   const content = await getContent(location, error, `Yml`)
+  const loaded = loadTemplate(args, content, yaml.safeLoad)
 
-  return loadTemplate(args, content, yaml.safeLoad)
+  return recurseExpand(loaded)
 }
 
 /**
