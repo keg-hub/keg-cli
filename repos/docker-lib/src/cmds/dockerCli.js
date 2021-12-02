@@ -61,7 +61,7 @@ const {
  *
  * @returns {Object} - Output of the commands std out/err and exitCode
  */
- const dockerCliPipe = (cmd, args=noOpObj, options=noOpObj) => {
+ const cliPipe = (cmd, args=noOpObj, options=noOpObj) => {
   const { filter=noPropArr, log=true } = options
 
   return new Promise(async (res, rej) => {
@@ -101,6 +101,6 @@ const {
 }
 
 module.exports = {
+  cliPipe,
   dockerCli,
-  dockerCliPipe
 }

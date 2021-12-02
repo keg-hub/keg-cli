@@ -1,22 +1,22 @@
 const { isStr } = require('@keg-hub/jsutils')
-const { dockerCliPipe } = require('./dockerCli')
+const { cliPipe } = require('./dockerCli')
 const { apiError } = require('../utils/error/apiError')
 const { Logger, runCmd } = require('@keg-hub/cli-utils')
 
 /**
- * Pulls a docker image Piping the output to dockerCliPipe command
+ * Pulls a docker image Piping the output to cliPipe command
  * This allows tracking if a new image was pulled or not
  * @function
  * @param {string|Object} url - Url to pull the image from
  * @param {boolean} log - Log messages and docker commands
  * @param {boolean} skipError - Skip throwing an error if command fails
  *
- * @returns {Object} - The output and exitCode  of the dockerCliPipe command
+ * @returns {Object} - The output and exitCode  of the cliPipe command
  */
 const pipePull = async ({ url, log, skipError }) => {
 
-  const { error, data, exitCode } = await dockerCliPipe(
-    `docker pull ${url}`,
+  const { error, data, exitCode } = await cliPipe(
+    `docker pull ${url.toLowerCase()}`,
     { loading: { title: `- Downloading Image`, offMatch: [ `Status:` ]}},
     { filter: [url], log }
   )
@@ -43,7 +43,7 @@ const pipePull = async ({ url, log, skipError }) => {
  * @returns {Object} - The exitCode of the docker pull command
  */
 const execPull = async ({ url, log, skipError }) => {
-  const exitCode = await runCmd(`docker`, [` pull`, url])
+  const exitCode = await runCmd(`docker`, [` pull`, url.toLowerCase()])
 
   !exitCode
     ? log && Logger.success(`\nFinished pulling ${url} from provider!\n`)
