@@ -40,7 +40,7 @@ const addInjectedTemplate = async (dockerCmd, data={}, composeData) => {
   // Build the path of the injected compose file, based on the proxyDomain ( app name + git branch name )
   const injectedCompose = path.join(
     GLOBAL_INJECT_FOLDER,
-    `${composeData.proxyDomain || composeData.service}.yml`
+    `${composeData.proxyDomain || composeData.service}.yml`.replace(/\//g, '-')
   )
 
   const dockCmdWithCompose = `${dockerCmd} -f ${injectedCompose}`

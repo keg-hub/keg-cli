@@ -36,7 +36,7 @@ const removeInjected = async (injected, globalConfig) => {
  */
 const removeInjectedCompose = async (name, log=true) => {
   try {
-    const injectedCompose = path.join(GLOBAL_INJECT_FOLDER, `${name}.yml`)
+    const injectedCompose = path.join(GLOBAL_INJECT_FOLDER, `${name.replace(/\//g, '-')}.yml`)
     const [ err, exists ] = await pathExists(injectedCompose)
     if(err && log) Logger.error(err.stack || err)
 
