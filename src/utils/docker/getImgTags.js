@@ -32,7 +32,12 @@ const { getImgNameContext } = require('KegUtils/getters/getImgNameContext')
 
   const imgWTag = `${imgNameContext.providerImage}:${cleanedTag}`
 
-  return { imgWTag, cleanedTag, commitTag }
+  return {
+    imgWTag,
+    cleanedTag,
+    commitTag,
+    imgNameContext
+  }
 }
 
 module.exports = {
