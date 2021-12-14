@@ -51,8 +51,9 @@ const buildCIConfig = (customConfig) => {
       git: {
         orgName: `KegHub`,
         orgUrl: `https://github.com/KegHub`,
-        publicToken: GITHUB_TOKEN,
-        key: GITHUB_TOKEN,
+        // Comment out for now so they are not printed in the workflow run
+        // publicToken: GITHUB_TOKEN,
+        // key: GITHUB_TOKEN,
         user: "keg-admin",
         repos: {
           cli: `keg-cli`,
