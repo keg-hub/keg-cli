@@ -35,7 +35,7 @@ const {
   KEG_CONFIG_PATH=path.join(KEG_CLI_PATH, '.kegConfig'),
   KEG_ROOT_DIR,
   NODE_ENV,
-  USER,
+  USER="keg-admin",
 } = process.env
 
 const buildCIConfig = (customConfig) => {
@@ -51,10 +51,9 @@ const buildCIConfig = (customConfig) => {
       git: {
         orgName: `KegHub`,
         orgUrl: `https://github.com/KegHub`,
-        // Comment out for now so they are not printed in the workflow run
-        // publicToken: GITHUB_TOKEN,
-        // key: GITHUB_TOKEN,
-        user: "keg-admin",
+        publicToken: GITHUB_TOKEN,
+        key: GITHUB_TOKEN,
+        user: USER,
         repos: {
           cli: `keg-cli`,
           hub: `keg-hub`,

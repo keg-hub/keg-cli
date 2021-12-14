@@ -41,28 +41,12 @@ keg_setup_cli(){
   node $KEG_CLI_PATH/scripts/ci/setupCLIConfig.js
 
   KEG_GLOBAL_CONFIG=$KEG_CONFIG_PATH/cli.config.json
-  # -------- start debug logs --------
-  echo "::debug::Navigating to $KEG_CONFIG_PATH"
-  cd $KEG_CONFIG_PATH
-  
-  echo "::debug::Folder content of $KEG_CONFIG_PATH"
-  ls -la
-  
-  echo "::debug::Printing CLI Config..."
-  cat $KEG_CONFIG_PATH/cli.config.json
-  echo "::debug::END Printing CLI Config..."
-  # -------- end debug logs --------
 
   if [[ -f "$KEG_GLOBAL_CONFIG" ]]; then
     echo "::debug::Setting KEG_GLOBAL_CONFIG env..."
     export KEG_GLOBAL_CONFIG=$KEG_GLOBAL_CONFIG
-    echo "::debug::The KEG_GLOBAL_CONFIG value is $KEG_GLOBAL_CONFIG"
-
-  # -------- start debug logs --------
   else
     echo "::debug::The KEG_GLOBAL_CONFIG env was not set..."
-    echo "::debug::The KEG_GLOBAL_CONFIG value is $KEG_GLOBAL_CONFIG"
-  # -------- end debug logs --------
   fi
 
 }
@@ -83,5 +67,3 @@ keg_setup_cli_config(){
 }
 
 keg_setup_cli_config "$@"
-
-echo "::debug::Final Value of KEG_GLOBAL_CONFIG is $KEG_GLOBAL_CONFIG"
