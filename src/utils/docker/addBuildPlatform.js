@@ -1,18 +1,4 @@
-
-/**
- * Allow platform build types
- * Node arch => 'ia32', 'mips', 'mipsel', 'ppc', 'ppc64', 's390', 's390x', 'x32', and 'x64'.
- * Docker arch => linux/riscv64, linux/ppc64le, linux/s390x, linux/386, linux/arm/v7
- * @type {Object}
- */
-const platforms = {
-  amd: `amd64`,
-  amd64: `amd64`,
-  arm: `arm/v7,arm64/v8`,
-  arm32: `arm/v7`,
-  arm64: 'arm64',
-  all: `arm/v7,arm64/v8,amd64`,
-}
+const { getContainerConst } = require('./getContainerConst')
 
 /**
  * Add the platform argument based on the passed in platform option or uses the default all
@@ -24,15 +10,12 @@ const platforms = {
  * @returns {string} - dockerCmd string with the file paths added
  */
  const addBuildPlatform = (dockerCmd, value) => {
-  // // Loop over value, env, and the current process
-  // // If any of them match exist in the platforms object then use it
-  const arch = ([value, process.env.KEG_ARCH_TYPE, process.arch]).reduce((found, item) => (
-    found || (item && platforms[item])
-  ), false)
+  
+  const platforms = value ||
+    getContainerConst(context, `ENV.KEG_BUILD_PLATFORMS`) ||
+    `--platform linux/amd64,linux/arm64`
 
-  return Object.values(platforms).includes(arch)
-    ? `${dockerCmd} --platform ${arch}`
-    : dockerCmd
+   return `${dockerCmd} --platform ${platforms}`
 }
 
 module.exports = {

@@ -25,9 +25,10 @@
       "defaultEnv": "local",
       "defaultDomain": "keghub.io",
       "docker": {
-        "preConfirm": true,
-        "buildKit": true,
         "force": true,
+        "buildX": true,
+        "buildKit": true,
+        "preConfirm": true,
         "defaultLocalBuild": true,
         "imagePullPolicy": "Always",
         "defaultTag": "develop"

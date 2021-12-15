@@ -90,6 +90,12 @@ const buildOptions = (task, action, options) => {
       description: `Extra build args as key / value pairs to pass on to the docker build command.`,
       example: `keg ${task} ${action} --buildArgs custom:arg,other:arg`,
       type: 'array',
+    },
+    buildX: {
+      alias: [ 'bx' ],
+      description: `Use docker buildX build when building docker images`,
+      example: `keg ${task} ${action} --buildX `,
+      env: 'KEG_DOC_BUILDX',
     }
   }
 }

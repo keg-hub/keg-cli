@@ -1,4 +1,4 @@
-const { isStr } = require('@keg-hub/jsutils')
+const { isStr, isArr } = require('@keg-hub/jsutils')
 
 /**
  * Checks the start of the cmd string for the passed in check
@@ -16,15 +16,24 @@ const checkStart = (cmd, check) => {
  * Calls the docker cli from the command line and returns the response
  * @function
  * @param {string} cmd - docker command to be run
+ * @param {string|Array<string>} action - Items that should be added before the docker keyword
  *
  * @returns {string} - cmd with docker and action added if needed
  */
 const ensureDocker = (cmd, action) => {
-  cmd = cmd || ''
-  const dockerCmd = isStr(action) ? checkStart(cmd, action) : cmd
+  // Remove docker form the start of the string if it exists
+  cmd = cmd ? cmd.replace(/^docker/, '').trim() : ''
+
+  const dockerCmd = isStr(action)
+    ? checkStart(cmd, action)
+    : isArr(action)
+      ? action.reduce((acc, act) => checkStart(acc, act), cmd)
+      : cmd
+
+  // Ensure docker gets added back to the command
   return checkStart(dockerCmd, 'docker').trim()
 }
 
 module.exports = {
-  ensureDocker
+  ensureDocker,
 }

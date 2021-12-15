@@ -15,10 +15,19 @@ const { ensureDocker } = require('../utils/ensureDocker')
  * @param {Array} location - Location where the command should be run
  */
 const build = async (cmd, options=noOpObj, location) => {
-  const { log=true, context, args=noOpArr, ...cmdOpts } = options
+  const { log=true, context, args=noOpArr, buildX, ...cmdOpts } = options
+
+  // Check if buildX should be included
+  // The array seems backwards, but its correct
+  // It's the order in which the action is added to the command
+  // build is added first, then buildx === `docker buildx build --push ...`
+  // Push is automatically added because
+  // buildx requires it the image being pushed to automatically join the platform manifests
+  const withBuildX = buildX ? [`--push`, `build`, `buildx`] : [`build`]
 
   // Build the command to be run
-  const cmdToRun = ensureDocker(cmd, 'build')
+  const cmdToRun = ensureDocker(cmd, withBuildX)
+
   log && Logger.spacedMsg(`Running command: `, cmdToRun)
 
   // Run the docker command
