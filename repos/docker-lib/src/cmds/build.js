@@ -4,6 +4,25 @@ const { Logger, runCmd } = require('@keg-hub/cli-utils')
 const { ensureDocker } = require('../utils/ensureDocker')
 
 /**
+ * Adds the correct build command to the command string
+ * Also ensures docker is added to the command
+ */
+const getBuildCmd = (cmd, buildX, push) => {
+  // If not buildX, then just return build
+  if(!buildX) return ensureDocker(cmd, [`build`])
+
+  // The array seems backwards, but its correct
+  // It's the order in which the action is added to the command
+  // build is added first, then buildx === `docker buildx build ...`
+  const withBuildX = [`build`, `buildx`]
+  // buildx requires it the image being pushed to automatically join the platform manifests
+  // So add check to see if it should be included
+  push && withBuildX.unshift(`--push`)
+
+  return ensureDocker(cmd, withBuildX)
+}
+
+/**
  * Builds a Docker command to be run in a child process
  * @param {string} cmd - The docker build command to run including the `build`
  * @param {Object} options - Options for building the docker image
@@ -15,18 +34,10 @@ const { ensureDocker } = require('../utils/ensureDocker')
  * @param {Array} location - Location where the command should be run
  */
 const build = async (cmd, options=noOpObj, location) => {
-  const { log=true, context, args=noOpArr, buildX, ...cmdOpts } = options
+  const { log=true, context, args=noOpArr, buildX, push, ...cmdOpts } = options
 
-  // Check if buildX should be included
-  // The array seems backwards, but its correct
-  // It's the order in which the action is added to the command
-  // build is added first, then buildx === `docker buildx build --push ...`
-  // Push is automatically added because
-  // buildx requires it the image being pushed to automatically join the platform manifests
-  const withBuildX = buildX ? [`--push`, `build`, `buildx`] : [`build`]
-
-  // Build the command to be run
-  const cmdToRun = ensureDocker(cmd, withBuildX)
+  // Build the command to be run, and ensure correct build command (build || buildx build)
+  const cmdToRun = getBuildCmd(cmd, buildX, push)
 
   log && Logger.spacedMsg(`Running command: `, cmdToRun)
 

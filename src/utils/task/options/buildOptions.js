@@ -8,7 +8,7 @@ const buildOptions = (task, action, options) => {
     ...dockerOptions(task, action, [ 'provider', 'namespace' ]),
     platform: {
       alias: ['plat'],
-      allowed: [ 'amd', 'amd64', 'arm', 'arm32', 'arm64', 'all', false],
+      allowed: [ `amd64`, `arm64`, `all`, false],
       description: "The platform architecture(s) to target when building. Defaults to none.",
       example: 'keg ${task} ${action} --platform amd64'
     },

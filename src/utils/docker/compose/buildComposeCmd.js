@@ -60,7 +60,7 @@ const addCmdOpts = (dockerCmd, cmdArgs, params) => {
     return !cmdArgs[key]
       ? added
       : key === 'platform'
-        ? addBuildPlatform(added, value)
+        ? addBuildPlatform(added, params)
         : addDockerArg(
             added,
             cmdArgs[key],

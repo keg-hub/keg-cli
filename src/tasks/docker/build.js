@@ -102,6 +102,7 @@ const dockerBuild = async args => {
     containerContext,
     params: {
       ...params,
+      buildX,
       location,
       cmd: `build`,
       context: cmdContext,
@@ -123,6 +124,7 @@ const dockerBuild = async args => {
   // Run the built docker command
   const exitCode = await docker.build(dockerCmd, {
     log,
+    push,
     buildX,
     context: buildImg,
     options: { env: contextEnvs },
