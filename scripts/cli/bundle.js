@@ -8,6 +8,9 @@ const getNodeModules = () => {
   return Object.keys(rootPkg.dependencies).concat(Object.keys(rootPkg.devDependencies))
 }
 
+// TODO: Investigate adding templates to assets
+// Currently templates get included in the bundle, so calls to load a template fails
+
 require('esbuild').build({
   bundle: true,
   format: 'cjs',
