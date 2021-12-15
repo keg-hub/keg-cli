@@ -3,10 +3,6 @@ const { testEnum } = require('KegMocks/jest/testEnum')
 const globalConfig = global.getGlobalCliConfig()
 const customUserConfig = { ...globalConfig, docker: { user: 'override' } }
 
-jest.setMock('../../globalConfig/globalConfigCache', {
-  __getGlobalConfig: jest.fn(() => globalConfig)
-})
-
 const { getAuthor } = require('../getAuthor')
 
 const testArgs = {

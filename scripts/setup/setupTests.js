@@ -2,14 +2,19 @@
 require('../cli/aliases')
 // Override the console methods
 require('KegMocks/logger/console')
-
 const path = require('path')
+
+const globalConfig = require('KegMocks/helpers/globalConfig')
 
 // Override the logger by default
 // Will get reset in the Logger tests
 const { Logger } = require('KegMocks/logger')
 const cliUtils = require('@keg-hub/cli-utils')
-jest.setMock('@keg-hub/cli-utils', { ...cliUtils, Logger })
+jest.setMock('@keg-hub/cli-utils', {
+  ...cliUtils,
+  Logger,
+  getKegGlobalConfig: jest.fn(() => globalConfig)
+})
 
 const Tasks = require('../../src/tasks')
 const { getTask } = require('KegMocks/helpers/testTasks')
@@ -35,12 +40,4 @@ global.loadMockEnvs = (envs={}) => {
 }
 
 // Setup our cache holder
-global.getGlobalCliConfig = reset => {
-  if(reset) delete require.cache[require.resolve('KegMocks/helpers/globalConfig')]
-
-  const globalConfig = require('KegMocks/helpers/globalConfig')
-  const { __updateGlobalConfig } = require(`../../src/utils/globalConfig/globalConfigCache`)
-  __updateGlobalConfig(globalConfig)
-
-  return globalConfig
-}
+global.getGlobalCliConfig = () => (globalConfig)

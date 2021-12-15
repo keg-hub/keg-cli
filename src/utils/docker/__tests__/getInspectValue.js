@@ -2,11 +2,6 @@ const { injectedTest, injectedContainer } = require('KegMocks/injected/injectedT
 const { docker, dockerData } = require('KegMocks/libs/docker')
 const { testEnum } = require('KegMocks/jest/testEnum')
 
-const globalConfig = global.getGlobalCliConfig()
-jest.setMock('../../globalConfig/globalConfigCache', {
-  __getGlobalConfig: jest.fn(() => globalConfig)
-})
-
 const { DOCKER } = require('KegConst/docker')
 const withInjected = {
   ...DOCKER.CONTAINERS,

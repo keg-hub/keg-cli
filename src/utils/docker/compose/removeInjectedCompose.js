@@ -1,8 +1,7 @@
 const path = require('path')
-const { fileSys, Logger } = require('@keg-hub/cli-utils')
 const { GLOBAL_INJECT_FOLDER } = require('KegConst/constants')
 const { getRepoPath } = require('KegUtils/getters/getRepoPath')
-const { getGlobalConfig } = require('KegUtils/globalConfig/getGlobalConfig')
+const { fileSys, getKegGlobalConfig, Logger } = require('@keg-hub/cli-utils')
 const { getProxyDomainFromBranch } = require('KegUtils/proxy/getProxyDomainFromBranch')
 
 const { removeFile, pathExists } = fileSys
@@ -20,7 +19,7 @@ const removeInjected = async (injected, globalConfig) => {
   // No injected exist for the proxy, so just return
   if(injected === 'proxy') return
 
-  globalConfig = globalConfig || getGlobalConfig()
+  globalConfig = globalConfig || getKegGlobalConfig()
   const repoPath = getRepoPath(injected, globalConfig)
   const proxyDomain = repoPath && await getProxyDomainFromBranch(injected, repoPath)
 

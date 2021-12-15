@@ -8,10 +8,6 @@ jest.setMock('@keg-hub/docker-lib', docker)
 const generalErrorMock = jest.fn(() => {})
 jest.setMock('../../error/generalError', { generalError: generalErrorMock })
 
-const globalConfig = global.getGlobalCliConfig()
-jest.setMock('../../globalConfig/globalConfigCache', {
-  __getGlobalConfig: jest.fn(() => globalConfig)
-})
 const withInjected = { ...DOCKER.CONTAINERS, INJECTED: injectedContainer }
 jest.setMock('KegConst/docker', { DOCKER: { ...DOCKER, CONTAINERS: withInjected }})
 

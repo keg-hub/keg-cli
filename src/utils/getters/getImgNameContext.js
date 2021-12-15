@@ -1,10 +1,9 @@
 const docker = require('@keg-hub/docker-lib')
 const { getImgFrom } = require('./getImgFrom')
-const { getKegSetting } = require('@keg-hub/cli-utils')
-const { get, isObj, noOpObj, isStr, exists } = require('@keg-hub/jsutils')
 const { getKegContext } = require('./getKegContext')
 const { getContainerConst } = require('../docker/getContainerConst')
-const { getGlobalConfig } = require('../globalConfig/getGlobalConfig')
+const { get, isObj, noOpObj, isStr, exists } = require('@keg-hub/jsutils')
+const { getKegSetting, getKegGlobalConfig } = require('@keg-hub/cli-utils')
 
 /**
  * Gets a tag from the passed in tag param, image, contextEnvs, or the globalConfig default
@@ -261,7 +260,7 @@ const getImgNameContext = async (params, imgRef) => {
     params,
   )
 
-  const globalConfig = getGlobalConfig()
+  const globalConfig = getKegGlobalConfig()
 
   // The the image name and tag from the passed in params or KEG_IMAGE_FROM
   return buildImgVariants({

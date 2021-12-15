@@ -1,10 +1,7 @@
 const { testEnum } = require('KegMocks/jest/testEnum')
-const { deepClone, isObj } = require('@keg-hub/jsutils')
+const { isObj } = require('@keg-hub/jsutils')
 
 const globalConfig = global.getGlobalCliConfig()
-jest.setMock('../../globalConfig/globalConfigCache', {
-  __getGlobalConfig: jest.fn(() => globalConfig)
-})
 
 const testArgs = {
   localParam: {
