@@ -149,7 +149,7 @@ module.exports = {
       log: { 
         description: 'Log info as the exec command is run runs',
         example: 'keg docker exec --no-log',
-        required: true,
+        default: true,
       },
     }
   }
