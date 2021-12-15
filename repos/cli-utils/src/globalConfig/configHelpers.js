@@ -17,7 +17,7 @@ const getDefaultEnv = () => {
  * @param {Object} globalConfig - Global Keg-CLI config object
  */
 const getEditorCmd = globalConfig => {
-  return get(globalConfig || getKegGlobalConfig(), constants.GLOBAL_CONFIG_PATHS.EDITOR_CMD)
+  return get(globalConfig || getKegGlobalConfig(), GLOBAL_CONFIG_PATHS.EDITOR_CMD)
 }
 
 /**

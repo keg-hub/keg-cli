@@ -1,35 +1,11 @@
 const path = require('path')
 const { containersPath } = require('./values')
+const { constants } = require('@keg-hub/cli-utils')
 const { get, deepMerge } = require('@keg-hub/jsutils')
 const { yml, env:envLoader } = require('@keg-hub/parse-config')
-const { getRepoPath } = require('KegUtils/getters/getRepoPath')
-const { constants, getDefaultEnv } = require('@keg-hub/cli-utils')
+const { buildTemplateData } = require('KegUtils/template/buildTemplateData')
 
-const { CLI_ROOT, GLOBAL_CONFIG_FOLDER } = constants
-
-/*
- * Adds extra data to the object passed to the template fill function
- * <br/>Used when filling the values.yml || .env files
- * @function
- * @param {string} container - Name of the container to build the config for
- *
- * @returns {Object} - Loaded ENVs for the current environment
-*/
-const buildExtraData = ({ container, env, __internal={} }) => {
-  const { injectPath, context, ...internal } = __internal
-
-  return {
-    container,
-    containersPath,
-    cliPath: CLI_ROOT,
-    context: context || container,
-    env: env || getDefaultEnv(),
-    globalConfigPath: GLOBAL_CONFIG_FOLDER,
-    ...internal,
-    contextPath: injectPath || getRepoPath(context || container)
-  }
-}
-
+const { GLOBAL_CONFIG_FOLDER } = constants
 
 /*
  * Checks if an ENV file exists for the current env and loads it
@@ -41,7 +17,7 @@ const buildExtraData = ({ container, env, __internal={} }) => {
 const loadEnvFiles = args => {
   const { container, env, __internal={} } = args
 
-  const extraData = buildExtraData(args)
+  const extraData = buildTemplateData(args)
 
   const envPaths = [
     // ENVs in the container folder based on current environment
@@ -113,7 +89,7 @@ const loadValuesFiles = args => {
   const { container, env, __internal={}, loadPath } = args
   const { valuesPath, containerPath } = __internal
 
-  const extraData = buildExtraData(args)
+  const extraData = buildTemplateData(args)
 
   
   // TODO - Make this more granular

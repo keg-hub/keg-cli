@@ -20,6 +20,7 @@ const dockerExec = async args => {
     cmd,
     detach,
     name,
+    log,
     options,
     workdir,
     context,
@@ -63,9 +64,11 @@ const dockerExec = async args => {
   workdir && (execArgs.workdir = workdir)
   detach && (execArgs.detach = detach)
 
-  Logger.empty()
-  Logger.pair(`Running docker exec on container`, containerRef.name)
-  Logger.empty()
+  if(log){
+    Logger.empty()
+    Logger.pair(`Running docker exec on container`, containerRef.name)
+    Logger.empty()
+  }
 
   // Run the exec command on the container
   await docker.container.exec(execArgs, { 
@@ -142,7 +145,12 @@ module.exports = {
         alias: ['branch'],
         description: 'Partial name of the container to help filter the found containers',
         example: 'keg docker exec --context tap --tap my-tap --prefix package --name feature-branch',
-      }
+      },
+      log: { 
+        description: 'Log info as the exec command is run runs',
+        example: 'keg docker exec --no-log',
+        required: true,
+      },
     }
   }
 }
