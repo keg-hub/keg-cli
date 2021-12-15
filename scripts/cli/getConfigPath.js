@@ -1,8 +1,7 @@
 require('./aliases')
 
 const { get } = require('@keg-hub/jsutils')
-const { getGlobalConfig } = require('KegUtils/globalConfig/getGlobalConfig')
-const { constants, Logger } = require('@keg-hub/cli-utils')
+const { constants, getKegGlobalConfig, Logger } = require('@keg-hub/cli-utils')
 
 const { GLOBAL_CONFIG_FOLDER } = constants
 const { CLI_PATHS, TAP_LINKS } = constants.GLOBAL_CONFIG_PATHS
@@ -39,7 +38,7 @@ const getConfigPath = () => {
 
   const args = process.argv.slice(2)
   const pathName = args[0]
-  const globalConfig = getGlobalConfig()
+  const globalConfig = getKegGlobalConfig()
 
   const foundPath = pathName === 'config'
     // If getting the global config path, just use the constants
