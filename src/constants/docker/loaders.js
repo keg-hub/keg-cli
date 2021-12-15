@@ -1,10 +1,9 @@
 const path = require('path')
 const { containersPath } = require('./values')
-const { constants } = require('@keg-hub/cli-utils')
 const { get, deepMerge } = require('@keg-hub/jsutils')
 const { yml, env:envLoader } = require('@keg-hub/parse-config')
 const { getRepoPath } = require('KegUtils/getters/getRepoPath')
-const { getSetting } = require('KegUtils/globalConfig/getSetting')
+const { constants, getDefaultEnv } = require('@keg-hub/cli-utils')
 
 const { CLI_ROOT, GLOBAL_CONFIG_FOLDER } = constants
 
@@ -24,7 +23,7 @@ const buildExtraData = ({ container, env, __internal={} }) => {
     containersPath,
     cliPath: CLI_ROOT,
     context: context || container,
-    env: env || getSetting('defaultEnv'),
+    env: env || getDefaultEnv(),
     globalConfigPath: GLOBAL_CONFIG_FOLDER,
     ...internal,
     contextPath: injectPath || getRepoPath(context || container)

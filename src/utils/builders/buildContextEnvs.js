@@ -1,5 +1,5 @@
+const { getKegSetting } = require('@keg-hub/cli-utils')
 const { buildTapContext } = require('./buildTapContext')
-const { getSetting } = require('../globalConfig/getSetting')
 const { getPublicGitKey } = require('../git/getPublicGitKey')
 const { getContainerConst } = require('../docker/getContainerConst')
 const { convertParamsToEnvs } = require('../task/convertParamsToEnvs')
@@ -32,7 +32,7 @@ const buildContextEnvs = async (args) => {
     ...envs,
 
     // Experimental docker builds. Makes docker faster and cleaner
-    ...(getSetting('docker.buildKit') ? { DOCKER_BUILDKIT: 1, COMPOSE_DOCKER_CLI_BUILD: 1 } : {}),
+    ...(getKegSetting('docker.buildKit') ? { DOCKER_BUILDKIT: 1, COMPOSE_DOCKER_CLI_BUILD: 1 } : {}),
 
     // Get the ENVs for the Tap context if it exists
     ...( tap && tap !== 'tap' && await buildTapContext({

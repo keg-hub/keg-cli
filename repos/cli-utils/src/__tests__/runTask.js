@@ -22,7 +22,7 @@ const getKegGlobalConfigMock = jest.fn(() => (testKegConfig))
 jest.setMock('../task/findTask', { findTask: findTaskMock })
 jest.setMock('@keg-hub/args-parse', { argsParse: argsParseMock })
 jest.setMock('../tasks', { getTaskDefinitions: getTaskDefinitionsMock })
-jest.setMock('../task/getKegGlobalConfig', { getKegGlobalConfig: getKegGlobalConfigMock })
+jest.setMock('../globalConfig/getKegGlobalConfig', { getKegGlobalConfig: getKegGlobalConfigMock })
 
 const { runTask } = require('../runTask')
 

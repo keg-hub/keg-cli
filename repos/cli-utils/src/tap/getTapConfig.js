@@ -1,9 +1,9 @@
+const nodePath = require('path')
 const { getTapPath } = require('./getTapPath')
-const { getKegGlobalConfig } = require('../task/getKegGlobalConfig')
+const { isObj } = require('@keg-hub/jsutils')
 const { TAP_CONFIG_NAMES } = require('../constants')
 const { tryRequireSync } = require('@keg-hub/jsutils/src/node')
-const { isObj } = require('@keg-hub/jsutils')
-const nodePath = require('path')
+const { getKegGlobalConfig } = require('../globalConfig/getKegGlobalConfig')
 
 /**
  * Obtains the tap config (e.g. tap.js(on)) located at the root path of the tap

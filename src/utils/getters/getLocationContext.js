@@ -1,7 +1,7 @@
 const { throwNoConfigPath } = require('../error')
-const { getTapPath } = require('@keg-hub/cli-utils')
-const { getPathFromConfig } = require('../globalConfig')
 const { getContainerConst } = require('../docker/getContainerConst')
+const { getTapPath, getPathFromConfig } = require('@keg-hub/cli-utils')
+
 
 
 /**

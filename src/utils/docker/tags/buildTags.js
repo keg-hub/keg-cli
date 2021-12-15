@@ -1,4 +1,4 @@
-const { getSetting } = require('KegUtils/globalConfig/getSetting')
+const { getDefaultEnv } = require('@keg-hub/cli-utils')
 const { tagFromVersion } = require('KegUtils/docker/tags/tagFromVersion')
 const { getImgNameContext } = require('KegUtils/getters/getImgNameContext')
 const { tagFromVariables } = require('KegUtils/docker/tags/tagFromVariables')
@@ -38,7 +38,7 @@ const buildTags = async (args, params, dockerCmd='') => {
   const { tagGit, tagVariable } = params
 
   // Ensure we have an environment
-  const env = params.env || getSetting('defaultEnv')
+  const env = params.env || getDefaultEnv()
 
   // Get any custom tags passed in
   let tags = tagsFromParams(params.tags)

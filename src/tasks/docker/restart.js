@@ -1,7 +1,6 @@
 const docker = require('@keg-hub/docker-lib')
-const { Logger } = require('@keg-hub/cli-utils')
+const { getKegSetting, Logger } = require('@keg-hub/cli-utils')
 const { throwRequired, generalError } = require('KegUtils/error')
-const { getSetting } = require('KegUtils/globalConfig/getSetting')
 const { containerSelect } = require('KegUtils/docker/containerSelect')
 const { buildContainerContext } = require('KegUtils/builders/buildContainerContext')
 
@@ -44,7 +43,7 @@ const dockerRestart = async args => {
   // Otherwise throw that container ref could not be found
   containerRef = containerRef
     ? containerRef
-    : getSetting(`task.optionsAsk`)
+    : getKegSetting(`task.optionsAsk`)
       ? await containerSelect()
       : generalError(`Could not find container with context "${ containerRef }"!`)
 

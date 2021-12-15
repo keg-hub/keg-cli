@@ -1,6 +1,12 @@
 const { executeCmd } = require('KegProc')
-const { constants, getTapPath, Logger } = require('@keg-hub/cli-utils')
-const { getPathFromConfig, getEditorCmd, generalError } = require('KegUtils')
+const {
+  Logger,
+  constants,
+  getTapPath,
+  getEditorCmd,
+  getPathFromConfig
+} = require('@keg-hub/cli-utils')
+const { generalError } = require('KegUtils')
 
 const { GLOBAL_CONFIG_FOLDER, GLOBAL_CONFIG_PATHS } = constants
 

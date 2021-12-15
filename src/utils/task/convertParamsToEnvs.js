@@ -1,4 +1,4 @@
-const { getSetting } = require('../globalConfig/getSetting')
+const { getKegSetting } = require('@keg-hub/cli-utils')
 const { exists, toBool, isStr } = require('@keg-hub/jsutils')
 const { getImgNameContext } = require('KegUtils/getters/getImgNameContext')
 
@@ -16,7 +16,7 @@ const getCopyLocal = (local, copyLocalEnv) => {
     ? toBool(local)
     : exists(copyLocalEnv)
       ? toBool(copyLocalEnv)
-      : toBool(getSetting('docker.defaultLocalBuild'))
+      : toBool(getKegSetting('docker.defaultLocalBuild'))
 }
 
 const getImageFromParam = async (extraENVs, params) => {

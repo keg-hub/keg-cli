@@ -2,11 +2,11 @@ const path = require('path')
 const { KEG_ENVS } = require('../envs')
 const { PREFIXED } = require('./domainEnvs')
 const { containersPath, images } = require('./values')
+const { getDefaultEnv } = require('@keg-hub/cli-utils')
 const { loadValuesFiles, loadEnvFiles } = require('./loaders')
 const { defineProperty } = require('../../utils/helpers/defineProperty')
 const { checkArgsForEnv } = require('../../utils/helpers/checkArgsForEnv')
-const { deepFreeze, deepMerge, keyMap, get, noOpObj } = require('@keg-hub/jsutils')
-const { getDefaultEnv } = require('../../utils/globalConfig/getDefaultEnv')
+const { deepFreeze, deepMerge, keyMap, noOpObj } = require('@keg-hub/jsutils')
 
 /**
  * Holds each docker containers meta data that can be built by the CLI

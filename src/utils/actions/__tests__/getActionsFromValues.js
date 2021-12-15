@@ -1,3 +1,5 @@
+jest.resetModules()
+
 const { testEnum } = require('KegMocks/jest/testEnum')
 const { docker } = require('KegMocks/libs/docker')
 jest.setMock('@keg-hub/docker-lib', docker)
@@ -5,8 +7,11 @@ jest.setMock('@keg-hub/docker-lib', docker)
 const getKegContextMock = jest.fn(containerName => containerName)
 jest.setMock('KegUtils/getters/getKegContext', { getKegContext: getKegContextMock })
 
-const getSettingMock = jest.fn(() => ('default-env'))
-jest.setMock('KegUtils/globalConfig/getSetting', { getSetting: getSettingMock })
+const getKegSettingMock = jest.fn(() => ('default-env'))
+jest.setMock('@keg-hub/cli-utils', {
+  getKegSetting: getKegSettingMock,
+  getDefaultEnv: getKegSettingMock,
+})
 
 const loadValuesFilesMock = jest.fn()
 jest.setMock('KegConst/docker/loaders', { loadValuesFiles: loadValuesFilesMock })
@@ -28,14 +33,14 @@ const testArgs = {
     }
   },
   doesNotCallGetSetting: {
-    description: 'Does not call the getSetting method when env is passed',
+    description: 'Does not call the getKegSetting method when env is passed',
     inputs: [{ env: 'test-env', containerRef: 'test-ref' }],
-    outputs: () => expect(getSettingMock).not.toHaveBeenCalled()
+    outputs: () => expect(getKegSettingMock).not.toHaveBeenCalled()
   },
   callGetSettingWhenNoEnv: {
-    description: 'Calls the getSetting when no env is passed',
+    description: 'Calls the getKegSetting when no env is passed',
     inputs: [{ containerRef: 'test-ref' }],
-    outputs: () => expect(getSettingMock).toHaveBeenCalled(),
+    outputs: () => expect(getKegSettingMock).toHaveBeenCalled(),
   },
   defaultEnvWhenNoEnvPassed: {
     description: 'Uses the default env when no env is passed',
@@ -121,7 +126,7 @@ const { getActionsFromValues } = require('../getActionsFromValues')
 
 describe('getActionsFromValues', () => {
   beforeEach(() => {
-    getSettingMock.mockClear()
+    getKegSettingMock.mockClear()
     loadValuesFilesMock.mockClear()
   })
   afterAll(() => jest.resetAllMocks())

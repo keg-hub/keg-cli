@@ -6,7 +6,6 @@ const { registerTasks } = require('./tasks/tasks')
 const { getAppRoot, setAppRoot } = require('./appRoot')
 
 const {
-  getKegGlobalConfig,
   findTask,
   sharedOptions,
   setSharedOptions,
@@ -19,8 +18,8 @@ module.exports = {
   ...require('./path'),
   ...require('./process'),
   ...require('./tap'),
+  ...require('./globalConfig'),
   constants,
-  getKegGlobalConfig,
   findTask,
   fileSys,
   error,

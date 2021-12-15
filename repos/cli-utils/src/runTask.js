@@ -5,7 +5,7 @@ const { argsParse } = require('@keg-hub/args-parse')
 const { deepMerge } = require('@keg-hub/jsutils')
 const { findTask } = require('./task/findTask')
 const { throwExitError } = require('./error')
-const { getKegGlobalConfig } = require('./task/getKegGlobalConfig')
+const { getKegGlobalConfig } = require('./globalConfig/getKegGlobalConfig')
 
 const defParams = { env: process.env.NODE_ENV || 'local' }
 

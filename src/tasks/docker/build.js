@@ -1,10 +1,9 @@
 const docker = require('@keg-hub/docker-lib')
 const { deepMerge } = require('@keg-hub/jsutils')
 const { buildDockerCmd } = require('KegUtils/docker')
-const { error, Logger } = require('@keg-hub/cli-utils')
 const { throwRequired, generalError } = require('KegUtils/error')
-const { getSetting } = require('KegUtils/globalConfig/getSetting')
 const { runInternalTask } = require('KegUtils/task/runInternalTask')
+const { error, getKegSetting, Logger } = require('@keg-hub/cli-utils')
 const { mergeTaskOptions } = require('KegUtils/task/options/mergeTaskOptions')
 const { buildContainerContext } = require('KegUtils/builders/buildContainerContext')
 const { throwNoTapLoc } = error
@@ -71,7 +70,7 @@ const dockerBuild = async args => {
   const { container, from, ...params } = args.params
   const { context, log, buildArgs, push } = params
   
-  const buildX = params.buildX || getSetting('docker.buildX')
+  const buildX = params.buildX || getKegSetting('docker.buildX')
 
   // Ensure we have a content to build the container
   !context && throwRequired(task, 'context', task.options.context)

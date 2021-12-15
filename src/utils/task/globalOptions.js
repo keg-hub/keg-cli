@@ -1,5 +1,5 @@
+const { getDefaultEnv } = require('@keg-hub/cli-utils')
 const { deepMerge, get, set } = require('@keg-hub/jsutils')
-const { getDefaultEnv } = require('../globalConfig/getDefaultEnv')
 const { ENV_ALIAS, ENV_MAP, ENV_OPTIONS } = require('../../constants/constants')
 
 /**

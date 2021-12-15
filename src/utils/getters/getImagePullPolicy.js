@@ -1,4 +1,4 @@
-const { getSetting } = require('KegUtils/globalConfig/getSetting')
+const { getKegSetting } = require('@keg-hub/cli-utils')
 const { getContainerConst } = require('KegUtils/docker/getContainerConst')
 
 
@@ -10,7 +10,7 @@ const { getContainerConst } = require('KegUtils/docker/getContainerConst')
  * @returns {string} - Pull policy
  */
 const getImagePullPolicy = context => {
-  return (getContainerConst(context, `'ENV.KEG_IMAGE_PULL_POLICY`, getSetting('docker.imagePullPolicy')) || '').toLowerCase()
+  return (getContainerConst(context, `'ENV.KEG_IMAGE_PULL_POLICY`, getKegSetting('docker.imagePullPolicy')) || '').toLowerCase()
 }
 
 

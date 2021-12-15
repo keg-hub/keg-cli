@@ -1,10 +1,10 @@
 const { executeCmd } = require('KegProc')
 const docker = require('@keg-hub/docker-lib')
-const { Logger } = require('@keg-hub/cli-utils')
 const { plural, uniqArr } = require('@keg-hub/jsutils')
 const { generalError } = require('KegUtils/error/generalError')
 const { confirmExec } = require('KegUtils/helpers/confirmExec')
-const { getSetting } = require('KegUtils/globalConfig/getSetting')
+const { getKegSetting, Logger } = require('@keg-hub/cli-utils')
+
 
 /**
  * Removes all of a docker type base on the passed in args
@@ -91,7 +91,7 @@ const dockerDestroy = async args => {
         confirm: `Remove all ${ pluralRemove }?`,
         success: `Removed all ${ pluralRemove }!`,
         cancel: `Remove all ${ pluralRemove } cancelled!`,
-        preConfirm: getSetting(`docker.preConfirm`),
+        preConfirm: getKegSetting(`docker.preConfirm`),
         execute: async () => {
 
           // Containers must be stopped before they can be removed!
