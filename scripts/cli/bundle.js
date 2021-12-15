@@ -12,8 +12,13 @@ require('esbuild').build({
   bundle: true,
   format: 'cjs',
   platform: 'node',
-  logLevel: 'debug',
-  external: getNodeModules(),
+  logLevel: 'info',
+  external: [
+    // TODO: figure out why this is causing such a big build
+    // Also cli-utils probably needs to be split up a bit
+    '@keg-hub/cli-utils',
+  ],
+  // external: getNodeModules(),
   absWorkingDir: rootDir,
   entryPoints: [path.join(rootDir, 'keg-cli.js')],
   outfile: path.join(rootDir, 'keg-cli-bundle.js'),
