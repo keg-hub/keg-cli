@@ -1,4 +1,4 @@
-const { isArr, isStr, exists, softFalsy } = require('@keg-hub/jsutils')
+const { isArr, isStr, exists } = require('@keg-hub/jsutils')
 
 /**
  * Returns a key-value command parameter string
@@ -8,8 +8,8 @@ const { isArr, isStr, exists, softFalsy } = require('@keg-hub/jsutils')
  * @example
  * addParam('foo', 2) => "--foo 2"
  */
-const addParam = (name, value) => name && exists(value)
-  ? `--${name} ${value}`
+const addParam = (name, value, ident=`--`) => name && exists(value)
+  ? `${ident}${name} ${value}`
   : ''
 
 /**
