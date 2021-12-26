@@ -2,7 +2,6 @@ const path = require('path')
 const { KEG_ENVS } = require('../envs')
 const { isStr } = require('@keg-hub/jsutils')
 const { fileSys } = require('@keg-hub/cli-utils')
-const { defineProperty } = require('../../utils/helpers/defineProperty')
 
 const { getFoldersSync, pathExistsSync } = fileSys
 
@@ -68,6 +67,10 @@ const getImages = () => (__IMAGES || buildImages())
  * <br/>Allows the getImages method to dynamically build the __IMAGES object at runtime
  * @function
  */
-defineProperty(values, 'images', { get: getImages })
+Object.defineProperty(values, 'images', {
+  get: getImages,
+  enumerable: true,
+  configurable: false,
+})
 
 module.exports = Object.freeze(values)

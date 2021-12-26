@@ -1,8 +1,7 @@
-const { showHelp } = require('@keg-hub/cli-utils')
 const { isFunc } = require('@keg-hub/jsutils')
 const { throwNoAction } = require('KegUtils/error')
 const { parseArgs } = require('KegUtils/helpers/parseArgs')
-const { hasHelpArg } = require('KegUtils/helpers/hasHelpArg')
+const { hasHelpArg, showHelp } = require('@keg-hub/cli-utils')
 
 /**
  * Executes the passed in task.

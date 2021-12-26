@@ -4,7 +4,6 @@ const { PREFIXED } = require('./domainEnvs')
 const { containersPath, images } = require('./values')
 const { getDefaultEnv } = require('@keg-hub/cli-utils')
 const { loadValuesFiles, loadEnvFiles } = require('./loaders')
-const { defineProperty } = require('../../utils/helpers/defineProperty')
 const { checkArgsForEnv } = require('../../utils/helpers/checkArgsForEnv')
 const { deepFreeze, deepMerge, keyMap, noOpObj } = require('@keg-hub/jsutils')
 
@@ -141,6 +140,10 @@ const containersObj = { injectContainer }
  * <br/>Allows the getContainers method to dynamically build the __CONTAINERS object at runtime
  * @function
  */
-defineProperty(containersObj, 'CONTAINERS', { get: getContainers })
+Object.defineProperty(containersObj, 'CONTAINERS', {
+  get: getContainers,
+  enumerable: true,
+  configurable: false,
+})
 
 module.exports = deepFreeze(containersObj)

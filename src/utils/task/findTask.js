@@ -1,8 +1,9 @@
 const { getTask } = require('./getTask')
 const { get } = require('@keg-hub/jsutils')
 const { validateTask } = require('./validateTask')
-const { hasHelpArg } = require('../helpers/hasHelpArg')
+const { hasHelpArg } = require('@keg-hub/cli-utils')
 const { checkLinkedTaps } = require('./checkLinkedTaps')
+
 
 /**
  * Gets the task from available tasks, If no task is found, checks if command is a tap

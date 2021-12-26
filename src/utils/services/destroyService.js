@@ -1,8 +1,7 @@
-const { get, deepMerge } = require('@keg-hub/jsutils')
 const { Logger } = require('@keg-hub/cli-utils')
-const { runInternalTask } = require('../task/runInternalTask')
+const { get, deepMerge } = require('@keg-hub/jsutils')
 const { getServiceArgs } = require('./getServiceArgs')
-const { optionsHasArg } = require('../helpers/optionsHasArg')
+const { runInternalTask } = require('../task/runInternalTask')
 
 /**
  * Checks if the image option was passed in to remove the image
@@ -14,7 +13,7 @@ const { optionsHasArg } = require('../helpers/optionsHasArg')
 const checkRemoveImage = serviceArgs => {
   const { options, params } = serviceArgs
 
-  return !options || !params.image || !optionsHasArg(options, 'image')
+  return !options || !params.image
     ? null
     : runInternalTask('docker.tasks.image.tasks.remove', serviceArgs)
 }
