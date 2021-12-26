@@ -14,12 +14,18 @@ const testTask = {
   ]
 }
 
+let helpArg = false
+const hasHelpArgMock = jest.fn(() => helpArg)
+const orgArgv = process.argv
 const findTaskMock = jest.fn(() => (testTask))
+const showHelpMock = jest.fn()
 const getTaskDefinitionsMock = jest.fn(() => {})
 const argsParseMock = jest.fn(() => ({ test: 'test', other: 'option' }))
 const getKegGlobalConfigMock = jest.fn(() => (testKegConfig))
 
 jest.setMock('../task/findTask', { findTask: findTaskMock })
+jest.setMock('../task/hasHelpArg', { hasHelpArg: hasHelpArgMock })
+jest.setMock('../logger/showHelp', { showHelp: showHelpMock })
 jest.setMock('@keg-hub/args-parse', { argsParse: argsParseMock })
 jest.setMock('../tasks', { getTaskDefinitions: getTaskDefinitionsMock })
 jest.setMock('../globalConfig/getKegGlobalConfig', { getKegGlobalConfig: getKegGlobalConfigMock })
@@ -29,13 +35,20 @@ const { runTask } = require('../runTask')
 describe('RunTask', () => {
 
   beforeEach(() => {
+    showHelpMock.mockClear()
     findTaskMock.mockClear()
     argsParseMock.mockClear()
+    hasHelpArgMock.mockClear()
     testTask.task.action.mockClear()
     getTaskDefinitionsMock.mockClear()
-    // getKegGlobalConfigMock.mockClear()
+    helpArg = false
+    process.argv = [ '1', '2', 'test']
   })
 
+  afterAll(() => {
+    process.argv = orgArgv
+  })
+  
   test('Should export a runTask method', () => {
     expect(typeof runTask).toBe('function')
   })
@@ -71,4 +84,19 @@ describe('RunTask', () => {
     expect(testTask.task.action).toHaveBeenCalled()
   })
 
+  test('Should call show help when no args are passed', async () => {
+    expect(showHelpMock).not.toHaveBeenCalled()
+    process.argv = []
+    await runTask()
+    expect(showHelpMock).toHaveBeenCalled()
+  })
+
+  test('Should call show help when help arg is passed', async () => {
+    expect(showHelpMock).not.toHaveBeenCalled()
+    helpArg = true
+    process.argv = ['1','2', '--help']
+    await runTask()
+    expect(showHelpMock).toHaveBeenCalled()
+  })
+  
 })
