@@ -1,9 +1,9 @@
 const docker = require('@keg-hub/docker-lib')
 const { exists } = require('@keg-hub/jsutils')
 const { generalError } = require('KegUtils/error')
+const { confirmExec } = require('@keg-hub/ask-it')
 const { dockerLog } = require('KegUtils/log/dockerLog')
 const { getKegSetting, Logger } = require('@keg-hub/cli-utils')
-const { confirmExec } = require('KegUtils/helpers/confirmExec')
 const { containerSelect } = require('KegUtils/docker/containerSelect')
 const { getContainerConst } = require('KegUtils/docker/getContainerConst')
 

@@ -1,5 +1,4 @@
 const { buildModel } = require('../models/buildModel')
-const { isStr, isObj } = require('@keg-hub/jsutils')
 
 const defModel = {
   type: 'confirm',

@@ -1,5 +1,6 @@
+const { confirmExec } = require('@keg-hub/ask-it')
 const { constants } = require('@keg-hub/cli-utils')
-const { confirmExec, addGlobalConfigProp } = require('KegUtils')
+const { addGlobalConfigProp } = require('KegUtils')
 
 
 /**

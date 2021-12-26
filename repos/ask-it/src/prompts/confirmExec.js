@@ -1,6 +1,5 @@
-const { ask } = require('@keg-hub/ask-it')
-const { Logger } = require('@keg-hub/cli-utils')
-const { checkCall } = require('@keg-hub/jsutils')
+const { checkCall, noPropArr } = require('@keg-hub/jsutils')
+const { confirm:askConfirm } = require('./confirm')
 
 /**
  * Confirms that a tasks should be preformed, then executes it when true
@@ -15,19 +14,28 @@ const { checkCall } = require('@keg-hub/jsutils')
  *
  * @returns {void}
  */
-const confirmExec = async ({ execute, force, confirm, preConfirm, success, cancel, args=[] }) => {
+const confirmExec = async params => {
+  const {
+    force,
+    cancel,
+    execute,
+    success,
+    confirm,
+    preConfirm,
+    args=noPropArr
+  } = params
 
   const confirmed = force || preConfirm === true
      ? true
-     : await ask.confirm(confirm)
+     : await askConfirm(confirm)
 
-  if(!confirmed) return Logger.warn(cancel) || Logger.empty()
+  if(!confirmed)
+    return console.warn(cancel) || console.log()
   
   const response = await checkCall(execute, ...args)
 
-  Logger.empty()
-  success && Logger.success(success)
-  Logger.empty()
+  success && console.log(`\n{success}`)
+  console.log()
 
   return response
 

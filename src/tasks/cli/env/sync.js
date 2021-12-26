@@ -1,6 +1,5 @@
-const { confirmExec } = require('KegUtils/helpers/confirmExec')
+const { confirmExec } = require('@keg-hub/ask-it')
 const { updateDefaultEnvFile } = require('KegUtils/defaultEnvs/updateDefaultEnvFile')
-const { createGlobalConfig } = require('KegUtils/globalConfig/createGlobalConfig')
 
 /**
  * Syncs the global defaults env file with the local

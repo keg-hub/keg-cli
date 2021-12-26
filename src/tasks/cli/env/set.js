@@ -1,6 +1,6 @@
-const { addDefaultEnv } = require('KegUtils/defaultEnvs/addDefaultEnv')
-const { confirmExec } = require('KegUtils/helpers/confirmExec')
+const { confirmExec } = require('@keg-hub/ask-it')
 const { generalError } = require('KegUtils/error/generalError')
+const { addDefaultEnv } = require('KegUtils/defaultEnvs/addDefaultEnv')
 
 /**
  * Gets the key and value from the params or first passed in option

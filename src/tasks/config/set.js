@@ -1,6 +1,6 @@
-const { addGlobalConfigProp } = require('KegUtils/globalConfig/addGlobalConfigProp')
-const { confirmExec } = require('KegUtils/helpers/confirmExec')
+const { confirmExec } = require('@keg-hub/ask-it')
 const { softFalsy, get } = require('@keg-hub/jsutils')
+const { addGlobalConfigProp } = require('KegUtils/globalConfig/addGlobalConfigProp')
 
 /**
  * Sets a value in the global config, and then saves it

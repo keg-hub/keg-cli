@@ -1,6 +1,6 @@
-const { confirmExec } = require('KegUtils/helpers/confirmExec')
-const { updateDefaultEnvFile } = require('KegUtils/defaultEnvs/updateDefaultEnvFile')
+const { confirmExec } = require('@keg-hub/ask-it')
 const { createGlobalConfig } = require('KegUtils/globalConfig/createGlobalConfig')
+const { updateDefaultEnvFile } = require('KegUtils/defaultEnvs/updateDefaultEnvFile')
 
 /**
  * Syncs the repos keg cli global config object with the user's ~/.kegConfig/cli.config.json config

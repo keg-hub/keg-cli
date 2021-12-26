@@ -1,10 +1,9 @@
 const { executeCmd } = require('KegProc')
 const docker = require('@keg-hub/docker-lib')
+const { confirmExec } = require('@keg-hub/ask-it')
 const { plural, uniqArr } = require('@keg-hub/jsutils')
 const { generalError } = require('KegUtils/error/generalError')
-const { confirmExec } = require('KegUtils/helpers/confirmExec')
 const { getKegSetting, Logger } = require('@keg-hub/cli-utils')
-
 
 /**
  * Removes all of a docker type base on the passed in args

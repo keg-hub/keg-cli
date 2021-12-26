@@ -1,11 +1,7 @@
-const {
-  addGlobalConfigProp,
-  confirmExec,
-  gitKeyExists,
-} = require('KegUtils')
 const { encrypt } = require('KegCrypto')
-const { ask } = require('@keg-hub/ask-it')
 const { throwRequired } = require('KegUtils/error')
+const { ask, confirmExec } = require('@keg-hub/ask-it')
+const { gitKeyExists, addGlobalConfigProp } = require('KegUtils')
 const { constants: { GLOBAL_CONFIG_PATHS }, getKegSetting } = require('@keg-hub/cli-utils')
 
 /**
