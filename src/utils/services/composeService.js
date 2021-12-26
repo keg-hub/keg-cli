@@ -1,7 +1,7 @@
 const { Logger } = require('@keg-hub/cli-utils')
-const { buildContainerSync } = require('./syncService')
 const { mutagenService } = require('./mutagenService')
 const { getServiceArgs } = require('./getServiceArgs')
+const { buildContainerSync } = require('./syncService')
 const { runInternalTask } = require('../task/runInternalTask')
 const { buildExecParams } = require('../docker/buildExecParams')
 const { getContainerCmd } = require('../docker/getContainerCmd')
@@ -18,22 +18,23 @@ const { get, isArr, set, noOpObj, deepMerge, exists } = require('@keg-hub/jsutil
  * @returns {Array} - An array of promises for each sync being setup
  */
 const createSyncs = async (args, containerContext) => {
-  const { params: { sync, tap, context, __injected } } = args
+  const { sync, tap, context, __injected } = args.params
   const { cmdContext, container, id } = containerContext
-  const dockerContainer = container || id || cmdContext || context
+  const containRef = container || id || cmdContext || context
 
-  const syncs = isArr(sync) && await Promise.all(
-    await sync.reduce(async (toResolve, dependency) => {
-      const resolved = await toResolve
-      resolved.push(
-        await buildContainerSync(
-          { ...args, params: { dependency, tap, context, __injected } },
-          { container: dockerContainer, dependency }
+  const syncs = isArr(sync) &&
+    await Promise.all(
+      await sync.reduce(async (toResolve, dependency) => {
+        const resolved = await toResolve
+        resolved.push(
+          await buildContainerSync(
+            { ...args, params: { dependency, tap, context, __injected } },
+            { container: containRef, dependency }
+          )
         )
-      )
-      return resolved
-    }, Promise.resolve([]))
-  )
+        return resolved
+      }, Promise.resolve([]))
+    )
 
   return syncs
 }
@@ -48,9 +49,16 @@ const createSyncs = async (args, containerContext) => {
  * @param {Object} context - Context of the service that was started
  */
 const checkServiceSync = async (args, serviceArgs, containerContext, tap, context) => {
+  const {
+    env,
+    service,
+    autoSync,
+  } = args.params
+  
   // Only create syncs in the development env
-  const doSync = get(args, 'params.env') !== 'production' &&
-    get(args, 'params.service') === 'mutagen' &&
+  const doSync = env !== 'production' &&
+    (exists(autoSync) && autoSync !== false) &&
+    (exists(service) && service === 'mutagen') &&
     !checkEnvConstantValue(containerContext.cmdContext, 'KEG_AUTO_SYNC', false)
 
   // Run the mutagen service if needed
@@ -62,7 +70,6 @@ const checkServiceSync = async (args, serviceArgs, containerContext, tap, contex
     : containerContext
 
   return { doSync, currentContext }
-
 }
 
 /**

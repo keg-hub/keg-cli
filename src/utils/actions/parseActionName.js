@@ -7,14 +7,15 @@
  *
  * @returns {string} - Name of the dependency
  */
-const findDependencyName = (dependency, remotePath) => {
+ const parseActionName = (dependency, remotePath) => {
   return dependency || remotePath
-    .split('/')
+    .split(`/`)
     .pop()
-    .replace('-', '')
-    .replace('_', '')
+    .split(`:`)
+    .shift()
+    .replace(/-_/gi, '')
 }
 
 module.exports = {
-  findDependencyName
+  parseActionName
 }

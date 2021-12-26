@@ -89,6 +89,11 @@ const startServiceOptions = (task='', action='') => {
       description: 'What docker service to build with. Must be on of ( sync || container || mutagen ). Same as passing options "--attached sync"',
       example: `keg ${ task } ${ action } --service container`,
       default: 'mutagen'
+    },
+    autoSync: {
+      default: true,
+      description: `Auto create a mutagen sync of a tap between the host and docker container`,
+      example: `keg ${ task } ${ action } --autoSync false`,
     }
   }
 }

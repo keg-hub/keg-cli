@@ -1,14 +1,11 @@
 const { Logger } = require('@keg-hub/cli-utils')
 const { getServiceArgs } = require('./getServiceArgs')
 const { loadConfigs } = require('@keg-hub/parse-config')
-const { get, isArr, isStr, isObj } = require('@keg-hub/jsutils')
+const { isArr, isStr, isObj } = require('@keg-hub/jsutils')
 const { runActionCmds } = require('KegUtils/actions/runActionCmds')
 const { validateAction } = require('KegUtils/actions/validateAction')
 const { buildTemplateData } = require('../template/buildTemplateData')
-
-
 const { buildContainerContext } = require('../builders/buildContainerContext')
-
 
 /**
  * Runs the sync actions defined in the mutagen.yml sync config
@@ -118,13 +115,11 @@ const actionService = async (args, argsExt) => {
   // Get only the passed in actions, in the correct order
   const actionsToRun = getActions(
     actions,
-    get(serviceArgs, 'params.action'),
+    params.action,
     cmdContext,
     allowUndefined
   )
 
-
-  
   // Run the actions on the container
   return await runActions(serviceArgs, actionsToRun, cmdContext)
 }

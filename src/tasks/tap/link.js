@@ -49,7 +49,7 @@ const buildTapObj = async (globalConfig, silent, name, location) => {
   const tapObj = checkTapLocation({ ...currentTap }, location)
 
   // Check if there is a custom task file to add
-  const customTasksFile = await checkCustomTaskFolder(globalConfig, tapObj)
+  const customTasksFile = await checkCustomTaskFolder(tapObj)
   customTasksFile && (tapObj.tasks = customTasksFile)
 
   return tapObj

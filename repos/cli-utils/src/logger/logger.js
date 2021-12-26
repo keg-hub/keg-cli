@@ -1,5 +1,13 @@
-const { get, isColl, isObj, isFunc } = require('@keg-hub/jsutils')
+const { get, isColl, isObj, isFunc, isStr } = require('@keg-hub/jsutils')
 const colors = require('colors/safe')
+
+/**
+ * State of the log tag
+ * Disables logging the tag, even when it's set
+ * @private
+ * @type {Boolean}
+ */
+let TAG_DISABLED = false
 
 /**
  * General logging method for all log types
@@ -25,11 +33,20 @@ const logData = (logger, type) => {
           : colors[logColor](data)
     })
 
+    if(!TAG_DISABLED && logger.tag){
+      logMethod === 'dir' || logMethod === 'table'
+        ? logger.stdout(`${logger.tag} `)
+        : toLog.unshift(logger.tag)
+    }
+
     console[logMethod](...toLog)
   }
 }
 
 class Log {
+
+  tag = false
+
   constructor(props) {
     this.colorMap = {
       data: 'brightWhite',
@@ -57,6 +74,25 @@ class Log {
 
     // Add the colors module for easy access
     this.colors = colors
+
+    this.log = this.print
+  }
+
+  setTag = (tag, color) => {
+    if(!tag) return this.warn(`Tag must be of type string`, tag)
+
+    this.tag = color
+      ? colors[this.colorMap[color] || color](tag)
+      : tag
+  }
+
+  removeTag = () => {
+    this.tag = undefined
+  }
+  
+  toggleTag = () => {
+    if(!TAG_DISABLED) TAG_DISABLED = true
+    else TAG_DISABLED = false
   }
 
   /**
@@ -76,7 +112,12 @@ class Log {
    *
    * @returns {void}
    */
-  print = (...data) => console.log(...data)
+  print = (...data) => {
+    !TAG_DISABLED &&
+      this.tag &&
+      data.unshift(this.tag)
+    console.log(...data)
+  }
 
   /**
    * Helper to change the default colors
@@ -100,7 +141,13 @@ class Log {
    * @see docs about params here: https://developer.mozilla.org/en-US/docs/Web/API/Console/table
    * @returns {void}
    */
-  table = (...args) => console.table(...args)
+  table = (...args) => {
+    !TAG_DISABLED &&
+      this.tag &&
+      args.unshift(this.tag)
+
+    console.table(...args)
+  }
 
   /**
    * Helper to log out CLI message header
@@ -111,6 +158,9 @@ class Log {
    * @returns {void}
    */
   header = (title, color) => {
+    const tagState = TAG_DISABLED
+    TAG_DISABLED = true
+
     const middle = `              ${title}              `
 
     const line = middle.split('').reduce((line, item, index) => (line += ' '))
@@ -123,9 +173,14 @@ class Log {
     this.print(colors[color](middle))
     this.print(colors.underline[color](line))
     this.empty(``)
+
+    TAG_DISABLED = tagState
   }
 
   subHeader = (title, color) => {
+    const tagState = TAG_DISABLED
+    TAG_DISABLED = true
+    
     const middle = `          ${title}       `
 
     const line = middle.split('').reduce((line, item, index) => (line += ' '))
@@ -136,6 +191,8 @@ class Log {
     this.print(colors[color](middle))
     this.print(`  ${colors.underline[color](line)}`)
     this.empty(``)
+
+    TAG_DISABLED = tagState
   }
 
   /**
@@ -213,11 +270,7 @@ class Log {
  */
 const Logger = new Log()
 
-/**
- * Helper to log the passed in data
- */
-Logger.log = Logger.print
-
 module.exports = {
+  Log,
   Logger,
 }

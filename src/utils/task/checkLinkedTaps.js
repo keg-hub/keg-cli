@@ -22,7 +22,7 @@ const { TAP_LINKS } = GLOBAL_CONFIG_PATHS
  * @returns {Object} - Updated linked tap Object from the global config
  */
 const checkAddCustomTasks = async (globalConfig, tapName, tapObj) => {
-  const tasksFile = await checkCustomTaskFolder(globalConfig, tapObj)
+  const tasksFile = await checkCustomTaskFolder(tapObj)
   if(!tasksFile) return tapObj
 
   const tapMeta = { ...tapObj, tasks: tasksFile }

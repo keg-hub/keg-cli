@@ -1,11 +1,11 @@
 const { get } = require('@keg-hub/jsutils')
+const { actionService } = require('./actionService')
 const { getServiceArgs } = require('./getServiceArgs')
 const { generalError } = require('../error/generalError')
 const { getLocalPath } = require('../getters/getLocalPath')
-const { syncActionService } = require('./syncActionService')
 const { getRemotePath } = require('../getters/getRemotePath')
 const { runInternalTask } = require('../task/runInternalTask')
-const { findDependencyName } = require('../helpers/findDependencyName')
+const { parseActionName } = require('../actions/parseActionName')
 const { buildContainerContext } = require('../builders/buildContainerContext')
 
 /**
@@ -26,9 +26,9 @@ const buildContainerSync = async (args, argsExt) => {
   const { local, remote } = params
   const { actionOnly } = __internal
 
-  const [ dependency, ...syncActions ] = params.dependency.includes(':')
+  const [dependency, ...syncActions] = params.dependency.includes(':')
     ? params.dependency.split(':')
-    : [ params.dependency ]
+    : [params.dependency]
 
   const containerContext = await buildContainerContext(serviceArgs)
   const { context, id } = containerContext
@@ -37,8 +37,7 @@ const buildContainerSync = async (args, argsExt) => {
   !localPath && generalError(`Local path could not be found!`)
 
   const remotePath = getRemotePath(context, dependency, remote)
-
-  const dependencyName = findDependencyName(dependency, remotePath)
+  const dependencyName = parseActionName(dependency, remotePath)
 
   // Create the mutagen sync
   const mutagenContext = await runInternalTask('mutagen.tasks.create', {
@@ -61,19 +60,19 @@ const buildContainerSync = async (args, argsExt) => {
     },
   })
 
-  // Run any sync actions for the mutagen sync
-  await syncActionService({
-    ...serviceArgs,
-    __internal: {
-      ...serviceArgs.__internal,
-      containerContext: mutagenContext
-    },
-    params: {
-      ...serviceArgs.params,
-      dependency,
-      syncActions: syncActions.length ? syncActions : undefined,
-    }
-  })
+  // Run any actions after the mutagen sync is crated
+  syncActions.length &&
+    await actionService({
+      ...serviceArgs,
+      __internal: {
+        ...serviceArgs.__internal,
+        containerContext: mutagenContext
+      },
+      params: {
+        ...serviceArgs.params,
+        action: params.dependency,
+      }
+    })
 
   return mutagenContext
 }
