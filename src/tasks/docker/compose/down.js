@@ -1,5 +1,5 @@
 const { Logger } = require('@keg-hub/cli-utils')
-const { spawnCmd } = require('KegProc')
+const { spawnCmd } = require('@keg-hub/spawn-cmd')
 const { throwComposeFailed } = require('KegUtils/error/throwComposeFailed')
 const { buildComposeCmd } = require('KegUtils/docker/compose/buildComposeCmd')
 const { removeInjected } = require('KegUtils/docker/compose/removeInjectedCompose')
@@ -30,12 +30,14 @@ const composeDown = async args => {
     globalConfig,
   })
 
+  log &&
+    !Boolean(__internal) &&
+    Logger.pair(`Running command: `, dockerCmd)
+
   // Run the docker compose down command
   const cmdFailed = await spawnCmd(
     dockerCmd,
-    { options: { env: contextEnvs }},
-    location,
-    !Boolean(__internal),
+    {options: {env: contextEnvs}, cwd: location},
   )
 
   // Returns 0 if the command is successful, which is falsy

@@ -1,5 +1,5 @@
 const { Logger } = require('@keg-hub/cli-utils')
-const { pipeCmd, spawnCmd } = require('KegProc')
+const { spawnCmd, pipeCmd } = require('@keg-hub/spawn-cmd')
 const { checkCall, deepMerge, noOpObj, noPropArr } = require('@keg-hub/jsutils')
 
 /**
@@ -77,8 +77,7 @@ const runYarnScript = async (location, script, errorCB, log) => {
   // Run the yarn script from the package.json of the passed in location
   const exitCode = await spawnCmd(
     `yarn ${script.trim()}`.trim(),
-    { cwd: location },
-    false
+    { cwd: location }
   )
 
   // 0 = success, 1 = failure

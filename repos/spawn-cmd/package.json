@@ -30,7 +30,10 @@
   "dependencies": {
     "@keg-hub/jsutils": "8.7.0",
     "app-root-path": "3.0.0",
+    "cli-progress": "3.9.1",
+    "cli-spinners": "2.6.1",
     "cross-spawn": "7.0.3",
+    "log-update": "4.0.0",
     "shell-exec": "1.0.2",
     "tree-kill": "1.2.2"
   },

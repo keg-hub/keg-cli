@@ -1,5 +1,5 @@
-const { executeCmd } = require('KegProc')
 const docker = require('@keg-hub/docker-lib')
+const { asyncCmd } = require('@keg-hub/spawn-cmd')
 const { confirmExec } = require('@keg-hub/ask-it')
 const { plural, uniqArr } = require('@keg-hub/jsutils')
 const { generalError } = require('KegUtils/error/generalError')
@@ -100,7 +100,7 @@ const dockerDestroy = async args => {
                   ? Logger.highlight(`Stopping ${ pluralRemove } by references`, `"${ reference }"`)
                   : Logger.highlight(`Stopping all`, `"${ pluralRemove }"`)
 
-                return executeCmd(`docker stop ${ toRemove } --force`)
+                return asyncCmd(`docker stop ${ toRemove } --force`, {cwd: process.cwd()})
               })
             : {}
 
@@ -113,8 +113,9 @@ const dockerDestroy = async args => {
             ? Logger.highlight(`Destroying ${ pluralRemove } by references`, `"${ reference }"`)
             : Logger.highlight(`Destroying all`, `"${ pluralRemove }"`)
 
-          const { error, data } = await executeCmd(
-            `docker ${ removeType } rm ${ toRemove } --force`
+          const { error, data } = await asyncCmd(
+            `docker ${ removeType } rm ${ toRemove } --force`,
+            {cwd: process.cwd()}
           )
           error && generalError(error)
 

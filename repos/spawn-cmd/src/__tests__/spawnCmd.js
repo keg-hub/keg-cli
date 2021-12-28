@@ -1,7 +1,7 @@
 const { limbo } = require('@keg-hub/jsutils')
 const path = require('path')
 
-const spawnCmd = require('../spawnCmd')
+const {spawnCmd} = require('../spawnCmd')
 
 describe('/spawnCmd', () => {
 

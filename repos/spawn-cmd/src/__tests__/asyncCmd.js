@@ -1,4 +1,4 @@
-const asyncCmd = require('../asyncCmd')
+const {asyncCmd} = require('../asyncCmd')
 const path = require('path')
 const fs = require('fs')
 

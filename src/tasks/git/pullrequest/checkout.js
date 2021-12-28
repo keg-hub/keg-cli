@@ -1,6 +1,7 @@
-const { reduceObj, isInt, toInt, exists } = require('@keg-hub/jsutils')
-const { spawnCmd } = require('KegProc')
+const { Logger } = require('@keg-hub/cli-utils')
+const { spawnCmd } = require('@keg-hub/spawn-cmd')
 const { getGitPath } = require('KegUtils/git/getGitPath')
+const { isInt, toInt, exists } = require('@keg-hub/jsutils')
 const { throwNoConfigPath, generalError } = require('KegUtils/error')
 
 
@@ -15,8 +16,8 @@ const { throwNoConfigPath, generalError } = require('KegUtils/error')
  * @returns {void}
  */
 const checkout = async args => {
-  const { params, options, tasks, globalConfig } = args
-  const { context, number, tap } = params
+  const { params, options, globalConfig } = args
+  const { context, number, tap, log } = params
 
   const prNum = number || options.find(opt => isInt(toInt(opt)))
 
@@ -28,7 +29,10 @@ const checkout = async args => {
 
   !location && throwNoConfigPath(globalConfig, tap || context)
 
-  await spawnCmd(`gh pr checkout ${ prNum }`, {}, location)
+  const cmdStr = `gh pr checkout ${ prNum }`
+  log && Logger.pair(`Running command: `, cmdStr)
+
+  await spawnCmd(cmdStr, {cwd: location})
 }
 
 module.exports = {
@@ -54,6 +58,11 @@ module.exports = {
         description: 'Name of the linked tap when context option it set to tap',
         example: 'keg pr --context tap --tap events-force',
         enforced: true,
+      },
+      log: {
+        description: 'Log the compose command to the terminal',
+        example: 'keg pr --no-log',
+        default: true,
       },
     }
   }

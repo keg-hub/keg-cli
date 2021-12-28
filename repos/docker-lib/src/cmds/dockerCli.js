@@ -1,4 +1,4 @@
-const { pipeCmd } = require('../process')
+const { pipeCmd } = require('@keg-hub/spawn-cmd')
 const { asJson } = require('../utils/output/asJson')
 const { apiError } = require('../utils/error/apiError')
 const { Logger, execCmd } = require('@keg-hub/cli-utils')

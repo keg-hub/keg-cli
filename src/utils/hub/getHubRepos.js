@@ -1,9 +1,9 @@
 const path = require('path')
-const { executeCmd } = require('KegProc')
-const { fileSys, Logger } = require('@keg-hub/cli-utils')
-const { isFunc, pickKeys, eitherArr } = require('@keg-hub/jsutils')
+const { asyncCmd } = require('@keg-hub/spawn-cmd')
 const { getRepoPath } = require('../getters/getRepoPath')
 const { generalError } = require('../error/generalError')
+const { fileSys, Logger } = require('@keg-hub/cli-utils')
+const { isFunc, pickKeys, eitherArr } = require('@keg-hub/jsutils')
 
 const { readFileSync } = fileSys
 
@@ -185,7 +185,7 @@ const getHubRepos = async (args={}) => {
     ? path.join(rootRepoPath, subpath)
     : rootRepoPath
   
-  const { data, error } = await executeCmd(findSubNodeModules, { cwd: searchPath })
+  const { data, error } = await asyncCmd(findSubNodeModules, { cwd: searchPath })
   error && generalError(error.stack)
 
   const repos = data.trim().split('\n')

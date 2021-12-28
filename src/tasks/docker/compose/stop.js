@@ -1,5 +1,5 @@
-const { spawnCmd } = require('KegProc')
 const { Logger } = require('@keg-hub/cli-utils')
+const { spawnCmd } = require('@keg-hub/spawn-cmd')
 const { buildContainerContext } = require('KegUtils/builders/buildContainerContext')
 const { buildComposeCmd } = require('KegUtils/docker/compose')
 
@@ -34,12 +34,14 @@ const composeStop = async args => {
   if(contextEnvs.KEG_CONTEXT_PATH === 'INITIAL')
     contextEnvs.KEG_CONTEXT_PATH = location
 
+  log &&
+    !Boolean(__internal) &&
+    Logger.pair(`Running command: `, dockerCmd)
+
   // Run the docker compose stop command
   await spawnCmd(
     dockerCmd,
-    { options: { env: contextEnvs }},
-    location,
-    !Boolean(__internal),
+    {options: {env: contextEnvs}, cwd: location},
   )
 
   log && Logger.highlight(`Compose service`, `"${ cmdContext }"`, `stopped!`)

@@ -31,7 +31,7 @@ const ensureGit = cmd => (
  *
  * @returns {string} - Response from the git cli command
  */
-const gitCmd = (cmd, cmdOpts, log) => spawnCmd(ensureGit(cmd), cmdOpts, log)
+const gitCmd = async (cmd, cmdOpts, log) => await spawnCmd(ensureGit(cmd), cmdOpts, log)
 
 /**
  * Calls the git cli from the command line and returns the response

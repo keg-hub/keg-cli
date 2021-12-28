@@ -1,4 +1,5 @@
-const { executeCmd } = require('KegProc')
+const { generalError } = require('KegUtils')
+const { asyncCmd } = require('@keg-hub/spawn-cmd')
 const {
   Logger,
   constants,
@@ -6,7 +7,6 @@ const {
   getEditorCmd,
   getPathFromConfig
 } = require('@keg-hub/cli-utils')
-const { generalError } = require('KegUtils')
 
 const { GLOBAL_CONFIG_FOLDER, GLOBAL_CONFIG_PATHS } = constants
 
@@ -61,7 +61,7 @@ const open = async args => {
 
   Logger.info(logText)
 
-  await executeCmd(`${ editorCmd } ${ openPath }`)
+  await asyncCmd(`${editorCmd} ${openPath}`, {cwd: process.cwd()})
 
 }
 

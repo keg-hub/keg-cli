@@ -1,6 +1,5 @@
-const { git } = require('@keg-hub/git-lib')
-const { spawnCmd } = require('KegProc')
 const { ask } = require('@keg-hub/ask-it')
+const { git } = require('@keg-hub/git-lib')
 const { get, exists } = require('@keg-hub/jsutils')
 const { getHubRepos } = require('../hub/getHubRepos')
 const { versionService } = require('./versionService')
@@ -115,21 +114,16 @@ const logFormal = (repo, message) => {
 }
 
 /**
- * TODO: refactor this to use the Git library
  * Runs a git command in a child process
- * 
  * @function
+ *
  * @param {Object} cmd - Command to be run
  * @param {string} location - Location where the command will be run
  *
  * @returns {*} - Response from the git command
  */
-const runGitCmd = (cmd, location) => {
-  return spawnCmd(
-    `git ${cmd.trim()}`,
-    { cwd: location },
-    false
-  )
+const runGitCmd = async (cmd, location) => {
+  return await git.cmd(cmd.trim(), { cwd: location })
 }
 
 /**

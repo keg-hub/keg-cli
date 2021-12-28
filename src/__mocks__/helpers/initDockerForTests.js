@@ -1,12 +1,11 @@
 require('../../../scripts/cli/aliases')
-
-const { executeCmd } = require('../../libs/process/runCommand')
+const { asyncCmd } = require('@keg-hub/spawn-cmd')
 const { apiSuccess } = require('../../libs/docker/helpers')
 const { inspect } = require('../../libs/docker/image')
 
 
 const getImages = async () => {
-  const { data, error } = await executeCmd(`docker image ls --format "{{json .}}"`)
+  const { data, error } = await asyncCmd(`docker image ls --format "{{json .}}"`, {cwd: process.cwd()})
   if(error) throw new Error(error)
 
   return apiSuccess(data, 'json')

@@ -2,7 +2,6 @@
 const logUpdate = require('log-update')
 const cliProgress = require('cli-progress')
 const cliSpinners = require('cli-spinners')
-const { Logger } = require('@keg-hub/cli-utils')
 const { deepMerge, isFunc, isArr } = require('@keg-hub/jsutils')
 
 /**
@@ -15,7 +14,7 @@ const { deepMerge, isFunc, isArr } = require('@keg-hub/jsutils')
  */
 const createBar = (title, { total=100, start=0, preset, ...config }) => {
   console.log('')
-  title && Logger.log(` ${title}`)
+  title && console.log(` ${title}`)
 
   // Create the new progressBar
   const bar = new cliProgress.SingleBar({
@@ -109,7 +108,7 @@ class Loading {
     isFunc(this.loader.stop) && this.loader.stop()
     const loading = this
     setTimeout(() => {
-      loading.finishMessage && Logger.log(loading.finishMessage)
+      loading.finishMessage && console.log(loading.finishMessage)
     }, 1000)
   }
 

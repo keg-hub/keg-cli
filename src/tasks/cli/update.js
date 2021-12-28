@@ -1,8 +1,8 @@
 const path = require('path')
-const { spawnProc } = require('KegProc')
 const pkg = require('../../../package.json')
 const { isFunc } = require('@keg-hub/jsutils')
 const { generalError } = require('KegUtils/error')
+const { spawnCmd } = require('@keg-hub/spawn-cmd')
 const { constants, fileSys } = require('@keg-hub/cli-utils')
 
 const { CLI_ROOT } = constants
@@ -17,7 +17,7 @@ const updateCliError = (message, error) => {
 }
 
 const runCmd = async cmd => {
-  const { error, data } = await spawnProc(cmd, { cwd: CLI_ROOT })
+  const { error, data } = await spawnCmd(cmd, { cwd: CLI_ROOT })
   error && updateCliError(`Error while running Keg-CLI update script ${ script }\n`, error)
 
 }

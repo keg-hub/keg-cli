@@ -1,5 +1,4 @@
-const { Logger } = require('@keg-hub/cli-utils')
-const { Loading } = require('./loading')
+const { Loading } = require('./utils/loading')
 const { spawnCmd } = require('@keg-hub/spawn-cmd')
 const {
   get,
@@ -7,7 +6,6 @@ const {
   isFunc,
   noOpObj
 } = require('@keg-hub/jsutils')
-
 
 /**
  * Checks the passed in data to see if it should be filtered
@@ -63,7 +61,7 @@ const handleLog = (eventCb, type, loading=noOpObj, logs=noOpObj, data, procId) =
     // Most user should not see this displayed
     // This throws when there is an error in the event handling code
     // NOT when there is an error in the pipeCmd Process
-    Logger.error(err.message)
+    console.error(err.message)
   }
 }
 
@@ -139,5 +137,5 @@ const pipeCmd = (cmd, options={}, location=process.cwd()) => {
 
 
 module.exports = {
-  pipeCmd,
+  pipeCmd
 }

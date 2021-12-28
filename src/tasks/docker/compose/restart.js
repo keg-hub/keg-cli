@@ -1,7 +1,7 @@
 const { Logger } = require('@keg-hub/cli-utils')
-const { spawnCmd } = require('KegProc')
 const { pickKeys } = require('@keg-hub/jsutils')
 const { logVirtualUrl } = require('KegUtils/log')
+const { spawnCmd } = require('@keg-hub/spawn-cmd')
 const { buildContainerContext } = require('KegUtils/builders')
 const { throwComposeFailed } = require('KegUtils/error/throwComposeFailed')
 const { buildComposeCmd } = require('KegUtils/docker/compose/buildComposeCmd')
@@ -17,7 +17,7 @@ const { mergeTaskOptions } = require('KegUtils/task/options/mergeTaskOptions')
  */
 const composeRestart = async args => {
   const { globalConfig, __internal, params, task } = args
-  const { context, log } = params
+  const { log } = params
 
   // Get the context data for the command to be run
   const containerContext = await buildContainerContext({
@@ -26,7 +26,7 @@ const composeRestart = async args => {
     params,
     __internal,
   })
-  const { location, cmdContext, contextEnvs, tap, image } = containerContext
+  const { location, cmdContext, contextEnvs } = containerContext
 
   // Build the docker compose command
   const { dockerCmd, composeData } = await buildComposeCmd({
@@ -39,12 +39,14 @@ const composeRestart = async args => {
 
   Logger.empty()
 
+  log &&
+    !Boolean(__internal) &&
+    Logger.pair(`Running command: `, dockerCmd)
+
   // Run the docker-compose restart command
   const cmdFailed = await spawnCmd(
     dockerCmd,
-    { options: { env: contextEnvs }},
-    location,
-    !Boolean(__internal),
+    {options: {env: contextEnvs}, cwd: location},
   )
 
   // Returns 0 if the command is successful, which is falsy

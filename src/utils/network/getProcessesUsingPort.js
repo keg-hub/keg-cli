@@ -1,4 +1,4 @@
-const { executeCmd } = require('KegProc')
+const { asyncCmd } = require('@keg-hub/spawn-cmd')
 
 /**
  * Parses the lsof string to return an object representing a process using a port
@@ -45,9 +45,9 @@ const parseProcess = (lsofString='') => {
  * @param {string} port - port the processes are using
  */
 const getProcessesUsingPort = async port => {
-  const { error, data, exitCode } = await executeCmd(
+  const { error, data, exitCode } = await asyncCmd(
     `lsof -nP -iTCP:${port} | grep LISTEN`,
-    {}
+    {cwd: process.cwd()}
   )
 
   return (error || exitCode) 

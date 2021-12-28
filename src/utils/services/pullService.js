@@ -1,10 +1,8 @@
-const docker = require('@keg-hub/docker-lib')
 const { Logger } = require('@keg-hub/cli-utils')
-const { exists, get, isObj, deepMerge } = require('@keg-hub/jsutils')
+const { exists, get, deepMerge } = require('@keg-hub/jsutils')
 const { runInternalTask } = require('../task/runInternalTask')
-const { getImgNameContext } = require('../getters/getImgNameContext')
 const { shouldPullImage } = require('../helpers/shouldPullImage')
-const { spawnProc } = require('KegProc')
+const { getImgNameContext } = require('../getters/getImgNameContext')
 
 /**
  * Checks if the base image should be pulled
