@@ -30,15 +30,21 @@ module.exports = {
     locationContext: 'CONTAINERS',
     description: `Destroys the docker items for a tap`,
     example: 'keg tap destroy <options>',
+    /**
+     * NOTE: If changing these options,
+     * Also sure to update `destroyService#checkImgRemoveOpts` method to match changes
+     * It uses the `args.options` array to check if the image should be removed
+     */
     options: {
       tap: { 
         description: 'Name of the tap to destroy. Must be a tap linked in the global config',
         required: true,
       },
       image: {
+        default: false,
+        type: 'boolean',
         description: 'Remove the docker image related to the tap',
         example: 'keg tap destroy --image',
-        default: false
       },
       remove: {
         alias: [ 'rm' ],
