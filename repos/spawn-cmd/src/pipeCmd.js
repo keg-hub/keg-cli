@@ -1,5 +1,5 @@
+const { spawnCmd } = require('./spawnCmd')
 const { Loading } = require('./utils/loading')
-const { spawnCmd } = require('@keg-hub/spawn-cmd')
 const {
   get,
   checkCall,
