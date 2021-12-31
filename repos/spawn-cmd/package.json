@@ -40,27 +40,5 @@
   "devDependencies": {
     "jest": "27.3.1",
     "rimraf": "3.0.2"
-  },
-  "jest": {
-    "testMatch": [
-      "<rootDir>/src/**/__tests__/**/*.js?(x)"
-    ],
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx,ts,tsx}"
-    ],
-    "coveragePathIgnorePatterns": [
-      "src/index.js"
-    ],
-    "coverageDirectory": "reports/coverage",
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "jsx",
-      "es6"
-    ],
-    "globals": {
-      "__DEV__": true
-    },
-    "testEnvironment": "node"
   }
 }
