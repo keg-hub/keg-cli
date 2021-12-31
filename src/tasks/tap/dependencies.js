@@ -158,6 +158,11 @@ module.exports = {
         description: 'Updates a specific dependency in the taps package.json',
         example: 'keg tap dependencies --update',
         default: false,
+      },
+      subpath: {
+        alias: [ 'repos', 'sub', 'packages' ],
+        description: 'Folder containing sub repos/packages within the tap. Used when the tap is a mono-repo',
+        example: 'keg tap dependencies --subpath packages',
       }
     }
   }
