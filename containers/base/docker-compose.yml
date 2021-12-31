@@ -7,7 +7,6 @@ services:
       dockerfile: ${KEG_DOCKER_FILE}
       args:
         - EXPO_CLI_VERSION
-        - SHARP_CLI_VERSION
         - GIT_CLI_URL
         - GIT_CLI_BRANCH
         - GIT_HUB_URL
