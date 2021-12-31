@@ -22,8 +22,8 @@ const testArgs = {
       provider: 'ghcr.io',
       namespace: 'KegHub',
       imageWTag: 'keg-base:develop',
-      full: 'ghcr.io/KegHub/keg-base:develop',
-      providerImage: 'ghcr.io/KegHub/keg-base',
+      full: 'ghcr.io/keghub/keg-base:develop',
+      providerImage: 'ghcr.io/keghub/keg-base',
     },
     outputs: {
       imgRef: dockerData.images.base,
@@ -38,8 +38,8 @@ const testArgs = {
       namespace: 'KegHub',
       tag: 'develop',
       imageWTag: 'keg-core:develop',
-      full: 'ghcr.io/KegHub/keg-core:develop',
-      providerImage: 'ghcr.io/KegHub/keg-core',
+      full: 'ghcr.io/keghub/keg-core:develop',
+      providerImage: 'ghcr.io/keghub/keg-core',
     },
     outputs: {
       imgRef: dockerData.images.core,
@@ -54,12 +54,12 @@ const testArgs = {
       namespace: 'KegHub',
       tag: 'zen-371-booking-button-states',
       imageWTag: 'tap:zen-371-booking-button-states',
-      full: 'ghcr.io/KegHub/tap:zen-371-booking-button-states',
-      providerImage: 'ghcr.io/KegHub/tap',
+      full: 'ghcr.io/keghub/tap:zen-371-booking-button-states',
+      providerImage: 'ghcr.io/keghub/tap',
     },
     outputs: {
       imgRef: dockerData.images.tap,
-      refFrom: 'ghcr.io/KegHub/tap:zen-371-booking-button-states'
+      refFrom: 'ghcr.io/keghub/tap:zen-371-booking-button-states'
     }
   },
   Injected: {
@@ -70,12 +70,12 @@ const testArgs = {
       namespace: 'KegHub',
       tag: 'develop',
       imageWTag: 'tap-injected-test:develop',
-      full: 'ghcr.io/KegHub/tap-injected-test:develop',
-      providerImage: 'ghcr.io/KegHub/tap-injected-test',
+      full: 'ghcr.io/keghub/tap-injected-test:develop',
+      providerImage: 'ghcr.io/keghub/tap-injected-test',
     },
     outputs: {
       imgRef: dockerData.images.injected,
-      refFrom: 'ghcr.io/KegHub/tap-injected-test:develop'
+      refFrom: 'ghcr.io/keghub/tap-injected-test:develop'
     }
   },
 }

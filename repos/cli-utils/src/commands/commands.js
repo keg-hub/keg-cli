@@ -127,7 +127,7 @@ const envToStr = envs => Object.keys(envs)
  * Helper to call the docker exec command directly
  * @param {String} containerName - name of container to run command within
  * @param {Array<string>} args - docker exec args
- * @param  {...any} opts - docker exec opts
+ * @param  {*} opts - docker exec opts
  * @example
  * dockerExec('<container-name>', 'yarn install')
  */

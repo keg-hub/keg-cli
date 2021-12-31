@@ -1,8 +1,9 @@
 const path = require('path')
-const rootDir = path.join(__dirname, '../../')
-const { makeExecutable } = require('./makeExecutable')
-const { installRepos } = require('./installRepos')
 const { linkRepos } = require('./linkRepos')
+const rootDir = path.join(__dirname, '../../')
+const { getRepoPaths } = require('./getRepoPaths')
+const { installRepos } = require('./installRepos')
+const { makeExecutable } = require('./makeExecutable')
 
 ;(async () => {
 
@@ -12,11 +13,14 @@ const { linkRepos } = require('./linkRepos')
   // Makes <root_dir>/keg-cli executable
   await makeExecutable(rootDir, 'keg-cli.js')
 
+  // Gets all repos folders from `<cli-root>/repos` directory
+  const repos = getRepoPaths()
+
   // Finds all sub-repos with a package.json
   // Then runs yarn install on them
-  installRepos()
+  installRepos(repos)
 
   // Then link each one to the root node_modules directory
-  linkRepos()
+  linkRepos(repos)
 
 })()

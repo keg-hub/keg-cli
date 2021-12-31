@@ -40,8 +40,8 @@ keg_cli_3_0_0_update(){
   keg cli env set --key GIT_CLI_BRANCH --value master --confirm false
 
   # Update default image envs
-  keg cli env set --key KEG_BASE_IMAGE --value \"ghcr.io/KegHub/keg-base:{{ cli.settings.docker.defaultTag }}\" --confirm false
-  keg cli env set --key KEG_IMAGE_FROM --value \"ghcr.io/KegHub/keg-base:{{ cli.settings.docker.defaultTag }}\" --confirm false
+  keg cli env set --key KEG_BASE_IMAGE --value \"ghcr.io/keghub/keg-base:{{ cli.settings.docker.defaultTag }}\" --confirm false
+  keg cli env set --key KEG_IMAGE_FROM --value \"ghcr.io/keghub/keg-base:{{ cli.settings.docker.defaultTag }}\" --confirm false
   keg cli env set --key KEG_IMAGE_TAG --value \"{{ cli.settings.docker.defaultTag }}\" --confirm false
 
   # Update the globalConfig

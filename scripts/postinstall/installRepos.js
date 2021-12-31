@@ -6,8 +6,8 @@ const { getRepoPaths } = require('./getRepoPaths')
  * @type {function}
  * 
  */
-const installRepos = () => {
-  const repos = getRepoPaths()
+const installRepos = repos => {
+  repos = repos || getRepoPaths()
   Object.entries(repos).map(([name, repo]) => {
     console.log(`\nRunning yarn install for ${name}`)
     const response = execSync('yarn', { cwd: repo })

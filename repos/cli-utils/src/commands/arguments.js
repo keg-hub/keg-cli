@@ -1,4 +1,25 @@
-const { isArr, isStr, exists } = require('@keg-hub/jsutils')
+const { isArr, isStr, exists, isBool } = require('@keg-hub/jsutils')
+
+/**
+ * Loop over the passed in ENVs
+ * Add them to the process.env if they don't already exist
+ * @param {Object} addEnvs - Envs to add to the current process
+ * @param {boolean|Array} overwrite - Should the env be overwritten if it already exists
+ *                                    When an array, should be ENV's that are allowed to overwrite existing
+ * 
+ * @returns {Void}
+ */
+const addToProcess = (addEnvs, overwrite) => {
+  Object.entries(addEnvs).map(([key, value]) => {
+    exists(value) && (
+      !exists(process.env[key]) ||
+      isArr(overwrite) && overwrite.includes(key) ||
+      isBool(overwrite) && overwrite
+    ) &&
+      (process.env[key] = value)
+  })
+}
+
 
 /**
  * Returns a key-value command parameter string
@@ -29,7 +50,6 @@ const addParam = (name, value, ident=`--`) => name && exists(value)
  */
 const addFlag = (...args) => {
   const name = args[0]
-  args.length == 2
 
   return !name || (args.length == 2 && !args[1])
     ? ''
@@ -50,5 +70,6 @@ const addValues = values => isArr(values)
 module.exports = {
   addFlag,
   addParam,
-  addValues
+  addValues,
+  addToProcess,
 }

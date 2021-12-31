@@ -35,8 +35,8 @@ const testArgs = {
       namespace: 'KegHub',
       tag: 'develop',
       imageWTag: 'keg-core:develop',
-      full: 'ghcr.io/KegHub/keg-core:develop',
-      providerImage: 'ghcr.io/KegHub/keg-core',
+      full: 'ghcr.io/keghub/keg-core:develop',
+      providerImage: 'ghcr.io/keghub/keg-core',
     }
   },
   imgTag: {
@@ -48,8 +48,8 @@ const testArgs = {
       namespace: 'KegHub',
       tag: 'test-tag',
       imageWTag: 'tap-injected-test:test-tag',
-      full: 'ghcr.io/KegHub/tap-injected-test:test-tag',
-      providerImage: 'ghcr.io/KegHub/tap-injected-test',
+      full: 'ghcr.io/keghub/tap-injected-test:test-tag',
+      providerImage: 'ghcr.io/keghub/tap-injected-test',
     }
   },
   context: {
@@ -61,8 +61,8 @@ const testArgs = {
       provider: 'ghcr.io',
       namespace: 'KegHub',
       imageWTag: 'components:develop',
-      full: 'ghcr.io/KegHub/components:develop',
-      providerImage: 'ghcr.io/KegHub/components',
+      full: 'ghcr.io/keghub/components:develop',
+      providerImage: 'ghcr.io/keghub/components',
     }
   },
   injected: {
@@ -74,8 +74,8 @@ const testArgs = {
       provider: 'ghcr.io',
       namespace: 'KegHub',
       imageWTag: 'tap-injected-test:develop',
-      full: 'ghcr.io/KegHub/tap-injected-test:develop',
-      providerImage: 'ghcr.io/KegHub/tap-injected-test',
+      full: 'ghcr.io/keghub/tap-injected-test:develop',
+      providerImage: 'ghcr.io/keghub/tap-injected-test',
     }
   },
   tagOverride: {
@@ -87,8 +87,8 @@ const testArgs = {
       provider: 'ghcr.io',
       namespace: 'KegHub',
       imageWTag: 'components:test-tag',
-      full: 'ghcr.io/KegHub/components:test-tag',
-      providerImage: 'ghcr.io/KegHub/components',
+      full: 'ghcr.io/keghub/components:test-tag',
+      providerImage: 'ghcr.io/keghub/components',
     }
   },
   providerOverride: {
@@ -178,8 +178,8 @@ const testArgs = {
       provider: 'ghcr.io',
       namespace: 'KegHub',
       imageWTag: 'keg-items:test',
-      full: 'ghcr.io/KegHub/keg-items:test',
-      providerImage: 'ghcr.io/KegHub/keg-items'
+      full: 'ghcr.io/keghub/keg-items:test',
+      providerImage: 'ghcr.io/keghub/keg-items'
     }
   },
   fromOnlyImage: {
@@ -191,8 +191,8 @@ const testArgs = {
       provider: 'ghcr.io',
       namespace: 'KegHub',
       imageWTag: 'keg-items:develop',
-      full: 'ghcr.io/KegHub/keg-items:develop',
-      providerImage: 'ghcr.io/KegHub/keg-items'
+      full: 'ghcr.io/keghub/keg-items:develop',
+      providerImage: 'ghcr.io/keghub/keg-items'
     }
   },
   imageId: {
@@ -204,8 +204,8 @@ const testArgs = {
       provider: 'ghcr.io',
       namespace: 'KegHub',
       imageWTag: 'keg-core:0.0.1',
-      full: 'ghcr.io/KegHub/keg-core:0.0.1',
-      providerImage: 'ghcr.io/KegHub/keg-core',
+      full: 'ghcr.io/keghub/keg-core:0.0.1',
+      providerImage: 'ghcr.io/keghub/keg-core',
     }
   },
   contextId: {
@@ -217,8 +217,8 @@ const testArgs = {
       provider: 'ghcr.io',
       namespace: 'KegHub',
       imageWTag: 'keg-core:develop',
-      full: 'ghcr.io/KegHub/keg-core:develop',
-      providerImage: 'ghcr.io/KegHub/keg-core',
+      full: 'ghcr.io/keghub/keg-core:develop',
+      providerImage: 'ghcr.io/keghub/keg-core',
     }
   },
   contextIdOverride: {

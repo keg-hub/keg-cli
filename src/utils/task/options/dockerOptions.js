@@ -10,7 +10,7 @@ const dockerOptions = (task, action, options) => {
     namespace: {
       alias: [ 'account' ],
       description: 'Use custom namespace (organization) instead of default defined in the globalConfig',
-      example: `keg ${ task } ${action} --namespace KegHub`,
+      example: `keg ${ task } ${action} --namespace keghub`,
     },
     tag: {
       description: 'Specify the tag tied to the image',
