@@ -2,9 +2,9 @@ const { spawnCmd } = require('./spawnCmd')
 const { Loading } = require('./utils/loading')
 const {
   get,
-  checkCall,
   isFunc,
-  noOpObj
+  noOpObj,
+  checkCall,
 } = require('@keg-hub/jsutils')
 
 /**

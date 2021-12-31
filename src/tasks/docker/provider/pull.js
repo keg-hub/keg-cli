@@ -17,7 +17,7 @@ const { mergeTaskOptions } = require('KegUtils/task/options/mergeTaskOptions')
  * @returns {Object} - Current state of the image to be pulled
  */
 const providerPull = async args => {
-  const { globalConfig, __internal=noOpObj, params, task } = args
+  const { __internal=noOpObj, params } = args
 
   // Get the image name context, so we can pull the image
   const imgNameContext = __internal.imgNameContext || await getImgNameContext(params)

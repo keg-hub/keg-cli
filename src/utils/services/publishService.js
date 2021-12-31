@@ -5,7 +5,6 @@ const { versionService } = require('./versionService')
 const { getHubRepos } = require('../getters/getHubRepos')
 const { fileSys, Logger } = require('@keg-hub/cli-utils')
 const { generalError } = require('../error/generalError')
-const { runRepoScript } = require('../hub/runRepoScript')
 const { get, exists, checkCall } = require('@keg-hub/jsutils')
 const { getPublishContext } = require('../publish/getPublishContext')
 const { getVersionUpdate, getValidSemver } = require('KegUtils/version')
@@ -24,7 +23,7 @@ const { copySync, emptyDirSync } = fileSys
  * 
  * @return {Boolean} - whether  the call was successful or not
  */
-const runRepoScript = (repo, script, errorCb, log) => {
+const runRepoScript = async (repo, script, errorCb, log) => {
   log && Logger.log(`Running yarn ${script.trim()} for repo ${repo.repo} ...`)
 
   // Run the yarn script from the package.json of the passed in location
