@@ -48,13 +48,7 @@
   * Installs the `expo-cli` and a few other dependencies
   * Installs the `keg-cli` 
   * Exposes most commonly used ports for expo
-  * Required a `PUBLIC_GIT_KEY` build-arg
-* **core**
-  * Runs the `keg-core` repo
-  * Used for development on `keg-core`, not needed if only building `taps`
-  * Required a `PUBLIC_GIT_KEY` build-arg
-  * Runs yarn install at build time
-    * Copies over local `package.json` && `yarn.lock` into the container
+
 
 
 

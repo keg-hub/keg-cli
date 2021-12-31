@@ -42,7 +42,7 @@ keg_build_images(){
   fi
 
   # otherwise build and push each keg-hub image
-  for REPO in base core tap components retheme; do
+  for REPO in base core tap; do
     keg_build_repo $REPO $KEG_BUILD_TAG
   done
 }

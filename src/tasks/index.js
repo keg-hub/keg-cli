@@ -32,7 +32,6 @@ module.exports = globalConfig => {
     ...initialize(require('./git'), 'git', globalConfig),
     ...initialize(require('./global'), 'global', globalConfig),
     ...initialize(require('./generate'), 'generate', globalConfig),
-    ...initialize(require('./hub'), 'hub', globalConfig),
     ...initialize(require('./mutagen'), 'mutagen', globalConfig),
     ...initialize(require('./network'), 'network', globalConfig),
     ...initialize(require('./proxy'), 'proxy', globalConfig),

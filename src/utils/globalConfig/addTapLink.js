@@ -11,10 +11,11 @@ const { GLOBAL_CONFIG_PATHS } = constants
  * @param {Object} tapObj - Config object for the linked tap
  * @param {string} tapObj.path - Path to the linked tap repo
  * @param {string} tapObj.tasks - Path to the custom tasks file 
+ * @param {boolean} silent - Skipping logging anything to terminal
  *
  * @returns {void}
  */
-const addTapLink = (globalConfig, name, tapObj) => {
+const addTapLink = (globalConfig, name, tapObj, silent) => {
 
   // Ensure the path to save tap links exists
   !isObj(get(globalConfig, GLOBAL_CONFIG_PATHS.TAP_LINKS)) &&
@@ -28,9 +29,10 @@ const addTapLink = (globalConfig, name, tapObj) => {
     tapObj
   )
 
+  if(silent) return
+
   Logger.success(`Successfully linked tap '${name}' => '${tapObj.path}'`)
   Logger.empty()
-
 }
 
 module.exports = {

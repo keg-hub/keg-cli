@@ -134,6 +134,10 @@ const dockerBuild = async args => {
   // If if dose then the build failed
   if(exitCode) process.exit(exitCode)
 
+  // If building with buildX, and push was passed
+  // Just return, because the image does not exist locally
+  if(buildX && push) return
+
   // Return the built image as a json object
   // This is needed for internal keg-cli calls
   const imgRef = await docker.image.get(buildImg)

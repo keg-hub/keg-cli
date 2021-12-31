@@ -49,7 +49,7 @@ const removeTapLink = (globalConfig, linkPath, tapName, tapPath) => {
  * @returns {void}
  */
 const unlinkTap = async args => {
-  const { command, globalConfig, options, params, tasks } = args
+  const { globalConfig, params } = args
   const { name } = params
 
   // Check if the link alread exists, and if we should overwrite it

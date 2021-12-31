@@ -1,5 +1,6 @@
 const path = require('path')
 const { execSync } = require('child_process')
+const { setupError } = require('./setupError')
 const { getRepoPaths } = require('./getRepoPaths')
 
 const rootDir = path.join(__dirname, '../../')
@@ -40,8 +41,8 @@ const ensurePackageLinks = repos => {
         const repoPkg = require(path.join(repo, 'package.json'))
         repoPkg && packages.push({loc: repo, package: repoPkg})
         createLink(repo)
-      }
-      catch(err){}
+      // Catch the error here, so it will still try to link the other repos
+      } catch(err){ setupError(err, `Failed create "yarn link" for repo ${repo}.`) }
 
       return packages
     }, [])
@@ -56,21 +57,27 @@ const ensurePackageLinks = repos => {
  * @returns {Void}
  */
 const linkSubRepos = packages => {
-  packages.map(({ loc, package:current })=> {
-    console.log(`  * Creating links for ${current.name}`)
-    packages.map(({ package:other }) => {
-      let hasDep = (current.dependencies && current.dependencies[other.name])
-      hasDep = hasDep || (current.devDependencies && current.devDependencies[other.name])
-      hasDep && addLinkTo(loc, current.name, other.name)
-    })
+  const failed = []
+  packages.map(({ loc, package:current }) => {
+    try {
+      console.log(`  * Creating links for ${current.name}`)
+      packages.map(({ package:other }) => {
+        let hasDep = (current.dependencies && current.dependencies[other.name])
+        hasDep = hasDep || (current.devDependencies && current.devDependencies[other.name])
+        hasDep && addLinkTo(loc, current.name, other.name)
+      })
+    // Catch the error here, so it will still try to link the other repos
+    } catch(err){ failed.push([current.name, err]) }
   })
+
+  failed.map(([name, err]) => setupError(err, `Failed create "yarn link" for repo ${name}.`))
 }
 
 /**
  * Runs yarn link for all sub repos, called from `scripts.postinstall` of root package.json
  * @type {function}
  * 
- * * @param {Object} repos - Name/Locations of all sub-repos in the /repos directory
+ * @param {Object} repos - Name/Locations of all sub-repos in the /repos directory
  * 
  * @returns {Void}
  */
@@ -88,9 +95,7 @@ const linkRepos = repos => {
     linkSubRepos(packages)
   }
   catch(err){
-    console.error(`\nError creating links repos. Please link them manually`)
-    console.log(err.stack)
-    console.log('\n')
+    setupError(err, `Failed creating links for repos. Please link them manually`, 1)
   }
 }
 

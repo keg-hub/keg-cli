@@ -1,5 +1,5 @@
 const { ask } = require('@keg-hub/ask-it')
-const { get, isEmpty } = require('@keg-hub/jsutils')
+const { get, isEmpty, exists } = require('@keg-hub/jsutils')
 const { addTapLink } = require('KegUtils/globalConfig/addTapLink')
 const { constants, getTapConfig, Logger } = require('@keg-hub/cli-utils')
 const { checkCustomTaskFolder } = require('KegUtils/task/checkCustomTaskFolder')
@@ -84,21 +84,24 @@ const askAlias = async (silent, location, env) => {
  */
 const linkTap = async args => {
   const { globalConfig, params } = args
-
-  const { name, location, silent, env } = params
-
+  const { name, location, env, log } = params
+  const silent = exists(params.silent) ? params.silent : exists(log) ? !log : undefined
+  
   // get the tap config located at our current location to determine the default alias name
   const [ tapConfig ] = getTapConfig({ path: location })
 
   // get the tap name, or throw an error if not specified
-  const alias = name || get(tapConfig, 'keg.alias') || await askAlias(silent, location, env)
+  const alias = name ||
+    get(tapConfig, 'keg.alias') ||
+    get(tapConfig, 'keg.cli.link.name') ||
+    await askAlias(silent, location, env)
 
   // Try to build the tap object.
   const tapObj = await buildTapObj(globalConfig, silent, alias, location)
 
   // Check if we should add the link or custom task file, or log that the link was canceled!
   ;tapObj
-    ? addTapLink(globalConfig, alias, tapObj)
+    ? addTapLink(globalConfig, alias, tapObj, silent)
     : !silent && (Logger.warn(`Tap link canceled!`) || Logger.empty())
 }
 
@@ -123,6 +126,11 @@ module.exports = {
         description: 'Will fail silently if any errors occur',
         example: 'keg tap link --silent',
         type: 'boolean'
+      },
+      log: {
+        type: 'boolean',
+        example: 'keg tap link --log',
+        description: 'Log status output',
       }
     }
   }
