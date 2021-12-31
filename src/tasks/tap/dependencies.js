@@ -1,5 +1,5 @@
 const semver = require('semver')
-const { getHubRepos } = require('KegUtils/hub/getHubRepos')
+const { getHubRepos } = require('KegUtils/getters/getHubRepos')
 const { get, mapObj, isEmptyColl } = require('@keg-hub/jsutils')
 const { getTapPackage, getTapPath, Logger } = require('@keg-hub/cli-utils')
 const { updateVersionInDependencies } = require('KegUtils/version/updateVersionInDependencies')

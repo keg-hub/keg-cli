@@ -1,16 +1,43 @@
 const { ask } = require('@keg-hub/ask-it')
 const { git } = require('@keg-hub/git-lib')
-const { get, exists } = require('@keg-hub/jsutils')
-const { getHubRepos } = require('../hub/getHubRepos')
+const { spawnCmd } = require('@keg-hub/spawn-cmd')
 const { versionService } = require('./versionService')
+const { getHubRepos } = require('../getters/getHubRepos')
 const { fileSys, Logger } = require('@keg-hub/cli-utils')
 const { generalError } = require('../error/generalError')
 const { runRepoScript } = require('../hub/runRepoScript')
+const { get, exists, checkCall } = require('@keg-hub/jsutils')
 const { getPublishContext } = require('../publish/getPublishContext')
-const { getPublishContextOrder } = require('../publish/getPublishContextOrder')
 const { getVersionUpdate, getValidSemver } = require('KegUtils/version')
+const { getPublishContextOrder } = require('../publish/getPublishContextOrder')
 
 const { copySync, emptyDirSync } = fileSys
+
+/**
+ * Runs a specific script from the repo
+ * 
+ * @function
+ * @param {Object} repo 
+ * @param {string} script - name of the script in package.json
+ * @param {Function} errorCb - called if the script throws or fails
+ * @param {Boolean} log - show log message or not
+ * 
+ * @return {Boolean} - whether  the call was successful or not
+ */
+const runRepoScript = (repo, script, errorCb, log) => {
+  log && Logger.log(`Running yarn ${script.trim()} for repo ${repo.repo} ...`)
+
+  // Run the yarn script from the package.json of the passed in location
+  const exitCode = await spawnCmd(
+    `yarn ${script.trim()}`.trim(),
+    { cwd: repo.location }
+  )
+
+  // 0 = success, 1 = failure
+  return exitCode
+    ? checkCall(errorCb, exitCode, repo.location, script)
+    : exitCode || true
+}
 
 /**
  * Validates the package command and runs it if exists
