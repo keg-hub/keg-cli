@@ -62,13 +62,13 @@ npm install @keg-hub/cli-utils
 
           module.exports = { customTask: { ...taskDefinition } }
         ```
-      * See [tap-vistapps-app](https://github.com/KegHub/tap-visitapps-app/blob/master/tasks/index.js) `tasks/index.js` file for an example
+      * See [tap-vistapps-app](https://github.com/keghub/tap-visitapps-app/blob/master/tasks/index.js) `tasks/index.js` file for an example
 * `registerTasks` - Register Custom Tasks
   * When setup correctly The `keg-cli` will automatically load custom tasks for a linked tap
     * The tap must have a `tasks` folder in the root directory
     * `tasks` folder must have an `index.js`
       * This file should export any custom task definitions that the tap needs
-      * See the tasks folders of [tap-visitapps-app](https://github.com/KegHub/tap-visitapps-app) or [keg-herkin](https://github.com/KegHub/keg-herkin) for examples
+      * See the tasks folders of [tap-visitapps-app](https://github.com/keghub/tap-visitapps-app) or [keg-herkin](https://github.com/keghub/keg-herkin) for examples
   * In most situations calling `registerTasks` is **NOT** needed
     * This is only for cases where adding a `tasks` folder is **NOT** possible
     * You must call this method prior to running a `keg-cli` command for the tasks to be found

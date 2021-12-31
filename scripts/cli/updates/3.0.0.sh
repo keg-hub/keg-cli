@@ -50,13 +50,13 @@ keg_cli_3_0_0_update(){
   keg config set --key cli.settings.docker.defaultLocalBuild --value false --confirm false
 
   keg config set --key version --value 3.0.0 --confirm false
-  keg config set --key cli.git.orgUrl --value \"https://github.com/KegHub\" --confirm false
+  keg config set --key cli.git.orgUrl --value \"https://github.com/keghub\" --confirm false
   keg config set --key cli.git.repos.hub --value keg-hub --confirm false
   keg config set --key cli.git.repos.cli --value keg-cli --confirm false
   
   # Update the docker config to use the new settings
   keg config set --key docker.providerUrl --value ghcr.io --confirm false
-  keg config set --key docker.namespace --value KegHub --confirm false
+  keg config set --key docker.namespace --value keghub --confirm false
 
   # Run a sync after the envs have been updated
   keg config sync --confirm false

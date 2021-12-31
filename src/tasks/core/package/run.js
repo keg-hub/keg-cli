@@ -30,7 +30,7 @@ module.exports = {
     options: {
       package: {
         description: 'Pull request package url or name',
-        example: `keg core package run --package KegHub/my-app:bug-fixes`,
+        example: `keg core package run --package keghub/my-app:bug-fixes`,
         required: true,
         ask: {
           message: 'Enter the docker package url or path (<user>/<repo>/<package>:<tag>)',

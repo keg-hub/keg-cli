@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "Wrapper around the git command line executable",
   "main": "index.js",
-  "repository": "https://github.com/KegHub/keg-cli/tree/master/repos/docker-lib",
+  "repository": "https://github.com/keghub/keg-cli/tree/master/repos/docker-lib",
   "author": "Lance Tipton",
   "license": "MIT",
   "private": false,

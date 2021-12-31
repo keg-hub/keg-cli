@@ -20,7 +20,7 @@ const testArgs = {
       image: 'keg-base',
       tag: 'develop',
       provider: 'ghcr.io',
-      namespace: 'KegHub',
+      namespace: 'keghub',
       imageWTag: 'keg-base:develop',
       full: 'ghcr.io/keghub/keg-base:develop',
       providerImage: 'ghcr.io/keghub/keg-base',
@@ -35,7 +35,7 @@ const testArgs = {
     inputs: {
       image: 'keg-core',
       provider: 'ghcr.io',
-      namespace: 'KegHub',
+      namespace: 'keghub',
       tag: 'develop',
       imageWTag: 'keg-core:develop',
       full: 'ghcr.io/keghub/keg-core:develop',
@@ -51,7 +51,7 @@ const testArgs = {
     inputs: {
       image: 'tap',
       provider: 'ghcr.io',
-      namespace: 'KegHub',
+      namespace: 'keghub',
       tag: 'zen-371-booking-button-states',
       imageWTag: 'tap:zen-371-booking-button-states',
       full: 'ghcr.io/keghub/tap:zen-371-booking-button-states',
@@ -67,7 +67,7 @@ const testArgs = {
     inputs: {
       image: 'tap-injected-test',
       provider: 'ghcr.io',
-      namespace: 'KegHub',
+      namespace: 'keghub',
       tag: 'develop',
       imageWTag: 'tap-injected-test:develop',
       full: 'ghcr.io/keghub/tap-injected-test:develop',

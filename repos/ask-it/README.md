@@ -7,11 +7,11 @@ Wrapper around [inquirer](https://www.npmjs.com/package/inquirer) to make asking
 Add to your package.json
 
   ```js
-    "askIt": "git+https://github.com/KegHub/askIt.git"
+    "askIt": "git+https://github.com/keghub/askIt.git"
   ```
 
 ### Use It
-See an [example here](https://github.com/KegHub/askIt/blob/master/scripts/validate.js)
+See an [example here](https://github.com/keghub/askIt/blob/master/scripts/validate.js)
 
 ```js
 ;(() => {
@@ -62,7 +62,7 @@ See an [example here](https://github.com/KegHub/askIt/blob/master/scripts/valida
 ### ask
   * *@type* `function`
   * *@param*  `Object` - a question model object
-    * See [src/models/models.js](https://github.com/KegHub/askIt/blob/master/src/models/models.js)
+    * See [src/models/models.js](https://github.com/keghub/askIt/blob/master/src/models/models.js)
   * **ask.confirm**
     * *@type* `function`
     * *@param*  `string` - The true / false question to ask

@@ -49,8 +49,8 @@ const buildCIConfig = (customConfig) => {
         core: path.join(KEG_ROOT_DIR, 'repos', 'keg-core'),
       },
       git: {
-        orgName: `KegHub`,
-        orgUrl: `https://github.com/KegHub`,
+        orgName: `keghub`,
+        orgUrl: `https://github.com/keghub`,
         publicToken: GITHUB_TOKEN,
         key: GITHUB_TOKEN,
         user: USER,
@@ -65,7 +65,7 @@ const buildCIConfig = (customConfig) => {
     },
     docker: {
       providerUrl: `ghcr.io`,
-      namespace: `KegHub`,
+      namespace: `keghub`,
       user: USER,
       token: GITHUB_TOKEN
     },

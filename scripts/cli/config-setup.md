@@ -1,6 +1,6 @@
 # Setup
 * Single command from terminal
-  * `curl https://github.com/KegHub/keg-cli/blob/master/scripts/setup/install.sh | bash `
+  * `curl https://github.com/keghub/keg-cli/blob/master/scripts/setup/install.sh | bash `
 
 # Add Git user / token
   * User must create a token in github

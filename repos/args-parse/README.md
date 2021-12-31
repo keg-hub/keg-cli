@@ -7,11 +7,11 @@ Parse command line arguments
 Add to your package.json
 
   ```js
-    "argsParse": "git+https://github.com/KegHub/argsParse.git"
+    "argsParse": "git+https://github.com/keghub/argsParse.git"
   ```
 
 ### Use It
-See test [examples](https://github.com/KegHub/argsParse/blob/master/__tests__/argsParse.js)
+See test [examples](https://github.com/keghub/argsParse/blob/master/__tests__/argsParse.js)
 
 ```js
 ;(() => {
@@ -53,6 +53,6 @@ See test [examples](https://github.com/KegHub/argsParse/blob/master/__tests__/ar
 ## Custom Config
 * Use the `PARSE_CONFIG_PATH` environment vairable to overwrite the path to the parse config
   * Path should be relative to the applications root directory
-* See default [config](https://github.com/KegHub/argsParse/blob/master/configs/parse.config.js)
+* See default [config](https://github.com/keghub/argsParse/blob/master/configs/parse.config.js)
 * Custom Configs should match the keys within the default config
   * `bools` && `environment`
