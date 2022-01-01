@@ -79,32 +79,32 @@ describe('Loaders.loadConfigs', () => {
 
   // Somethings up with the paths in the CI,
   // Need to investigate, so commenting out for now
-  // it(`should call the load sync method with the correct yml paths`, () => {
-  //   loadConfigs({ noEnv: true, name: 'parse' })
+  it(`should call the load sync method with the correct yml paths`, () => {
+    loadConfigs({ noEnv: true, name: 'parse' })
 
-  //   loadYmlSyncMock.mock.calls.map(mockCall => {
-  //     const args = mockCall[0]
-  //     const ymlLoc = args.location
-  //     const cleanedLoc = ymlLoc.includes(`keg-cli/repos/`)
-  //       ? ymlLoc.split(`keg-cli/repos/`).pop()
-  //       : ymlLoc.split('/').slice(3).join('/')
+    loadYmlSyncMock.mock.calls.map(mockCall => {
+      const args = mockCall[0]
+      const ymlLoc = args.location
+      const cleanedLoc = ymlLoc.includes(`keg-cli/repos/`)
+        ? ymlLoc.split(`keg-cli/repos/`).pop()
+        : ymlLoc.split('/').slice(3).join('/')
 
-  //     expect(ymlSearchPaths.includes(cleanedLoc)).toBe(true)
-  //   })
-  // })
+      expect(ymlSearchPaths.includes(cleanedLoc)).toBe(true)
+    })
+  })
 
-  // it(`should call the load sync method with the correct env paths`, () => {
-  //   loadConfigs({ noYml: true, name: 'parse' })
+  it(`should call the load sync method with the correct env paths`, () => {
+    loadConfigs({ noYml: true, name: 'parse' })
 
-  //   loadEnvSyncMock.mock.calls.map(mockCall => {
-  //     const args = mockCall[0]
-  //     const envLoc = args.location
-  //     const cleanedLoc = envLoc.includes(`keg-cli/repos/`)
-  //       ? envLoc.split(`keg-cli/repos/`).pop()
-  //       : envLoc.split('/').slice(3).join('/')
+    loadEnvSyncMock.mock.calls.map(mockCall => {
+      const args = mockCall[0]
+      const envLoc = args.location
+      const cleanedLoc = envLoc.includes(`keg-cli/repos/`)
+        ? envLoc.split(`keg-cli/repos/`).pop()
+        : envLoc.split('/').slice(3).join('/')
 
-  //     expect(envSearchPaths.includes(cleanedLoc)).toBe(true)
-  //   })
-  // })
+      expect(envSearchPaths.includes(cleanedLoc)).toBe(true)
+    })
+  })
   
 })
