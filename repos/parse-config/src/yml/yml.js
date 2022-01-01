@@ -2,13 +2,7 @@ const yaml = require('js-yaml')
 const { throwError } = require('../error')
 const writeYamlFile = require('write-yaml-file')
 const { convertValue } = require('../utils/expand')
-const {
-  limbo,
-  noOpObj,
-  noPropArr,
-  isObj,
-  isStr,
-} = require('@keg-hub/jsutils')
+const { limbo, noOpObj, noPropArr, isObj, isStr } = require('@keg-hub/jsutils')
 const {
   getContent,
   getContentSync,
@@ -22,22 +16,21 @@ const {
  * Recursively loops through the passed in content object
  * Checks each key/value pair looking for a string value
  * When found, calls convertValue to run bash expansion on it
- * 
+ *
  * @param {Object} content - Parsed yaml file values
- * 
+ *
  * @returns {Object} Parsed yaml file values including bash expansion where needed
  */
 const recurseExpand = content => {
-  return Object.entries(content)
-    .reduce((acc, [key, value]) => {
-      acc[key] = isObj(value)
-        ? recurseExpand(value)
-        : isStr(value)
-          ? convertValue(content, value)
-          : value
+  return Object.entries(content).reduce((acc, [ key, value ]) => {
+    acc[key] = isObj(value)
+      ? recurseExpand(value)
+      : isStr(value)
+        ? convertValue(content, value)
+        : value
 
-      return acc
-    }, {})
+    return acc
+  }, {})
 }
 
 /**

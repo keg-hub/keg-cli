@@ -37,7 +37,7 @@ ITEM=1
 MR=goat
 `
 
-const envStrExpand = ([
+const envStrExpand = [
   'TEST_PATH=${TEST_PATH}',
   'OTHER_PATH=/other/path/',
   'BOOL=true',
@@ -46,14 +46,12 @@ const envStrExpand = ([
   'ITEM="false"',
   'MR=goat',
   'EMPTY_ENV=""',
-  "ESCAPED_VALUE=\\$NOT_REPLACED",
-  'DOUBLE_REPLACE=${REF_VALUE}-$NODE_ENV'
-]).join('\n')
+  'ESCAPED_VALUE=\\$NOT_REPLACED',
+  'DOUBLE_REPLACE=${REF_VALUE}-$NODE_ENV',
+].join('\n')
 
 describe('envParser', () => {
-
   describe('parse', () => {
-
     it(`should parse the passed in env content`, () => {
       expect(parse(envStr)).toEqual(envObj)
     })
@@ -63,10 +61,11 @@ describe('envParser', () => {
       const parsedEnvs = parse(envStrExpand)
       expect(parsedEnvs.TEST_PATH).toBe('some/test/path')
       expect(parsedEnvs.ENVIRONMENT).toBe(process.env.NODE_ENV)
-      expect(parsedEnvs.DOUBLE_REPLACE).toBe(`ref-value-${process.env.NODE_ENV}`)
+      expect(parsedEnvs.DOUBLE_REPLACE).toBe(
+        `ref-value-${process.env.NODE_ENV}`
+      )
       expect(parsedEnvs.ESCAPED_VALUE).toBe(`$NOT_REPLACED`)
     })
-
   })
 
   describe('stringify', () => {
@@ -74,5 +73,4 @@ describe('envParser', () => {
       expect(stringify(envObj).trim()).toEqual(envStrNoComments.trim())
     })
   })
-
 })

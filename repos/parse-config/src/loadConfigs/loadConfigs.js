@@ -9,33 +9,30 @@ const { GLOBAL_CONFIG_FOLDER } = constants
 /**
  * Adds the override value to the passed in location
  * @function
- * 
+ *
  * @param {string} location - Location on the local file system
  * @param {string} [override=container] - To be added to the location
- * 
+ *
  * @returns {string} - Location with the override added
  */
-const addContainerDir = (location, override=`container`) => {
+const addContainerDir = (location, override = `container`) => {
   return location && path.join(location, override)
 }
 
 /**
  * Gets all locations relative to the app root if it exists
  * @function
- * 
+ *
  * @returns {Object|boolean} - App paths if it exists or false
  */
 const getAppLocations = () => {
   const appRoot = getAppRoot()
   const cwd = process.cwd()
 
-  const appLocs = !appRoot || path.normalize(cwd) !== path.normalize(appRoot)
-    ? [cwd]
-    : []
+  const appLocs =
+    !appRoot || path.normalize(cwd) !== path.normalize(appRoot) ? [cwd] : []
 
-  return appRoot
-    ? [...appLocs, appRoot, addContainerDir(appRoot)]
-    : appLocs
+  return appRoot ? [ ...appLocs, appRoot, addContainerDir(appRoot) ] : appLocs
 }
 
 /**
@@ -43,7 +40,7 @@ const getAppLocations = () => {
  * @param {boolean} check - If true, files will be added to the container
  * @param {Array} container - Holds the files
  * @param {*} file - Files to add if check it true
- * 
+ *
  * @returns {Void}
  */
 const checkAddFile = (check, container, ...files) => {
@@ -55,10 +52,10 @@ const checkAddFile = (check, container, ...files) => {
  * @param {string} file - The reference name of the values file
  * @param {string} opts.env - The current environment
  * @param {string} opts.name - The name of the app the values file belongs to
- * 
+ *
  * @return {Array} - Builtfiles names
  */
-const buildYmlFiles = (file='values', { env, name }) => {
+const buildYmlFiles = (file = 'values', { env, name }) => {
   const ymlFiles = []
 
   ymlFiles.push(`${file}.yml`)
@@ -92,7 +89,7 @@ const buildYmlFiles = (file='values', { env, name }) => {
     `${name}.${env}.${file}.yml`,
     `${name}.${env}.${file}.yaml`
   )
-  
+
   checkAddFile(env, ymlFiles, `${file}-${env}.yml`, `${file}-${env}.yaml`)
   checkAddFile(name, ymlFiles, `${file}-${name}.yml`, `${file}-${name}.yaml`)
   checkAddFile(
@@ -116,7 +113,7 @@ const buildYmlFiles = (file='values', { env, name }) => {
  *
  * @return {Array} - Built files names
  */
-const buildEnvFiles = ({env, name}) => {
+const buildEnvFiles = ({ env, name }) => {
   const envFiles = []
 
   env && envFiles.push(`.env.${env}`)
@@ -124,8 +121,8 @@ const buildEnvFiles = ({env, name}) => {
   checkAddFile(
     name && env,
     envFiles,
-    `.env_${name}_${env}`, 
-    `.env_${env}_${name}`, 
+    `.env_${name}_${env}`,
+    `.env_${env}_${name}`,
     `.env.${name}.${env}`,
     `.env.${env}.${name}`,
     `.env.${name}-${env}`,
@@ -137,17 +134,17 @@ const buildEnvFiles = ({env, name}) => {
   checkAddFile(
     name && env,
     envFiles,
-    `${name}_${env}.env`, 
-    `${env}_${name}.env`, 
+    `${name}_${env}.env`,
+    `${env}_${name}.env`,
     `${name}.${env}.env`,
     `${env}.${name}.env`,
     `${name}-${env}.env`,
-    `${env}-${name}.env`,
+    `${env}-${name}.env`
   )
 
   return {
     envFiles,
-    firstEnvs: [`.env`, `defaults.env`]
+    firstEnvs: [ `.env`, `defaults.env` ],
   }
 }
 
@@ -159,16 +156,14 @@ const buildEnvFiles = ({env, name}) => {
  *
  * @return {Array} - Built files names
  */
-const buildFileNames = ({ymlName, noYml, noEnv, env, name}) => {
+const buildFileNames = ({ ymlName, noYml, noEnv, env, name }) => {
   env = env || process.env.NODE_ENV
 
-  const ymlFiles = noYml
-    ? noPropArr
-    : buildYmlFiles(ymlName, {env, name})
+  const ymlFiles = noYml ? noPropArr : buildYmlFiles(ymlName, { env, name })
 
-  const {firstEnvs, envFiles} = noEnv
-    ? {firstEnvs: noPropArr, envFiles: noPropArr}
-    : buildEnvFiles({env, name})
+  const { firstEnvs, envFiles } = noEnv
+    ? { firstEnvs: noPropArr, envFiles: noPropArr }
+    : buildEnvFiles({ env, name })
 
   return {
     yml: ymlFiles,
@@ -179,7 +174,7 @@ const buildFileNames = ({ymlName, noYml, noEnv, env, name}) => {
 
 const loopFilesNames = (locations, defLocs, fileNames) => {
   return fileNames.reduce((acc, fileName) => {
-    if(!fileName) return acc
+    if (!fileName) return acc
 
     defLocs.map(loc => loc && acc.push(path.join(loc, fileName)))
     locations.map(loc => loc && acc.push(path.join(loc, fileName)))
@@ -204,16 +199,15 @@ const generateLocPath = (locations, defLocs, fileNames) => {
  * @function
  * @param {Array<string>} location - Custom locations to generate the location from
  * @param {Array<string>} types - Custom types to add to the paths
- * 
+ *
  * @return {Object} - Contains the yam and env file locations to load
  */
-const generateLoadPaths = ({locations=noPropArr, ...opts}) => {
+const generateLoadPaths = ({ locations = noPropArr, ...opts }) => {
   const fileNames = buildFileNames(opts)
-  const defLocs = [...getAppLocations(), GLOBAL_CONFIG_FOLDER]
+  const defLocs = [ ...getAppLocations(), GLOBAL_CONFIG_FOLDER ]
 
   return generateLocPath(locations, defLocs, fileNames)
 }
-
 
 /**
  * Loads yml and env configs
@@ -232,11 +226,10 @@ const generateLoadPaths = ({locations=noPropArr, ...opts}) => {
  * @param {string} config.format - Type that should be returned (string || Object)
  * @param {string} [config.ymlName='values'] - The reference name of the values file
  * @param {Array<string>|string} [config.ymlPath='env'] - Path to the env that exist on the yml object
- * 
+ *
  * @return {Object} - Loaded config file ENVs
  */
-const loadConfigs = (config=noOpObj) => {
-
+const loadConfigs = (config = noOpObj) => {
   const { noYml, noEnv } = config
   const loadFrom = generateLoadPaths(config)
 
@@ -244,11 +237,11 @@ const loadConfigs = (config=noOpObj) => {
   const firstEnvs = noEnv
     ? noOpObj
     : loadFrom.first.reduce((acc, location) => {
-        return {
-          ...acc,
-          ...loadEnvSync({ error: false, ...config, location }),
-        }
-      }, noOpObj)
+      return {
+        ...acc,
+        ...loadEnvSync({ error: false, ...config, location }),
+      }
+    }, noOpObj)
 
   const ymlPath = exists(config.ymlPath) ? config.ymlPath : 'env'
 
@@ -256,23 +249,22 @@ const loadConfigs = (config=noOpObj) => {
   const ymlValues = noYml
     ? noOpObj
     : loadFrom.yml.reduce((acc, location) => {
-        const content = loadYmlSync({ error: false, ...config, location })
-        return {
-          ...acc,
-          ...(ymlPath ? get(content, ymlPath) : content)
-        }
-      }, firstEnvs)
+      const content = loadYmlSync({ error: false, ...config, location })
+      return {
+        ...acc,
+        ...(ymlPath ? get(content, ymlPath) : content),
+      }
+    }, firstEnvs)
 
   // Load the env files, and merge with the yml files
   return noEnv
     ? ymlValues
     : loadFrom.env.reduce((acc, location) => {
-        return {
-          ...acc,
-          ...loadEnvSync({ error: false, ...config, location }),
-        }
-      }, ymlValues)
-
+      return {
+        ...acc,
+        ...loadEnvSync({ error: false, ...config, location }),
+      }
+    }, ymlValues)
 }
 
 module.exports = {

@@ -10,12 +10,12 @@ const env = require('../../env/env')
 const loadYmlSyncMock = jest.fn((...args) => yml.loadYmlSync(...args))
 jest.setMock('../../yml/yml', {
   ...yml,
-  loadYmlSync: loadYmlSyncMock
+  loadYmlSync: loadYmlSyncMock,
 })
 const loadEnvSyncMock = jest.fn((...args) => env.loadEnvSync(...args))
 jest.setMock('../../env/env', {
   ...env,
-  loadEnvSync: loadEnvSyncMock
+  loadEnvSync: loadEnvSyncMock,
 })
 
 const {
@@ -31,16 +31,15 @@ const testYmlFile = path.join(homeDir, `./.kegConfig/parse.yml`)
 const testYmlData = {
   env: {
     item: '{{test.data}}',
-    array: [1, 2],
+    array: [ 1, 2 ],
     Object: { '{{name}}': '{{version}}' },
     defaultEnv: '{{ cli.settings.defaultEnv }}',
-  }
+  },
 }
 
 const { loadConfigs } = require('../loadConfigs')
 
 describe('Loaders.loadConfigs', () => {
-  
   beforeEach(async () => {
     await writeYmlFile(testYmlFile, testYmlData)
   })
@@ -54,12 +53,12 @@ describe('Loaders.loadConfigs', () => {
   afterAll(() => jest.resetAllMocks())
 
   it(`should load a config from a custom locations for yml files`, () => {
-    const loaded = loadConfigs({ name: 'parse', locations: [ mocksDir ]})
+    const loaded = loadConfigs({ name: 'parse', locations: [mocksDir] })
     expect(loaded.CUSTOM_CONFIG_LOCATION).toBe('path/to/custom/config')
   })
 
   it(`should load a config from a custom locations for env files`, () => {
-    const loaded = loadConfigs({ name: 'parse', locations: [ mocksDir ]})
+    const loaded = loadConfigs({ name: 'parse', locations: [mocksDir] })
     expect(loaded.CUSTOM_ENV_TEST_LOCATION).toBe('/custom/env/test/location')
   })
 
@@ -74,7 +73,6 @@ describe('Loaders.loadConfigs', () => {
     loadConfigs({ noYml: true, name: 'parse' })
     expect(loadEnvSyncMock).toHaveBeenCalled()
     expect(loadYmlSyncMock).not.toHaveBeenCalled()
-
   })
 
   // Somethings up with the paths in the CI,
@@ -87,7 +85,8 @@ describe('Loaders.loadConfigs', () => {
       const ymlLoc = args.location
       const cleanedLoc = ymlLoc.includes(`keg-cli/repos/`)
         ? ymlLoc.split(`keg-cli/repos/`).pop()
-        : ymlLoc.split('/').slice(3).join('/')
+        : ymlLoc.split('/').slice(3)
+          .join('/')
 
       expect(ymlSearchPaths.includes(cleanedLoc)).toBe(true)
     })
@@ -101,10 +100,10 @@ describe('Loaders.loadConfigs', () => {
       const envLoc = args.location
       const cleanedLoc = envLoc.includes(`keg-cli/repos/`)
         ? envLoc.split(`keg-cli/repos/`).pop()
-        : envLoc.split('/').slice(3).join('/')
+        : envLoc.split('/').slice(3)
+          .join('/')
 
       expect(envSearchPaths.includes(cleanedLoc)).toBe(true)
     })
   })
-  
 })

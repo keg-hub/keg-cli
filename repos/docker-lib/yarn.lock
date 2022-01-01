@@ -581,14 +581,14 @@
   resolved "https://registry.yarnpkg.com/@keg-hub/jsutils/-/jsutils-8.7.0.tgz#ee05638b2b6df0c251cdf28634694ac198f9211f"
   integrity sha512-ipbvP/yDZIYnneG8bAFjBGwR7QOGT3U5Dp5Y6Y1kPHbe6LFEoKhBVt6x9f5MavluGgofjulNpmwDcomCl+zbeA==
 
-"@keg-hub/parse-config@0.2.1":
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/@keg-hub/parse-config/-/parse-config-0.2.1.tgz#457181c6eeed4d3422e7c87fdfde859b9293fcef"
-  integrity sha512-13utx3FoXYzR9PbcQBZVZsVdxcvBTjjgiNgnLBaowDJw+9hcqH5wcHZwtsXhtUl3xuOA3hUhmIzaC3I6IX0fhw==
+"@keg-hub/parse-config@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@keg-hub/parse-config/-/parse-config-1.0.0.tgz#abcdc1b9dc4eea43ace579c01f486ef4c4682ed4"
+  integrity sha512-9cWqLkFbs6T2uPZv2JkTIIhViQ0bWgsMnL2WlXD0OTEzREgvNvLcpv7OzoHgXxvu+cwPSpRF3ivcpwTzqFKAwA==
   dependencies:
     "@keg-hub/cli-utils" "0.4.0"
     "@keg-hub/jsutils" "8.7.0"
-    "@keg-hub/spawn-cmd" "0.1.3"
+    "@keg-hub/spawn-cmd" "^0.2.0"
     js-yaml "3.14.1"
     write-yaml-file "4.2.0"
 

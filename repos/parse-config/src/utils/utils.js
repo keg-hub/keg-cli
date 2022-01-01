@@ -177,7 +177,7 @@ const loadTemplate = (args, content, loader) => {
  * @returns {Object} - Args converted into an object if needed
  */
 const resolveArgs = args => {
-  return deepMerge(defLoaderArgs, (!isStr(args) ? args : { location: args }))
+  return deepMerge(defLoaderArgs, !isStr(args) ? args : { location: args })
 }
 
 module.exports = {

@@ -1,12 +1,8 @@
 const { expand } = require('../utils/expand')
-const {
-  toBool,
-  isStrBool,
-} = require('@keg-hub/jsutils')
+const { toBool, isStrBool } = require('@keg-hub/jsutils')
 
 const NEWLINE = '\n'
 const NEWLINES_ESC = /\\n/g
-
 
 /**
  * Parses the value, by removing quotes and checking for string booleans

@@ -229,6 +229,4 @@ describe('utils', () => {
       expect(resolved.location).toBe('some/location/string')
     })
   })
-  
-
 })

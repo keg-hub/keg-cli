@@ -40,7 +40,7 @@ const setTemplateRegex = pattern => {
  *
  * @returns {Object} - Merge data object
  */
-const buildFillData = (data = noOpObj, expectKegConfig=false) => {
+const buildFillData = (data = noOpObj, expectKegConfig = false) => {
   const globalConfig = getKegGlobalConfig(expectKegConfig) || noOpObj
   // Add the globalConfig, and the process.envs as the data objects
   // This allows values in ENV templates from globalConfig || process.env

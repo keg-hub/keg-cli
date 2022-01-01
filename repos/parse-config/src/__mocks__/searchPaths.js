@@ -197,7 +197,7 @@ const ymlSearchPaths = [
   `.kegConfig/values-parse.yaml`,
   `parse-config/values-parse-test.yaml`,
   `parse-config/container/values-parse-test.yaml`,
-  `.kegConfig/values-parse-test.yaml`
+  `.kegConfig/values-parse-test.yaml`,
 ]
 
 const envSearchPaths = [
@@ -222,7 +222,7 @@ const envSearchPaths = [
   `parse-config/parse.env`,
   `parse-config/container/parse.env`,
   `parse-config/src/loadConfigs/parse.env`,
-  `parse-config/src/loadConfigs/container/parse.env`,  
+  `parse-config/src/loadConfigs/container/parse.env`,
   `.kegConfig/parse.env`,
 
   `parse-config/parse_test.env`,
@@ -240,43 +240,43 @@ const envSearchPaths = [
   `parse-config/parse-test.env`,
   `parse-config/container/parse-test.env`,
   `parse-config/src/loadConfigs/parse-test.env`,
-  `parse-config/src/loadConfigs/container/parse-test.env`,  
+  `parse-config/src/loadConfigs/container/parse-test.env`,
   `.kegConfig/parse-test.env`,
 
   `parse-config/test_parse.env`,
   `parse-config/container/test_parse.env`,
   `parse-config/src/loadConfigs/test_parse.env`,
-  `parse-config/src/loadConfigs/container/test_parse.env`,  
+  `parse-config/src/loadConfigs/container/test_parse.env`,
   `.kegConfig/test_parse.env`,
-  
+
   `parse-config/test.parse.env`,
   `parse-config/container/test.parse.env`,
   `parse-config/src/loadConfigs/test.parse.env`,
-  `parse-config/src/loadConfigs/container/test.parse.env`,  
+  `parse-config/src/loadConfigs/container/test.parse.env`,
   `.kegConfig/test.parse.env`,
-  
+
   `parse-config/test-parse.env`,
   `parse-config/container/test-parse.env`,
   `parse-config/src/loadConfigs/test-parse.env`,
-  `parse-config/src/loadConfigs/container/test-parse.env`,  
+  `parse-config/src/loadConfigs/container/test-parse.env`,
   `.kegConfig/test-parse.env`,
-  
+
   `parse-config/.env.test`,
   `parse-config/container/.env.test`,
   `parse-config/src/loadConfigs/.env.test`,
-  `parse-config/src/loadConfigs/container/.env.test`,  
+  `parse-config/src/loadConfigs/container/.env.test`,
   `.kegConfig/.env.test`,
 
   `parse-config/.env.parse`,
   `parse-config/container/.env.parse`,
   `parse-config/src/loadConfigs/.env.parse`,
-  `parse-config/src/loadConfigs/container/.env.parse`,  
+  `parse-config/src/loadConfigs/container/.env.parse`,
   `.kegConfig/.env.parse`,
 
   `parse-config/.env.parse.test`,
   `parse-config/container/.env.parse.test`,
   `parse-config/src/loadConfigs/.env.parse.test`,
-  `parse-config/src/loadConfigs/container/.env.parse.test`,  
+  `parse-config/src/loadConfigs/container/.env.parse.test`,
   `.kegConfig/.env.parse.test`,
 
   `parse-config/.env.parse-test`,
@@ -290,13 +290,13 @@ const envSearchPaths = [
   `parse-config/src/loadConfigs/.env_parse_test`,
   `parse-config/src/loadConfigs/container/.env_parse_test`,
   `.kegConfig/.env_parse_test`,
-  
+
   `parse-config/.env_test_parse`,
   `parse-config/container/.env_test_parse`,
   `parse-config/src/loadConfigs/.env_test_parse`,
   `parse-config/src/loadConfigs/container/.env_test_parse`,
   `.kegConfig/.env_test_parse`,
-  
+
   `parse-config/.env.test.parse`,
   `parse-config/container/.env.test.parse`,
   `parse-config/src/loadConfigs/.env.test.parse`,
@@ -308,10 +308,9 @@ const envSearchPaths = [
   `parse-config/src/loadConfigs/.env.test-parse`,
   `parse-config/src/loadConfigs/container/.env.test-parse`,
   `.kegConfig/.env.test-parse`,
-  
 ]
 
 module.exports = {
   ymlSearchPaths,
-  envSearchPaths
+  envSearchPaths,
 }
