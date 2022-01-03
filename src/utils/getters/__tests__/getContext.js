@@ -13,7 +13,7 @@ describe('getContext', () => {
 
     const res = await getContext({ container: container.id }, true)
 
-    expect(res.context).toBe('core')
+    expect(res.context).toBe('tap')
     expect(res.withPrefix).toBe('img-keg-core')
     expect(res.image).toBe('keg-core')
 
@@ -23,7 +23,7 @@ describe('getContext', () => {
 
     const res = await getContext({ context: 'keg-core' })
 
-    expect(res.context).toBe('core')
+    expect(res.context).toBe('keg-core')
     expect(res.withPrefix).toBe(undefined)
     expect(res.image).toBe(undefined)
 
@@ -34,15 +34,15 @@ describe('getContext', () => {
     const resImg = await getContext({ context: 'img-keg-core' })
     const resPack = await getContext({ context: 'package-keg-core' })
 
-    expect(resImg.context).toBe('core')
-    expect(resImg.tap).toBe('img-keg-core')
+    expect(resImg.context).toBe('tap')
+    expect(resImg.tap).toBe('keg-core')
     expect(resImg.prefix).toBe('img')
     expect(resImg.withPrefix).toBe('img-keg-core')
     expect(resImg.noPrefix).toBe('keg-core')
 
 
-    expect(resPack.context).toBe('core')
-    expect(resPack.tap).toBe('package-keg-core')
+    expect(resPack.context).toBe('tap')
+    expect(resPack.tap).toBe('keg-core')
     expect(resPack.prefix).toBe('package')
     expect(resPack.withPrefix).toBe('package-keg-core')
     expect(resPack.noPrefix).toBe('keg-core')

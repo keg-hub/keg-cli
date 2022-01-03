@@ -27,7 +27,6 @@ module.exports = globalConfig => {
     ...initialize(require('./base'), 'base', globalConfig),
     ...initialize(require('./cli'), 'cli', globalConfig),
     ...initialize(require('./config'), 'config', globalConfig),
-    ...initialize(require('./core'), 'core', globalConfig),
     ...initialize(require('./docker'), 'docker', globalConfig),
     ...initialize(require('./git'), 'git', globalConfig),
     ...initialize(require('./global'), 'global', globalConfig),

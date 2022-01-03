@@ -2,6 +2,7 @@ const globalConfig = global.getGlobalCliConfig()
 const { DOCKER } = require('KegConst/docker')
 const { generatedLabels } = require('KegMocks/libs/docker/compose')
 const { injectedTest } = require('KegMocks/injected/injectedTest')
+const { coreEnvs } = require('KegMocks/injected/injectedCore')
 const { generateComposeLabels } = require('../generateComposeLabels')
 
 const args = {
@@ -14,9 +15,7 @@ const args = {
     cmd: 'up',
     proxyDomain: 'core',
     cmdContext: 'core',
-    contextEnvs: {
-      ...DOCKER.CONTAINERS.CORE.ENV,
-    },
+    contextEnvs: coreEnvs,
   },
   injected: {
     globalConfig,

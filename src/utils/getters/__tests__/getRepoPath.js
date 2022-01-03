@@ -21,7 +21,7 @@ describe('getRepoPath', () => {
 
   it('should get the repo path from the repo when passed in', () => {
     expect(getRepoPath('cli')).toBe(globalConfig.cli.paths.cli)
-    expect(getRepoPath('core')).toBe(globalConfig.cli.paths.core)
+    expect(getRepoPath('core')).toBe(globalConfig.cli.taps.core.path)
   })
 
   it('should accept a globalConfig as the second argument', () => {

@@ -2,6 +2,14 @@ const { docker } = require('KegMocks/libs/docker')
 const globalConfig = global.getGlobalCliConfig()
 const testTask = global.getTask()
 const unloadEnvs = global.loadMockEnvs()
+const { DOCKER } = require('KegConst/docker')
+const { coreInject } = require('KegMocks/injected/injectedCore')
+
+const withInjected = {
+  ...DOCKER.CONTAINERS,
+  CORE: coreInject,
+}
+jest.setMock('KegConst/docker', { DOCKER: { ...DOCKER, CONTAINERS: withInjected }})
 
 jest.setMock('@keg-hub/docker-lib', docker)
 const { buildContainerContext } = require('../buildContainerContext')
@@ -82,15 +90,15 @@ describe('buildContainerContext', () => {
       .not.toBe(-1)
 
     expect(contextEnvs.KEG_DOCKER_FILE
-      .indexOf('/keg-hub/repos/keg-cli/containers/core/Dockerfile'))
+      .indexOf('/keg-hub/repos/keg-core/container/Dockerfile'))
       .not.toBe(-1)
 
     expect(contextEnvs.KEG_VALUES_FILE
-      .indexOf('/keg-hub/repos/keg-cli/containers/core/values.yml'))
+      .indexOf('/keg-hub/repos/keg-core/container/values.yml'))
       .not.toBe(-1)
 
     expect(contextEnvs.KEG_COMPOSE_DEFAULT
-      .indexOf('/keg-hub/repos/keg-cli/containers/core/docker-compose.yml'))
+      .indexOf('/keg-hub/repos/keg-core/container/docker-compose.yml'))
       .not.toBe(-1)
 
     expect(contextEnvs.IMAGE).toBe('keg-core')

@@ -1,10 +1,12 @@
-const { injectedTest, injectedContainer } = require('KegMocks/injected/injectedTest')
 const { docker } = require('KegMocks/libs/docker')
 const { testEnum } = require('KegMocks/jest/testEnum')
+const { coreInject } = require('KegMocks/injected/injectedCore')
+const { injectedContainer } = require('KegMocks/injected/injectedTest')
 
 const { DOCKER } = require('KegConst/docker')
 const withInjected = {
   ...DOCKER.CONTAINERS,
+  CORE: coreInject,
   INJECTED: injectedContainer
 }
 jest.setMock('KegConst/docker', { DOCKER: { ...DOCKER, CONTAINERS: withInjected }})

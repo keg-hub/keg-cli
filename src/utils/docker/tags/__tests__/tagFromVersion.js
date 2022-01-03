@@ -3,9 +3,9 @@ const path = require('path')
 const { DOCKER } = require('KegConst/docker')
 const { getTask } = require('KegMocks/helpers/testTasks')
 const { deepMerge, get, uuid } = require('@keg-hub/jsutils')
+const { coreEnvs } = require('KegMocks/injected/injectedCore')
 const { allowedTagOpts } = require('../../../getters/getTagVarMap')
 const { containerContexts } = require('KegMocks/contexts/containerContexts')
-
 
 const defParams = {
   local: false,
@@ -58,12 +58,10 @@ const args = {
       ...defParams,
       context: 'core',
       tap: 'core',
-      location: DOCKER.CONTAINERS.CORE.ENV.KEG_CONTEXT_PATH,
+      location: coreEnvs.KEG_CONTEXT_PATH,
       cmd: 'core',
       image: 'keg-core',
-      buildArgs: {
-        ...DOCKER.CONTAINERS.CORE.ENV,
-      },
+      buildArgs: coreEnvs,
     },
   }
 }
@@ -94,7 +92,7 @@ describe('tagFromVersion', () => {
     expect(baseVer).toBe(DOCKER.CONTAINERS.BASE.ENV.VERSION)
 
     const coreVer = await tagFromVersion(args.core.params, args.core)
-    expect(coreVer).toBe(DOCKER.CONTAINERS.CORE.ENV.VERSION)
+    expect(coreVer).toBe(coreEnvs.VERSION)
 
   })
 
@@ -102,7 +100,7 @@ describe('tagFromVersion', () => {
 
     const tagPackage = true
 
-    const coreLoc = DOCKER.CONTAINERS.CORE.ENV.KEG_CONTEXT_PATH
+    const coreLoc = coreEnvs.KEG_CONTEXT_PATH
     const corePackage = require(path.join(coreLoc, './package.json'))
     const coreVer = await tagFromVersion(buildParams('core', { tagPackage }), args.core)
     expect(coreVer).toBe(corePackage.version)

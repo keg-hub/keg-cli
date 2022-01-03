@@ -3,6 +3,7 @@ const { getTask } = require('KegMocks/helpers/testTasks')
 const { deepMerge, get, uuid } = require('@keg-hub/jsutils')
 const tagHelpers = require('KegUtils/docker/tags/tagHelpers')
 const { allowedTagOpts } = require('../../../getters/getTagVarMap')
+const { coreEnvs, coreInject } = require('KegMocks/injected/injectedCore')
 const { containerContexts } = require('KegMocks/contexts/containerContexts')
 const { injectedTest, injectedContainer, injectedContext } = require('KegMocks/injected/injectedTest')
 
@@ -20,7 +21,8 @@ const globalConfig = global.getGlobalCliConfig()
 
 const withInjected = {
   ...DOCKER.CONTAINERS,
-  INJECTED: injectedContainer
+  CORE: coreInject,
+  INJECTED: injectedContainer,
 }
 
 jest.setMock('KegConst/docker', { DOCKER: { ...DOCKER, CONTAINERS: withInjected }})
@@ -76,12 +78,10 @@ const args = {
       ...defParams,
       context: 'core',
       tap: 'core',
-      location: DOCKER.CONTAINERS.CORE.ENV.KEG_CONTEXT_PATH,
+      location: coreEnvs.KEG_CONTEXT_PATH,
       cmd: 'core',
       image: 'keg-core',
-      buildArgs: {
-        ...DOCKER.CONTAINERS.CORE.ENV,
-      },
+      buildArgs: coreEnvs,
     },
   },
   injected: {
@@ -99,7 +99,7 @@ const args = {
 }
 
 const baseVersion = DOCKER.CONTAINERS.BASE.ENV.VERSION
-const coreVersion = DOCKER.CONTAINERS.CORE.ENV.VERSION
+const coreVersion = coreEnvs.VERSION
 
 const buildParams = (type, overrides) => {
   return deepMerge(get(args, [ type, 'params']), overrides)
@@ -124,7 +124,7 @@ describe('buildTags', () => {
 
   it('should get the image name from constants when no image param is passed', async () => {
 
-    const coreImg = DOCKER.CONTAINERS.CORE.ENV.IMAGE
+    const coreImg = coreEnvs.IMAGE
     const coreResp = await buildTags(args.core, args.core.params)
     expect(coreResp.trim()).toBe(`-t ghcr.io/keghub/${coreImg}:develop`)
 

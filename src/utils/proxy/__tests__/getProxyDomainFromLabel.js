@@ -13,13 +13,6 @@ describe('getProxyDomainFromLabel', () => {
 
   afterAll(() => jest.resetAllMocks())
 
-  it('Should return the correct proxyDomain for keg-core', async () => {
-    expect(docker.container.inspect).not.toHaveBeenCalled()
-    const proxyDomain = await getProxyDomainFromLabel('keg-core')
-    expect(proxyDomain).toBe(dockerObjLabels.core[KEG_PROXY_DOMAIN])
-    expect(docker.container.inspect).toHaveBeenCalled()
-  })
-
   it('Should return the correct proxyDomain for a tap', async () => {
     expect(docker.container.inspect).not.toHaveBeenCalled()
     const proxyDomain = await getProxyDomainFromLabel('tap')

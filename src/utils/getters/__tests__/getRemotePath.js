@@ -1,3 +1,7 @@
+
+const { injectCore } = require('KegMocks/injected/injectedCore')
+injectCore()
+
 const { getRemotePath } = require('../getRemotePath')
 
 describe('getRemotePath', () => {

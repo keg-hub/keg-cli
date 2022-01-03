@@ -95,13 +95,13 @@ const testArgs = {
     description: 'It should override the docker provider',
     inputs: [{ context: 'core', provider: 'my.test-provider.com' }],
     outputs: {
-      image: 'keg-core',
+      image: 'core',
       tag: 'develop',
       provider: 'my.test-provider.com',
       namespace: 'keghub',
-      imageWTag: 'keg-core:develop',
-      full: 'my.test-provider.com/keghub/keg-core:develop',
-      providerImage: 'my.test-provider.com/keghub/keg-core',
+      imageWTag: 'core:develop',
+      full: 'my.test-provider.com/keghub/core:develop',
+      providerImage: 'my.test-provider.com/keghub/core',
     }
   },
   namespaceOverride: {

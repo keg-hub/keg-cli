@@ -23,7 +23,6 @@ module.exports = deepFreeze({
   // TODO: Should be remove once all containers are taps
   CONTEXT_TO_CONTAINER: {
     base: 'keg-base',
-    core: 'keg-core',
     proxy: 'keg-proxy',
   },
 
@@ -32,8 +31,6 @@ module.exports = deepFreeze({
   CONTAINER_TO_CONTEXT: {
     kegbase: 'base',
     'keg-base': 'base',
-    kegcore: 'core',
-    'keg-core': 'core',
     kegproxy: 'proxy',
     'keg-proxy': 'proxy',
   },
