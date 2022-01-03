@@ -1,7 +1,6 @@
 const { get } = require('@keg-hub/jsutils')
 const { checkLinkedTaps } = require('./checkLinkedTaps')
-const { hasHelpArg, validateTask, getTask } = require('@keg-hub/cli-utils')
-
+const { hasHelpArg, validateTask, findTask } = require('@keg-hub/cli-utils')
 
 /**
  * Gets the task from available tasks, If no task is found, checks if command is a tap
@@ -14,13 +13,13 @@ const { hasHelpArg, validateTask, getTask } = require('@keg-hub/cli-utils')
  *
  * @returns {Object} - Found task and options
  */
-const findTask = async (globalConfig, tasks, command, options) => {
+const searchForTask = async (globalConfig, tasks, command, options) => {
 
   // First check if the cmd is for a linked task
   const tapTaskData = await checkLinkedTaps(globalConfig, tasks, command, options)
 
   // Get the task from available tasks
-  const foundTask = tapTaskData || getTask(tasks, command, ...options)
+  const foundTask = tapTaskData || findTask(tasks, [command, ...options])
 
   // Ensure we have the taskData
   const taskData = get(foundTask, 'task') ? foundTask : {}
@@ -35,5 +34,5 @@ const findTask = async (globalConfig, tasks, command, options) => {
 }
 
 module.exports = {
-  findTask
+  searchForTask
 }

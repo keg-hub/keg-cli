@@ -1,4 +1,5 @@
-const { runInternalTask, addGlobalOptions } = require('@keg-hub/cli-utils')
+const { addGlobalOptions } = require('../globalConfig')
+const { runInternalTask } = require('./runInternalTask')
 const {
   get,
   isArr,
@@ -39,7 +40,7 @@ const addCliTask = (namedTask, task, cliTask, taskPath) => {
         // Merge the original cli sub-tasks, so they can still be called
         tasks: {
           ...cliTask.tasks,
-          ...namedTask.tasks,
+          ...tapTaskDef.tasks,
         },
       }}
 

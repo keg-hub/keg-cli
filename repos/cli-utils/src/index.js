@@ -6,9 +6,9 @@ const { registerTasks } = require('./tasks/tasks')
 const { getAppRoot, setAppRoot } = require('./appRoot')
 
 const {
+  buildTaskData,
   executeTask,
   findTask,
-  getTask,
   hasHelpArg,
   parseTaskArgs,
   sharedOptions,
@@ -26,11 +26,11 @@ module.exports = {
   ...require('./tap'),
   ...require('./globalConfig'),
   constants,
+  buildTaskData,
   executeTask,
   findTask,
   fileSys,
   error,
-  getTask,
   hasHelpArg,
   registerTasks,
   runTask,

@@ -1,5 +1,5 @@
+const { buildTaskData } = require('@keg-hub/cli-utils')
 const { isObj, isFunc, reduceObj } = require('@keg-hub/jsutils')
-const { buildTaskData } = require('../utils/builders/buildTaskData')
 
 /**
  * Initializes tasks for the CLI. Loads all default and custom tasks

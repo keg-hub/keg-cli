@@ -1,7 +1,7 @@
-const { findTask } = require('KegUtils/task')
 const { generalError } = require('KegUtils/error')
 const { isStr, get } = require('@keg-hub/jsutils')
 const { executeTask } = require('@keg-hub/cli-utils')
+const { searchForTask } = require('KegUtils/task/searchForTask')
 
 /**
  * Docker sub task alias map
@@ -49,7 +49,7 @@ const dockerTask = async args => {
   const cmd = command !== 'd' ? command : options[0]
 
   // Find the docker sub-task
-  const taskData = await findTask(
+  const taskData = await searchForTask(
     globalConfig,
     task.tasks,
     getDockerSubTask(task, cmd),

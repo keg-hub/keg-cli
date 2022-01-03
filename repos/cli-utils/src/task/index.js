@@ -1,7 +1,7 @@
 module.exports = {
+  ...require('./buildTaskData'),
   ...require('./executeTask'),
   ...require('./findTask'),
-  ...require('./getTask'),
   ...require('./hasHelpArg'),
   ...require('./parseTaskArgs'),
   ...require('./runInternalTask'),

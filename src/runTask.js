@@ -6,7 +6,7 @@ require('../scripts/cli/aliases')
 
 const Tasks = require('./tasks')
 const { throwExitError } = require('KegUtils/error')
-const { findTask } = require('KegUtils/task/findTask')
+const { searchForTask } = require('KegUtils/task/searchForTask')
 const { hasHelpArg, showHelp, executeTask } = require('@keg-hub/cli-utils')
 
 /**
@@ -27,7 +27,7 @@ const { hasHelpArg, showHelp, executeTask } = require('@keg-hub/cli-utils')
     if(!command || hasHelpArg(command)) return showHelp({ tasks: cliTasks })
 
     // Get the taskData from available tasks
-    const taskData = await findTask(globalConfig, cliTasks, command, args)
+    const taskData = await searchForTask(globalConfig, cliTasks, command, args)
 
     // Run the task and get the response
     // Await the response to ensure the task completes before returning the response
