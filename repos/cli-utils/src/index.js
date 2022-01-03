@@ -8,6 +8,7 @@ const { getAppRoot, setAppRoot } = require('./appRoot')
 const {
   executeTask,
   findTask,
+  getTask,
   hasHelpArg,
   parseTaskArgs,
   sharedOptions,
@@ -29,6 +30,7 @@ module.exports = {
   findTask,
   fileSys,
   error,
+  getTask,
   hasHelpArg,
   registerTasks,
   runTask,

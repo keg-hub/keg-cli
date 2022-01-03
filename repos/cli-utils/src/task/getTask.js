@@ -1,6 +1,14 @@
 const { get, isStr, isObj } = require('@keg-hub/jsutils')
 
-
+/**
+ * Check if the task is a string and get if so get the alias task for it
+ * Do this recursively until we find an object
+ * Allows for alias in a task definition to reference a real task object
+ * @param {Object} tasks - Object to search for tasks by key
+ * @param {Object|string} task - Task we are searching for
+ * 
+ * @returns {Object} - Found task Object
+ */
 const ensureTaskObject = (tasks, task) => {
   // Check if the task is a string and get if so get the alias task for it
   const foundTask = isStr(task) ? get(tasks, task) : task
@@ -9,6 +17,13 @@ const ensureTaskObject = (tasks, task) => {
   return isStr(foundTask) ? ensureTaskObject(tasks, foundTask)  : foundTask
 }
 
+/**
+ * Checks if the passed in key is an alias to a task
+ * @param {Object|string} task - Task to check for alias
+ * @param {string} key - Alias to check for
+ * 
+ * @returns {boolean} - True if the key is an alias for the task
+ */
 const isAliasTask = (task, key) => {
   return task.name !== key && task.alias && task.alias.indexOf(key) !== -1
 }

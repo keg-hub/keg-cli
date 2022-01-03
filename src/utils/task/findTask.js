@@ -1,7 +1,6 @@
-const { getTask } = require('./getTask')
 const { get } = require('@keg-hub/jsutils')
 const { checkLinkedTaps } = require('./checkLinkedTaps')
-const { hasHelpArg, validateTask } = require('@keg-hub/cli-utils')
+const { hasHelpArg, validateTask, getTask } = require('@keg-hub/cli-utils')
 
 
 /**
