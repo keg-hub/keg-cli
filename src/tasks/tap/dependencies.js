@@ -134,6 +134,7 @@ module.exports = {
     action: tapDepsTask,
     description: `Manage a taps @keg-hub dependencies`,
     example: 'keg tap dependencies <options>',
+    tasks: {},
     options: {
       tap: { 
         description: 'Name of the tap to run. Must be a tap linked in the global config',

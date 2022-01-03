@@ -1,8 +1,9 @@
+const cliUtils = require('@keg-hub/cli-utils')
 const { testEnum } = require('KegMocks/jest/testEnum')
 const globalConfig = global.getGlobalCliConfig()
 
 const runInternalTaskMock = jest.fn()
-jest.setMock('../../task/runInternalTask', { runInternalTask: runInternalTaskMock })
+cliUtils.runInternalTask = runInternalTaskMock
 
 const buildExecParamsMock = jest.fn()
 jest.setMock('../../docker/buildExecParams', { buildExecParams: buildExecParamsMock })

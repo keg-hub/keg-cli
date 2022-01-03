@@ -1,6 +1,7 @@
+const { findTask } = require('KegUtils/task')
 const { generalError } = require('KegUtils/error')
 const { isStr, get } = require('@keg-hub/jsutils')
-const { findTask, executeTask } = require('KegUtils/task')
+const { executeTask } = require('@keg-hub/cli-utils')
 
 /**
  * Docker sub task alias map

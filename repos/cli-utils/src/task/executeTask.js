@@ -1,7 +1,8 @@
+const { throwNoAction } = require('../error')
 const { isFunc } = require('@keg-hub/jsutils')
-const { throwNoAction } = require('KegUtils/error')
-const { parseArgs } = require('KegUtils/helpers/parseArgs')
-const { hasHelpArg, showHelp } = require('@keg-hub/cli-utils')
+const { hasHelpArg } = require('./hasHelpArg')
+const { showHelp } = require('../logger/showHelp')
+const { parseTaskArgs } = require('./parseTaskArgs')
 
 /**
  * Executes the passed in task.
@@ -22,7 +23,7 @@ const executeTask = async (args) => {
   if(hasHelpArg(options[ options.length -1 ])) return showHelp({ task, options })
 
   // Get the params for the task if they have not already been parsed
-  const params = args.params || await parseArgs(args, globalConfig)
+  const params = args.params || await parseTaskArgs(args, globalConfig)
 
   return isFunc(task.action)
     ? task.action({ ...args, params })

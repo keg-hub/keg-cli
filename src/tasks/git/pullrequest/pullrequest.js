@@ -1,5 +1,5 @@
-const { runInternalTask } = require('KegUtils/task/runInternalTask')
 const { checkout } = require('./checkout')
+const { runInternalTask } = require('@keg-hub/cli-utils')
 
 /**
  * Git pull request task

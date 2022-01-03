@@ -1,7 +1,6 @@
-const { checkCall, get, isObj, isFunc, isStr, deepClone } = require('@keg-hub/jsutils')
-const { throwNoAction, throwNoTask } = require('../error')
 const { validateTask } = require('./validateTask')
-const { ensureArgs } = require('../helpers/parseArgs')
+const { ensureArgs } = require('@keg-hub/args-parse')
+const { get, isStr, deepClone } = require('@keg-hub/jsutils')
 
 /**
  * Runs an internal task based on passed in arguments
@@ -15,7 +14,13 @@ const runInternalTask = async (taskPath, args, task) => {
   // Pull out the tasks, globalConfig, originalTask
   // Then join the rest under taskArgs
   // This allows a faster clone of taskArgs
-  const { tasks, globalConfig, task:orgTask, __internal, ...taskArgs } = args
+  const {
+    tasks,
+    globalConfig,
+    task:orgTask,
+    __internal,
+    ...taskArgs
+  } = args
 
   // Ensure path starts with a tasks key
   taskPath = taskPath.indexOf(`tasks.`) === 0 ? taskPath : `tasks.${taskPath}`

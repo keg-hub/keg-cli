@@ -1,10 +1,10 @@
 const { get } = require('@keg-hub/jsutils')
 const { actionService } = require('./actionService')
 const { getServiceArgs } = require('./getServiceArgs')
+const { runInternalTask } = require('@keg-hub/cli-utils')
 const { generalError } = require('../error/generalError')
 const { getLocalPath } = require('../getters/getLocalPath')
 const { getRemotePath } = require('../getters/getRemotePath')
-const { runInternalTask } = require('../task/runInternalTask')
 const { parseActionName } = require('../actions/parseActionName')
 const { buildContainerContext } = require('../builders/buildContainerContext')
 

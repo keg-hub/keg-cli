@@ -1,7 +1,6 @@
-const { Logger } = require('@keg-hub/cli-utils')
 const { get, isArr, isStr } = require('@keg-hub/jsutils')
-const { runInternalTask } = require('../task/runInternalTask')
 const { buildExecParams } = require('../docker/buildExecParams')
+const { Logger, runInternalTask } = require('@keg-hub/cli-utils')
 
 /**
  * Runs actions defined in the values.yml files

@@ -7,8 +7,7 @@ require('../scripts/cli/aliases')
 const Tasks = require('./tasks')
 const { throwExitError } = require('KegUtils/error')
 const { findTask } = require('KegUtils/task/findTask')
-const { executeTask } = require('KegUtils/task/executeTask')
-const { hasHelpArg, showHelp } = require('@keg-hub/cli-utils')
+const { hasHelpArg, showHelp, executeTask } = require('@keg-hub/cli-utils')
 
 /**
  * Runs a Keg CLI command

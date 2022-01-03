@@ -1,7 +1,5 @@
-const { addGlobalOptions } = require('../task/globalOptions')
-const { runInternalTask } = require('../task/runInternalTask')
+const { runInternalTask, addGlobalOptions } = require('@keg-hub/cli-utils')
 const {
-  deepClone,
   get,
   isArr,
   reduceObj,

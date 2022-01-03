@@ -1,7 +1,7 @@
-const { Logger } = require('@keg-hub/cli-utils')
 const { get, deepMerge } = require('@keg-hub/jsutils')
 const { getServiceArgs } = require('./getServiceArgs')
-const { runInternalTask } = require('../task/runInternalTask')
+const { Logger, runInternalTask } = require('@keg-hub/cli-utils')
+
 
 /**
  * Checks all option variations of remove image

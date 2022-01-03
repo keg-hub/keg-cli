@@ -1,4 +1,4 @@
-const { runInternalTask } = require('KegUtils/task/runInternalTask')
+const { runInternalTask } = require('@keg-hub/cli-utils')
 
 /**
  * Attach to the running keg-proxy container

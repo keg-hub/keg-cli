@@ -1,6 +1,6 @@
-const { getDefaultEnv } = require('@keg-hub/cli-utils')
+const { getDefaultEnv } = require('./configHelpers')
+const { ENV_ALIAS, ENV_OPTIONS } = require('../constants')
 const { deepMerge, get, set } = require('@keg-hub/jsutils')
-const { ENV_ALIAS, ENV_MAP, ENV_OPTIONS } = require('../../constants/constants')
 
 /**
  * Builds the global options object, and returns it

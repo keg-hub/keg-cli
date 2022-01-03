@@ -1,11 +1,10 @@
 const { getTask } = require('./getTask')
-const { constants, Logger } = require('@keg-hub/cli-utils')
-const { parseArgs } = require('KegUtils/helpers/parseArgs')
 const { addTapLink } = require('../globalConfig/addTapLink')
 const { buildTaskData } = require('../builders/buildTaskData')
 const { injectService } = require('../services/injectService')
 const { get, isFunc, reduceObj } = require('@keg-hub/jsutils')
 const { checkCustomTaskFolder } = require('./checkCustomTaskFolder')
+const { constants, Logger, parseTaskArgs } = require('@keg-hub/cli-utils')
 
 const { GLOBAL_CONFIG_PATHS } = constants
 const { TAP_LINKS } = GLOBAL_CONFIG_PATHS
@@ -117,7 +116,7 @@ const setupTapTask = async ({ globalConfig, allTasks, command, options }) => {
 
   // Get the params now instead of in executeTask
   // This way we can make all tap modification in one place
-  taskData.params = await parseArgs({
+  taskData.params = await parseTaskArgs({
       ...taskData,
       command,
       params: { tap: command }

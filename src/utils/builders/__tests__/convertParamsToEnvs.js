@@ -30,7 +30,7 @@ const testArgs = {
 const defArgs = { env: 'develop', command: 'run', install: true, local: true }
 const contextEnv = { KEG_FOO: 'BAR', KEG_BAZ: 'BAS' }
 
-const { convertParamsToEnvs } = require('../convertParamsToEnvs')
+const { convertParamsToEnvs } = require('../buildContextEnvs')
 
 describe('convertParamsToEnvs', () => {
 

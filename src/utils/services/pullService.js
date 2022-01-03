@@ -1,6 +1,5 @@
-const { Logger } = require('@keg-hub/cli-utils')
 const { exists, get, deepMerge } = require('@keg-hub/jsutils')
-const { runInternalTask } = require('../task/runInternalTask')
+const { Logger, runInternalTask } = require('@keg-hub/cli-utils')
 const { shouldPullImage } = require('../helpers/shouldPullImage')
 const { getImgNameContext } = require('../getters/getImgNameContext')
 
