@@ -9,8 +9,8 @@
   * `mkdir -p ~/keg`
 * Navigate to `keg` directory
   * `cd ~/keg`
-* Git clone the [keg-cli](https://github.com/keghub/keg-cli.git) repo locally to `~/keg/keg-cli`
-  * `git clone https://github.com/keghub/keg-cli.git ~/keg/keg-cli`
+* Git clone the [keg-cli](https://github.com/keg-hub/keg-cli.git) repo locally to `~/keg/keg-cli`
+  * `git clone https://github.com/keg-hub/keg-cli.git ~/keg/keg-cli`
 * Run the bash setup script
   * `bash keg-cli/scripts/setup/mac-init.sh`
 * It should print `[ KEG CLI ] Keg CLI setup complete!`

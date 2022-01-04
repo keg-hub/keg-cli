@@ -3,7 +3,7 @@
 
 ### Dependencies
 * [app-root-path](https://github.com/inxilpro/node-app-root-path)
-* [@keg-hub/jsutils](https://github.com/keghub/@keg-hub/jsutils)
+* [@keg-hub/jsutils](https://github.com/keg-hub/@keg-hub/jsutils)
 * [tree-kill](https://github.com/pkrumins/node-tree-kill)
 * [cross-spawn](https://github.com/moxystudio/node-cross-spawn)
 * [shell-exec](https://github.com/tiaanduplessis/shell-exec)

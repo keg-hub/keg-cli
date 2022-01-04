@@ -6,7 +6,7 @@ const localPackage = require('../../package.json')
 const localVersion = get(localPackage, 'version')
 
 // URL to the github package.json for the Keg-CLI 
-const CLI_PACKAGE_JSON_URL = `https://raw.githubusercontent.com/keghub/keg-cli/master/package.json`
+const CLI_PACKAGE_JSON_URL = `https://raw.githubusercontent.com/keg-hub/keg-cli/master/package.json`
 
 
 /**

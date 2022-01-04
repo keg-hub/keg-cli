@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "Wrapper around the mutagen command line executable",
   "main": "index.js",
-  "repository": "https://github.com/keghub/keg-cli",
+  "repository": "https://github.com/keg-hub/keg-cli",
   "author": "Lance Tipton",
   "license": "MIT",
   "private": false,

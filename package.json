@@ -3,7 +3,7 @@
   "version": "5.2.2",
   "description": "Node.js CLI for working with Keg Repos and Taps",
   "main": "./keg-cli",
-  "repository": "https://github.com/keghub/Keg-CLI",
+  "repository": "https://github.com/keg-hub/Keg-CLI",
   "author": "Lance Tipton",
   "license": "MIT",
   "bin": {

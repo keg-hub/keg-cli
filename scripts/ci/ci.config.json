@@ -3,7 +3,7 @@
   "displayName": "Keg CLI",
   "docker": {
     "providerUrl": "ghcr.io",
-    "namespace": "keghub",
+    "namespace": "keg-hub",
     "user": "",
     "token": ""
   },
@@ -12,8 +12,8 @@
       "customTasks": ""
     },
     "git": {
-      "orgName": "keghub",
-      "orgUrl": "https://github.com/keghub",
+      "orgName": "keg-hub",
+      "orgUrl": "https://github.com/keg-hub",
       "provider": "https://github.com",
       "publicToken": "",
       "repos": {

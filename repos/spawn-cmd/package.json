@@ -3,13 +3,13 @@
   "version": "0.2.0",
   "description": "Cross platform child_process execution in Node",
   "repository": {
-    "url": "git+https://github.com/keghub/keg-hub.git",
+    "url": "git+https://github.com/keg-hub/keg-hub.git",
     "type": "git"
   },
   "bugs": {
-    "url": "https://github.com/keghub/keg-hub/issues"
+    "url": "https://github.com/keg-hub/keg-hub/issues"
   },
-  "homepage": "https://github.com/keghub/keg-hub#readme",
+  "homepage": "https://github.com/keg-hub/keg-hub#readme",
   "main": "index.js",
   "author": "Lance Tipton",
   "license": "MIT",
