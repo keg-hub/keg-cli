@@ -126,7 +126,10 @@ const composeService = async (args, exArgs=noOpObj) => {
   logComposeStarted(serviceArgs, context, composeTask)
 
   // Create any other syncs for the service based on the passed in sync param
-  get(args, 'params.sync') &&
+  // If it's not an array, then skip
+  const syncParam = get(args, 'params.sync')
+  isArr(syncParam) &&
+    syncParam.length &&
     await createSyncs(
       serviceArgs,
       composeContext,

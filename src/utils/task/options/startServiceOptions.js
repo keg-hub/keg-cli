@@ -74,8 +74,8 @@ const startServiceOptions = (task='', action='') => {
       example: 'keg ${ task } ${ action } --recreate',
     },
     sync: {
-      alias: [ 'syncs', 'sy' ],
       type: 'array',
+      alias: [ 'syncs', 'sy' ],
       description: 'List of key names or folder paths to sync through mutagen into the docker container.',
       example: `keg ${ task } ${ action } --sync cli,core`,
     },

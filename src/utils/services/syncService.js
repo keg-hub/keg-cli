@@ -1,7 +1,7 @@
-const { get } = require('@keg-hub/jsutils')
+const { get, noOpObj, isStr } = require('@keg-hub/jsutils')
 const { actionService } = require('./actionService')
 const { getServiceArgs } = require('./getServiceArgs')
-const { runInternalTask } = require('@keg-hub/cli-utils')
+const { Logger, runInternalTask } = require('@keg-hub/cli-utils')
 const { generalError } = require('../error/generalError')
 const { getLocalPath } = require('../getters/getLocalPath')
 const { getRemotePath } = require('../getters/getRemotePath')
@@ -91,6 +91,9 @@ const buildContainerSync = async (args, argsExt) => {
  */
 const syncService = async (args, { container }) => {
   const dependency = get(args, 'params.dependency')
+  if(!isStr(dependency))
+    return Logger.error(`The "dependency" option must a comma separated list of named dependencies`)
+
   const toSync = dependency.indexOf(',') !== -1
     ? dependency.split(',')
     : [dependency]
@@ -98,7 +101,7 @@ const syncService = async (args, { container }) => {
   return toSync.reduce(async (toResolve, dep) => {
     const resolved = await toResolve
     return buildContainerSync(args, { container, ...args.params, dependency: dep })
-  }, Promise.resolve({}))
+  }, Promise.resolve(noOpObj))
 }
 
 module.exports = {
