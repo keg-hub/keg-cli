@@ -48,7 +48,7 @@
     "@keg-hub/cli-utils": "^0.4.2",
     "@keg-hub/docker-lib": "file:./repos/docker-lib",
     "@keg-hub/git-lib": "^0.0.2",
-    "@keg-hub/jsutils": "^8.7.0",
+    "@keg-hub/jsutils": "8.8.0",
     "@keg-hub/mutagen-lib": "file:./repos/mutagen-lib",
     "@keg-hub/parse-config": "^1.0.1",
     "@keg-hub/spawn-cmd": "^0.2.0",
