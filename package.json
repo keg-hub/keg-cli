@@ -1,6 +1,6 @@
 {
   "name": "keg-cli",
-  "version": "5.2.2",
+  "version": "6.0.0",
   "description": "Node.js CLI for working with Keg Repos and Taps",
   "main": "./keg-cli",
   "repository": "https://github.com/keg-hub/Keg-CLI",

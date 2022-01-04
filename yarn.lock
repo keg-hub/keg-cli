@@ -1411,7 +1411,7 @@
   version "0.0.0"
   dependencies:
     "@keg-hub/cli-utils" "0.2.1"
-    "@keg-hub/jsutils" "8.7.0"
+    "@keg-hub/jsutils" "8.8.0"
     "@keg-hub/parse-config" "1.0.1"
     "@keg-hub/spawn-cmd" "^0.2.0"
 
@@ -1445,21 +1445,21 @@
   resolved "https://registry.yarnpkg.com/@keg-hub/jsutils/-/jsutils-8.5.0.tgz#cc81b730b6875d889e968100bd1302e0fb22d8f4"
   integrity sha512-aF0mLfc1o0fRdoEaAopEkwCHfEKSz+Kjfb5goSELBkPJyulRzPz+6OTRk7XDV6VXtiq8kGJomGDAsBLW7htk4Q==
 
-"@keg-hub/jsutils@8.6.0":
-  version "8.6.0"
-  resolved "https://registry.yarnpkg.com/@keg-hub/jsutils/-/jsutils-8.6.0.tgz#c6a4511b5439ffe73ff50aa9319f17d1d7701e2a"
-  integrity sha512-J6o5lOL4p3idqxJkh+VHmppNFuQhC2IbwUrJiMFjXJbKLsylPQVOKZvRJ7ICHidc9fLw9Qvyd7BIgwo0Nn4iAg==
-
-"@keg-hub/jsutils@8.7.0", "@keg-hub/jsutils@^8.7.0":
+"@keg-hub/jsutils@8.7.0":
   version "8.7.0"
   resolved "https://registry.yarnpkg.com/@keg-hub/jsutils/-/jsutils-8.7.0.tgz#ee05638b2b6df0c251cdf28634694ac198f9211f"
   integrity sha512-ipbvP/yDZIYnneG8bAFjBGwR7QOGT3U5Dp5Y6Y1kPHbe6LFEoKhBVt6x9f5MavluGgofjulNpmwDcomCl+zbeA==
+
+"@keg-hub/jsutils@8.8.0":
+  version "8.8.0"
+  resolved "https://registry.yarnpkg.com/@keg-hub/jsutils/-/jsutils-8.8.0.tgz#a4172d6530354580379ed816a4e6b3a129f07137"
+  integrity sha512-vXfto5/E7ohJkLmpAs3lp78gpf0HwG9TqIyRpAzM6BhGi8ZJAcL86ZFU52Oadfdxk/1EH8FRQ+93FG6BDJ/0fw==
 
 "@keg-hub/mutagen-lib@file:./repos/mutagen-lib":
   version "0.0.0"
   dependencies:
     "@keg-hub/cli-utils" "0.2.1"
-    "@keg-hub/jsutils" "8.6.0"
+    "@keg-hub/jsutils" "8.8.0"
     "@keg-hub/spawn-cmd" "^0.2.0"
 
 "@keg-hub/parse-config@1.0.1", "@keg-hub/parse-config@^1.0.1":
