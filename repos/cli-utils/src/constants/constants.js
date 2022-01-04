@@ -141,6 +141,10 @@ module.exports = deepFreeze({
     'minor',
     'patch',
     'meta',
+    `premajor`,
+    `preminor`,
+    `prepatch`,
+    `prerelease`,
   ],
 
 })
