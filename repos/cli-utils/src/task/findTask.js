@@ -1,4 +1,3 @@
-const { hasHelpArg } = require('./hasHelpArg')
 const { throwExitError } = require('../error')
 const { noOpArr, isArr, isObj } = require('@keg-hub/jsutils')
 
@@ -64,7 +63,7 @@ const findTask = (tasks, opts = noOpArr, throwError=true) => {
   const foundTask = task && findTaskFromOptions(task, options)
 
   return foundTask && foundTask.task
-    ? foundTask
+    ? {...foundTask, tasks}
     : throwExitError(new Error(`Task not found for argument: ${taskName}`))
 
 }

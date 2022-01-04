@@ -581,10 +581,10 @@
   resolved "https://registry.yarnpkg.com/@keg-hub/jsutils/-/jsutils-8.7.0.tgz#ee05638b2b6df0c251cdf28634694ac198f9211f"
   integrity sha512-ipbvP/yDZIYnneG8bAFjBGwR7QOGT3U5Dp5Y6Y1kPHbe6LFEoKhBVt6x9f5MavluGgofjulNpmwDcomCl+zbeA==
 
-"@keg-hub/parse-config@1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@keg-hub/parse-config/-/parse-config-1.0.0.tgz#abcdc1b9dc4eea43ace579c01f486ef4c4682ed4"
-  integrity sha512-9cWqLkFbs6T2uPZv2JkTIIhViQ0bWgsMnL2WlXD0OTEzREgvNvLcpv7OzoHgXxvu+cwPSpRF3ivcpwTzqFKAwA==
+"@keg-hub/parse-config@1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@keg-hub/parse-config/-/parse-config-1.0.1.tgz#e778318261fcba941e80e82a8f725156a1d2fe0c"
+  integrity sha512-0IQKS5SIOWzu5P6m/k798mEQQiQ9QYGrT9HZ/NyxqE8YAI2xz47dx78dyGCr8/iHSUzz7/+er75fcHFFA3Kkxg==
   dependencies:
     "@keg-hub/cli-utils" "0.4.0"
     "@keg-hub/jsutils" "8.7.0"
