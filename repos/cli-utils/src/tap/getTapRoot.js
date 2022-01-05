@@ -1,6 +1,6 @@
 const { getTapPath } = require('./getTapPath')
 const { getPackageRoot } = require('../path/getPackageRoot')
-const { getKegGlobalConfig } = require('../task/getKegGlobalConfig')
+const { getKegGlobalConfig } = require('../globalConfig/getKegGlobalConfig')
 
 /**
  * Finds the path to the a taps root folder based on passed in params

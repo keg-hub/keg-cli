@@ -21,8 +21,8 @@
  * @returns {void}
 */
 
-require('module-alias/register')
 
+require('../cli/aliases')
 const path = require('path')
 const fs = require('fs-extra')
 const ciConfig = require('./ci.config.json')
@@ -32,10 +32,10 @@ const {
   GITHUB_TOKEN,
   KEG_CLI_PATH=path.join(__dirname, '../../'),
   KEG_CONFIG_FILE=`cli.config.json`,
-  KEG_CONFIG_PATH=path.join(KEG_CLI_ROOT, '.kegConfig'),
+  KEG_CONFIG_PATH=path.join(KEG_CLI_PATH, '.kegConfig'),
   KEG_ROOT_DIR,
   NODE_ENV,
-  USER,
+  USER="keg-admin",
 } = process.env
 
 const buildCIConfig = (customConfig) => {
@@ -49,11 +49,11 @@ const buildCIConfig = (customConfig) => {
         core: path.join(KEG_ROOT_DIR, 'repos', 'keg-core'),
       },
       git: {
-        orgName: `KegHub`,
-        orgUrl: `https://github.com/KegHub`,
+        orgName: `keg-hub`,
+        orgUrl: `https://github.com/keg-hub`,
         publicToken: GITHUB_TOKEN,
         key: GITHUB_TOKEN,
-        user: "keg-admin",
+        user: USER,
         repos: {
           cli: `keg-cli`,
           hub: `keg-hub`,
@@ -65,7 +65,7 @@ const buildCIConfig = (customConfig) => {
     },
     docker: {
       providerUrl: `ghcr.io`,
-      namespace: `KegHub`,
+      namespace: `keg-hub`,
       user: USER,
       token: GITHUB_TOKEN
     },

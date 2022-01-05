@@ -5,17 +5,19 @@ const { noOpArr, isArr, isObj } = require('@keg-hub/jsutils')
  * Maps task alias to a task name, relative to the options
  * @function
  * @private
+ * @param {Object} tasks - Task Definitions
  * @param {string} task - Name of the task to search for an alias
- * @param {Object} tasks - Custom Task Definitions
  *
  * @example
- * getTaskAlias({...task definition}, )
+ * getTaskRef(tasks, taskName)
  *
- * @returns {Object} - Found task alias
+ * @returns {Object} - Found task object
  */
-const getTaskAlias = (task, tasks) => {
+const getTaskRef = (tasks, task) => {
   return Object.values(tasks)
-    .find(definition => isArr(definition.alias) && definition.alias.includes(task))
+    .find(definition => (
+      definition.name === task || (isArr(definition.alias) && definition.alias.includes(task))
+    ))
 }
 
 /**
@@ -33,7 +35,7 @@ const getTaskAlias = (task, tasks) => {
 const findTaskFromOptions = (task, options) => {
   const opt = options.shift()
   const subTasks = isObj(task) && task.tasks
-  const subTask = opt && subTasks && (subTasks[opt] || getTaskAlias(opt, subTasks))
+  const subTask = opt && subTasks && getTaskRef(subTasks, opt)
 
   return !subTask
     ? { task: task, options: opt ? [ opt, ...options ] : options }
@@ -46,23 +48,27 @@ const findTaskFromOptions = (task, options) => {
  * @export
  * @param {Object} tasks - Custom Task Definitions
  * @param {Array} options - Task options that can be shared across tasks
+ * @param {Boolean} [throwError=true] - If true, will throw when a task can not be found
+ * throwError
  *
  * @example
  * findTask({...task definitions}, [...options])
  *
  * @returns {void}
  */
-const findTask = (tasks, opts = noOpArr) => {
+const findTask = (tasks, opts = noOpArr, throwError=true) => {
   const options = [...opts]
   const taskName = options.shift()
-  const task = tasks[taskName] || getTaskAlias(taskName, tasks)
+  const task = getTaskRef(tasks, taskName)
   const foundTask = task && findTaskFromOptions(task, options)
 
   return foundTask && foundTask.task
-    ? foundTask
+    ? {...foundTask, tasks}
     : throwExitError(new Error(`Task not found for argument: ${taskName}`))
+
 }
 
 module.exports = {
   findTask,
+  getTask: findTask, 
 }

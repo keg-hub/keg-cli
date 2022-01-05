@@ -8,7 +8,7 @@ const buildOptions = (task, action, options) => {
     ...dockerOptions(task, action, [ 'provider', 'namespace' ]),
     platform: {
       alias: ['plat'],
-      allowed: [ 'amd', 'amd64', 'arm', 'arm32', 'arm64', 'all', false],
+      allowed: [ `amd64`, `arm64`, `all`, false],
       description: "The platform architecture(s) to target when building. Defaults to none.",
       example: 'keg ${task} ${action} --platform amd64'
     },
@@ -90,6 +90,12 @@ const buildOptions = (task, action, options) => {
       description: `Extra build args as key / value pairs to pass on to the docker build command.`,
       example: `keg ${task} ${action} --buildArgs custom:arg,other:arg`,
       type: 'array',
+    },
+    buildX: {
+      alias: [ 'bx' ],
+      description: `Use docker buildX build when building docker images`,
+      example: `keg ${task} ${action} --buildX `,
+      env: 'KEG_DOC_BUILDX',
     }
   }
 }

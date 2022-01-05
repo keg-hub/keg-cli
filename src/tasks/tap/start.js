@@ -1,4 +1,3 @@
-const { DOCKER } = require('KegConst/docker')
 const { startService } = require('KegUtils/services')
 const { mergeTaskOptions } = require('KegUtils/task/options/mergeTaskOptions')
 
@@ -28,7 +27,7 @@ module.exports = {
     alias: [ 'st' ],
     action: startTap,
     inject: true,
-    locationContext: DOCKER.LOCATION_CONTEXT.CONTAINERS,
+    locationContext: 'CONTAINERS',
     description: `Runs a tap in a docker container`,
     example: 'keg tap start <options>',
     options: mergeTaskOptions('tap', 'start', 'startService', {

@@ -1,8 +1,4 @@
-const { DOCKER } = require('KegConst/docker')
 const { testEnum } = require('KegMocks/jest/testEnum')
-const { REPO, CONTAINERS } = DOCKER.LOCATION_CONTEXT
-
-const globalConfig = global.getGlobalCliConfig()
 
 const { updateLocationContext } = require('../updateLocationContext')
 
@@ -12,8 +8,8 @@ const testArgs = {
     inputs: [{ params: { tap: 'test-tap', context: 'test-tap' } }],
     outputs: {
       params: { tap: 'test-tap', context: 'test-tap' },
-      __internal: { locationContext: REPO },
-      task: { locationContext: REPO }
+      __internal: { locationContext: 'REPO' },
+      task: { locationContext: 'REPO' }
     }
   },
   tapNotDefined: {
@@ -21,8 +17,8 @@ const testArgs = {
     inputs: [{ params: { context: 'tap' } }],
     outputs: {
       params: { context: 'tap' },
-      __internal: { locationContext: CONTAINERS },
-      task: { locationContext: CONTAINERS }
+      __internal: { locationContext: 'CONTAINERS' },
+      task: { locationContext: 'CONTAINERS' }
     }
   },
 }

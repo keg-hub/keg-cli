@@ -2,7 +2,7 @@ const { docker } = require('KegMocks/libs/docker')
 const globalConfig = global.getGlobalCliConfig()
 const container = global.testDocker.containers.core
 
-jest.setMock('KegDocCli', docker)
+jest.setMock('@keg-hub/docker-lib', docker)
 
 const { getImagePullPolicy } = require('../getImagePullPolicy')
 

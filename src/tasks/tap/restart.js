@@ -1,4 +1,3 @@
-const { DOCKER } = require('KegConst/docker')
 const { restartService } = require('KegUtils/services')
 const { mergeTaskOptions } = require('KegUtils/task/options/mergeTaskOptions')
 
@@ -29,7 +28,7 @@ module.exports = {
     alias: [ 'rest', 'rerun', 'rr', 'rst' ],
     inject: true,
     action: restartTap,
-    locationContext: DOCKER.LOCATION_CONTEXT.CONTAINERS,
+    locationContext: 'CONTAINERS',
     description: `Restarts a taps docker containers`,
     example: 'keg tap restart <options>',
     options: mergeTaskOptions('tap', 'restart', 'startService', {

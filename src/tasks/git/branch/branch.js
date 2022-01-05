@@ -1,10 +1,8 @@
-const { throwWrap } = require('KegUtils/error/throwWrap')
-const { get, isFunc, isNum, exists } = require('@keg-hub/jsutils')
-const { Logger } = require('KegLog')
-const { git } = require('KegGitCli')
-const { runInternalTask } = require('KegUtils/task/runInternalTask')
+const { git } = require('@keg-hub/git-lib')
+const { ask } = require('@keg-hub/ask-it')
 const { generalError } = require('KegUtils/error')
-const { ask } = require('KegRepos/ask-it')
+const { isNum, exists } = require('@keg-hub/jsutils')
+const { Logger, runInternalTask } = require('@keg-hub/cli-utils')
 
 /**
  * Get the branch name based on the branch or the params.remove value

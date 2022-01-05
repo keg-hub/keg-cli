@@ -1,6 +1,6 @@
-const { Logger } = require('KegLog')
+const { Logger } = require('@keg-hub/cli-utils')
 const { get } = require('@keg-hub/jsutils')
-const { getHubRepos } = require('../hub/getHubRepos')
+const { getHubRepos } = require('../getters/getHubRepos')
 const { generalError } = require('../error/generalError')
 const { isValidSemver } = require('../version/isValidSemver')
 const { writePackageVersion } = require('../version/writePackageVersion')

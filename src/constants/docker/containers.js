@@ -1,12 +1,11 @@
 const path = require('path')
 const { KEG_ENVS } = require('../envs')
 const { PREFIXED } = require('./domainEnvs')
+const { loadConfigFiles } = require('./loaders')
 const { containersPath, images } = require('./values')
-const { loadValuesFiles, loadEnvFiles } = require('./loaders')
-const { defineProperty } = require('../../utils/helpers/defineProperty')
+const { getDefaultEnv } = require('@keg-hub/cli-utils')
 const { checkArgsForEnv } = require('../../utils/helpers/checkArgsForEnv')
-const { deepFreeze, deepMerge, keyMap, get, noOpObj } = require('@keg-hub/jsutils')
-const { getDefaultEnv } = require('../../utils/globalConfig/getDefaultEnv')
+const { deepFreeze, deepMerge, keyMap, noOpObj } = require('@keg-hub/jsutils')
 
 /**
  * Holds each docker containers meta data that can be built by the CLI
@@ -69,8 +68,12 @@ const containerConfig = (container, currentEnv, __internal=noOpObj) => {
       PREFIXED,
       KEG_ENVS,
       __internal.ENVS,
-      loadValuesFiles({ container, __internal, env: currentEnv, loadPath: 'env' }),
-      loadEnvFiles({ container, __internal, env: currentEnv })
+      loadConfigFiles({
+        __internal,
+        ymlPath: 'env',
+        env: currentEnv,
+        name: container,
+      })
     ),
   })
 
@@ -141,6 +144,10 @@ const containersObj = { injectContainer }
  * <br/>Allows the getContainers method to dynamically build the __CONTAINERS object at runtime
  * @function
  */
-defineProperty(containersObj, 'CONTAINERS', { get: getContainers })
+Object.defineProperty(containersObj, 'CONTAINERS', {
+  get: getContainers,
+  enumerable: true,
+  configurable: false,
+})
 
 module.exports = deepFreeze(containersObj)

@@ -1,7 +1,4 @@
-const path = require('path')
-const { Logger } = require('KegLog')
-const { DOCKER } = require('KegConst/docker')
-const { runInternalTask } = require('KegUtils/task/runInternalTask')
+const { runInternalTask } = require('@keg-hub/cli-utils')
 
 /**
  * Copy files to and from a docker container
@@ -30,7 +27,7 @@ module.exports = {
     alias: [ 'cp' ],
     inject: true,
     action: copy,
-    locationContext: DOCKER.LOCATION_CONTEXT.REPO,
+    locationContext: 'REPO',
     description: `Copy files to and from a docker container`,
     example: 'keg docker copy <options>',
     options: {

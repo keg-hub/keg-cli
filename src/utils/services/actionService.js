@@ -1,58 +1,11 @@
-const { Logger } = require('KegLog')
+const { Logger } = require('@keg-hub/cli-utils')
 const { getServiceArgs } = require('./getServiceArgs')
-const { loadValuesFiles } = require('KegConst/docker/loaders')
-
-
-const { generalError } = require('../error/generalError')
-const { getRemotePath } = require('../getters/getRemotePath')
-const { runInternalTask } = require('../task/runInternalTask')
-const { buildExecParams } = require('../docker/buildExecParams')
-const { findDependencyName } = require('../helpers/findDependencyName')
-
-const { get, isArr, isStr, isObj, checkCall } = require('@keg-hub/jsutils')
+const { loadConfigs } = require('@keg-hub/parse-config')
+const { isArr, isStr, isObj } = require('@keg-hub/jsutils')
+const { runActionCmds } = require('KegUtils/actions/runActionCmds')
+const { validateAction } = require('KegUtils/actions/validateAction')
+const { buildTemplateData } = require('../template/buildTemplateData')
 const { buildContainerContext } = require('../builders/buildContainerContext')
-
-/**
- * Runs the sync actions defined in the mutagen.yml sync config
- * <br/>Runs each cmd in series, one after the other
- * @function
- * @param {Object} serviceArgs - arguments passed from the runTask method
- * @param {string} cmdContext - Context of the container to sync with
- * @param {Array} action - Action to run in the container for the sync
- *
- * @returns {Array} - Array of Promises of each sync action
- */
-const runActionCmds = (serviceArgs, cmdContext, dependency, action) => {
-
-  // Get the cmd || cmds to run
-  const { cmds, cmd, ...actionParams } = action
-
-  // Normalize the cmds array
-  const allCmds = isArr(cmds) ? cmds : isStr(cmds) ? [ cmds ] : []
-  isStr(cmd) && allCmds.unshift(cmd)
-
-  return allCmds.reduce(async (toResolve, toRun) => {
-    await toResolve
-
-    Logger.highlight(`Running action:`, `"${ cmd }"`)
-
-    // Run the docker exec task for each cmd
-    return runInternalTask('tasks.docker.tasks.exec', {
-      ...serviceArgs,
-      params: {
-        ...serviceArgs.params,
-        context: cmdContext,
-        ...buildExecParams(
-          serviceArgs.params,
-          actionParams
-        ),
-        cmd: toRun,
-      },
-    })
-
-  }, Promise.resolve())
-
-}
 
 /**
  * Runs the sync actions defined in the mutagen.yml sync config
@@ -64,10 +17,10 @@ const runActionCmds = (serviceArgs, cmdContext, dependency, action) => {
  *
  * @returns {Array} - Array of Promises of each sync action
  */
-const runActions = (serviceArgs, cmdContext, dependency, actions) => {
+const runActions = (serviceArgs, actions, cmdContext) => {
   return actions.reduce(async (toResolve, action) => {
     await toResolve
-    return runActionCmds(serviceArgs, cmdContext, dependency, action)
+    return runActionCmds(serviceArgs, action, cmdContext)
   }, Promise.resolve())
 }
 
@@ -76,27 +29,45 @@ const runActions = (serviceArgs, cmdContext, dependency, actions) => {
  * <br/>Sets the name of each action to equal the action key
  * <br/>If action is passed, only returns that action in an array
  * @function
- * @param {Object} actions - Actions to run in the container for the sync
+ * @param {Object} configActions - Actions to run in the container loaded from config files
  * @param {string} action - Name of the action to run
  *
  * @returns {Array} - Array actions to run
  */
-const getActions = (actions, actionToRun, dependency) => {
-  return !isArr(actionToRun) || !actionToRun.length || !isObj(actions)
-    ? null
-    : actionToRun.includes('all')
-      ? Object.entries(actions)
-          .reduce((allActions, [ name, meta ]) => {
-            return allActions.concat({ ...meta, name })
-          }, [])
-      : actionToRun.reduce((runActions, action) => {
-          const valid = isObj(actions[action])
-          !valid && Logger.error(`\nAction "${action}" does not exist for "${ dependency }"\n`)
+const getActions = (configActions, actionToRun, dependency, allowUndefined) => {
+  // Convert the actionToRun in to the correct format
+  const actionsMeta = (isStr(actionToRun) && actionToRun.split(',') || actionToRun)
+    .map(act => {
+      const [key, ...actions] = act.includes(':')
+        ? act.split(':')
+        : ['tap', act]
 
-          return valid
-            ? runActions.concat([ { ...actions[action], name: action } ])
-            : runActions
-        }, [])
+      return {key, actions}
+    })
+
+  return !isArr(actionsMeta) || !actionsMeta.length || !isObj(configActions)
+    ? null
+    : actionsMeta.reduce((runActions, {key, actions}) => {
+        // Get the sub-actions for the namespace
+        const subActs = configActions[key]
+
+        // If no sub actions, then log and continue
+        // Otherwise add the sub-act as an action to be run
+        !isObj(subActs)
+          ? Logger.error(`\nAction "${key}" does not exist for "${ dependency }"\n`)
+          : actions.map(act => {
+              const meta = validateAction(actions, subActs[act], allowUndefined)
+
+              isObj(meta)
+                ? runActions.push({
+                    ...meta,
+                    name: act,
+                  })
+                : Logger.error(`\nAction "${key}.${act}" does not exist for "${ dependency }"\n`)
+            })
+
+        return runActions
+      }, [])
 }
 
 /**
@@ -115,28 +86,42 @@ const actionService = async (args, argsExt) => {
 
   const serviceArgs = getServiceArgs(args, argsExt)
   const { params } = serviceArgs
-  const actionContext = await buildContainerContext(serviceArgs)
-
-  // TODO:
-  // Get the actions from the values.yml files
-  const { container, env, __injected } = params
-  const actions = await loadValuesFiles({
+  const {
     env,
     container,
-    loadPath: 'actions',
-    __internal: __injected,
-  })
+    __injected,
+    allowUndefined
+  } = params
 
-  console.log(`---------- actions ----------`)
-  console.log(actions)
+  const { contextEnvs, cmdContext } = await buildContainerContext(serviceArgs)
+
+  const actions = await loadConfigs({
+    fill: true,
+    noEnv: true,
+    data: buildTemplateData({
+      env,
+      container,
+      envs: contextEnvs,
+      __internal: __injected,
+    }),
+    ymlPath: 'actions',
+    locations: [
+      params.__injected.injectPath,
+      params.__injected.containerPath
+    ]
+  })
 
   // Compare them to the passed in actions
   // Get only the passed in actions, in the correct order
-  // const actionsToRun = getActions(actions, get(serviceArgs, 'params.action'))
+  const actionsToRun = getActions(
+    actions,
+    params.action,
+    cmdContext,
+    allowUndefined
+  )
 
   // Run the actions on the container
-  // await runActions(serviceArgs, actionContext.cmdContext, action, actions)
-
+  return await runActions(serviceArgs, actionsToRun, cmdContext)
 }
 
 module.exports = {

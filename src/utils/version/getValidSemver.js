@@ -1,6 +1,6 @@
-const { ask } = require('KegRepos/ask-it')
+const { ask } = require('@keg-hub/ask-it')
 const { isValidSemver } = require('./isValidSemver')
-const { Logger } = require('KegLog')
+const { Logger } = require('@keg-hub/cli-utils')
 
 /**
  * gets a valid semver input (minor, major, patch, 1.0.0, etc.)

@@ -30,17 +30,21 @@ const getBoolOptions = () => {
  * @returns {*} - Boolean or original value
  */
 const checkBoolValue = value => {
+
   if(!exists(value) || isBool(value)) return value
 
   const lowerVal = isStr(value) && value.toLowerCase() || value
   const boolOpts = __BOOL_OPTS || getBoolOptions()
 
   // Check the value is one of the joined bool options
-  return boolOpts.all.indexOf(lowerVal) === -1
+  return !boolOpts.all.includes(lowerVal)
     ? value
-    : boolOpts.truthy.indexOf(lowerVal) !== -1
+    : boolOpts.truthy.includes(lowerVal)
       ? true
-      : false
+      // Should not be needed, but adding incase I missed an edge case some how
+      : boolOpts.falsy.includes(lowerVal)
+        ? false
+        : value
 }
 
 module.exports = {

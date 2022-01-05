@@ -1,6 +1,5 @@
-const docker = require('KegDocCli')
-const { runInternalTask } = require('KegUtils/task/runInternalTask')
-const { getContainerConst } = require('KegUtils/docker/getContainerConst')
+const docker = require('@keg-hub/docker-lib')
+const { runInternalTask } = require('@keg-hub/cli-utils')
 const { checkEnvConstantValue } = require('KegUtils/helpers/checkEnvConstantValue')
 
 /**

@@ -1,5 +1,5 @@
 
-const { Logger } = require('KegLog')
+const { Logger } = require('@keg-hub/cli-utils')
 
 /**
  * Placeholder task to give a warning when trying to build the keg-proxy

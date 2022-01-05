@@ -1,7 +1,8 @@
 const { get } = require('@keg-hub/jsutils')
 const { proxyService } = require('./proxyService')
 const { getServiceArgs } = require('./getServiceArgs')
-const { runInternalTask } = require('../task/runInternalTask')
+const { runInternalTask } = require('@keg-hub/cli-utils')
+
 /**
  * Creates a docker package for the passed in arguments
  * @param {Object} args - Default arguments passed to all tasks

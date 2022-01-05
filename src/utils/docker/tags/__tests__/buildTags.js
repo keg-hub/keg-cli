@@ -3,6 +3,7 @@ const { getTask } = require('KegMocks/helpers/testTasks')
 const { deepMerge, get, uuid } = require('@keg-hub/jsutils')
 const tagHelpers = require('KegUtils/docker/tags/tagHelpers')
 const { allowedTagOpts } = require('../../../getters/getTagVarMap')
+const { coreEnvs, coreInject } = require('KegMocks/injected/injectedCore')
 const { containerContexts } = require('KegMocks/contexts/containerContexts')
 const { injectedTest, injectedContainer, injectedContext } = require('KegMocks/injected/injectedTest')
 
@@ -20,7 +21,8 @@ const globalConfig = global.getGlobalCliConfig()
 
 const withInjected = {
   ...DOCKER.CONTAINERS,
-  INJECTED: injectedContainer
+  CORE: coreInject,
+  INJECTED: injectedContainer,
 }
 
 jest.setMock('KegConst/docker', { DOCKER: { ...DOCKER, CONTAINERS: withInjected }})
@@ -76,12 +78,10 @@ const args = {
       ...defParams,
       context: 'core',
       tap: 'core',
-      location: DOCKER.CONTAINERS.CORE.ENV.KEG_CONTEXT_PATH,
+      location: coreEnvs.KEG_CONTEXT_PATH,
       cmd: 'core',
       image: 'keg-core',
-      buildArgs: {
-        ...DOCKER.CONTAINERS.CORE.ENV,
-      },
+      buildArgs: coreEnvs,
     },
   },
   injected: {
@@ -99,7 +99,7 @@ const args = {
 }
 
 const baseVersion = DOCKER.CONTAINERS.BASE.ENV.VERSION
-const coreVersion = DOCKER.CONTAINERS.CORE.ENV.VERSION
+const coreVersion = coreEnvs.VERSION
 
 const buildParams = (type, overrides) => {
   return deepMerge(get(args, [ type, 'params']), overrides)
@@ -118,55 +118,55 @@ describe('buildTags', () => {
   it('should get the image name from the passed in param', async () => {
 
     const coreResp = await buildTags(args.core, buildParams('core', { image: 'duper' }))
-    expect(coreResp.trim()).toBe('-t ghcr.io/KegHub/duper:develop')
+    expect(coreResp.trim()).toBe('-t ghcr.io/keg-hub/duper:develop')
 
   })
 
   it('should get the image name from constants when no image param is passed', async () => {
 
-    const coreImg = DOCKER.CONTAINERS.CORE.ENV.IMAGE
+    const coreImg = coreEnvs.IMAGE
     const coreResp = await buildTags(args.core, args.core.params)
-    expect(coreResp.trim()).toBe(`-t ghcr.io/KegHub/${coreImg}:develop`)
+    expect(coreResp.trim()).toBe(`-t ghcr.io/keg-hub/${coreImg}:develop`)
 
   })
 
   it('should add tags defined in the tags param', async () => {
 
     const baseResp = await buildTags(args.base, buildParams('base', { tags: [ 'develop' ] }))
-    expect(baseResp.trim()).toBe('-t ghcr.io/KegHub/keg-base:develop')
+    expect(baseResp.trim()).toBe('-t ghcr.io/keg-hub/keg-base:develop')
 
     const coreResp = await buildTags(args.core, buildParams('core', { tags: [ 'test', '1.0.0' ] }))
-    expect(coreResp.trim()).toBe('-t ghcr.io/KegHub/keg-core:test -t ghcr.io/KegHub/keg-core:1.0.0')
+    expect(coreResp.trim()).toBe('-t ghcr.io/keg-hub/keg-core:test -t ghcr.io/keg-hub/keg-core:1.0.0')
 
   })
 
   it('should add the default tag, when no tag params are set', async () => {
 
     const baseResp = await buildTags(args.base, args.base.params)
-    expect(baseResp.trim()).toBe('-t ghcr.io/KegHub/keg-base:develop')
+    expect(baseResp.trim()).toBe('-t ghcr.io/keg-hub/keg-base:develop')
 
     const coreResp = await buildTags(args.core, args.core.params)
-    expect(coreResp.trim()).toBe('-t ghcr.io/KegHub/keg-core:develop')
+    expect(coreResp.trim()).toBe('-t ghcr.io/keg-hub/keg-core:develop')
 
   })
 
   it('should use the version param with the env as a tag when passed as a string', async () => {
 
     const baseResp = await buildTags(args.base, buildParams('base', { version: 'test-version' }))
-    expect(baseResp.trim()).toBe('-t ghcr.io/KegHub/keg-base:local-test-version')
+    expect(baseResp.trim()).toBe('-t ghcr.io/keg-hub/keg-base:local-test-version')
 
     const coreResp = await buildTags(args.core, buildParams('core', { version: '1.0.0' }))
-    expect(coreResp.trim()).toBe('-t ghcr.io/KegHub/keg-core:local-1.0.0')
+    expect(coreResp.trim()).toBe('-t ghcr.io/keg-hub/keg-core:local-1.0.0')
 
   })
 
   it('should use the constants version with the env when version is passed as true', async () => {
 
     const baseResp = await buildTags(args.base, buildParams('base', { version: true }))
-    expect(baseResp.trim()).toBe(`-t ghcr.io/KegHub/keg-base:local-${baseVersion}`)
+    expect(baseResp.trim()).toBe(`-t ghcr.io/keg-hub/keg-base:local-${baseVersion}`)
 
     const coreResp = await buildTags(args.core, buildParams('core', { version: true }))
-    expect(coreResp.trim()).toBe(`-t ghcr.io/KegHub/keg-core:local-${coreVersion}`)
+    expect(coreResp.trim()).toBe(`-t ghcr.io/keg-hub/keg-core:local-${coreVersion}`)
 
   })
 
@@ -176,10 +176,10 @@ describe('buildTags', () => {
     expect(getRepoGitTagMock).not.toHaveBeenCalled()
 
     const baseResp = await buildTags(args.base, buildParams('base', { tagGit: true }))
-    expect(baseResp.trim()).toBe('-t ghcr.io/KegHub/keg-base:git-test-branch')
+    expect(baseResp.trim()).toBe('-t ghcr.io/keg-hub/keg-base:git-test-branch')
 
     const coreResp = await buildTags(args.core, buildParams('core', { tagGit: true }))
-    expect(coreResp.trim()).toBe('-t ghcr.io/KegHub/keg-core:git-test-branch')
+    expect(coreResp.trim()).toBe('-t ghcr.io/keg-hub/keg-core:git-test-branch')
 
     expect(getRepoGitTagMock).toHaveBeenCalled()
 
@@ -190,10 +190,10 @@ describe('buildTags', () => {
     expect(getRepoGitTagMock).not.toHaveBeenCalled()
 
     const baseResp = await buildTags(args.base, buildParams('base', { tagGit: 'commit' }))
-    expect(baseResp.trim()).toBe(`-t ghcr.io/KegHub/keg-base:${gitTagHash}`)
+    expect(baseResp.trim()).toBe(`-t ghcr.io/keg-hub/keg-base:${gitTagHash}`)
 
     const coreResp = await buildTags(args.core, buildParams('core', { tagGit: 'commit' }))
-    expect(coreResp.trim()).toBe(`-t ghcr.io/KegHub/keg-core:${gitTagHash}`)
+    expect(coreResp.trim()).toBe(`-t ghcr.io/keg-hub/keg-core:${gitTagHash}`)
 
     expect(getRepoGitTagMock).toHaveBeenCalled()
 
@@ -202,10 +202,10 @@ describe('buildTags', () => {
   it('should get a dynamic tag when tagVariable param is set to a valid value', async () => {
 
     const baseResp = await buildTags(args.base, buildParams('base', { tagVariable: ['commit:version'] }))
-    expect(baseResp.trim()).toBe(`-t ghcr.io/KegHub/keg-base:${gitTagHash}-${baseVersion}`)
+    expect(baseResp.trim()).toBe(`-t ghcr.io/keg-hub/keg-base:${gitTagHash}-${baseVersion}`)
 
     const coreResp = await buildTags(args.core, buildParams('core', { tagVariable: ['env:branch'] }))
-    expect(coreResp.trim()).toBe(`-t ghcr.io/KegHub/keg-core:local-git-test-branch`)
+    expect(coreResp.trim()).toBe(`-t ghcr.io/keg-hub/keg-core:local-git-test-branch`)
 
   })
 

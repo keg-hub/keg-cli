@@ -1,8 +1,7 @@
+const {git} = require('@keg-hub/git-lib')
 const { get } = require('@keg-hub/jsutils')
-const { getGlobalConfig } = require('./getGlobalConfig')
-const {git} = require('KegGitCli')
-const { getTapPath } = require('KegRepos/cli-utils')
 const { throwNoRepo } = require('../error/throwNoRepo')
+const { getTapPath, getKegGlobalConfig } = require('@keg-hub/cli-utils')
 
 /**
  * returns the repo name from your global config
@@ -41,7 +40,7 @@ const getTapRepo = async (globalConfig, tap) => {
  * @returns {Promise<string>} - Name if the remote git repo
  */
 const getRepoName = async (repoKey, tap) => {
-  const globalConfig = getGlobalConfig()
+  const globalConfig = getKegGlobalConfig()
   
   return tap 
     ? getTapRepo(globalConfig, tap)

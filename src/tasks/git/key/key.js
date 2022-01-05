@@ -1,6 +1,6 @@
-const { executeTask } = require('KegUtils/task')
-const { throwWrap } = require('KegUtils/error')
 const { isStr } = require('@keg-hub/jsutils')
+const { throwWrap } = require('KegUtils/error')
+const { executeTask } = require('@keg-hub/cli-utils')
 
 /**
  * Git key tasks

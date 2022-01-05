@@ -6,7 +6,7 @@ const validateActionMock = jest.fn((actions, action) => {
     ? false
     : actionMock
 })
-jest.setMock('../validateAction', { validateAction: validateActionMock })
+jest.setMock('KegUtils/actions/validateAction', { validateAction: validateActionMock })
 const runActionCmdsMock = jest.fn()
 jest.setMock('KegUtils/actions/runActionCmds', { runActionCmds: runActionCmdsMock })
 const getActionsMock = jest.fn()

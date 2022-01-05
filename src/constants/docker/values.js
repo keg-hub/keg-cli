@@ -1,9 +1,9 @@
 const path = require('path')
 const { KEG_ENVS } = require('../envs')
-const cliRootDir = path.join(__dirname, '../../../')
-const { deepFreeze, keyMap, isStr } = require('@keg-hub/jsutils')
-const { defineProperty } = require('../../utils/helpers/defineProperty')
-const { getFoldersSync, pathExistsSync } = require('KegFileSys')
+const { isStr } = require('@keg-hub/jsutils')
+const { fileSys } = require('@keg-hub/cli-utils')
+
+const { getFoldersSync, pathExistsSync } = fileSys
 
 /**
  * All folders in the CONTAINERS_PATH that have a Dockerfile
@@ -17,28 +17,6 @@ let __IMAGES
  * @string
  */
 const containersPath = KEG_ENVS.CONTAINERS_PATH
-
-/**
- * Allowed Context types for running docker commands
- * @object
- * <br/> Normal docker commands need to be run from the repos folder
- * <br/> Docker Compose commands should be run from their respective containers folder
- * <br/> One of these types should be added to the task model that defines the docker command
- */
-const locationContext = keyMap([ 'repo', 'containers' ], true)
-
-/**
- * Maps keys from the docker cli response to a different key value
- * @object
- */
-const cliKeyMap = { Names: 'name' }
-
-/**
- * Maps keys from the mutagen yml config to work with the mutagen cli
- * <br/> The cli keys are not a 1:1 with the yml config keys
- * @object
- */
-const mutagenMap = { mode: 'syncMode' }
 
 /**
  * Finds all folders in the CONTAINERS_PATH that have a Dockerfile
@@ -74,12 +52,8 @@ const injectImage = image => {
  * @object
  */
 const values = {
-  cliKeyMap,
-  mutagenMap,
-  cliRootDir,
   injectImage,
-  locationContext,
-  containersPath
+  containersPath,
 }
 
 /**
@@ -93,6 +67,10 @@ const getImages = () => (__IMAGES || buildImages())
  * <br/>Allows the getImages method to dynamically build the __IMAGES object at runtime
  * @function
  */
-defineProperty(values, 'images', { get: getImages })
+Object.defineProperty(values, 'images', {
+  get: getImages,
+  enumerable: true,
+  configurable: false,
+})
 
 module.exports = Object.freeze(values)

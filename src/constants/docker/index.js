@@ -2,19 +2,13 @@ const containers = require('./containers')
 const { KEG_ENVS } = require('../envs')
 
 const {
-  cliKeyMap,
   images,
-  locationContext,
-  mutagenMap,
   containersPath,
 } = require('./values')
 
 const DOCKER = {
   ...require('./domainEnvs'),
   IMAGES: images,
-  CLI_KEY_MAP: cliKeyMap,
-  MUTAGEN_MAP: mutagenMap,
-  LOCATION_CONTEXT: locationContext,
   CONTAINERS_PATH: containersPath,
   KEG_PROXY_HOST: KEG_ENVS.KEG_PROXY_HOST,
   KEG_DOCKER_NETWORK: KEG_ENVS.KEG_DOCKER_NETWORK,

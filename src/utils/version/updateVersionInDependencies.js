@@ -1,4 +1,3 @@
-const { ask } = require('KegRepos/ask-it')
 const { writePackageVersion } = require('./writePackageVersion')
 
 /**

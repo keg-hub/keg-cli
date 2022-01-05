@@ -1,13 +1,15 @@
 #!/usr/bin/env node
 
-const { getTaskDefinitions } = require('./tasks')
-const { argsParse } = require('@keg-hub/args-parse')
-const { deepMerge } = require('@keg-hub/jsutils')
-const { findTask } = require('./task/findTask')
 const { throwExitError } = require('./error')
-const { getKegGlobalConfig } = require('./task/getKegGlobalConfig')
+const { findTask } = require('./task/findTask')
+const { showHelp } = require('./logger/showHelp')
+const { deepMerge } = require('@keg-hub/jsutils')
+const { getTaskDefinitions } = require('./tasks')
+const { hasHelpArg } = require('./task/hasHelpArg')
+const { argsParse } = require('@keg-hub/args-parse')
+const { getKegGlobalConfig } = require('./globalConfig/getKegGlobalConfig')
 
-const defParams = { env: process.env.NODE_ENV || 'development' }
+const defParams = { env: process.env.NODE_ENV || 'local' }
 
 /**
  * Runs a local task matching the Keg-CLI task definition
@@ -23,7 +25,15 @@ const runTask = async (customTasks, customDefParams) => {
   try {
     const args = process.argv.slice(2)
     const Definitions = await getTaskDefinitions(customTasks)
+
+    // If no first arg, or if the first arg is global help, then show help
+    if(!args[0] || hasHelpArg(args[0])) return showHelp({ tasks: Definitions })
+
     const { task, options } = findTask(Definitions, [...args])
+
+    // If the last options in a help arg, show help
+    if(hasHelpArg(options[options.length - 1]))
+      return showHelp({ task, options })
 
     // Parse the args with the same package as the Keg-CLI, to ensure its consistent
     const params = await argsParse({

@@ -1,7 +1,7 @@
-const { git } = require('KegGitCli')
+const { git } = require('@keg-hub/git-lib')
+const { getTapPath } = require('@keg-hub/cli-utils')
 const { generalError, throwNoTapLink } = require('../error')
 const { CONTEXT_TO_CONTAINER } = require('KegConst/constants')
-const { getTapPath } = require('KegRepos/cli-utils')
 
 const internalContexts = Object.keys(CONTEXT_TO_CONTAINER)
 

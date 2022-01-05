@@ -1,7 +1,7 @@
 const { generalError } = require('KegMocks/utils/error/generalError')
 const { Logger } = require('KegMocks/logger')
 
-jest.setMock('KegLog', { Logger })
+jest.setMock('@keg-hub/cli-utils', { Logger })
 jest.setMock('KegUtils/error', { generalError })
 
 const { isValidSemver } = require('../isValidSemver')

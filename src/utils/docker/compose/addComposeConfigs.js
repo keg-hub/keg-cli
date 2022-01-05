@@ -1,12 +1,13 @@
 const path = require('path')
-const { Logger } = require('KegLog')
+const { fileSys, Logger } = require('@keg-hub/cli-utils')
 const { get } = require('@keg-hub/jsutils')
 const { loadTemplate } = require('KegUtils/template')
 const { getContainerConst } = require('../getContainerConst')
 const { GLOBAL_INJECT_FOLDER } = require('KegConst/constants')
 const { generalError } = require('KegUtils/error/generalError')
-const { writeFile, mkDir, pathExists } = require('KegFileSys')
 const { generateComposeLabels } = require('KegUtils/proxy/generateComposeLabels')
+
+const { writeFile, mkDir, pathExists } = fileSys
 
 /**
  * Writes the injected compose file to the global injected folder
@@ -39,7 +40,7 @@ const addInjectedTemplate = async (dockerCmd, data={}, composeData) => {
   // Build the path of the injected compose file, based on the proxyDomain ( app name + git branch name )
   const injectedCompose = path.join(
     GLOBAL_INJECT_FOLDER,
-    `${composeData.proxyDomain || composeData.service}.yml`
+    `${composeData.proxyDomain || composeData.service}.yml`.replace(/\//g, '-')
   )
 
   const dockCmdWithCompose = `${dockerCmd} -f ${injectedCompose}`

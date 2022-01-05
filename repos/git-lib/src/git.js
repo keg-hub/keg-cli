@@ -2,17 +2,18 @@ const gitUtils = require('./utils')
 const { Repo } = require('./repo')
 const { Remote } = require('./remote')
 const { Branch } = require('./branch')
+const { gitCmd } = require('./commands')
 const { Logger } = require('@keg-hub/cli-utils')
 const { gitSSHEnv, buildCmdOpts } = require('./utils/helpers')
-
 
 class Git {
 
   constructor(options){
-    this.branch = new Branch(this, options)
-    this.repo = new Repo(this, options)
-    this.remote = new Remote(this, options)
+    this.cmd = gitCmd
     this.utils = gitUtils
+    this.branch = new Branch(this, options)
+    this.remote = new Remote(this, options)
+    this.repo = new Repo(this, options)
 
     options.sshKey && this.setSSHKey(options.sshKey)
   }
@@ -39,8 +40,8 @@ class Git {
   * @returns {void}
   */
   reset = async cmdOpts => {
-    await gitCmd(`git clean -f .`, buildCmdOpts(cmdOpts, args))
-    return gitCmd(`git reset --hard`, buildCmdOpts(cmdOpts, args))
+    await this.cmd(`clean -f .`, buildCmdOpts(cmdOpts, args))
+    return this.cmd(`reset --hard`, buildCmdOpts(cmdOpts, args))
   }
 
 }

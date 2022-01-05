@@ -1,4 +1,4 @@
-const docker = require('KegDocCli')
+const docker = require('@keg-hub/docker-lib')
 const { isStr } = require('@keg-hub/jsutils')
 const { getPrefixContext } = require('./getPrefixContext')
 const { imageSelect } = require('KegUtils/docker/imageSelect')

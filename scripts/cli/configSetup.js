@@ -1,20 +1,19 @@
-require('module-alias/register')
-
+require('./aliases')
 const path = require('path')
-const { git } = require('KegGitCli')
-const { Logger } = require('KegLog')
+const { git } = require('@keg-hub/git-lib')
 const homeDir = require('os').homedir()
 const { encrypt } = require('KegCrypto')
-const { ask } = require('KegRepos/ask-it')
+const { ask } = require('@keg-hub/ask-it')
 const packageJson = require('KegRoot/package.json')
-const { requireFile } = require('KegFileSys')
 const cliJson = require('KegRoot/scripts/setup/cli.config.json')
 const { throwExitError } = require('KegUtils/error/throwExitError')
+const { constants, Logger, fileSys } = require('@keg-hub/cli-utils')
 const { defPaths, defRepos } = require('KegUtils/globalConfig/defaultConfig')
 const { deepMerge, mapObj, reduceObj, get, set } = require('@keg-hub/jsutils')
 const { saveGlobalConfig } = require('KegUtils/globalConfig/saveGlobalConfig')
-const { GLOBAL_CONFIG_FOLDER, GLOBAL_CONFIG_FILE } = require('KegConst/constants')
 
+const { requireFile } = fileSys
+const { GLOBAL_CONFIG_FOLDER, GLOBAL_CONFIG_FILE } = constants
 
 // Cache hold for repo map of name to repo name
 const gitRepoMap = {}

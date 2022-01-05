@@ -1,4 +1,5 @@
-const { isStrBool, toBool } = require('@keg-hub/jsutils')
+const { expand } = require('../utils/expand')
+const { toBool, isStrBool } = require('@keg-hub/jsutils')
 
 const NEWLINE = '\n'
 const NEWLINES_ESC = /\\n/g
@@ -33,7 +34,7 @@ const convertValue = value => {
  * @param {string} content - String to be converted
  */
 const parse = content => {
-  return content
+  const envs = content
     .toString()
     .split('\n')
     .reduce((result, line) => {
@@ -46,6 +47,8 @@ const parse = content => {
 
       return result
     }, {})
+
+  return expand(envs)
 }
 
 /**

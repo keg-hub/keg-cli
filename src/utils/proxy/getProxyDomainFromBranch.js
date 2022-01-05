@@ -1,4 +1,4 @@
-const { git } = require('KegGitCli')
+const { git } = require('@keg-hub/git-lib')
 const { get } = require('@keg-hub/jsutils')
 const { throwNoGitBranch } = require('KegUtils/error/throwNoGitBranch')
 
@@ -25,7 +25,7 @@ const getProxyDomainFromBranch = async (contextName, contextPath) => {
   !branchName && throwNoGitBranch(contextPath)
 
   // If we have a branch name, join it with the app name and return
-  return `${contextName}-${branchName}`
+  return `${contextName}-${branchName}`.replace(/\//g, '-')
 
 }
 

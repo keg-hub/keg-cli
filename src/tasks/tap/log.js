@@ -1,5 +1,4 @@
-const { DOCKER } = require('KegConst/docker')
-const { runInternalTask } = require('KegUtils/task/runInternalTask')
+const { runInternalTask } = require('@keg-hub/cli-utils')
 
 /**
  * Print the logs of a running tap
@@ -21,7 +20,7 @@ module.exports = {
     alias: [ 'logs', 'lg' ],
     inject: true,
     action: logTap,
-    locationContext: DOCKER.LOCATION_CONTEXT.CONTAINERS,
+    locationContext: 'CONTAINERS',
     description: `Runs a tap in a docker container`,
     example: 'keg tap log <options>',
     options: {

@@ -1,5 +1,5 @@
 const { Logger } = require('KegMocks/logger')
-jest.setMock('KegLog', { Logger })
+jest.setMock('@keg-hub/cli-utils', { Logger })
 
 const { dockerLog } = require('../dockerLog')
 

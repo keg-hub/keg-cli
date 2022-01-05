@@ -1,34 +1,44 @@
 const error = require('./error')
 const fileSys = require('./fileSys')
-const { Logger } = require('./logger')
 const constants = require('./constants')
 const { runTask } = require('./runTask')
 const { registerTasks } = require('./tasks/tasks')
 const { getAppRoot, setAppRoot } = require('./appRoot')
 
 const {
-  getKegGlobalConfig,
+  buildTaskData,
+  executeTask,
   findTask,
+  hasHelpArg,
+  parseTaskArgs,
   sharedOptions,
+  runInternalTask,
   setSharedOptions,
+  validateTask,
 } = require('./task')
 
 module.exports = {
-  ...require('./process'),
   ...require('./commands'),
+  ...require('./logger'),
   ...require('./network'),
-  ...require('./tap'),
   ...require('./path'),
+  ...require('./process'),
+  ...require('./tap'),
+  ...require('./globalConfig'),
   constants,
-  getKegGlobalConfig,
+  buildTaskData,
+  executeTask,
   findTask,
   fileSys,
   error,
-  Logger,
+  hasHelpArg,
   registerTasks,
   runTask,
+  parseTaskArgs,
   sharedOptions,
   setSharedOptions,
   getAppRoot,
   setAppRoot,
+  runInternalTask,
+  validateTask,
 }

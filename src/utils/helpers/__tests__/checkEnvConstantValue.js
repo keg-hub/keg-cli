@@ -1,5 +1,13 @@
 const { DOCKER } = require('KegConst/docker')
 const { testEnum } = require('KegMocks/jest/testEnum')
+const { coreInject } = require('KegMocks/injected/injectedCore')
+
+const withInjected = {
+  ...DOCKER.CONTAINERS,
+  CORE: coreInject,
+}
+
+jest.setMock('KegConst/docker', { DOCKER: { ...DOCKER, CONTAINERS: withInjected }})
 
 const globalConfig = global.getGlobalCliConfig()
 

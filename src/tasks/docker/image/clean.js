@@ -1,8 +1,5 @@
-const { get } = require('@keg-hub/jsutils')
-const { throwRequired, generalError } = require('KegUtils/error')
-const { spawnCmd, executeCmd } = require('KegProc')
-const docker = require('KegDocCli')
-const { Logger } = require('KegLog')
+const docker = require('@keg-hub/docker-lib')
+const { Logger } = require('@keg-hub/cli-utils')
 
 /**
  * Run a docker image command

@@ -1,11 +1,11 @@
 const path = require('path')
-const { isObj, checkCall } = require('@keg-hub/jsutils')
+const { constants, fileSys } = require('@keg-hub/cli-utils')
 const { throwExitError } = require('../error/throwExitError')
-const { __updateGlobalConfig } = require('./globalConfigCache')
 const { validateGlobalConfig } = require('./validateGlobalConfig')
-const { ensureDirSync, writeFile } = require('KegFileSys')
-const { GLOBAL_CONFIG_FOLDER, GLOBAL_CONFIG_FILE } = require('../../constants/constants')
+
 const { NODE_ENV } = process.env
+const { ensureDirSync, writeFile } = fileSys
+const { GLOBAL_CONFIG_FOLDER, GLOBAL_CONFIG_FILE } = constants
 
 /**
  * Validate the config is the global config and that then global config path exists
@@ -29,9 +29,6 @@ const saveGlobalConfig = async config => {
       path.join(GLOBAL_CONFIG_FOLDER, GLOBAL_CONFIG_FILE),
       JSON.stringify(config, null, 2),
     )
-
-  // Update the cached version for getGlobalConfig calls
-  checkCall(__updateGlobalConfig, config)
 
   return config
 

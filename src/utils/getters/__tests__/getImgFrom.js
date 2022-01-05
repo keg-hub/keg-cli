@@ -1,18 +1,16 @@
-const { injectedTest, injectedContainer } = require('KegMocks/injected/injectedTest')
 const { docker } = require('KegMocks/libs/docker')
 const { testEnum } = require('KegMocks/jest/testEnum')
+const { coreInject } = require('KegMocks/injected/injectedCore')
+const { injectedContainer } = require('KegMocks/injected/injectedTest')
 
-const globalConfig = global.getGlobalCliConfig()
-jest.setMock('../../globalConfig/globalConfigCache', {
-  __getGlobalConfig: jest.fn(() => globalConfig)
-})
 const { DOCKER } = require('KegConst/docker')
 const withInjected = {
   ...DOCKER.CONTAINERS,
+  CORE: coreInject,
   INJECTED: injectedContainer
 }
 jest.setMock('KegConst/docker', { DOCKER: { ...DOCKER, CONTAINERS: withInjected }})
-jest.setMock('KegDocCli', docker)
+jest.setMock('@keg-hub/docker-lib', docker)
 
 const { getImgFrom } = require('../getImgFrom')
 
@@ -20,7 +18,7 @@ const testArgs = {
   context: {
     description: 'It should return KEG_BASE_FROM env for the passed in context',
     inputs: [ { context: 'core' }, {} ],
-    outputs: 'ghcr.io/KegHub/keg-core:develop'
+    outputs: 'ghcr.io/keg-hub/keg-core:develop'
   },
   contextEnvs: {
     description: 'It should return KEG_BASE_FROM env from passed in ENVs over the context',

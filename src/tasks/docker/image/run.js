@@ -1,9 +1,7 @@
 
-const docker = require('KegDocCli')
-const { get } = require('@keg-hub/jsutils')
+const docker = require('@keg-hub/docker-lib')
 const { KEG_ENVS } = require('KegConst/envs')
-const { CONTAINER_PREFIXES } = require('KegConst/constants')
-const { CONTAINERS } = require('KegConst/docker/containers')
+const { constants } = require('@keg-hub/cli-utils')
 const { getImageRef } = require('KegUtils/docker/getImageRef')
 const { throwNoDockerImg } = require('KegUtils/error/throwNoDockerImg')
 const { buildContextEnvs } = require('KegUtils/builders/buildContextEnvs')
@@ -11,13 +9,8 @@ const { getImgNameContext } = require('KegUtils/getters/getImgNameContext')
 const { mergeTaskOptions } = require('KegUtils/task/options/mergeTaskOptions')
 const { getImgInspectContext } = require('KegUtils/getters/getImgInspectContext')
 const { throwDupContainerName } = require('KegUtils/error/throwDupContainerName')
-const { buildContainerContext } = require('KegUtils/builders/buildContainerContext')
-const { IMAGE } = CONTAINER_PREFIXES
 
-// const { removeLabels } = require('KegUtils/docker/removeLabels')
-// const { imageSelect } = require('KegUtils/docker/imageSelect')
-
-
+const { IMAGE } = constants.CONTAINER_PREFIXES
 
 /**
  * Called when the container to run already exists

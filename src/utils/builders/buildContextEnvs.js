@@ -1,8 +1,72 @@
+const { getKegSetting } = require('@keg-hub/cli-utils')
 const { buildTapContext } = require('./buildTapContext')
-const { getSetting } = require('../globalConfig/getSetting')
+const { exists, toBool, isStr } = require('@keg-hub/jsutils')
 const { getPublicGitKey } = require('../git/getPublicGitKey')
 const { getContainerConst } = require('../docker/getContainerConst')
-const { convertParamsToEnvs } = require('../task/convertParamsToEnvs')
+const { getImgNameContext } = require('../getters/getImgNameContext')
+
+/**
+ * Gets the copy local flag from params || container ENVs || cli settings
+ * @function
+ * 
+ * @param {boolean} local - Copy local flag, passed from the command line
+ * @param {Object} copyLocalEnv - Copy local flag, set in the container ENVs
+ * 
+ * @returns {boolean}
+ */
+const getCopyLocal = (local, copyLocalEnv) => {
+  return exists(local)
+    ? toBool(local)
+    : exists(copyLocalEnv)
+      ? toBool(copyLocalEnv)
+      : toBool(getKegSetting('docker.defaultLocalBuild'))
+}
+
+/**
+ * Checks the passed in params for docker image metaData
+ * Then adds it to the extraENVs object
+ * @param {Object} extraENVs - Contains key/value pair of ENVs from params
+ * @param {Object} params - Formatted arguments passed to the current task
+ * 
+ * @returns {Object} - Converted params as an object
+ */
+const getImageFromParam = async (extraENVs, params) => {
+  const imgNameContext = await getImgNameContext(params)
+
+  return {
+    ...extraENVs,
+    KEG_IMAGE_FROM: imgNameContext.full,
+    KEG_IMAGE_TAG: imgNameContext.tag,
+  }
+}
+
+/**
+ * Builds the env object for the container
+ * 
+ * @function
+ * @param {Object} params - Formatted arguments passed to the current task
+ * @param {Object} copyLocalEnv - Copy local flag, set in the container ENVs
+ * 
+ * @returns {Object} - Converted params as an object
+ */
+const convertParamsToEnvs = async (params, copyLocalEnv) => {
+  const { env, command, install, local, from } = params
+  const extraENVs = {}
+
+  env && ( extraENVs.NODE_ENV = env )
+  command && ( extraENVs.KEG_EXEC_CMD = command )
+  install && ( extraENVs.KEG_NM_INSTALL = true )
+
+  // Check if we should copy the local repo into the docker container on image build
+  getCopyLocal(local, copyLocalEnv) && ( extraENVs.KEG_COPY_LOCAL = true )
+
+  // Check if the from param is passed in, and if so, get the image meta data from it
+  return isStr(from)
+    ? await getImageFromParam(extraENVs, params)
+    : extraENVs
+
+}
+
 
 /**
  * Builds the ENVs for the passed in cmdContext
@@ -32,7 +96,7 @@ const buildContextEnvs = async (args) => {
     ...envs,
 
     // Experimental docker builds. Makes docker faster and cleaner
-    ...(getSetting('docker.buildKit') ? { DOCKER_BUILDKIT: 1, COMPOSE_DOCKER_CLI_BUILD: 1 } : {}),
+    ...(getKegSetting('docker.buildKit') ? { DOCKER_BUILDKIT: 1, COMPOSE_DOCKER_CLI_BUILD: 1 } : {}),
 
     // Get the ENVs for the Tap context if it exists
     ...( tap && tap !== 'tap' && await buildTapContext({
@@ -55,5 +119,6 @@ const buildContextEnvs = async (args) => {
 }
 
 module.exports = {
-  buildContextEnvs
+  buildContextEnvs,
+  convertParamsToEnvs,
 }

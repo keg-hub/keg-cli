@@ -1,17 +1,17 @@
 {
   "name": "@keg-hub/args-parse",
-  "version": "6.3.2",
+  "version": "7.1.0",
   "description": "Parse command line arguments",
   "main": "src/index.js",
   "repository": {
-    "url": "git+https://github.com/KegHub/keg-hub.git",
+    "url": "git+https://github.com/keg-hub/keg-hub.git",
     "type": "git"
   },
   "bugs": {
-    "url": "https://github.com/KegHub/keg-hub/issues"
+    "url": "https://github.com/keg-hub/keg-hub/issues"
   },
-  "homepage": "https://github.com/KegHub/keg-hub#readme",
-  "author": "KegHub <KegHub@gmail.com>",
+  "homepage": "https://github.com/keg-hub/keg-hub#readme",
+  "author": "keg-hub <keg-hub@gmail.com>",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -33,8 +33,8 @@
     "README.md"
   ],
   "dependencies": {
-    "@keg-hub/ask-it": "1.0.0",
-    "@keg-hub/jsutils": "8.7.0",
+    "@keg-hub/ask-it": "1.1.0",
+    "@keg-hub/jsutils": "8.8.0",
     "app-root-path": "3.0.0"
   },
   "devDependencies": {

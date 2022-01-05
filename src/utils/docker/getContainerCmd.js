@@ -1,4 +1,4 @@
-const docker = require('KegDocCli')
+const docker = require('@keg-hub/docker-lib')
 const { getContainerConst } = require('./getContainerConst')
 const { throwNoDockerImg } = require('../error/throwNoDockerImg')
 

@@ -1,6 +1,6 @@
 const packages = [
   {
-    "nameWithOwner": "KegHub/foobar",
+    "nameWithOwner": "keg-hub/foobar",
     "repository": {
       "name": "foobar"
     },
@@ -18,7 +18,7 @@ const packages = [
     }
   },
   {
-    "nameWithOwner": "KegHub/tap",
+    "nameWithOwner": "keg-hub/tap",
     "repository": {
       "name": "tap-events-force"
     },
@@ -36,7 +36,7 @@ const packages = [
     }
   },
   {
-    "nameWithOwner": "KegHub/keg-base",
+    "nameWithOwner": "keg-hub/keg-base",
     "repository": {
       "name": "keg-core"
     },

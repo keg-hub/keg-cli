@@ -2,17 +2,13 @@ const { injectedContainer } = require('KegMocks/injected/injectedTest')
 const { docker } = require('KegMocks/libs/docker')
 const { testEnum } = require('KegMocks/jest/testEnum')
 
-const globalConfig = global.getGlobalCliConfig()
-jest.setMock('../../globalConfig/globalConfigCache', {
-  __getGlobalConfig: jest.fn(() => globalConfig)
-})
 const { DOCKER } = require('KegConst/docker')
 const withInjected = {
   ...DOCKER.CONTAINERS,
   INJECTED: injectedContainer
 }
 jest.setMock('KegConst/docker', { DOCKER: { ...DOCKER, CONTAINERS: withInjected }})
-jest.setMock('KegDocCli', docker)
+jest.setMock('@keg-hub/docker-lib', docker)
 
 const { getImgNameContext } = require('../getImgNameContext')
 
@@ -36,11 +32,11 @@ const testArgs = {
     outputs: {
       image: 'keg-core',
       provider: 'ghcr.io',
-      namespace: 'KegHub',
+      namespace: 'keg-hub',
       tag: 'develop',
       imageWTag: 'keg-core:develop',
-      full: 'ghcr.io/KegHub/keg-core:develop',
-      providerImage: 'ghcr.io/KegHub/keg-core',
+      full: 'ghcr.io/keg-hub/keg-core:develop',
+      providerImage: 'ghcr.io/keg-hub/keg-core',
     }
   },
   imgTag: {
@@ -49,11 +45,11 @@ const testArgs = {
     outputs: {
       image: 'tap-injected-test',
       provider: 'ghcr.io',
-      namespace: 'KegHub',
+      namespace: 'keg-hub',
       tag: 'test-tag',
       imageWTag: 'tap-injected-test:test-tag',
-      full: 'ghcr.io/KegHub/tap-injected-test:test-tag',
-      providerImage: 'ghcr.io/KegHub/tap-injected-test',
+      full: 'ghcr.io/keg-hub/tap-injected-test:test-tag',
+      providerImage: 'ghcr.io/keg-hub/tap-injected-test',
     }
   },
   context: {
@@ -63,10 +59,10 @@ const testArgs = {
       image: 'components',
       tag: 'develop',
       provider: 'ghcr.io',
-      namespace: 'KegHub',
+      namespace: 'keg-hub',
       imageWTag: 'components:develop',
-      full: 'ghcr.io/KegHub/components:develop',
-      providerImage: 'ghcr.io/KegHub/components',
+      full: 'ghcr.io/keg-hub/components:develop',
+      providerImage: 'ghcr.io/keg-hub/components',
     }
   },
   injected: {
@@ -76,10 +72,10 @@ const testArgs = {
       image: 'tap-injected-test',
       tag: 'develop',
       provider: 'ghcr.io',
-      namespace: 'KegHub',
+      namespace: 'keg-hub',
       imageWTag: 'tap-injected-test:develop',
-      full: 'ghcr.io/KegHub/tap-injected-test:develop',
-      providerImage: 'ghcr.io/KegHub/tap-injected-test',
+      full: 'ghcr.io/keg-hub/tap-injected-test:develop',
+      providerImage: 'ghcr.io/keg-hub/tap-injected-test',
     }
   },
   tagOverride: {
@@ -89,23 +85,23 @@ const testArgs = {
       image: 'components',
       tag: 'test-tag',
       provider: 'ghcr.io',
-      namespace: 'KegHub',
+      namespace: 'keg-hub',
       imageWTag: 'components:test-tag',
-      full: 'ghcr.io/KegHub/components:test-tag',
-      providerImage: 'ghcr.io/KegHub/components',
+      full: 'ghcr.io/keg-hub/components:test-tag',
+      providerImage: 'ghcr.io/keg-hub/components',
     }
   },
   providerOverride: {
     description: 'It should override the docker provider',
     inputs: [{ context: 'core', provider: 'my.test-provider.com' }],
     outputs: {
-      image: 'keg-core',
+      image: 'core',
       tag: 'develop',
       provider: 'my.test-provider.com',
-      namespace: 'KegHub',
-      imageWTag: 'keg-core:develop',
-      full: 'my.test-provider.com/KegHub/keg-core:develop',
-      providerImage: 'my.test-provider.com/KegHub/keg-core',
+      namespace: 'keg-hub',
+      imageWTag: 'core:develop',
+      full: 'my.test-provider.com/keg-hub/core:develop',
+      providerImage: 'my.test-provider.com/keg-hub/core',
     }
   },
   namespaceOverride: {
@@ -180,10 +176,10 @@ const testArgs = {
       image: 'keg-items',
       tag: 'test',
       provider: 'ghcr.io',
-      namespace: 'KegHub',
+      namespace: 'keg-hub',
       imageWTag: 'keg-items:test',
-      full: 'ghcr.io/KegHub/keg-items:test',
-      providerImage: 'ghcr.io/KegHub/keg-items'
+      full: 'ghcr.io/keg-hub/keg-items:test',
+      providerImage: 'ghcr.io/keg-hub/keg-items'
     }
   },
   fromOnlyImage: {
@@ -193,10 +189,10 @@ const testArgs = {
       image: 'keg-items',
       tag: 'develop',
       provider: 'ghcr.io',
-      namespace: 'KegHub',
+      namespace: 'keg-hub',
       imageWTag: 'keg-items:develop',
-      full: 'ghcr.io/KegHub/keg-items:develop',
-      providerImage: 'ghcr.io/KegHub/keg-items'
+      full: 'ghcr.io/keg-hub/keg-items:develop',
+      providerImage: 'ghcr.io/keg-hub/keg-items'
     }
   },
   imageId: {
@@ -206,10 +202,10 @@ const testArgs = {
       image: 'keg-core',
       tag: '0.0.1',
       provider: 'ghcr.io',
-      namespace: 'KegHub',
+      namespace: 'keg-hub',
       imageWTag: 'keg-core:0.0.1',
-      full: 'ghcr.io/KegHub/keg-core:0.0.1',
-      providerImage: 'ghcr.io/KegHub/keg-core',
+      full: 'ghcr.io/keg-hub/keg-core:0.0.1',
+      providerImage: 'ghcr.io/keg-hub/keg-core',
     }
   },
   contextId: {
@@ -219,10 +215,10 @@ const testArgs = {
       image: 'keg-core',
       tag: 'develop',
       provider: 'ghcr.io',
-      namespace: 'KegHub',
+      namespace: 'keg-hub',
       imageWTag: 'keg-core:develop',
-      full: 'ghcr.io/KegHub/keg-core:develop',
-      providerImage: 'ghcr.io/KegHub/keg-core',
+      full: 'ghcr.io/keg-hub/keg-core:develop',
+      providerImage: 'ghcr.io/keg-hub/keg-core',
     }
   },
   contextIdOverride: {

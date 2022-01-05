@@ -1,4 +1,3 @@
-const { DOCKER } = require('KegConst/docker')
 const { pullService } = require('KegUtils/services/pullService')
 const { mergeTaskOptions } = require('KegUtils/task/options/mergeTaskOptions')
 
@@ -38,7 +37,7 @@ module.exports = {
     action: pullBase,
     description: `Pushes a new keg-base docker image to the provider`,
     example: 'keg base pull',
-    locationContext: DOCKER.LOCATION_CONTEXT.REPO,
+    locationContext: 'REPO',
     options: mergeTaskOptions(`base`, `pull`, `pull`),
   }
 }

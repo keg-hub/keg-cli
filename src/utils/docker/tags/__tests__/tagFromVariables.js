@@ -3,6 +3,7 @@ const { DOCKER } = require('KegConst/docker')
 const { getTask } = require('KegMocks/helpers/testTasks')
 const { deepMerge, get, uuid } = require('@keg-hub/jsutils')
 const tagHelpers = require('KegUtils/docker/tags/tagHelpers')
+const { coreEnvs } = require('KegMocks/injected/injectedCore')
 const { allowedTagOpts } = require('../../../getters/getTagVarMap')
 const { containerContexts } = require('KegMocks/contexts/containerContexts')
 
@@ -69,12 +70,10 @@ const args = {
       ...defParams,
       context: 'core',
       tap: 'core',
-      location: DOCKER.CONTAINERS.CORE.ENV.KEG_CONTEXT_PATH,
+      location: coreEnvs.KEG_CONTEXT_PATH,
       cmd: 'core',
       image: 'keg-core',
-      buildArgs: {
-        ...DOCKER.CONTAINERS.CORE.ENV,
-      },
+      buildArgs: coreEnvs,
     },
   }
 }

@@ -1,4 +1,5 @@
 
 module.exports = {
-  ...require('./injectedTest')
+  ...require('./injectedTest'),
+  ...require('./injectedCore')
 }

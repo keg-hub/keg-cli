@@ -1,13 +1,8 @@
-const {
-  addGlobalConfigProp,
-  confirmExec,
-  gitKeyExists,
-} = require('KegUtils')
-const { throwRequired } = require('KegUtils/error')
-const { getSetting } = require('KegUtils/globalConfig')
 const { encrypt } = require('KegCrypto')
-const { ask } = require('KegRepos/ask-it')
-const { constants: { GLOBAL_CONFIG_PATHS } } = require('KegRepos/cli-utils')
+const { throwRequired } = require('KegUtils/error')
+const { ask, confirmExec } = require('@keg-hub/ask-it')
+const { gitKeyExists, addGlobalConfigProp } = require('KegUtils')
+const { constants: { GLOBAL_CONFIG_PATHS }, getKegSetting } = require('@keg-hub/cli-utils')
 
 /**
  * Encrypts then adds a git key to the global config.
@@ -30,7 +25,7 @@ const addGitKey = (args) => {
     cancel: `Set git key in global config cancelled!`,
     preConfirm: !Boolean(gitKeyExists(globalConfig)),
     execute: async () => {
-      const password = getSetting(`git.secure`)
+      const password = getKegSetting(`git.secure`)
         ? await ask.password('Please enter a password')
         : false
 

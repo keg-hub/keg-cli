@@ -1,5 +1,5 @@
-const { runInternalTask } = require('KegUtils/task/runInternalTask')
 const { create } = require('./create')
+const { runInternalTask } = require('@keg-hub/cli-utils')
 /**
  * Mutagen commands for the Keg-CLI
  * @param {Object} args - arguments passed from the runTask method

@@ -1,5 +1,5 @@
 const semver = require('semver')
-const { ask } = require('KegRepos/ask-it')
+const { ask } = require('@keg-hub/ask-it')
 const { generalError } = require('../error/generalError')
 const { isValidSemver } = require('./isValidSemver')
 

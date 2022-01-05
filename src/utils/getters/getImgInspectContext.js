@@ -1,4 +1,4 @@
-const docker = require('KegDocCli')
+const docker = require('@keg-hub/docker-lib')
 const { eitherArr, get } = require('@keg-hub/jsutils')
 
 /**

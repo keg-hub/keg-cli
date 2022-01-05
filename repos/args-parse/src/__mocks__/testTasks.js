@@ -108,4 +108,32 @@ module.exports = {
       },
     }
   },
+  testTask6: {
+    name: 'testTask6',
+    options: {
+      foo: {
+        description: "Gets the values from TEST_ENV_VALUE env is not set",
+        env: 'TEST_FOO_ENV_VALUE',
+        required: true,
+      },
+      bar: {
+        description: "Gets the boolean values from TEST_ENV_BOOL env if not set",
+        type: 'bool',
+        env: 'TEST_BAR_ENV_BOOL'
+      },
+      arr: {
+        description: "defaults to [1, 2, 'buckle my shoe'] if TEST_ENV_ARR env is not set",
+        type: 'array',
+        env: 'TEST_ARR_ENV_ARR',
+        default: [1, 2, 'buckle my shoe']
+      },
+      num: {
+        description: "defaults to 100 if TEST_ENV_NUM env is not set",
+        type: 'number',
+        env: 'TEST_NUM_ENV_NUM',
+        default: 1000
+      },
+    }
+  },
+  
 }

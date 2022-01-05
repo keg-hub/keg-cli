@@ -1,10 +1,6 @@
-const { get } = require('@keg-hub/jsutils')
-const { throwRequired, generalError } = require('KegUtils/error')
-const { getPathFromConfig } = require('KegUtils/globalConfig')
-const { spawnCmd } = require('KegProc')
-const { CONTAINERS } = require('KegConst/docker/containers')
-const docker = require('KegDocCli')
-const { Logger } = require('KegLog')
+const docker = require('@keg-hub/docker-lib')
+const { Logger } = require('@keg-hub/cli-utils')
+const { throwRequired } = require('KegUtils/error')
 
 /**
  * Run a docker container command

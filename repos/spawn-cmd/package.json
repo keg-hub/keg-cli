@@ -1,15 +1,15 @@
 {
   "name": "@keg-hub/spawn-cmd",
-  "version": "0.1.4",
+  "version": "0.3.0",
   "description": "Cross platform child_process execution in Node",
   "repository": {
-    "url": "git+https://github.com/KegHub/keg-hub.git",
+    "url": "git+https://github.com/keg-hub/keg-hub.git",
     "type": "git"
   },
   "bugs": {
-    "url": "https://github.com/KegHub/keg-hub/issues"
+    "url": "https://github.com/keg-hub/keg-hub/issues"
   },
-  "homepage": "https://github.com/KegHub/keg-hub#readme",
+  "homepage": "https://github.com/keg-hub/keg-hub#readme",
   "main": "index.js",
   "author": "Lance Tipton",
   "license": "MIT",
@@ -28,36 +28,17 @@
     "test:reports": "NODE_ENV=test jest --no-cache --verbose --coverage"
   },
   "dependencies": {
-    "@keg-hub/jsutils": "8.7.0",
+    "@keg-hub/jsutils": "8.8.0",
     "app-root-path": "3.0.0",
+    "cli-progress": "3.9.1",
+    "cli-spinners": "2.6.1",
     "cross-spawn": "7.0.3",
+    "log-update": "4.0.0",
     "shell-exec": "1.0.2",
     "tree-kill": "1.2.2"
   },
   "devDependencies": {
     "jest": "27.3.1",
     "rimraf": "3.0.2"
-  },
-  "jest": {
-    "testMatch": [
-      "<rootDir>/src/**/__tests__/**/*.js?(x)"
-    ],
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx,ts,tsx}"
-    ],
-    "coveragePathIgnorePatterns": [
-      "src/index.js"
-    ],
-    "coverageDirectory": "reports/coverage",
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "jsx",
-      "es6"
-    ],
-    "globals": {
-      "__DEV__": true
-    },
-    "testEnvironment": "node"
   }
 }

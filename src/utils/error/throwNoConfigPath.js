@@ -1,8 +1,8 @@
-const { Logger } = require('KegLog')
 const { get, mapObj } = require('@keg-hub/jsutils')
-const { constants: { GLOBAL_CONFIG_PATHS } } = require('KegRepos/cli-utils')
 const { throwTaskFailed } = require('./throwTaskFailed')
+const { constants, Logger } = require('@keg-hub/cli-utils')
 
+const { GLOBAL_CONFIG_PATHS } = constants
 /*
  * Helper to log an error message when a path can not be found in the global config
  * @function

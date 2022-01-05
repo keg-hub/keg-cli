@@ -1,5 +1,5 @@
 const { get } = require('@keg-hub/jsutils')
-const { getGlobalConfig } = require('../globalConfig/getGlobalConfig')
+const { getKegGlobalConfig } = require('@keg-hub/cli-utils')
 
 /**
  * Gets the author to use for the docker commit command
@@ -10,7 +10,7 @@ const { getGlobalConfig } = require('../globalConfig/getGlobalConfig')
  * @returns {*} - Response from the docker raw method
  */
 const getAuthor = (author, globalConfig) => {
-  globalConfig = globalConfig || getGlobalConfig()
+  globalConfig = globalConfig || getKegGlobalConfig()
   return author || get(globalConfig, 'docker.user', get(globalConfig, 'cli.git.user'))
 }
 

@@ -1,12 +1,16 @@
-const { Logger } = require('KegLog')
-const { getTask } = require('./getTask')
-const { parseArgs } = require('KegUtils/helpers/parseArgs')
 const { addTapLink } = require('../globalConfig/addTapLink')
-const { constants: { GLOBAL_CONFIG_PATHS } } = require('KegRepos/cli-utils')
-const { buildTaskData } = require('../builders/buildTaskData')
 const { injectService } = require('../services/injectService')
 const { get, isFunc, reduceObj } = require('@keg-hub/jsutils')
 const { checkCustomTaskFolder } = require('./checkCustomTaskFolder')
+const {
+  buildTaskData,
+  constants,
+  findTask,
+  Logger,
+  parseTaskArgs
+} = require('@keg-hub/cli-utils')
+
+const { GLOBAL_CONFIG_PATHS } = constants
 const { TAP_LINKS } = GLOBAL_CONFIG_PATHS
 
 /**
@@ -21,7 +25,7 @@ const { TAP_LINKS } = GLOBAL_CONFIG_PATHS
  * @returns {Object} - Updated linked tap Object from the global config
  */
 const checkAddCustomTasks = async (globalConfig, tapName, tapObj) => {
-  const tasksFile = await checkCustomTaskFolder(globalConfig, tapObj)
+  const tasksFile = await checkCustomTaskFolder(tapObj)
   if(!tasksFile) return tapObj
 
   const tapMeta = { ...tapObj, tasks: tasksFile }
@@ -108,15 +112,13 @@ const getCustomTasks = async (args, tapObj) => {
  * @returns {Object} - Found task and options
  */
 const setupTapTask = async ({ globalConfig, allTasks, command, options }) => {
-  // Create a copy of the options so we don't modify the original
-  options = [ ...options ]
 
-  // Call getTask, and set the command to be tap
-  const taskData = getTask(allTasks, 'tap', ...options)
+  // Call findTask, and set the command to be tap
+  const taskData = findTask(allTasks, ['tap', ...options])
 
   // Get the params now instead of in executeTask
   // This way we can make all tap modification in one place
-  taskData.params = await parseArgs({
+  taskData.params = await parseTaskArgs({
       ...taskData,
       command,
       params: { tap: command }

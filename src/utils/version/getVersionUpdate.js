@@ -1,9 +1,11 @@
 const semver = require('semver')
-const { Logger } = require('KegLog')
-const { ask } = require('KegRepos/ask-it')
+const { ask } = require('@keg-hub/ask-it')
 const { get } = require('@keg-hub/jsutils')
 const { validateVersion } = require('./validateVersion')
-const { VERSION } = require('KegConst/constants')
+const { constants, Logger } = require('@keg-hub/cli-utils')
+
+const { SEMVER_TYPES } = constants
+
 
 /**
  * Gets the version to update a repo or repos to
@@ -20,7 +22,7 @@ const { VERSION } = require('KegConst/constants')
 const getVersionUpdate = async (repo, version, publishContext, confirm=true) => {
   const packageVersion = get(repo, 'package.version')
 
-  const updateVersion = VERSION.TYPES.indexOf(version) !== -1
+  const updateVersion = SEMVER_TYPES.indexOf(version) !== -1
     ? semver.inc(packageVersion, version)
     : !version
       ? confirm

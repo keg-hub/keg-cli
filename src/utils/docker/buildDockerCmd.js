@@ -17,10 +17,12 @@ const { getDockerCmdArgs } = require('./getDockerCmdArgs')
  */
 const createBuildCmd = async (args, dockerCmd) => {
   const { globalConfig, params } = args
-  const { location } = params
+  const { location, buildX } = params
 
   // Add the build platform for the image
-  dockerCmd = addBuildPlatform(dockerCmd, params?.platform)
+  dockerCmd = buildX
+    ? addBuildPlatform(dockerCmd, params)
+    : dockerCmd
 
   // Add any build tags
   dockerCmd = await buildTags(args, params, dockerCmd)
@@ -77,7 +79,7 @@ const buildDockerCmd = args => {
     cmd,
     context,
     args: dockerOpts,
-    dockerCmd: `docker ${cmd} ${docker}`.trim()
+    dockerCmd: `${docker}`.trim()
   })
 
   return createBuildCmd(args, dockerCmd)

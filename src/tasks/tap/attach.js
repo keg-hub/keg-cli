@@ -1,5 +1,4 @@
-const { runInternalTask } = require('KegUtils/task/runInternalTask')
-const { DOCKER } = require('KegConst/docker')
+const { runInternalTask } = require('@keg-hub/cli-utils')
 
 /**
  * Attach to the running keg-tap container
@@ -28,7 +27,7 @@ module.exports = {
     alias: [ 'att' ],
     inject: true,
     action: attach,
-    locationContext: DOCKER.LOCATION_CONTEXT.REPO,
+    locationContext: 'REPO',
     description: `Attach to the running tap container`,
     example: 'keg tap attach',
     options: {

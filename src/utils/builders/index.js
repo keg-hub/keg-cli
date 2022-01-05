@@ -4,6 +4,5 @@ module.exports = {
   ...require('./buildContextEnvs'),
   ...require('./buildGlobalTaskAlias'),
   ...require('./buildDockerLogin'),
-  ...require('./buildTapContext'),
-  ...require('./buildTaskData'),
+  ...require('./buildTapContext')
 }

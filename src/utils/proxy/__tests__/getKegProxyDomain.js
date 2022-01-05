@@ -1,7 +1,7 @@
 require('KegMocks/libs/docker')
 const { injectedTest } = require('KegMocks/injected/injectedTest')
-const { DOCKER } = require('KegConst/docker')
 const globalConfig = global.getGlobalCliConfig()
+const { coreEnvs } = require('KegMocks/injected/injectedCore')
 
 const args = {
   core: {
@@ -16,9 +16,7 @@ const args = {
       prefix: undefined,
       cmdContext: 'core',
     },
-    contextEnvs: {
-      ...DOCKER.CONTAINERS.CORE.ENV,
-    },
+    contextEnvs: coreEnvs,
   },
   coreNoId: {
     globalConfig,
@@ -32,9 +30,7 @@ const args = {
       image: 'keg-core',
       ...global.testDocker.images.core,
     },
-    contextEnvs: {
-      ...DOCKER.CONTAINERS.CORE.ENV,
-    },
+    contextEnvs: coreEnvs,
   },
   injected: {
     globalConfig,

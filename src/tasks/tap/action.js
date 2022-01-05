@@ -1,5 +1,4 @@
 const { actionService } = require('KegUtils/services/actionService')
-const { DOCKER } = require('KegConst/docker')
 
 /**
  * Runs a sync action on the tap docker container
@@ -21,7 +20,7 @@ module.exports = {
     alias: [ 'actions', 'act', 'exec', 'ex' ],
     inject: true,
     action: action,
-    locationContext: DOCKER.LOCATION_CONTEXT.CONTAINERS,
+    locationContext: 'CONTAINERS',
     description: `Run an action defined in a value.yml/action within a docker container`,
     example: '',
     options: {
@@ -30,7 +29,7 @@ module.exports = {
         description: 'Name of the action to run in the taps docker container',
         required: true
       },
-      location: {
+      workdir: {
         alias: [  'location', 'loc', 'workdir', 'dir', 'd' ],
         description: 'Directory in the docker container where the command should be run',
         example: 'keg tap action --location /app',
@@ -51,8 +50,13 @@ module.exports = {
       },
       tap: { 
         description: 'Name of the tap to run. Must be a tap linked in the global config',
-        example: 'keg tap start --tap events-force',
+        example: 'keg tap action --tap events-force',
         required: true,
+      },
+      log: { 
+        description: 'Log info as the action runs',
+        example: 'keg tap action --no-log',
+        default: true,
       },
     }
   }

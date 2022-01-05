@@ -1,6 +1,6 @@
-const docker = require('KegDocCli')
-const { Logger } = require('KegLog')
-const { ask } = require('KegRepos/ask-it')
+const docker = require('@keg-hub/docker-lib')
+const { ask } = require('@keg-hub/ask-it')
+const { Logger } = require('@keg-hub/cli-utils')
 const { stopService } = require('KegUtils/services/stopService')
 
 /**

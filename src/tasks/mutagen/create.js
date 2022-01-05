@@ -1,7 +1,6 @@
 const { get } = require('@keg-hub/jsutils')
-const { Logger } = require('KegLog')
-const { mutagen } = require('KegMutagen')
-const { runInternalTask } = require('KegUtils/task/runInternalTask')
+const { mutagen } = require('@keg-hub/mutagen-lib')
+const { Logger, runInternalTask } = require('@keg-hub/cli-utils')
 const { getMutagenConfig } = require('KegUtils/getters/getMutagenConfig')
 const { buildContainerContext } = require('KegUtils/builders/buildContainerContext')
 const {

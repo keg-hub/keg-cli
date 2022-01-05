@@ -1,9 +1,9 @@
-const docker = require('KegDocCli')
-const { get, isStr, exists } = require('@keg-hub/jsutils')
-const { dockerLog } = require('KegUtils/log/dockerLog')
 const { DOCKER } = require('KegConst/docker')
+const docker = require('@keg-hub/docker-lib')
+const { dockerLog } = require('KegUtils/log/dockerLog')
+const { getKegSetting } = require('@keg-hub/cli-utils')
+const { get, isStr, exists } = require('@keg-hub/jsutils')
 const { imageSelect } = require('KegUtils/docker/imageSelect')
-const { getSetting } = require('KegUtils/globalConfig/getSetting')
 const { buildCmdContext } = require('KegUtils/builders/buildCmdContext')
 
 /**
@@ -60,7 +60,7 @@ const removeDockerImage = async args => {
     remote
   } = params
 
-  const force = exists(params.force) ? params.force : getSetting(`docker.force`)
+  const force = exists(params.force) ? params.force : getKegSetting(`docker.force`)
 
   if(!imageParam && !tag && !context && !remote)  return askRemoveImage(force)
 

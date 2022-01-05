@@ -1,6 +1,4 @@
-require('module-alias/register')
-
-const { get } = require('@keg-hub/jsutils')
+require('./aliases')
 const { getGlobalConfig } = require('KegUtils/globalConfig/getGlobalConfig')
 const { getGitKey } = require('KegUtils/git/getGitKey')
 

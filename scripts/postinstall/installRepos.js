@@ -1,45 +1,35 @@
-const fs = require('fs')
-const path = require('path')
 const { execSync } = require('child_process')
-const reposPath = path.join(__dirname, '../../', 'repos')
-
-/**
- * Finds all sub-repo paths from the <root>/repos directory
- * @type {function}
- * 
- * @return {Object} - Found repo paths by name
- */
-const getRepoPaths = () => {
-  // list of the repo names located at `<root>/repos`
-  const repos = execSync('ls', { cwd: reposPath })
-    .toString()
-    .split('\n')
-    .filter(Boolean)
-
-  // object of env names to repo paths
-  return repos.reduce(
-    (values, name) => {
-      const repo = path.join(reposPath, name)
-      fs.existsSync(path.join(repo, `./package.json`)) && (values[name] = repo)
-
-      return values
-    },
-    {}
-  )
-}
+const { setupError } = require('./setupError')
+const { getRepoPaths } = require('./getRepoPaths')
 
 /**
  * Runs yarn install for all sub repos, called from `scripts.postinstall` of root package.json
  * @type {function}
+ * @param {Object} repos - Name/Locations of all sub-repos in the /repos directory
  * 
+ * @returns {Void}
  */
-const installRepos = () => {
-  const repos = getRepoPaths()
-  Object.entries(repos).map(([name, repo]) => {
-    console.log(`\nRunning yarn install for ${name}`)
-    const response = execSync('yarn', { cwd: repo })
-    console.log(response.toString())
-  })
+const installRepos = repos => {
+  try {
+    repos = repos || getRepoPaths()
+    const failed = []
+
+    Object.entries(repos)
+      .map(([name, repo]) => {
+        try {
+          console.log(`\nRunning yarn install for ${name}`)
+          const response = execSync('yarn', { cwd: repo })
+          console.log(response.toString())
+        // Catch the error here, so it will still try to install for the other repos
+        } catch(err){failed.push([repo, err])}
+      })
+
+    // After install, log any errors the might have occurred
+    failed.map(([repo, err]) => setupError(err, `Failed command "yarn install" in repo ${repo}.`))
+  }
+  catch(err){
+    setupError(err, `Failed command "yarn install". Please run the command manually`, 1)
+  }
 }
 
 /**

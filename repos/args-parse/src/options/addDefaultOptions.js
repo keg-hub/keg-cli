@@ -8,10 +8,11 @@ const { getConfig } = require('../utils/getConfig')
  */
 const addDefaultOptions = (options={}) => {
   const { defaultArgs } = getConfig()
-  if(!defaultArgs || options.env) return options
+  if(!defaultArgs) return options
 
   return Object.entries(defaultArgs)
     .reduce((updated, [ name, meta ]) => {
+      // Only set the default option, if it does not already exist
       if(!updated[name]) updated[name] = meta
       
       return updated

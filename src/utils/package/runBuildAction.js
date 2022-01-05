@@ -1,7 +1,7 @@
-const { Logger } = require('KegLog')
+const { Logger } = require('@keg-hub/cli-utils')
 const { get, noOp } = require('@keg-hub/jsutils')
-const { validateAction } = require('./validateAction')
 const { runActionCmds } = require('KegUtils/actions/runActionCmds')
+const { validateAction } = require('KegUtils/actions/validateAction')
 const { getActionsFromValues } = require('KegUtils/actions/getActionsFromValues')
 
 /**

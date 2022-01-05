@@ -1,8 +1,8 @@
-const { Logger } = require('KegLog')
-const { git } = require('KegGitCli')
-const { getGitPath } = require('KegUtils/git/getGitPath')
+const { git } = require('@keg-hub/git-lib')
+const { Logger } = require('@keg-hub/cli-utils')
 const { generalError } = require('KegUtils/error')
-const { confirmExec } = require('KegUtils/helpers/confirmExec')
+const { confirmExec } = require('@keg-hub/ask-it')
+const { getGitPath } = require('KegUtils/git/getGitPath')
 
 /**
  * Git branch reset task

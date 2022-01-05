@@ -1,5 +1,5 @@
 const { deepMerge } = require('@keg-hub/jsutils')
-const { runInternalTask } = require('KegUtils/task/runInternalTask')
+const { runInternalTask } = require('@keg-hub/cli-utils')
 
 /**
  * Inspect a taps docker container or image

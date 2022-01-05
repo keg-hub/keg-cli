@@ -1,8 +1,15 @@
-const { executeCmd } = require('KegProc')
-const { Logger } = require('KegLog')
-const { getPathFromConfig, getEditorCmd, generalError } = require('KegUtils')
-const { getTapPath } = require('KegRepos/cli-utils')
-const { GLOBAL_CONFIG_FOLDER, GLOBAL_CONFIG_EDITOR_CMD } = require('KegConst/constants')
+const { generalError } = require('KegUtils')
+const { asyncCmd } = require('@keg-hub/spawn-cmd')
+const {
+  Logger,
+  constants,
+  getTapPath,
+  getEditorCmd,
+  getPathFromConfig
+} = require('@keg-hub/cli-utils')
+
+const { GLOBAL_CONFIG_FOLDER, GLOBAL_CONFIG_PATHS } = constants
+
 
 /**
  * Opens the CLI global config in VS Code
@@ -22,7 +29,7 @@ const open = async args => {
 
   if(!editorCmd)
     return generalError(
-      `Keg Global Config setting "${GLOBAL_CONFIG_EDITOR_CMD}" is not set!`
+      `Keg Global Config setting "${GLOBAL_CONFIG_PATHS.EDITOR_CMD}" is not set!`
     )
 
   let logText = `Opening keg folder!`
@@ -54,7 +61,7 @@ const open = async args => {
 
   Logger.info(logText)
 
-  await executeCmd(`${ editorCmd } ${ openPath }`)
+  await asyncCmd(`${editorCmd} ${openPath}`, {cwd: process.cwd()})
 
 }
 

@@ -1,5 +1,5 @@
-const { runInternalTask } = require('../task/runInternalTask')
 const { getServiceArgs } = require('./getServiceArgs')
+const { runInternalTask } = require('@keg-hub/cli-utils')
 
 /**
  * Calls the mutagen create task internally

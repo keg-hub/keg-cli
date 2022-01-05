@@ -1,13 +1,10 @@
-const docker = require('KegDocCli')
-const { Logger } = require('KegLog')
-const { DOCKER } = require('KegConst/docker')
-const { CONTEXT_TO_CONTAINER } = require('KegConst/constants')
-const { getCommitTag } = require('KegUtils/package/getCommitTag')
-const { throwRequired, generalError } = require('KegUtils/error')
-const { runInternalTask } = require('KegUtils/task/runInternalTask')
-const { runBuildAction } = require('KegUtils/package/runBuildAction')
-const { getImgNameContext } = require('KegUtils/getters/getImgNameContext')
+const docker = require('@keg-hub/docker-lib')
 const { get, noOpObj } = require('@keg-hub/jsutils')
+const { getImgTags } = require('KegUtils/docker/getImgTags')
+const { CONTEXT_TO_CONTAINER } = require('KegConst/constants')
+const { Logger, runInternalTask} = require('@keg-hub/cli-utils')
+const { throwRequired, generalError } = require('KegUtils/error')
+const { runBuildAction } = require('KegUtils/package/runBuildAction')
 const { imageFromContainer } = require('KegUtils/package/imageFromContainer')
 const { mergeTaskOptions } = require('KegUtils/task/options/mergeTaskOptions')
 const { buildContainerContext } = require('KegUtils/builders/buildContainerContext')
@@ -42,38 +39,6 @@ const getResolvedContext = async args => {
     )
 
   return { ...containerContext, id: resolvedContainerContext.id }
-}
-
-/**
- * Gets the correct image tags to be used to when creating the image
- * @function
- * @param {Object} params - Formatted options as an object
- * @param {string} location - Location of the repo the image is being created from
- * @param {string} tag - Custom tag to override the default tags
- *
- * @returns {Object} - Contains the image tags to use when creating
- */
-const getImgTags = async (params, location) => {
-  const overrideTag = get(params, 'tag', get(params, 'tags', [])[0])
-
-  // Get passed in tag, or the first tag from tags array or branch name at the location
-  const tag = overrideTag || await getCommitTag(location)
-  // If none found, use the current time
-  const commitTag = (tag || 'package-' + Date.now()).toLowerCase()
-
-  // Get the imgNameContext, with the custom commitTag
-  const imgNameContext = await getImgNameContext({ ...params, tag: commitTag })
-
-  // Check if the image already exist
-  // So we can ask if it should be replaced
-  // Also clean it so it can be used as a url with keg-proxy
-  const cleanedTag = imgNameContext.tag
-    .toLowerCase()
-    .replace(/[&\/\\#, +()$~%.'"*?<>{}]/g, '-')
-
-  const imgWTag = `${imgNameContext.providerImage}:${cleanedTag}`
-
-  return { imgWTag, cleanedTag, commitTag }
 }
 
 /**
@@ -150,12 +115,12 @@ const dockerPackage = async args => {
 
   /* ---- Step 4: Create image of the container using docker commit ---- */
   const imageCreated = await imageFromContainer({
-    id,
     log,
     author,
     imgWTag,
     message,
     cleanedTag,
+    container: id,
   })
 
   /* ---- Step 5: Push docker image to docker provider registry ---- */
@@ -182,7 +147,7 @@ module.exports = {
     action: dockerPackage,
     description: `Packages a docker container for deploying to a docker provider`,
     example: 'keg docker package <options>',
-    locationContext: DOCKER.LOCATION_CONTEXT.REPO,
+    locationContext: 'REPO',
     tasks: {
       ...require('./run'),
     },

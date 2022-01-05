@@ -18,7 +18,7 @@ keg_setup_keg_hub(){
   local CUR_CLI_PATH=$(pwd)
   
   # Clone keg-hub into the root directory
-  git clone --branch $HUB_BRANCH https://github.com/KegHub/keg-hub.git $KEG_ROOT_DIR
+  git clone --branch $HUB_BRANCH https://github.com/keg-hub/keg-hub.git $KEG_ROOT_DIR
   
   echo "::debug::Creating Keg-CLI symlink ..."
   ln -s $CUR_CLI_PATH $KEG_ROOT_DIR/repos/keg-cli
@@ -36,12 +36,19 @@ keg_setup_cli(){
   # Setup the config paths for the global cli config 
   export KEG_CONFIG_PATH=$KEG_CLI_PATH/.kegConfig
   export KEG_CONFIG_FILE=cli.config.json
-
+  
+  # Setup sub-repo yarn links
+  node $KEG_CLI_PATH/scripts/postinstall/linkRepos.js
+  
   node $KEG_CLI_PATH/scripts/ci/setupCLIConfig.js
 
-  local KEG_GLOBAL_CONFIG=$KEG_CONFIG_PATH/cli.config.json
+  KEG_GLOBAL_CONFIG=$KEG_CONFIG_PATH/cli.config.json
+
   if [[ -f "$KEG_GLOBAL_CONFIG" ]]; then
-    export KEG_GLOBAL_CONFIG
+    echo "::debug::Setting KEG_GLOBAL_CONFIG env..."
+    export KEG_GLOBAL_CONFIG=$KEG_GLOBAL_CONFIG
+  else
+    echo "::debug::The KEG_GLOBAL_CONFIG env was not set..."
   fi
 
 }
@@ -62,4 +69,3 @@ keg_setup_cli_config(){
 }
 
 keg_setup_cli_config "$@"
-

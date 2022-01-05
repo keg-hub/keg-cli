@@ -1,8 +1,7 @@
 const { docker } = require('KegMocks/libs/docker')
 const globalConfig = global.getGlobalCliConfig()
-const testTask = global.getTask()
 
-jest.setMock('KegDocCli', docker)
+jest.setMock('@keg-hub/docker-lib', docker)
 
 const { buildCmdContext } = require('../buildCmdContext')
 
@@ -61,9 +60,9 @@ describe('buildCmdContext', () => {
       askFor: false
     })
 
-    expect(res.cmdContext).toBe('core')
-    expect(res.context).toBe('core')
-    expect(res.tap).toBe('core')
+    expect(res.cmdContext).toBe('keg-core')
+    expect(res.context).toBe('keg-core')
+    expect(res.tap).toBe('keg-core')
     expect(res.noPrefix).toBe('keg-core')
 
   })
@@ -76,9 +75,9 @@ describe('buildCmdContext', () => {
       askFor: false
     })
 
-    expect(res.cmdContext).toBe('core')
-    expect(res.context).toBe('core')
-    expect(res.tap).toBe('core')
+    expect(res.cmdContext).toBe('tap')
+    expect(res.context).toBe('tap')
+    expect(res.tap).toBe('tap')
     expect(res.noPrefix).toBe('keg-core')
 
   })

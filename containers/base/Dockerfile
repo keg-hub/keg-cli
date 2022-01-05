@@ -6,12 +6,12 @@ WORKDIR /
 
 # Add git so we can pull down keg-repos
 RUN apk add --update --no-cache git py-pip make g++; \
-    yarn global add expo-cli@$EXPO_CLI_VERSION sharp-cli@$SHARP_CLI_VERSION nodemon --pure-lockfile
+    yarn global add expo-cli@$EXPO_CLI_VERSION nodemon --pure-lockfile
 
 # ---- Setup keg-hub within the container ---- #
 
 # Get the git keg-hub url and branch to pull down
-ARG GIT_HUB_URL=https://github.com/KegHub/keg-hub.git
+ARG GIT_HUB_URL=https://github.com/keg-hub/keg-hub.git
 ARG GIT_HUB_BRANCH=develop
 
 # Pull down the keg-hub repo from github
@@ -20,7 +20,7 @@ RUN git clone --single-branch --branch $GIT_HUB_BRANCH $GIT_HUB_URL /keg-hub
 # ---- Setup the keg-cli in the container ---- #
 
 # Get the git keg-hub url and branch to pull down
-ARG GIT_CLI_URL=https://github.com/KegHub/keg-cli.git
+ARG GIT_CLI_URL=https://github.com/keg-hub/keg-cli.git
 ARG GIT_CLI_BRANCH=master
 
 # Pull down the keg-cli

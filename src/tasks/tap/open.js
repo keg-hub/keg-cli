@@ -1,4 +1,4 @@
-const { runInternalTask } = require('KegUtils/task/runInternalTask')
+const { runInternalTask } = require('@keg-hub/cli-utils')
 
 
 /**
@@ -15,7 +15,7 @@ const tapOpen = args => {
   return runInternalTask('tasks.open', {
     ...args,
     command: 'open',
-    params: { name: params?.tap },
+    params: { name: params.tap },
     options: [ params.tap, ...args.options ],
   })
 

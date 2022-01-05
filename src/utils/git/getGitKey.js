@@ -1,9 +1,9 @@
-const { get } = require('@keg-hub/jsutils')
-const { ask } = require('KegRepos/ask-it')
 const { decrypt } = require('KegCrypto')
+const { ask } = require('@keg-hub/ask-it')
+const { get } = require('@keg-hub/jsutils')
+const { getKegSetting } = require('@keg-hub/cli-utils')
 const { throwWrongPassword } = require('../error/throwWrongPassword')
-const { getSetting } = require('../globalConfig/getSetting')
-const { constants: { GLOBAL_CONFIG_PATHS } } = require('KegRepos/cli-utils')
+const { constants: { GLOBAL_CONFIG_PATHS } } = require('@keg-hub/cli-utils')
 
 /**
  * Gets the git key to allow cloning private repos
@@ -15,7 +15,7 @@ const { constants: { GLOBAL_CONFIG_PATHS } } = require('KegRepos/cli-utils')
 const getGitKey = async globalConfig => {
   if(process.env.GIT_KEY) return process.env.GIT_KEY
 
-  const password = getSetting(`git.secure`)
+  const password = getKegSetting(`git.secure`)
     ? await ask.password('Please enter your password')
     : false
 

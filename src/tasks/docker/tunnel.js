@@ -1,13 +1,14 @@
 const path = require('path')
-const { Logger } = require('KegLog')
 const osType = require('os').platform()
 const qrcode = require('qrcode-terminal')
 const { DOCKER } = require('KegConst/docker')
+const { pipeCmd } = require('@keg-hub/spawn-cmd')
 const { isObj, isStr } = require('@keg-hub/jsutils')
-const { CONTAINER_PREFIXES, CLI_ROOT } = require('KegConst/constants')
+const { constants, Logger } = require('@keg-hub/cli-utils')
 const { containerSelect } = require('KegUtils/docker/containerSelect')
+
+const { CONTAINER_PREFIXES, CLI_ROOT } = constants
 const { PACKAGE, IMAGE } = CONTAINER_PREFIXES
-const { pipeCmd } = require('KegProc')
 
 const NODE_MODULES_BIN = path.join(CLI_ROOT, `node_modules/.bin`)
 const NGROK_BIN = './ngrok' + (osType === 'win32' ? '.exe' : '')

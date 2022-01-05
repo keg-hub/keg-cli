@@ -1,19 +1,33 @@
+const { exists, noOpObj } = require('@keg-hub/jsutils')
+const { getContainerConst } = require('./getContainerConst')
+
+const platformMap = {
+  amd: `linux/amd64`,
+  arm: `linux/arm64`,
+  all: `linux/amd64,linux/arm64`
+}
 
 /**
- * Allow platform build types
- * Node arch => 'ia32', 'mips', 'mipsel', 'ppc', 'ppc64', 's390', 's390x', 'x32', and 'x64'.
- * Docker arch => linux/riscv64, linux/ppc64le, linux/s390x, linux/386, linux/arm/v7
- * @type {Object}
+ * Gets the platforms to use during the build process
+ * Looks in the param.platform, container.envs.KEG_BUILD_PLATFORMS
+ * Or uses the default `linux/amd64,linux/arm64`
+ * If param.platform of container.envs.KEG_BUILD_PLATFORMS is set to false,
+ * no platforms will be included
  */
-const platforms = {
-  amd: `amd64`,
-  amd64: `amd64`,
-  arm: `arm/v7,arm64/v8`,
-  arm32: `arm/v7`,
-  arm64: `arm64/v8`,
-  all: `arm/v7,arm64/v8,amd64`,
-  arm: 'arm/v6',
-  arm64: 'arm64',
+const getPlatforms = params => {
+  const { context, platform } = params
+  const paramPlatform = platformMap[platform] || platform
+  const platformsEnv = getContainerConst(context, `ENV.KEG_BUILD_PLATFORMS`)
+
+  const platforms = exists(paramPlatform)
+    ? paramPlatform
+    : exists(platformsEnv)
+      ? platformsEnv
+      : `linux/amd64,linux/arm64`
+
+  return platforms.startsWith(`--platform`)
+    ? platforms
+    : `--platform ${platforms}`
 }
 
 /**
@@ -25,16 +39,18 @@ const platforms = {
  *
  * @returns {string} - dockerCmd string with the file paths added
  */
- const addBuildPlatform = (dockerCmd, value) => {
-  // // Loop over value, env, and the current process
-  // // If any of them match exist in the platforms object then use it
-  const arch = ([value, process.env.KEG_ARCH_TYPE, process.arch]).reduce((found, item) => (
-    found || (item && platforms[item])
-  ), false)
+ const addBuildPlatform = (dockerCmd, params=noOpObj) => { 
+  const { buildX, push } = params
 
-  return Object.values(platforms).includes(arch)
-    ? `${dockerCmd} --platform ${arch}`
-    : dockerCmd
+  // If we are pushing, then add the platforms,
+  // Otherwise add the load argument
+  // Docker does not allow loading multi-platform images locally
+  // So it's not included if push is not set
+   return !buildX
+    ? dockerCmd
+    : push
+      ? `${dockerCmd} ${getPlatforms(params)}`.trim()
+      : `${dockerCmd} --load`.trim()
 }
 
 module.exports = {

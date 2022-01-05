@@ -1,13 +1,14 @@
+const cliUtils = require('@keg-hub/cli-utils')
 const { docker } = require('KegMocks/libs/docker')
 const globalConfig = global.getGlobalCliConfig()
 
-jest.setMock('KegDocCli', docker)
+jest.setMock('@keg-hub/docker-lib', docker)
 
 const internalTaskMock = jest.fn(args => {
   return args
 })
+cliUtils.runInternalTask = internalTaskMock
 
-jest.setMock('KegUtils/task/runInternalTask', { runInternalTask: internalTaskMock })
 
 const { proxyService } = require('../proxyService')
 

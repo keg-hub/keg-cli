@@ -1,4 +1,4 @@
-const { addParam, addFlag, addValues } = require('../arguments')
+const { addToProcess, addParam, addFlag, addValues } = require('../arguments')
 
 describe('addParam', () => {
   it('should return a key value pair', () => {
@@ -75,4 +75,25 @@ describe('addValues', () => {
       addValues(22)
     ).toEqual('')
   })
+})
+
+describe('addToProcess', () => {
+  it('should add envs to the current process', () => {
+    expect(process.env.__TEST_ADD_ENV).toBe(undefined)
+    addToProcess({__TEST_ADD_ENV: 'test add env'})
+    expect(process.env.__TEST_ADD_ENV).toBe(`test add env`)
+  })
+
+  it('should not add envs if if already exists', () => {
+    process.env.__TEST_ADD_ENV = `no overwrite env`
+    addToProcess({__TEST_ADD_ENV: 'test add env'})
+    expect(process.env.__TEST_ADD_ENV).toBe(`no overwrite env`)
+  })
+
+  it('should overwrite envs if the second argument is true', () => {
+    process.env.__TEST_ADD_ENV = `no overwrite env`
+    addToProcess({__TEST_ADD_ENV: 'test add env'}, true)
+    expect(process.env.__TEST_ADD_ENV).toBe('test add env')
+  })
+  
 })

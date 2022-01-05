@@ -1,8 +1,7 @@
-const docker = require('KegDocCli')
-const { Logger } = require('KegLog')
-const { ask } = require('KegRepos/ask-it')
-const { DOCKER } = require('KegConst/docker')
+const { ask } = require('@keg-hub/ask-it')
+const docker = require('@keg-hub/docker-lib')
 const { noOpObj } = require('@keg-hub/jsutils')
+const { Logger } = require('@keg-hub/cli-utils')
 const { imageSelect } = require('KegUtils/docker/imageSelect')
 const { throwRequired, generalError } = require('KegUtils/error')
 const { containerSelect } = require('KegUtils/docker/containerSelect')
@@ -122,7 +121,6 @@ module.exports = {
     example: 'keg docker inspect <options>',
     options: {
       context: {
-        allowed: DOCKER.IMAGES,
         description: 'Name of the docker container to inspect',
         enforced: true,
       },

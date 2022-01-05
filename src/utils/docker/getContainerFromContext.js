@@ -1,5 +1,5 @@
 const { get } = require('@keg-hub/jsutils')
-const docker = require('KegDocCli')
+const docker = require('@keg-hub/docker-lib')
 
 /**
  * Checks if a container matches the containerContext

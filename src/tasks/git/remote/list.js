@@ -1,4 +1,4 @@
-const { Logger } = require('KegLog')
+const { Logger } = require('@keg-hub/cli-utils')
 
 /**
  * Prints the remotes for a repo

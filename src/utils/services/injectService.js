@@ -1,8 +1,10 @@
 const path = require('path')
+const { fileSys } = require('@keg-hub/cli-utils')
 const { get, isStr } = require('@keg-hub/jsutils')
-const { pathExists } = require('KegFileSys')
 const { throwMissingFile } = require('../error/throwMissingFile')
 const { getServiceName } = require('../docker/compose/getServiceName')
+
+const { pathExists } = fileSys
 
 /**
  * Checks if the passed in path exists on the local file system
@@ -230,8 +232,6 @@ const buildOverrideParams = (app, taskOptions, serviceName) => {
 const buildInjectedParams = async ({ app, taskData, injectPath }, containerPaths) => {
   // Get the tasks location context
   const taskLocContext = get(taskData, 'task.locationContext')
-  // Get the locationContext values
-  const { locationContext:locContext } = require('KegConst/docker/values')
   // Build and add image / container name params
   const injectedParams = buildOverrideParams(app, get(taskData, 'task.options'))
 
@@ -246,7 +246,7 @@ const buildInjectedParams = async ({ app, taskData, injectPath }, containerPaths
       ...containerPaths,
       // Check what context should be used
       // Then add the corresponding injected location context
-      location: Boolean(taskLocContext !== locContext.REPO)
+      location: Boolean(taskLocContext !== 'REPO')
         ? get(containerPaths, 'containerPath')
         : injectPath
     }

@@ -1,4 +1,4 @@
-const docker = require('KegDocCli')
+const docker = require('@keg-hub/docker-lib')
 const { get } = require('@keg-hub/jsutils')
 const { kegLabelKeys } = require('KegConst/docker/labels')
 const { CONTAINER_TO_CONTEXT } = require('KegConst/constants')

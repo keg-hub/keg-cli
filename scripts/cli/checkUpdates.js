@@ -1,13 +1,12 @@
-require('module-alias/register')
-
+require('./aliases')
 const axios = require('axios')
-const { Logger } = require('KegLog')
+const { Logger } = require('@keg-hub/cli-utils')
 const { get, limbo, keyMap } = require('@keg-hub/jsutils')
 const localPackage = require('../../package.json')
 const localVersion = get(localPackage, 'version')
 
 // URL to the github package.json for the Keg-CLI 
-const CLI_PACKAGE_JSON_URL = `https://raw.githubusercontent.com/KegHub/keg-cli/master/package.json`
+const CLI_PACKAGE_JSON_URL = `https://raw.githubusercontent.com/keg-hub/keg-cli/master/package.json`
 
 
 /**

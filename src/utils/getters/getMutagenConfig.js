@@ -1,9 +1,13 @@
-const path = require('path')
-const { yml } = require('KegPConf')
-const { DOCKER } = require('KegConst/docker')
+const { yml } = require('@keg-hub/parse-config')
 const { getContainerConst } = require('../docker/getContainerConst')
 const { get, deepMerge, isStr, styleCase, checkCall } = require('@keg-hub/jsutils')
-const { MUTAGEN_MAP } = DOCKER
+
+/**
+ * Maps keys from the mutagen yml config to work with the mutagen cli
+ * The cli keys are not a 1:1 with the yml config keys
+ * @object
+ */
+ const mutagenMap = { mode: 'syncMode' }
 
 /**
  * Parses the passed in options and converts them into an object format mutagen lib can handle
@@ -58,7 +62,7 @@ const getMutagenConfig = async params => {
 
     const mappedConf = Object.keys(config)
       .reduce((conf, key) => {
-        conf[ MUTAGEN_MAP[key] || key ] = config[ key ]
+        conf[ mutagenMap[key] || key ] = config[ key ]
         return conf
       }, {})
 

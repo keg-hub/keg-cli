@@ -1,7 +1,6 @@
-const { isArr, isStr, isObj, get, checkCall, isFunc } = require('@keg-hub/jsutils')
-const rootDir = require('app-root-path').path
 const { errorHandler } = require('./utils')
-const { create, kill } = require('./childProcess')
+const { create } = require('./childProcess')
+const { get, checkCall, isFunc } = require('@keg-hub/jsutils')
 const { checkExtraArgs, getArgs } = require('./utils/cmdArgs')
 
 /**
@@ -42,7 +41,7 @@ const defEvents = (config, res, rej) => ({
  *
  * @returns {Promise} - resolves when the spawned process resolves
  */
-module.exports = (...args) => {
+const spawnCmd = (...args) => {
   const { cmd, config, cwd } = getArgs(...args)
 
   return new Promise((res, rej) => {
@@ -57,5 +56,8 @@ module.exports = (...args) => {
       },
     })
   })
+}
 
+module.exports = {
+  spawnCmd
 }

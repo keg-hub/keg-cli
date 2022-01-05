@@ -2,10 +2,10 @@ const globalConfig = global.getGlobalCliConfig()
 const path = require('path')
 const { DOCKER } = require('KegConst/docker')
 const { getTask } = require('KegMocks/helpers/testTasks')
-const { deepMerge, get, uuid } = require('@keg-hub/jsutils')
+const { deepMerge, get } = require('@keg-hub/jsutils')
+const { coreEnvs } = require('KegMocks/injected/injectedCore')
 const { allowedTagOpts } = require('../../../getters/getTagVarMap')
 const { containerContexts } = require('KegMocks/contexts/containerContexts')
-
 
 const defParams = {
   local: false,
@@ -58,12 +58,10 @@ const args = {
       ...defParams,
       context: 'core',
       tap: 'core',
-      location: DOCKER.CONTAINERS.CORE.ENV.KEG_CONTEXT_PATH,
+      location: coreEnvs.KEG_CONTEXT_PATH,
       cmd: 'core',
       image: 'keg-core',
-      buildArgs: {
-        ...DOCKER.CONTAINERS.CORE.ENV,
-      },
+      buildArgs: coreEnvs,
     },
   }
 }
@@ -94,19 +92,23 @@ describe('tagFromVersion', () => {
     expect(baseVer).toBe(DOCKER.CONTAINERS.BASE.ENV.VERSION)
 
     const coreVer = await tagFromVersion(args.core.params, args.core)
-    expect(coreVer).toBe(DOCKER.CONTAINERS.CORE.ENV.VERSION)
+    expect(coreVer).toBe(coreEnvs.VERSION)
 
   })
 
   it('should return the version from package.json when tagPackage is true', async () => {
-
     const tagPackage = true
+    // Override the default core context location to be the keg-cli root dir
+    // That way we can ensure the package.json exists
+    const orgContext = args.core.containerContext.contextEnvs.KEG_CONTEXT_PATH
+    const rootPath = path.join(__dirname, '../../../../../')
+    const rootPackage = require(path.join(rootPath, 'package.json'))
+    args.core.containerContext.contextEnvs.KEG_CONTEXT_PATH = rootPath
 
-    const coreLoc = DOCKER.CONTAINERS.CORE.ENV.KEG_CONTEXT_PATH
-    const corePackage = require(path.join(coreLoc, './package.json'))
     const coreVer = await tagFromVersion(buildParams('core', { tagPackage }), args.core)
-    expect(coreVer).toBe(corePackage.version)
+    expect(coreVer).toBe(rootPackage.version)
 
+    args.core.containerContext.contextEnvs.KEG_CONTEXT_PATH = orgContext
   })
 
 })

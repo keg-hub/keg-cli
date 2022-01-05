@@ -1,11 +1,9 @@
 const {
   deepMerge,
   isArr,
-  exists,
   noOpObj,
   noOpArr,
   pickKeys,
-  isFunc,
   eitherArr,
 } = require('@keg-hub/jsutils')
 

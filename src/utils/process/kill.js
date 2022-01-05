@@ -1,6 +1,6 @@
-const { executeCmd } = require('KegProc')
+const { Logger } = require('@keg-hub/cli-utils')
+const { asyncCmd } = require('@keg-hub/spawn-cmd')
 const { generalError } = require('KegUtils/error')
-const { Logger } = require('KegLog')
 
 /**
  * Attempts to kill the process identified by pid
@@ -9,7 +9,7 @@ const { Logger } = require('KegLog')
 const kill = async pid => {
   (!pid || pid <= 0) && generalError(`Kill() expects pid to be positive. Found: ${pid}`)
   
-  const { error } = await executeCmd(
+  const { error } = await asyncCmd(
     `kill -9 ${pid}`,
     {} 
   )

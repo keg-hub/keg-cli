@@ -1,5 +1,5 @@
-const { getGlobalConfig } = require('./getGlobalConfig')
 const { throwWrap } = require('../error/throwWrap')
+const { getKegGlobalConfig } = require('@keg-hub/cli-utils')
 
 /**
  * Loads then Runs the global config setup script
@@ -22,7 +22,7 @@ const doConfigSetup = () => {
 const loadGlobalConfig = async () => {
   // Try to load the globalConfig
   // If no config could be loaded, then doConfigSetup the configSetup script
-  const globalConfig = getGlobalConfig() || await doConfigSetup()
+  const globalConfig = getKegGlobalConfig() || await doConfigSetup()
 
   return globalConfig || throwWrap(`Keg CLI global config could not be loaded!`)
 }

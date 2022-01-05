@@ -1,4 +1,4 @@
-const docker = require('KegDocCli')
+const docker = require('@keg-hub/docker-lib')
 const { noOpObj } = require('@keg-hub/jsutils')
 
 /**

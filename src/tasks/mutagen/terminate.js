@@ -1,6 +1,6 @@
-const { mutagen } = require('KegMutagen')
+const { Logger } = require('@keg-hub/cli-utils')
+const { mutagen } = require('@keg-hub/mutagen-lib')
 const { generalError } = require('KegUtils/error')
-const { Logger } = require('KegLog')
 /**
  * Start the mutagen daemon
  * @param {Object} args - arguments passed from the runTask method

@@ -1,7 +1,4 @@
 
-const { Logger } = require('KegLog')
-const { ask } = require('KegRepos/ask-it')
-
 /**
  * Setup task for keg-cli
  * @param {Object} args - arguments passed from the runTask method

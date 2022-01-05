@@ -1,11 +1,9 @@
-const docker = require('KegDocCli')
-const { Logger } = require('KegLog')
-const { executeCmd } = require('KegProc')
-const { DOCKER } = require('KegConst/docker')
-const { isStr, get, plural, uniqArr } = require('@keg-hub/jsutils')
+const docker = require('@keg-hub/docker-lib')
+const { asyncCmd } = require('@keg-hub/spawn-cmd')
+const { confirmExec } = require('@keg-hub/ask-it')
+const { plural, uniqArr } = require('@keg-hub/jsutils')
 const { generalError } = require('KegUtils/error/generalError')
-const { confirmExec } = require('KegUtils/helpers/confirmExec')
-const { getSetting } = require('KegUtils/globalConfig/getSetting')
+const { getKegSetting, Logger } = require('@keg-hub/cli-utils')
 
 /**
  * Removes all of a docker type base on the passed in args
@@ -92,7 +90,7 @@ const dockerDestroy = async args => {
         confirm: `Remove all ${ pluralRemove }?`,
         success: `Removed all ${ pluralRemove }!`,
         cancel: `Remove all ${ pluralRemove } cancelled!`,
-        preConfirm: getSetting(`docker.preConfirm`),
+        preConfirm: getKegSetting(`docker.preConfirm`),
         execute: async () => {
 
           // Containers must be stopped before they can be removed!
@@ -102,7 +100,7 @@ const dockerDestroy = async args => {
                   ? Logger.highlight(`Stopping ${ pluralRemove } by references`, `"${ reference }"`)
                   : Logger.highlight(`Stopping all`, `"${ pluralRemove }"`)
 
-                return executeCmd(`docker stop ${ toRemove } --force`)
+                return asyncCmd(`docker stop ${ toRemove } --force`, {cwd: process.cwd()})
               })
             : {}
 
@@ -115,8 +113,9 @@ const dockerDestroy = async args => {
             ? Logger.highlight(`Destroying ${ pluralRemove } by references`, `"${ reference }"`)
             : Logger.highlight(`Destroying all`, `"${ pluralRemove }"`)
 
-          const { error, data } = await executeCmd(
-            `docker ${ removeType } rm ${ toRemove } --force`
+          const { error, data } = await asyncCmd(
+            `docker ${ removeType } rm ${ toRemove } --force`,
+            {cwd: process.cwd()}
           )
           error && generalError(error)
 

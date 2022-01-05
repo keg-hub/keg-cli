@@ -1,4 +1,4 @@
-const { Logger } = require('KegLog')
+const { Logger } = require('@keg-hub/cli-utils')
 const { getProxyRoutes } = require('KegUtils/proxy/getProxyRoutes')
 const { filterProxyRoutes } = require('KegUtils/proxy/filterProxyRoutes')
 const { noOpObj, wordCaps, mapObj } = require('@keg-hub/jsutils')

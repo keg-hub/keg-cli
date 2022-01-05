@@ -1,9 +1,6 @@
-const {
-  confirmExec,
-  gitKeyExists,
-  removeGlobalConfigProp,
-} = require('KegUtils')
-const { constants: { GLOBAL_CONFIG_PATHS } } = require('KegRepos/cli-utils')
+const { confirmExec } = require('@keg-hub/ask-it')
+const { gitKeyExists, removeGlobalConfigProp } = require('KegUtils')
+const { constants: { GLOBAL_CONFIG_PATHS } } = require('@keg-hub/cli-utils')
 
 /**
  * Removes the git key from the global config cli

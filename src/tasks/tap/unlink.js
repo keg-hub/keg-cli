@@ -1,8 +1,8 @@
-const { Logger } = require('KegLog')
-const { ask } = require('KegRepos/ask-it')
-const { constants: { GLOBAL_CONFIG_PATHS } } = require('KegRepos/cli-utils')
+const { ask } = require('@keg-hub/ask-it')
 const { removeGlobalConfigProp } = require('KegUtils')
-const { getTapPath } = require('KegRepos/cli-utils')
+const { constants, getTapPath, Logger } = require('@keg-hub/cli-utils')
+
+const { GLOBAL_CONFIG_PATHS } = constants
 
 /**
  * Confirms removing the tap link from the global config
@@ -49,7 +49,7 @@ const removeTapLink = (globalConfig, linkPath, tapName, tapPath) => {
  * @returns {void}
  */
 const unlinkTap = async args => {
-  const { command, globalConfig, options, params, tasks } = args
+  const { globalConfig, params } = args
   const { name } = params
 
   // Check if the link alread exists, and if we should overwrite it

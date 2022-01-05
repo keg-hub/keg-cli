@@ -1,5 +1,5 @@
+const { confirmExec } = require('@keg-hub/ask-it')
 const { removeDefaultEnv } = require('KegUtils/defaultEnvs/removeDefaultEnv')
-const { confirmExec } = require('KegUtils/helpers/confirmExec')
 
 /**
  * Removes a global env from the global defaults file

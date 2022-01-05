@@ -1,10 +1,9 @@
-const docker = require('KegDocCli')
-const { Logger } = require('KegLog')
+const docker = require('@keg-hub/docker-lib')
 const { exists } = require('@keg-hub/jsutils')
 const { generalError } = require('KegUtils/error')
+const { confirmExec } = require('@keg-hub/ask-it')
 const { dockerLog } = require('KegUtils/log/dockerLog')
-const { confirmExec } = require('KegUtils/helpers/confirmExec')
-const { getSetting } = require('KegUtils/globalConfig/getSetting')
+const { getKegSetting, Logger } = require('@keg-hub/cli-utils')
 const { containerSelect } = require('KegUtils/docker/containerSelect')
 const { getContainerConst } = require('KegUtils/docker/getContainerConst')
 
@@ -73,7 +72,7 @@ const removeContainer = async args => {
   const { all, confirm, context, many } = params
 
   const throwErr = !__internal.skipThrow
-  const force = exists(params.force) ? params.force : getSetting(`docker.force`)
+  const force = exists(params.force) ? params.force : getKegSetting(`docker.force`)
 
   // If all is set, then remove all containers
   if(all) return await removeAllContainers({force, confirm})

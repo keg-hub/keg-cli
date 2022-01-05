@@ -5,7 +5,7 @@ const currentBranchMocks = {
 const currentMock = jest.fn((data) => {
   return { name: currentBranchMocks[data.location] }
 })
-jest.setMock('KegGitCli', { git: { branch: { current: currentMock }}})
+jest.setMock('@keg-hub/git-lib', { git: { branch: { current: currentMock }}})
 
 const throwNoGitBranchMock = jest.fn()
 jest.setMock('../../error/throwNoGitBranch', { throwNoGitBranch: throwNoGitBranchMock })

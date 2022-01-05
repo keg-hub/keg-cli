@@ -1,7 +1,6 @@
-const docker = require('KegDocCli')
-const { Logger } = require('KegLog')
+const docker = require('@keg-hub/docker-lib')
+const { Logger } = require('@keg-hub/cli-utils')
 const { findContainer } = require('KegUtils/docker/findContainer')
-const { containerSelect } = require('KegUtils/docker/containerSelect')
 const { KEG_DOCKER_EXEC, KEG_EXEC_OPTS } = require('KegConst/constants')
 const { throwRequired, throwContainerNotFound } = require('KegUtils/error')
 const { buildContainerContext } = require('KegUtils/builders/buildContainerContext')
@@ -21,6 +20,7 @@ const dockerExec = async args => {
     cmd,
     detach,
     name,
+    log,
     options,
     workdir,
     context,
@@ -54,22 +54,32 @@ const dockerExec = async args => {
 
   !containerRef && throwContainerNotFound(containerName)
 
-  const execArgs = { cmd, container: containerRef.id, opts: options, location }
+  const execArgs = {
+    cmd,
+    location,
+    opts: options,
+    container: containerRef.id
+  }
+
   workdir && (execArgs.workdir = workdir)
   detach && (execArgs.detach = detach)
 
-  Logger.empty()
-  Logger.pair(`Running docker exec on container`, containerRef.name)
-  Logger.empty()
+  if(log){
+    Logger.empty()
+    Logger.pair(`Running docker exec on container`, containerRef.name)
+    Logger.empty()
+  }
 
   // Run the exec command on the container
-  await docker.container
-    .exec(execArgs, { options: { env: {
+  await docker.container.exec(execArgs, { 
+    options: {
+      env: {
       // Add the default KEG_DOCKER_EXEC ENV
       [KEG_DOCKER_EXEC]: KEG_EXEC_OPTS.dockerExec,
       // contextEnvs should already have the KEG_DOCKER_EXEC set to override it if needed
       ...contextEnvs
-    }}})
+    }
+  }})
 
   return execContext
 
@@ -135,7 +145,12 @@ module.exports = {
         alias: ['branch'],
         description: 'Partial name of the container to help filter the found containers',
         example: 'keg docker exec --context tap --tap my-tap --prefix package --name feature-branch',
-      }
+      },
+      log: { 
+        description: 'Log info as the exec command is run runs',
+        example: 'keg docker exec --no-log',
+        default: true,
+      },
     }
   }
 }

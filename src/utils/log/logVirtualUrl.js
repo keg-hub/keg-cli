@@ -1,4 +1,4 @@
-const { Logger } = require('KegLog')
+const { Logger } = require('@keg-hub/cli-utils')
 const { DOCKER } = require('KegConst/docker')
 const { isStr } = require('@keg-hub/jsutils')
 /**

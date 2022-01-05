@@ -1,7 +1,5 @@
-const { Logger } = require('KegLog')
-const { spawnCmd } = require('KegProc')
-const { DOCKER } = require('KegConst/docker')
-const { get, reduceObj } = require('@keg-hub/jsutils')
+const { Logger } = require('@keg-hub/cli-utils')
+const { spawnCmd } = require('@keg-hub/spawn-cmd')
 const { buildComposeCmd } = require('KegUtils/docker/compose/buildComposeCmd')
 const { getComposeServiceName } = require('KegUtils/getters/getComposeServiceName')
 const { buildContainerContext } = require('KegUtils/builders/buildContainerContext')
@@ -16,7 +14,7 @@ const { buildContainerContext } = require('KegUtils/builders/buildContainerConte
  */
 const buildDockerCompose = async args => {
   const { globalConfig, __internal, params, task } = args
-  const { cache, remove, pull, context, log } = params
+  const { log } = params
 
   // Get the context data for the command to be run
   const { location, cmdContext, contextEnvs } = await buildContainerContext({
@@ -37,12 +35,14 @@ const buildDockerCompose = async args => {
   // Get the name of the docker-compose service
   const serviceName = getComposeServiceName(cmdContext, contextEnvs)
 
+  log &&
+    !Boolean(__internal) &&
+    Logger.pair(`Running command: `, `${dockerCmd} ${serviceName}`)
+
   // Run the docker compose build command
   await spawnCmd(
-    `${ dockerCmd } ${ serviceName }`,
-    { options: { env: contextEnvs }},
-    location,
-    !Boolean(__internal),
+    `${dockerCmd} ${serviceName}`,
+    {options: {env: contextEnvs}, cwd: location}
   )
 
   log && Logger.highlight(`Compose build service`, `"${ cmdContext }"`, `complete!`)
@@ -58,7 +58,6 @@ module.exports = {
     example: 'keg docker compose build <options>',
     options: {
       context: {
-        allowed: DOCKER.IMAGES,
         description: 'Context of docker compose build command (tap || core)',
         example: 'keg docker compose build --context core',
         default: 'base'

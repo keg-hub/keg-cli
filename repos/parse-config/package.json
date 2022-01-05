@@ -1,8 +1,8 @@
 {
   "name": "@keg-hub/parse-config",
-  "version": "0.2.1",
+  "version": "2.0.0",
   "description": "Utils to allow loading non-javascript files into a node environment",
-  "repository": "https://github.com/KegHub/keg-cli/tree/master/repos/parse-config",
+  "repository": "https://github.com/keg-hub/keg-cli/tree/master/repos/parse-config",
   "main": "index.js",
   "author": "Lance Tipton",
   "license": "MIT",
@@ -37,9 +37,9 @@
     "test": "NODE_ENV=test jest --no-cache --verbose --config=./configs/jest.config.js --maxWorkers=50%"
   },
   "dependencies": {
-    "@keg-hub/cli-utils": "0.4.0",
-    "@keg-hub/jsutils": "8.7.0",
-    "@keg-hub/spawn-cmd": "0.1.4",
+    "@keg-hub/cli-utils": "^0.5.0",
+    "@keg-hub/jsutils": "8.8.0",
+    "@keg-hub/spawn-cmd": "^0.3.0",
     "js-yaml": "3.14.1",
     "write-yaml-file": "4.2.0"
   },

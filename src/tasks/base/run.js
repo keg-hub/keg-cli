@@ -1,5 +1,4 @@
 const { runService } = require('KegUtils/services')
-const { DOCKER } = require('KegConst/docker')
 const { mergeTaskOptions } = require('KegUtils/task/options/mergeTaskOptions')
 
 /**
@@ -22,7 +21,7 @@ module.exports = {
     alias: [ 'start', 'st' ],
     action: runBase,
     inject: true,
-    locationContext: DOCKER.LOCATION_CONTEXT.REPO,
+    locationContext: 'REPO',
     description: `Runs the base image directly`,
     example: 'keg base run <options>',
     options: mergeTaskOptions('base', 'run', 'run', {}, []),

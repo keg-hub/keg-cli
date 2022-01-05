@@ -1,7 +1,7 @@
-const docker = require('KegDocCli')
-const { loadValuesFiles } = require('KegConst/docker/loaders')
+const docker = require('@keg-hub/docker-lib')
+const { getDefaultEnv } = require('@keg-hub/cli-utils')
+const { loadConfigFiles } = require('KegConst/docker/loaders')
 const { generalError } = require('KegUtils/error/generalError')
-const { getSetting } = require('KegUtils/globalConfig/getSetting')
 const { getKegContext } = require('KegUtils/getters/getKegContext')
 
 /**
@@ -29,14 +29,15 @@ const getActionsFromValues = async params => {
 
   return !containerName
     ? generalError(`Could not find container name from params`, params)
-    : await loadValuesFiles({
-        loadPath: 'actions',
-        env: params.env || getSetting('defaultEnv'),
+    : await loadConfigFiles({
+        noEnv: true,
+        ymlPath: 'actions',
+        env: params.env || getDefaultEnv(),
+        name: getKegContext(containerName),
         __internal: {
           ...params.__internal,
           ...params.__injected,
         },
-        container: getKegContext(containerName),
       })
 }
 

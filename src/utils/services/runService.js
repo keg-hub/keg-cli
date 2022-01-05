@@ -1,8 +1,7 @@
-const docker = require('KegDocCli')
-const { get, deepMerge } = require('@keg-hub/jsutils')
 const { proxyService } = require('./proxyService')
+const { get, deepMerge } = require('@keg-hub/jsutils')
 const { getServiceArgs } = require('./getServiceArgs')
-const { runInternalTask } = require('KegUtils/task/runInternalTask')
+const { runInternalTask } = require('@keg-hub/cli-utils')
 const { throwContainerNotFound } = require('KegUtils/error/throwContainerNotFound')
 
 /**

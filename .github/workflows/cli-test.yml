@@ -22,11 +22,18 @@ jobs:
       - name: "Cache Dependencies"
         uses: bahmutov/npm-install@v1
         with:
-          install-command: yarn install --ignore-engines --frozen-lockfile --silent
+          useLockFile: false
+          install-command: yarn install --frozen-lockfile --silent --force
           working-directory: |
             ./
+            repos/args-parse
+            repos/ask-it
             repos/cli-utils
+            repos/docker-lib
             repos/git-lib
+            repos/mutagen-lib
+            repos/parse-config
+            repos/spawn-cmd
 
       - name: "Setup CLI config"
         id: setup-cli-config

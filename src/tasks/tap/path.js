@@ -1,4 +1,4 @@
-const { getTapPath, getTapConfig, getTapPackage } = require('KegRepos/cli-utils')
+const { getTapPath, getTapConfig, getTapPackage } = require('@keg-hub/cli-utils')
 const { generalError } = require('KegUtils/error')
 
 /**

@@ -1,5 +1,5 @@
+const { confirmExec } = require('@keg-hub/ask-it')
 const { removeGlobalConfigProp } = require('KegUtils/globalConfig/removeGlobalConfigProp')
-const { confirmExec } = require('KegUtils/helpers/confirmExec')
 
 /**
  * Sets a value in the global config, and then saves it

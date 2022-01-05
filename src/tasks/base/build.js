@@ -1,5 +1,4 @@
-const { DOCKER } = require('KegConst/docker')
-const { runInternalTask } = require('KegUtils/task/runInternalTask')
+const { runInternalTask } = require('@keg-hub/cli-utils')
 const { mergeTaskOptions } = require('KegUtils/task/options/mergeTaskOptions')
 
 /**
@@ -29,7 +28,7 @@ module.exports = {
     alias: [ 'bld', 'make' ],
     inject: true,
     action: buildBase,
-    locationContext: DOCKER.LOCATION_CONTEXT.REPO,
+    locationContext: 'REPO',
     description: `Builds a taps docker container`,
     example: 'keg base build <options>',
     options: mergeTaskOptions(`base`, `build`, `build`, {}, [])
