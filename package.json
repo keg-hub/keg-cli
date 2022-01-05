@@ -43,7 +43,7 @@
     "view:reports": "open reports/coverage/lcov-report/index.html"
   },
   "dependencies": {
-    "@keg-hub/args-parse": "^6.3.2",
+    "@keg-hub/args-parse": "^7.1.0",
     "@keg-hub/ask-it": "^1.1.0",
     "@keg-hub/cli-utils": "^0.4.2",
     "@keg-hub/docker-lib": "file:./repos/docker-lib",
