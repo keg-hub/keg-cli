@@ -45,7 +45,7 @@
   "dependencies": {
     "@keg-hub/args-parse": "^7.1.0",
     "@keg-hub/ask-it": "^1.1.0",
-    "@keg-hub/cli-utils": "^0.4.2",
+    "@keg-hub/cli-utils": "^0.5.0",
     "@keg-hub/docker-lib": "file:./repos/docker-lib",
     "@keg-hub/git-lib": "^0.0.2",
     "@keg-hub/jsutils": "8.8.0",
