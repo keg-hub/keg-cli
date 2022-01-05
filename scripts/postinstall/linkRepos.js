@@ -82,6 +82,9 @@ const linkSubRepos = packages => {
  * @returns {Void}
  */
 const linkRepos = repos => {
+  // Only link in NON-CI environment
+  if(process.env.GITHUB_ACTIONS) return
+
   try {
     console.log(`\nInter-linking repos within the Keg-CLI...`)
   

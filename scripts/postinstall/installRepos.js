@@ -10,6 +10,7 @@ const { getRepoPaths } = require('./getRepoPaths')
  * @returns {Void}
  */
 const installRepos = repos => {
+  // Only install in NON-CI environment
   if(process.env.GITHUB_ACTIONS) return
 
   try {
