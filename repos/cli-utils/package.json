@@ -32,7 +32,7 @@
   "dependencies": {
     "axios": "0.21.2",
     "@keg-hub/args-parse": "6.3.2",
-    "@keg-hub/ask-it": "1.0.0",
+    "@keg-hub/ask-it": "1.1.0",
     "@keg-hub/jsutils": "8.8.0",
     "@keg-hub/spawn-cmd": "^0.2.0",
     "app-root-path": "3.0.0",
