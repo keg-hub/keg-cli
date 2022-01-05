@@ -1,8 +1,8 @@
+const { isObj, toBool } = require('@keg-hub/jsutils')
 const { testEnum } = require('KegMocks/jest/testEnum')
-const { isObj } = require('@keg-hub/jsutils')
+const { getKegSetting } = require('@keg-hub/cli-utils')
 
-const globalConfig = global.getGlobalCliConfig()
-
+const dockerLocalBuild = toBool(getKegSetting('docker.defaultLocalBuild'))
 const testArgs = {
   localParam: {
     description: 'It should set the KEG_COPY_LOCAL env when local param is true',
@@ -23,7 +23,7 @@ const testArgs = {
   setting: {
     description: 'It should use the global setting when param and argument dont exist',
     inputs: [{}],
-    outputs: { KEG_COPY_LOCAL: globalConfig.cli.settings.docker.defaultLocalBuild }
+    outputs: dockerLocalBuild ? { KEG_COPY_LOCAL: dockerLocalBuild } : {}
   }
 }
 
@@ -56,7 +56,6 @@ describe('convertParamsToEnvs', () => {
     expect(converted2.KEG_EXEC_CMD).toBe('duper')
 
   })
-
 
   testEnum(testArgs, convertParamsToEnvs)
 
