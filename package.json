@@ -50,7 +50,7 @@
     "@keg-hub/git-lib": "^0.0.2",
     "@keg-hub/jsutils": "8.8.0",
     "@keg-hub/mutagen-lib": "file:./repos/mutagen-lib",
-    "@keg-hub/parse-config": "^1.0.1",
+    "@keg-hub/parse-config": "^2.0.0",
     "@keg-hub/spawn-cmd": "^0.3.0",
     "axios": "0.24.0",
     "colors": "1.4.0",
