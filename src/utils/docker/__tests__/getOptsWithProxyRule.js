@@ -1,5 +1,4 @@
 const { getOptsWithProxyRule } = require('../getOptsWithProxyRule')
-const { testEnum } = require('KegMocks/jest/testEnum')
 const { kegLabelKeys } = require('KegConst/docker/labels')
 
 // mocked using moduleNameMapper in jest config

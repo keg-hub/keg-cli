@@ -215,9 +215,9 @@ const generateLoadPaths = ({ locations = noPropArr, ...opts }) => {
  * Then based on the extension type, loads it's content
  * @param {Object} config - Settings for loading the config files
  * @param {string} config.env - The current environment
- * @param {string} config.location - Path to the ENV file
  * @param {boolean} [config.error=true] - Should errors be thrown
  * @param {RegEx} config.pattern - Pattern to match against template values
+ * @param {Array} config.locations - Path to folder that should be searched
  * @param {boolean} config.fill - Should the content be treated as a template
  * @param {boolean} [config.noEnv=false] - If true env files will not be loaded
  * @param {boolean} [config.noYml=false] - If true yml files will not be loaded

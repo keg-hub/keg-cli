@@ -1,9 +1,9 @@
 const path = require('path')
 const { KEG_ENVS } = require('../envs')
 const { PREFIXED } = require('./domainEnvs')
+const { loadConfigFiles } = require('./loaders')
 const { containersPath, images } = require('./values')
 const { getDefaultEnv } = require('@keg-hub/cli-utils')
-const { loadValuesFiles, loadEnvFiles } = require('./loaders')
 const { checkArgsForEnv } = require('../../utils/helpers/checkArgsForEnv')
 const { deepFreeze, deepMerge, keyMap, noOpObj } = require('@keg-hub/jsutils')
 
@@ -68,8 +68,12 @@ const containerConfig = (container, currentEnv, __internal=noOpObj) => {
       PREFIXED,
       KEG_ENVS,
       __internal.ENVS,
-      loadValuesFiles({ container, __internal, env: currentEnv, loadPath: 'env' }),
-      loadEnvFiles({ container, __internal, env: currentEnv })
+      loadConfigFiles({
+        __internal,
+        ymlPath: 'env',
+        env: currentEnv,
+        name: container,
+      })
     ),
   })
 

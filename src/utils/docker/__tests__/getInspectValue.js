@@ -1,6 +1,6 @@
-const { injectedTest, injectedContainer } = require('KegMocks/injected/injectedTest')
-const { docker, dockerData } = require('KegMocks/libs/docker')
 const { testEnum } = require('KegMocks/jest/testEnum')
+const { docker, dockerData } = require('KegMocks/libs/docker')
+const { injectedContainer } = require('KegMocks/injected/injectedTest')
 
 const { DOCKER } = require('KegConst/docker')
 const withInjected = {
@@ -9,8 +9,6 @@ const withInjected = {
 }
 jest.setMock('KegConst/docker', { DOCKER: { ...DOCKER, CONTAINERS: withInjected }})
 jest.setMock('@keg-hub/docker-lib', docker)
-
-console.log(dockerData.inspect.image.core)
 
 const testArgs = {
   inspectObj: {
@@ -52,6 +50,6 @@ describe('getInspectValue', () => {
 
   afterAll(() => jest.resetAllMocks())
 
-  testEnum(testArgs, getInspectValue, true)
+  testEnum(testArgs, getInspectValue)
 
 })

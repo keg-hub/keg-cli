@@ -13,22 +13,22 @@ jest.setMock('@keg-hub/cli-utils', {
   getDefaultEnv: getKegSettingMock,
 })
 
-const loadValuesFilesMock = jest.fn()
-jest.setMock('KegConst/docker/loaders', { loadValuesFiles: loadValuesFilesMock })
+const loadConfigFilesMock = jest.fn()
+jest.setMock('KegConst/docker/loaders', { loadConfigFiles: loadConfigFilesMock })
 
 const testArgs = {
   callLoadValuesFiles: {
-    description: 'Calls the loadValuesFiles method',
+    description: 'Calls the loadConfigFiles method',
     inputs: [{ env: 'test-env', containerRef: 'test-ref' }],
-    outputs: () => expect(loadValuesFilesMock).toHaveBeenCalled()
+    outputs: () => expect(loadConfigFilesMock).toHaveBeenCalled()
   },
   setsLoadPathToBeActions: {
     description: 'Passes the loadPath param as "actions"',
     inputs: [{ env: 'test-env', containerRef: 'test-ref' }],
     outputs: () => {
-      expect(loadValuesFilesMock).toHaveBeenCalled()
+      expect(loadConfigFilesMock).toHaveBeenCalled()
       outputs: () => (
-        expect(loadValuesFilesMock.mock.calls[0][0].loadPath).toEqual('actions')
+        expect(loadConfigFilesMock.mock.calls[0][0].loadPath).toEqual('actions')
       )
     }
   },
@@ -45,12 +45,12 @@ const testArgs = {
   defaultEnvWhenNoEnvPassed: {
     description: 'Uses the default env when no env is passed',
     inputs: [{ containerRef: 'test-ref' }],
-    outputs: () => expect(loadValuesFilesMock.mock.calls[0][0].env).toEqual('default-env')
+    outputs: () => expect(loadConfigFilesMock.mock.calls[0][0].env).toEqual('default-env')
   },
   usesPassedInEnvOverDefault: {
     description: 'Uses the passed in env over the default env',
     inputs: [{ env: 'test-env', containerRef: 'test-ref' }],
-    outputs: () => expect(loadValuesFilesMock.mock.calls[0][0].env).toEqual('test-env')
+    outputs: () => expect(loadConfigFilesMock.mock.calls[0][0].env).toEqual('test-env')
   },
   passesInternalAndInjected: {
     description: 'Merges and passed the __internal and __injected objects',
@@ -61,8 +61,8 @@ const testArgs = {
       __injected: { injected: true } 
     }],
     outputs: () => {
-      expect(loadValuesFilesMock.mock.calls[0][0].__internal.internal).toBe(true)
-      expect(loadValuesFilesMock.mock.calls[0][0].__internal.injected).toBe(true)
+      expect(loadConfigFilesMock.mock.calls[0][0].__internal.internal).toBe(true)
+      expect(loadConfigFilesMock.mock.calls[0][0].__internal.injected).toBe(true)
     }
   },
   injectedOverridesInternal: {
@@ -74,7 +74,7 @@ const testArgs = {
       __injected: { internal: false } 
     }],
     outputs: () => {
-      expect(loadValuesFilesMock.mock.calls[0][0].__internal.internal).toBe(false)
+      expect(loadConfigFilesMock.mock.calls[0][0].__internal.internal).toBe(false)
     }
   },
   usesContainerWhenNoContainerRef: {
@@ -84,7 +84,7 @@ const testArgs = {
       env: 'test-env',
     }],
     outputs: () => {
-      expect(loadValuesFilesMock.mock.calls[0][0].container).toBe('test-container')
+      expect(loadConfigFilesMock.mock.calls[0][0].name).toBe('test-container')
     }
   },
   containerRefOverridesContainer: {
@@ -95,7 +95,7 @@ const testArgs = {
       env: 'test-env', 
     }],
     outputs: () => {
-      expect(loadValuesFilesMock.mock.calls[0][0].container).toBe('overrides-container')
+      expect(loadConfigFilesMock.mock.calls[0][0].name).toBe('overrides-container')
     }
   },
   contextOverridesContainerRef: {
@@ -106,7 +106,7 @@ const testArgs = {
       env: 'test-env', 
     }],
     outputs: () => {
-      expect(loadValuesFilesMock.mock.calls[0][0].container).toBe('overrides-container')
+      expect(loadConfigFilesMock.mock.calls[0][0].name).toBe('overrides-container')
     }
   },
   cmdContextOverridesContext: {
@@ -117,7 +117,7 @@ const testArgs = {
       env: 'test-env', 
     }],
     outputs: () => {
-      expect(loadValuesFilesMock.mock.calls[0][0].container).toBe('overrides-container')
+      expect(loadConfigFilesMock.mock.calls[0][0].name).toBe('overrides-container')
     }
   },
 }
@@ -127,7 +127,7 @@ const { getActionsFromValues } = require('../getActionsFromValues')
 describe('getActionsFromValues', () => {
   beforeEach(() => {
     getKegSettingMock.mockClear()
-    loadValuesFilesMock.mockClear()
+    loadConfigFilesMock.mockClear()
   })
   afterAll(() => jest.resetAllMocks())
   testEnum(testArgs, getActionsFromValues)
