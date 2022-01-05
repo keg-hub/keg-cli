@@ -10,6 +10,8 @@ const { getRepoPaths } = require('./getRepoPaths')
  * @returns {Void}
  */
 const installRepos = repos => {
+  if(process.env.GITHUB_ACTIONS) return
+
   try {
     repos = repos || getRepoPaths()
     const failed = []

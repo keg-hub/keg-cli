@@ -22,6 +22,7 @@ jobs:
       - name: "Cache Dependencies"
         uses: bahmutov/npm-install@v1
         with:
+          useLockFile: false
           install-command: yarn install --frozen-lockfile --silent --force
           working-directory: |
             ./
