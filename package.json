@@ -51,7 +51,7 @@
     "@keg-hub/jsutils": "8.8.0",
     "@keg-hub/mutagen-lib": "file:./repos/mutagen-lib",
     "@keg-hub/parse-config": "^1.0.1",
-    "@keg-hub/spawn-cmd": "^0.2.0",
+    "@keg-hub/spawn-cmd": "^0.3.0",
     "axios": "0.24.0",
     "colors": "1.4.0",
     "esbuild-plugin-clear": "^1.0.1",

@@ -24,7 +24,7 @@
     "@keg-hub/cli-utils": "0.2.1",
     "@keg-hub/jsutils": "8.8.0",
     "@keg-hub/parse-config": "1.0.1",
-    "@keg-hub/spawn-cmd": "^0.2.0"
+    "@keg-hub/spawn-cmd": "^0.3.0"
   },
   "devDependencies": {
     "jest": "26.6.3",
