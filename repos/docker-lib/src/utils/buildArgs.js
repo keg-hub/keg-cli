@@ -1,5 +1,12 @@
-
-const { isObj, reduceObj, isStr, isArr, noPropArr, noOpObj } = require('@keg-hub/jsutils')
+const {
+  isObj,
+  isStr,
+  isArr,
+  exists,
+  noOpObj,
+  reduceObj,
+  noPropArr,
+} = require('@keg-hub/jsutils')
 
 /**
  * Converts a key and value into docker build-args ( --build-arg key=value )
@@ -22,6 +29,23 @@ const asBuildArg = (key, value, cmd='', filters) => {
 }
 
 /**
+ * Converts an array of items into an object when the items are strings of key=value pairs
+ * @param {Array} arr - Items to be converted into an object
+ * 
+ * @returns {Object} - Array items converted into an object
+ */
+const arrToObj = arr => {
+  return arr.reduce((acc, item) => {
+    const [key, val] = item.split(`=`)
+    cleanKey = key.trim()
+    cleanVal = val.trim()
+    cleanKey && exists(cleanVal) && (acc[cleanKey] = cleanVal)
+
+    return acc
+  })
+}
+
+/**
  * Converts an object into docker build-args ( --build-arg key=value )
  * @function
  * @param {Object} [envs={}] - Envs to be converted
@@ -31,10 +55,12 @@ const asBuildArg = (key, value, cmd='', filters) => {
  * @returns {string} - Passed in cmd, with the envs converted to docker build-args
  */
 const toBuildArgs = (envs=noOpObj, cmd='', filters=noPropArr) => {
-  return !isObj(envs)
+  const buildEnvs = isObj(envs) ? envs : isArr(envs) ? arrToObj(envs) : false
+    
+  return !isObj(buildEnvs) || !Object.values(buildEnvs).length
     ? cmd
     : reduceObj(
-        envs,
+        buildEnvs,
         (key, value, buildCmd) => asBuildArg(key, value, buildCmd, filters),
         cmd
       ).trim()

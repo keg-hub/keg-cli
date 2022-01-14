@@ -1,5 +1,5 @@
-const docImg = require('../../image')
-const docCont = require('../../container')
+const docImg = require('../image')
+const docCont = require('../container')
 
 const getDockerImg = () => {
   
