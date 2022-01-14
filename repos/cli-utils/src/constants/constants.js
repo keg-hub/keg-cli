@@ -50,7 +50,8 @@ const GLOBAL_INJECT_FOLDER = path.join(GLOBAL_CONFIG_FOLDER, '.tmp')
    if(process.env.KEG_CLI_PATH) return process.env.KEG_CLI_PATH
 
   // If this file was required by the cli entry point, then use it's directory path
-  if(path.basename(require.main.filename) === `keg-cli.js`)
+  const mainFile = require.main && require.main.filename
+  if(mainFile && path.basename(mainFile) === `keg-cli.js`)
     return require.main.path
 
    const globalConfig = tryRequireSync(path.join(GLOBAL_CONFIG_FOLDER, GLOBAL_CONFIG_FILE))
