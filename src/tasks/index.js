@@ -9,9 +9,7 @@ const { isObj, isFunc, reduceObj } = require('@keg-hub/jsutils')
  * @returns {Object} - All loaded CLI tasks
  */
 const initialize = (tasks, name, globalConfig) => {
-
   const parentTasks = isFunc(tasks) ? tasks(globalConfig) : isObj(tasks) ? tasks : {}
-
   return reduceObj(parentTasks, (key, value, updates) => {
     const task = parentTasks[key]
     return {
@@ -19,7 +17,6 @@ const initialize = (tasks, name, globalConfig) => {
       ...buildTaskData(task, name),
     }
   }, {})
-
 }
 
 module.exports = globalConfig => {
@@ -31,7 +28,7 @@ module.exports = globalConfig => {
     ...initialize(require('./git'), 'git', globalConfig),
     ...initialize(require('./global'), 'global', globalConfig),
     ...initialize(require('./generate'), 'generate', globalConfig),
-    ...initialize(require('./mutagen'), 'mutagen', globalConfig),
+    ...initialize(require('@keg-hub/mutagen-lib/tasks'), 'mutagen', globalConfig),
     ...initialize(require('./network'), 'network', globalConfig),
     ...initialize(require('./proxy'), 'proxy', globalConfig),
     ...initialize(require('./tap'), 'tap', globalConfig),

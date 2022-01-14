@@ -1,10 +1,9 @@
+const { mutagen } = require('../mutagen')
 const { get } = require('@keg-hub/jsutils')
-const { mutagen } = require('@keg-hub/mutagen-lib')
 const { buildContext } = require('@keg-hub/docker-lib')
 const { getMutagenConfig } = require('../utils/getMutagenConfig')
 const { Logger, runInternalTask, error } = require('@keg-hub/cli-utils')
 const {
-  throwRequired,
   mutagenSyncExists,
   throwContainerNotFound
 } = require('../utils/error')
@@ -41,9 +40,9 @@ const getSyncParams = async (contextData, params) => {
   )
 
   return {
-    config: config,
     local: alpha,
     remote: beta,
+    config: config,
     service: service,
     container: contextData.id,
     name: name || contextData.cmdContext,

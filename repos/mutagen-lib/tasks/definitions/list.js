@@ -1,5 +1,5 @@
+const { mutagen } = require('../mutagen')
 const { Logger } = require('@keg-hub/cli-utils')
-const { mutagen } = require('@keg-hub/mutagen-lib')
 
 /**
  * Start the mutagen daemon
@@ -12,7 +12,7 @@ const { mutagen } = require('@keg-hub/mutagen-lib')
  * @returns {void}
  */
 const mutagenList = async args => {
-  const { command, globalConfig, options, params, tasks } = args
+  const { params } = args
   const { format, log, verbose } = params
   
   const syncItems = await mutagen.sync.list({

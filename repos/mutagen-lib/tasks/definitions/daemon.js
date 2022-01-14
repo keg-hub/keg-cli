@@ -1,5 +1,5 @@
+const { mutagen } = require('../mutagen')
 const { Logger } = require('@keg-hub/cli-utils')
-const { mutagen } = require('@keg-hub/mutagen-lib')
 
 /**
  * Default daemon task options

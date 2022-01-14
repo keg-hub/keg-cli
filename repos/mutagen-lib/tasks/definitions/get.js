@@ -1,6 +1,6 @@
-const { Logger } = require('@keg-hub/cli-utils')
-const { mutagen } = require('@keg-hub/mutagen-lib')
+const { mutagen } = require('../mutagen')
 const { isObj } = require('@keg-hub/jsutils')
+const { Logger } = require('@keg-hub/cli-utils')
 
 /**
  * Start the mutagen daemon
