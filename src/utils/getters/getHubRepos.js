@@ -1,9 +1,8 @@
 const path = require('path')
-const { getRepoPath } = require('./getRepoPath')
 const { asyncCmd } = require('@keg-hub/spawn-cmd')
 const { generalError } = require('../error/generalError')
-const { fileSys, Logger } = require('@keg-hub/cli-utils')
 const { isFunc, pickKeys, eitherArr } = require('@keg-hub/jsutils')
+const { getRepoPath, fileSys, Logger } = require('@keg-hub/cli-utils')
 
 
 const { readFileSync } = fileSys

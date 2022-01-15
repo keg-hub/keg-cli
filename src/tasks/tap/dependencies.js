@@ -77,7 +77,7 @@ const getVersionDiffs = (tapPackage, packages) => {
  * @returns {void}
  */
 const updateVersions = (versionDiff, tapName, tapPackage, globalConfig) => {
-  const tapPath = getTapPath(globalConfig, tapName)
+  const tapPath = getTapPath(tapName, globalConfig)
 
   mapObj(versionDiff, (repoName, { repo:version }) => {
     updateVersionInDependencies(

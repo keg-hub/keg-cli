@@ -4,6 +4,7 @@ module.exports = {
   ...require('./utils/compareItems'),
   ...require('./utils/containerEnvs'),
   ...require('./utils/isDockerId'),
+  ...require('./utils/getImgFrom'),
   ...require('./cmds'),
   ...require('./context'),
   constants: require('./constants'),

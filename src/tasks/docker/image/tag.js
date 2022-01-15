@@ -1,7 +1,6 @@
 const docker = require('@keg-hub/docker-lib')
 const { Logger } = require('@keg-hub/cli-utils')
 const { throwRequired, generalError } = require('KegUtils/error')
-const { getImgNameContext } = require('KegUtils/getters/getImgNameContext')
 
 /**
  * Tag options for tag and remove tag tasks
@@ -57,7 +56,7 @@ const dockerTag = async args => {
   // Don't pass the provider to imageNameContext method
   // Otherwise it will be included when parsing the image name
   const { provider, ...imgContextParams } = params
-  const { providerImage, tag, image } = await getImgNameContext(imgContextParams)
+  const { tag, image } = await docker.getImgNameContext(imgContextParams)
 
   // If remove is passed, then call the removeTag method
   // Otherwise call the tag method

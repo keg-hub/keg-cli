@@ -20,19 +20,40 @@ const addContainerDir = (location, override = `container`) => {
 }
 
 /**
- * Gets all locations relative to the app root if it exists
+ * Adds the subfolder to all potential locations
  * @function
+ * @param {string} subFolder - Subfolder appended to search locations
  *
  * @returns {Object|boolean} - App paths if it exists or false
  */
-const getAppLocations = () => {
+const addSubFolder = (locations, subFolder) => {
+  return !subFolder || !locations || !locations.length
+    ? locations
+    : locations.reduce((acc, loc) => {
+        acc.push(loc, path.join(loc, subFolder))
+        return acc
+      }, [])
+}
+
+/**
+ * Gets all locations relative to the app root if it exists
+ * @function
+ * @param {Array<string>} location - Custom locations to generate the location from
+ * @param {string} subFolder - Subfolder appended to search locations
+ *
+ * @returns {Object|boolean} - App paths if it exists or false
+ */
+const getAppLocations = (subFolder) => {
   const appRoot = getAppRoot()
   const cwd = process.cwd()
 
-  const appLocs =
-    !appRoot || path.normalize(cwd) !== path.normalize(appRoot) ? [cwd] : []
+  const appLocs = !appRoot || path.normalize(cwd) !== path.normalize(appRoot)
+    ? [cwd]
+    : []
 
-  return appRoot ? [ ...appLocs, appRoot, addContainerDir(appRoot) ] : appLocs
+  return appRoot
+    ? addSubFolder([...appLocs, appRoot, addContainerDir(appRoot)], subFolder)
+    : addSubFolder(appLocs, subFolder)
 }
 
 /**
@@ -202,11 +223,18 @@ const generateLocPath = (locations, defLocs, fileNames) => {
  *
  * @return {Object} - Contains the yam and env file locations to load
  */
-const generateLoadPaths = ({ locations = noPropArr, ...opts }) => {
+const generateLoadPaths = ({ locations = noPropArr, subFolder, ...opts }) => {
   const fileNames = buildFileNames(opts)
-  const defLocs = [ ...getAppLocations(), GLOBAL_CONFIG_FOLDER ]
+  const defLocs = [
+    ...getAppLocations(subFolder),
+    GLOBAL_CONFIG_FOLDER
+  ]
 
-  return generateLocPath(locations, defLocs, fileNames)
+  return generateLocPath(
+    addSubFolder(locations, subFolder),
+    defLocs,
+    fileNames
+  )
 }
 
 /**
@@ -225,6 +253,7 @@ const generateLoadPaths = ({ locations = noPropArr, ...opts }) => {
  * @param {string} config.data - Data to fill the config files if they are templates
  * @param {string} config.format - Type that should be returned (string || Object)
  * @param {string} [config.ymlName='values'] - The reference name of the values file
+ * @param {string} config.subFolder - Subfolder search thats appended to generated location file
  * @param {Array<string>|string} [config.ymlPath='env'] - Path to the env that exist on the yml object
  *
  * @return {Object} - Loaded config file ENVs

@@ -1,4 +1,3 @@
-const { getServiceArgs } = require('./getServiceArgs')
 const { runInternalTask } = require('@keg-hub/cli-utils')
 
 /**
@@ -11,10 +10,20 @@ const { runInternalTask } = require('@keg-hub/cli-utils')
  */
 const mutagenService = async (args, argsExt) => {
   // Create the mutagen sync
-  return runInternalTask('mutagen.tasks.create', getServiceArgs(
-    { ...args, __internal: { ...args.__internal, skipExists: true } },
-    argsExt
-  ))
+  return runInternalTask('mutagen.tasks.create', {
+    ...args,
+    __internal: {
+      ...args.__internal,
+      skipThrow: true,
+      skipError: true,
+      skipExists: true,
+    },
+    params: {
+      ...args.params,
+      force: true,
+      ...argsExt
+    }
+  })
 }
 
 module.exports = {

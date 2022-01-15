@@ -1,9 +1,6 @@
 const { git } = require('@keg-hub/git-lib')
-const { getGitPath } = require('KegUtils/git')
-const { Logger } = require('@keg-hub/cli-utils')
 const { generalError } = require('KegUtils/error')
-const { throwNoGitBranch } = require('KegUtils/error/throwNoGitBranch')
-
+const { resolveBestPath, Logger } = require('@keg-hub/cli-utils')
 
 /**
  * Git branch task
@@ -13,7 +10,7 @@ const { throwNoGitBranch } = require('KegUtils/error/throwNoGitBranch')
  * @property {Object} args.tasks - All registered tasks of the CLI
  * @property {Object} args.params
  * @property {Object} args.params.context - passed in context of the cmd
- * @property {Object} args.params.repoPath - path for the repo locally
+ * @property {Object} args.params.location - path for the repo locally
  * @property {Object} args.params.tap - name of the tap
  * @property {Object} globalConfig - Global config object for the keg-cli
  * 
@@ -23,15 +20,12 @@ const currentBranch = async args => {
 
   const { params,  globalConfig, __internal={} } = args
   const { skipLog } = __internal
-  const { context, path: repoPath, tap } = params
+  const { context, location:repoPath, tap } = params
 
   // Get the path to the repo
-  let location = repoPath || context && getGitPath(globalConfig, tap || context)
+  let location = resolveBestPath(params, globalConfig)
 
-  // // Ensure a repo path could be found
-  ;(repoPath || context) && !location && throwNoGitBranch(repoPath || context)
-
-  const curBranch = await git.branch.current({ location: location || process.cwd()})
+  const curBranch = await git.branch.current({location})
 
   // If no current branch, then throw error
   // Otherwise log the current branch
@@ -57,7 +51,7 @@ module.exports = {
         description: `Name or context to use when finding the current git branch`,
         enforce: true
       },
-      path: {
+      location: {
         description: `Full path location of a repository to get the current branch from. Overrides "context" option`,
         enforce: true
       },

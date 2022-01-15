@@ -1,7 +1,7 @@
 const { Logger } = require('@keg-hub/cli-utils')
+const { getImgNameContext } = require('@keg-hub/docker-lib')
 const { getImageRef } = require('KegUtils/docker/getImageRef')
 const { throwNoDockerImg } = require('KegUtils/error/throwNoDockerImg')
-const { getImgNameContext } = require('KegUtils/getters/getImgNameContext')
 
 /**
  * Get a docker image object

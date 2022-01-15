@@ -3,7 +3,6 @@ module.exports = {
   ...require('./composeService'),
   ...require('./destroyService'),
   ...require('./getServiceArgs'),
-  ...require('./mutagenService'),
   ...require('./packageService'),
   ...require('./pullService'),
   ...require('./restartService'),

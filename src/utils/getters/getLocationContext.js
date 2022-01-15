@@ -1,7 +1,5 @@
-const { throwNoConfigPath } = require('../error')
 const { getContainerConst } = require('../docker/getContainerConst')
-const { getTapPath, getPathFromConfig } = require('@keg-hub/cli-utils')
-
+const { error, getTapPath, getPathFromConfig } = require('@keg-hub/cli-utils')
 
 
 /**
@@ -38,7 +36,7 @@ const getConfigLocation = (task, globalConfig, context, tap) => {
     // If it's a repoContext, then get the location for the repo from the context
     : context !== 'tap'
       ? getContainerConst(context, `env.keg_context_path`)
-      : getTapPath(globalConfig, tap)
+      : getTapPath(tap, globalConfig)
 }
 
 /**
@@ -58,7 +56,7 @@ const getLocationContext = ({ context, globalConfig, __injected={}, tap, task })
     : getConfigLocation(task, globalConfig, context, tap)
 
   // Return the location, or throw because no location could be found
-  return location || throwNoConfigPath(globalConfig, tap || context)
+  return location || error.throwNoConfigPath(globalConfig, tap || context)
 
 }
 

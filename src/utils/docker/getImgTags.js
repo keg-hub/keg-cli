@@ -1,6 +1,7 @@
 const { get } = require('@keg-hub/jsutils')
+const { getImgNameContext } = require('@keg-hub/docker-lib')
 const { getCommitTag } = require('KegUtils/package/getCommitTag')
-const { getImgNameContext } = require('KegUtils/getters/getImgNameContext')
+
 
 /**
  * Gets the correct image tags to be used to when creating the image

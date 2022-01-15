@@ -1,8 +1,6 @@
 const { git } = require('@keg-hub/git-lib')
-const { Logger } = require('@keg-hub/cli-utils')
-const { generalError } = require('KegUtils/error')
 const { confirmExec } = require('@keg-hub/ask-it')
-const { getGitPath } = require('KegUtils/git/getGitPath')
+const { resolveBestPath, Logger } = require('@keg-hub/cli-utils')
 
 /**
  * Git branch reset task
@@ -15,21 +13,20 @@ const { getGitPath } = require('KegUtils/git/getGitPath')
  */
 const branchReset = async (args) => {
   const { globalConfig, params, __internal={} } = args
-  const { context, location, log, tap, confirm, force } = params
+  const { log, confirm, force } = params
   const { __skipLog } = __internal
-  const gitPath = getGitPath(globalConfig, tap || context) || location
-  !gitPath && generalError(`Git path does not exist for ${ tap || context || location }`)
+  const location = resolveBestPath(params, globalConfig)
 
   Logger.empty()
 
   confirmExec({
-    confirm: `This permanently deletes all un-tracked files from ${gitPath}.\nAre you sure?`,
+    confirm: `This permanently deletes all un-tracked files from ${location}.\nAre you sure?`,
     success: `Git branch reset success!`,
     cancel: `Git branch reset canceled!`,
     preConfirm: force || confirm === false ? true : false,
     execute: async () => {
       // Make call to reset the git branch
-      const resp = await git.branch.reset({ location: gitPath, log: !__skipLog && log })
+      const resp = await git.branch.reset({ location, log: !__skipLog && log })
 
       log && Logger.log(resp)
       Logger.empty()
@@ -57,7 +54,6 @@ module.exports = {
       location: {
         description: 'Location of the git repo to clean',
         example: 'keg git branch reset --location /path/to/my/repo',
-        default: process.cwd()
       },
       confirm: {
         description: 'Confirm before resetting the branch.',

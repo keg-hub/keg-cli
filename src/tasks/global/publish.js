@@ -1,7 +1,6 @@
 const { spawnCmd } = require('@keg-hub/spawn-cmd')
-const { getRepoPath } = require('KegUtils/getters/getRepoPath')
 const { reduceObj, isStr, isBool } = require('@keg-hub/jsutils')
-const { throwNoConfigPath } = require('KegUtils/error/throwNoConfigPath')
+const { resolveBestPath, error } = require('@keg-hub/cli-utils')
 
 /**
  * NP options map - Maps keg-cli task options to np options
@@ -61,15 +60,15 @@ const getNpOptions = params => {
  * @returns {void}
  */
 const publishPackage = async args => {
-  const { command, globalConfig, options, params, tasks } = args
+  const { globalConfig, params } = args
   const { context, location } = params
   
   const npArgs = getNpOptions(params)
-  const contextPath = location || getRepoPath(context)
+  const contextPath = resolveBestPath(params, globalConfig)
 
   contextPath
     ? await spawnCmd(`np`, { args: npArgs, cwd: contextPath })
-    : throwNoConfigPath(globalConfig, location || context)
+    : error.throwNoConfigPath(globalConfig, location || context)
 
 }
 

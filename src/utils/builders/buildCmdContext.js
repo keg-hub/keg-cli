@@ -25,8 +25,8 @@ const buildCmdContext = async ({ globalConfig, params, askFor }) => {
 
   // Check if the context or the tap, has a tap path
   // This allow passing the tap in as the context
-  const hasTapPath = getTapPath(globalConfig, context) ||
-    ( tap && getTapPath(globalConfig, tap) )
+  const hasTapPath = getTapPath(context, globalConfig) ||
+    ( tap && getTapPath(tap, globalConfig) )
 
   // Get the context the command should be run in
   // If there is a tap path, then use the tap, else use the context || defContext

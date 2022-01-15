@@ -1,3 +1,5 @@
 module.exports = {
-  ...require('./getPackageRoot')
+  ...require('./getRepoPath'),
+  ...require('./getPackageRoot'),
+  ...require('./resolveBestPath'),
 }

@@ -1,7 +1,7 @@
 const { addComposeConfigs } = require('./addComposeConfigs')
+const { getImgNameContext } = require('@keg-hub/docker-lib')
 const { getComposeContextData } = require('./getComposeContextData')
 const { get, exists, reduceObj, noOpObj } = require('@keg-hub/jsutils')
-const { getImgNameContext } = require('../../getters/getImgNameContext')
 const { addBuildPlatform } = require('../addBuildPlatform')
 
 /**

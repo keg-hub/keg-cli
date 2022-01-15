@@ -12,7 +12,7 @@ const { GLOBAL_CONFIG_PATHS } = constants
  * @returns {boolean} - If the link should be added
  */
 const ensureRemoveLink = async (globalConfig, name) => {
-  return getTapPath(globalConfig, name)
+  return getTapPath(name, globalConfig)
     ? ask.confirm(`Are you sure you want to unlink '${name}' tap?`)
     : false
 }

@@ -1,5 +1,6 @@
 const { Logger } = require('../logger/logger')
 const { noOpObj } = require('@keg-hub/jsutils')
+const { throwTaskFailed } = require('./throwTaskFailed')
 
 /*
  * Helper to log an error message
@@ -70,21 +71,10 @@ const throwNoTask = task => {
   throwTaskFailed()
 }
 
-/**
- * Throws task failed error
- * @function
- * @private
- *
- * @returns {void}
- */
-const throwTaskFailed = () => {
-  throw new Error(`Task failed!`)
-}
 
 module.exports = {
   throwError,
   throwExitError,
   throwNoTask,
   throwNoAction,
-  throwTaskFailed,
 }

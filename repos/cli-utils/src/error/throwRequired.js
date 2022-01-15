@@ -1,5 +1,5 @@
 const { Logger } = require('../logger/logger')
-const { throwTaskFailed } = require('./error')
+const { throwTaskFailed } = require('./throwTaskFailed')
 
 /**
  * Formats and throws an error when a required argument is not included

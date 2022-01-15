@@ -1,1 +1,5 @@
-module.exports = require('./buildContext')
+module.exports = {
+  ...require('./buildContext'),
+  ...require('./getContextEnvs'),
+  ...require('./getImgNameContext'),
+}

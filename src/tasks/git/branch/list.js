@@ -1,10 +1,8 @@
 const { ask } = require('@keg-hub/ask-it')
-const { Logger } = require('@keg-hub/cli-utils')
 const { git } = require('@keg-hub/git-lib')
-const { isNum, exists } = require('@keg-hub/jsutils')
-const { getGitPath } = require('KegUtils/git/getGitPath')
 const { generalError } = require('KegUtils/error')
-
+const { isNum, exists } = require('@keg-hub/jsutils')
+const { resolveBestPath, Logger } = require('@keg-hub/cli-utils')
 
 /**
  * Checks for a matching branch name based on the passed in branch
@@ -23,27 +21,34 @@ const getBranchByName = (branch, branches) => {
 
 /**
  * Git branch list task. Also allows switching branches
- * @param {string} branch - Branch to run action on
- * @param {Array} branches - Array of all current branches
- * @param {Object} location - Location of the repo for the branches
- * @param {Object} params - Parsed options from the cmd line
+ * @param {Object} args - arguments passed from the runTask method
+ * @property {string} args.command - Initial command being run
+ * @property {Array} args.options - arguments passed from the command line
+ * @property {Object} args.tasks - All registered tasks of the CLI
+ * @param {Object} args.params - Parsed options from the cmd line
+ * @param {string} args.params.branch - Branch to run action on
+ * @param {Object} args.params.location - Location of the repo for the branches
  *
- * @returns {void}
+ * @returns {Object} - containing all branches, and the git repo location
  */
 const branchList = async (args) => {
   const { globalConfig, params, __internal={} } = args
-  const { branch, context, location, log, tap } = params
+  const { branch, log } = params
   const { __skipLog } = __internal
-  const gitPath = getGitPath(globalConfig, tap || context) || location
-  !gitPath && generalError(`Git path does not exist for ${ tap || context || location }`)
+  const location = resolveBestPath(params, globalConfig)
 
-  const branches = await git.branch.list(gitPath)
+  const branches = await git.branch.list(location)
 
   // Check if we should print the branch list
   !__skipLog && log && git.utils.printBranches(branches)
 
   // If no branch, just return the response
-  if(!exists(branch)) return { branches, location: gitPath, __internal: {} }
+  if(!exists(branch))
+    return {
+      branches,
+      location,
+      __internal: {},
+    }
 
   // Try to get the branch by name
   const branchName = getBranchByName(branch, branches)
@@ -64,13 +69,23 @@ const branchList = async (args) => {
   // Checkout the found branch
   Logger.empty()
   useBranch
-    ? await git.repo.checkout({ branch: useBranch, location, log: exists(__skipLog) ? !__skipLog : log })
-    : generalError(`Could not find the git branch from "${ branch }"\nEnsure the branch name or index is correct!`)
+    ? await git.repo.checkout({
+        location,
+        branch: useBranch,
+        log: exists(__skipLog) ? !__skipLog : log
+      })
+    : generalError(
+        `Could not find the git branch from "${ branch }"\nEnsure the branch name or index is correct!`
+      )
+
   Logger.empty()
 
   // return with __internal switched true, so we know branches were already switched
-  return { branches, location: gitPath, __internal: { switched: true } }
-
+  return {
+    location,
+    branches,
+    __internal: { switched: true }
+  }
 }
 
 module.exports = {
@@ -93,7 +108,6 @@ module.exports = {
         alias: [ 'loc' ],
         description: `Location when the git branch command will be run`,
         example: 'keg git branch location=<path/to/git/repo>',
-        default: process.cwd()
       },
       tap: {
         description: 'Name of the tap to build a Docker image for',

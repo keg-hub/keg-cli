@@ -51,7 +51,7 @@ const open = async args => {
     }
     default: {
       logText = `Opening ${ toOpen } folder!`
-      openPath = getPathFromConfig(globalConfig, toOpen) || getTapPath(globalConfig, toOpen)
+      openPath = getPathFromConfig(globalConfig, toOpen) || getTapPath(toOpen, globalConfig)
       break
     }
     // Add other open cases here

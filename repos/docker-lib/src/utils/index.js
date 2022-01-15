@@ -10,5 +10,6 @@ module.exports = {
   ...require('./exitCodes'),
   ...require('./formatParams'),
   ...require('./isDockerId'),
+  ...require('./getImgFrom'),
   ...require('./validateOpts'),
 }

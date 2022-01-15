@@ -5,7 +5,6 @@ const { getImageRef } = require('KegUtils/docker/getImageRef')
 const { generalError } = require('KegUtils/error/generalError')
 const { Logger, runInternalTask } = require('@keg-hub/cli-utils')
 const { throwNoDockerImg } = require('KegUtils/error/throwNoDockerImg')
-const { getImgNameContext } = require('KegUtils/getters/getImgNameContext')
 const { isValidProviderUrl } = require('KegUtils/helpers/isValidProviderUrl')
 const { mergeTaskOptions } = require('KegUtils/task/options/mergeTaskOptions')
 
@@ -61,7 +60,7 @@ const providerPush = async (args) => {
   * ----------- Step 1 ----------- *
   * Get the Image name context and inspect meta data
   */
-  const imgNameContext = __internal.imgNameContext || await getImgNameContext(params)
+  const imgNameContext = __internal.imgNameContext || await docker.getImgNameContext(params)
   const { imgRef } = isObj(__internal.imgRef) && __internal || await getImageRef(imgNameContext)
 
   /*

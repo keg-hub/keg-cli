@@ -1,9 +1,7 @@
-const { Logger } = require('@keg-hub/cli-utils')
+const { generalError } = require('KegUtils/error')
 const { spawnCmd } = require('@keg-hub/spawn-cmd')
-const { getGitPath } = require('KegUtils/git/getGitPath')
 const { isInt, toInt, exists } = require('@keg-hub/jsutils')
-const { throwNoConfigPath, generalError } = require('KegUtils/error')
-
+const { resolveBestPath, Logger } = require('@keg-hub/cli-utils')
 
 /**
  * Git log task
@@ -23,11 +21,7 @@ const checkout = async args => {
 
   !exists(prNum) && generalError(`A pull request number is required!`)
 
-  const location = !tap && ! context
-    ? process.cwd()
-    : await getGitPath(tap || context)
-
-  !location && throwNoConfigPath(globalConfig, tap || context)
+  const location = resolveBestPath(params, globalConfig)
 
   const cmdStr = `gh pr checkout ${ prNum }`
   log && Logger.pair(`Running command: `, cmdStr)

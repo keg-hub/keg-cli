@@ -1,6 +1,6 @@
-const { mutagenService } = require('./mutagenService')
 const { getServiceArgs } = require('./getServiceArgs')
 const { buildContainerSync } = require('./syncService')
+const { mutagenService } = require('@keg-hub/mutagen-lib')
 const { buildExecParams } = require('../docker/buildExecParams')
 const { getContainerCmd } = require('../docker/getContainerCmd')
 const { Logger, runInternalTask } = require('@keg-hub/cli-utils')

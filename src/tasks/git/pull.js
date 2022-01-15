@@ -1,8 +1,7 @@
-const { Logger } = require('@keg-hub/cli-utils')
 const { git } = require('@keg-hub/git-lib')
 const { exists } = require('@keg-hub/jsutils')
-const { getGitPath } = require('KegUtils/git')
 const { generalError } = require('KegUtils/error')
+const { resolveBestPath, Logger } = require('@keg-hub/cli-utils')
 
 /**
  * Git pull task
@@ -17,8 +16,8 @@ const { generalError } = require('KegUtils/error')
 const gitPullRepo = async args => {
   const { params,  globalConfig, __internal={} } = args
   const { skipLog } = __internal
-  const { context, location: repoPath, tap, env, log, ...pullParams } = params
-  const location = repoPath || context && getGitPath(globalConfig, tap || context) || process.cwd()
+  const { context, location:repoPath, tap, env, log, ...pullParams } = params
+  const location = resolveBestPath(params, globalConfig)
   
   const { data, exitCode } = await git.branch.pull({ ...pullParams, log: exists(skipLog) && !skipLog || log, location })
 

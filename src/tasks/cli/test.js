@@ -1,6 +1,6 @@
 const { spawnCmd } = require('@keg-hub/spawn-cmd')
-const { getRepoPath } = require('KegUtils/getters/getRepoPath')
-const { throwNoConfigPath } = require('KegUtils/error/throwNoConfigPath')
+const { getRepoPath, error } = require('@keg-hub/cli-utils')
+const { throwNoConfigPath } = error
 
 /**
  * Gets the type of tests to run

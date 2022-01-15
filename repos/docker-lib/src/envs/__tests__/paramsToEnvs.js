@@ -28,17 +28,16 @@ const testArgs = {
 }
 
 const defArgs = { env: 'develop', command: 'run', install: true, local: true }
-const contextEnv = { KEG_FOO: 'BAR', KEG_BAZ: 'BAS' }
 
-const { convertParamsToEnvs } = require('../buildContextEnvs')
+const { paramsToEnvs } = require('../paramsToEnvs')
 
-describe('convertParamsToEnvs', () => {
+describe('paramsToEnvs', () => {
 
   afterAll(() => jest.resetAllMocks())
 
   it('should return an object of ENVs based off params', async () => {
 
-    const converted = await convertParamsToEnvs(defArgs)
+    const converted = await paramsToEnvs(defArgs)
 
     expect(isObj(converted)).toBe(true)
     expect(converted.NODE_ENV).toBe('develop')
@@ -46,7 +45,7 @@ describe('convertParamsToEnvs', () => {
     expect(converted.KEG_NM_INSTALL).toBe(true)
     expect(converted.KEG_COPY_LOCAL).toBe(true)
     
-    const converted2 = await convertParamsToEnvs({
+    const converted2 = await paramsToEnvs({
       ...defArgs,
       install: false,
       command: 'duper'
@@ -57,6 +56,6 @@ describe('convertParamsToEnvs', () => {
 
   })
 
-  testEnum(testArgs, convertParamsToEnvs)
+  testEnum(testArgs, paramsToEnvs)
 
 })

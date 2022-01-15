@@ -1,6 +1,10 @@
-const { getKegGlobalConfig } = require('@keg-hub/cli-utils')
-const { getRepoPath } = require('KegUtils/getters/getRepoPath')
-const { constants, getDefaultEnv } = require('@keg-hub/cli-utils')
+
+const {
+  constants,
+  getRepoPath,
+  getDefaultEnv,
+  getKegGlobalConfig
+} = require('@keg-hub/cli-utils')
 
 const { CLI_ROOT, GLOBAL_CONFIG_FOLDER } = constants
 

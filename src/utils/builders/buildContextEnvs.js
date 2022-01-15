@@ -1,9 +1,9 @@
 const { getKegSetting } = require('@keg-hub/cli-utils')
 const { buildTapContext } = require('./buildTapContext')
+const { getImgNameContext } = require('@keg-hub/docker-lib')
 const { exists, toBool, isStr } = require('@keg-hub/jsutils')
 const { getPublicGitKey } = require('../git/getPublicGitKey')
 const { getContainerConst } = require('../docker/getContainerConst')
-const { getImgNameContext } = require('../getters/getImgNameContext')
 
 /**
  * Gets the copy local flag from params || container ENVs || cli settings

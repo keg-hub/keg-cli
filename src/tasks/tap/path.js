@@ -11,7 +11,7 @@ const printPath = args => {
 
   !tap && generalError('Cannot print config without a tap parameter.')
 
-  const tapPath = getTapPath(args.globalConfig, tap)
+  const tapPath = getTapPath(tap, args.globalConfig)
   const [ , configPath ] = getTapConfig({ name: tap })
   const [ , packagePath ] = getTapPackage({ name: tap })
   

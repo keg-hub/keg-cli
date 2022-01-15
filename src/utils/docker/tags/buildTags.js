@@ -1,6 +1,6 @@
 const { getDefaultEnv } = require('@keg-hub/cli-utils')
+const { getImgNameContext } = require('@keg-hub/docker-lib')
 const { tagFromVersion } = require('KegUtils/docker/tags/tagFromVersion')
-const { getImgNameContext } = require('KegUtils/getters/getImgNameContext')
 const { tagFromVariables } = require('KegUtils/docker/tags/tagFromVariables')
 const { getRepoGitTag, tagsFromParams } = require('KegUtils/docker/tags/tagHelpers')
 

@@ -1,6 +1,4 @@
 const docker = require('@keg-hub/docker-lib')
-const { isBool } = require('@keg-hub/jsutils')
-const { getImgNameContext } = require('../getters/getImgNameContext')
 const { generalError } = require('../error/generalError')
 
 /**
@@ -22,7 +20,7 @@ const checkImageExists = async params => {
 
   // Get the image name context,
   // So we can search for the image with tag and the full provider
-  const { imageWTag, providerImage } = await getImgNameContext(params)
+  const { imageWTag, providerImage } = await docker.getImgNameContext(params)
 
   let exists = await docker.image.get(imageWTag)
 

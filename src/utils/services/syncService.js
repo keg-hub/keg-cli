@@ -1,12 +1,48 @@
-const { get, noOpObj, isStr } = require('@keg-hub/jsutils')
 const { actionService } = require('./actionService')
 const { getServiceArgs } = require('./getServiceArgs')
-const { Logger, runInternalTask } = require('@keg-hub/cli-utils')
+const { getContextEnv } = require('@keg-hub/docker-lib')
 const { generalError } = require('../error/generalError')
-const { getLocalPath } = require('../getters/getLocalPath')
-const { getRemotePath } = require('../getters/getRemotePath')
+const { get, noOpObj, isStr } = require('@keg-hub/jsutils')
 const { parseActionName } = require('../actions/parseActionName')
 const { buildContainerContext } = require('../builders/buildContainerContext')
+const { getRepoPath, Logger, runInternalTask } = require('@keg-hub/cli-utils')
+
+
+/**
+ * Gets the path in the docker container the sync will use
+ * @param {Object} globalConfig - Global config object for the keg-cli
+ * @param {string} context - Context or name of the container to get the remote path from
+ * @param {string} dependency - Name contained in an ENV that defines the path in docker
+ * @param {string} remote - Path in the docker container where the sync will be created
+ *
+ * @returns {string}
+ */
+const getRemotePath = async (globalConfig, context, dependency, remote) => {
+  return remote || await getContextEnv(
+    context,
+    `DOC_${ dependency.toUpperCase() }_PATH`,
+    undefined,
+    globalConfig
+  )
+}
+
+/**
+ * Gets the local path the sync will use
+ * @param {Object} globalConfig - Global config object for the keg-cli
+ * @param {string} context - Context or name of the container to get the remote path from
+ * @param {string} local - Local path where the sync will be created
+ * @param {string} dependency - Name contained in an ENV that defines the path in docker
+ *
+ * @returns {string}
+ */
+const getLocalPath = async (globalConfig, context, dependency, local) => {
+  return local || await getContextEnv(
+    context,
+    `${ dependency.toUpperCase() }_PATH`,
+    getRepoPath(dependency, globalConfig),
+    globalConfig
+  )
+}
 
 /**
  * Builds a mutagen sync between local and a docker container
@@ -33,10 +69,10 @@ const buildContainerSync = async (args, argsExt) => {
   const containerContext = await buildContainerContext(serviceArgs)
   const { context, id } = containerContext
 
-  const localPath = getLocalPath(globalConfig, context, dependency, local)
+  const localPath = await getLocalPath(globalConfig, context, dependency, local)
   !localPath && generalError(`Local path could not be found!`)
 
-  const remotePath = getRemotePath(context, dependency, remote)
+  const remotePath = await getRemotePath(globalConfig, context, dependency, remote)
   const dependencyName = parseActionName(dependency, remotePath)
 
   // Create the mutagen sync

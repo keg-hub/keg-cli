@@ -21,8 +21,6 @@ jest.setMock('../../env/env', {
 const {
   writeYmlFile,
   removeYmlFile,
-  ymlSearchPaths,
-  envSearchPaths,
 } = require('../../__mocks__')
 
 const mocksDir = path.join(__dirname, '../../__mocks__')

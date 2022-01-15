@@ -26,7 +26,7 @@ const getBuildArgs = async (globalConfig, params, dockerCmd='') => {
   const gitKey = await getGitKey(globalConfig)
   const tapUrl = tap &&
     context ==='tap' &&
-    await git.utils.remoteUrl(getTapPath(globalConfig, tap))
+    await git.utils.remoteUrl(getTapPath(tap, globalConfig))
 
   // Add the context build ENVs to the command
   dockerCmd = docker.toBuildArgs(buildArgs, dockerCmd, get(containerOpts, 'BUILD_ARGS_FILTER'))

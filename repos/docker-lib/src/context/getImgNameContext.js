@@ -1,7 +1,7 @@
-const docker = require('@keg-hub/docker-lib')
-const { getImgFrom } = require('./getImgFrom')
-const { getKegContext } = require('./getKegContext')
-const { getContainerConst } = require('../docker/getContainerConst')
+const { get:imgGet } = require('../image/get')
+const { getContextEnv } = require('./getContextEnvs')
+const { getImgFrom } = require('../utils/getImgFrom')
+const { isDockerId } = require('../utils/isDockerId')
 const { get, isObj, noOpObj, isStr, exists } = require('@keg-hub/jsutils')
 const { getKegSetting, getKegGlobalConfig } = require('@keg-hub/cli-utils')
 
@@ -11,13 +11,32 @@ const { getKegSetting, getKegGlobalConfig } = require('@keg-hub/cli-utils')
  * @param {string} tag - custom tag to use for a docker image
  * @param {string} context - Current context of the task being run
  * @param {string} [image=''] - Name of the docker image to get the tag for
+ * @param {string} env - The current env of the running task
  *
  * @returns {string} - Found image tag
  */
-const getImgTag = (tag, context, image) => {
+const getImgTag = (tag, context, image, {tap, ...params}) => {
   return tag ||
     (isStr(image) && image.includes(':') && image.split(':')[1]) ||
-    getContainerConst(context, 'env.keg_image_tag', getKegSetting('docker.defaultTag'))
+    getContextEnv(
+      {...params, context},
+      'keg_image_tag',
+      getKegSetting('docker.defaultTag')
+    )
+}
+
+/**
+ * Helper to check if the name is prefixed with `keg`
+ * If it is, remove it. This allows passing in "keg-core" or just "core"
+ * @function
+ * @param {string} name - Name to check for a keg prefix
+ *
+ * @returns {string} - Passed in name without `keg`
+ */
+const removeKegPrefix = name => {
+  name.indexOf('keg') === 0
+    ? name.replace(/^keg-/, '').replace(/^keg/, '')
+    : name
 }
 
 /**
@@ -119,7 +138,12 @@ const getBaseFromEnv = (context, params) => {
   const nameAndTag = getTagFromName(nameAndUrl.image)
 
   // Ensure a tag is set, use the default if one does not exist
-  nameAndTag.tag = getImgTag(nameAndTag.tag, context, nameAndUrl.image)
+  nameAndTag.tag = getImgTag(
+    nameAndTag.tag,
+    context,
+    nameAndUrl.image,
+    params
+  )
 
   return {
     ...nameAndUrl,
@@ -170,19 +194,17 @@ const checkDockerId = async (params, imgRef) => {
   const { context, image, tag } = params
   const docImg = isObj(imgRef) && imgRef.repository && imgRef.rootId
     ? imgRef
-    : docker.isDockerId(image)
-      ? await docker.image.get(image)
-      : docker.isDockerId(context) && await docker.image.get(context)
+    : isDockerId(image)
+      ? await imgGet(image)
+      : isDockerId(context) && await imgGet(context)
 
-  const response = isObj(docImg)
-    ? {
+  return !isObj(docImg)
+    ? params
+    : {
         ...params,
         image: docImg.repository || docImg.rootId || image,
         tag: tag || docImg.tag || isArr(docImg.tags) && docImg.tags[0],
       }
-    : params
-
-  return response
 }
 
 /**
@@ -236,7 +258,7 @@ const checkFromParam = params => {
  *
  * @returns {Object} - Parse image data
  */
-const getImgNameContext = async (params, imgRef) => {
+const getImgNameContext = async (params, imgRef, globalConfig=getKegGlobalConfig()) => {
   const fromParams = exists(params.from) ? checkFromParam(params) : params
 
   const {
@@ -256,11 +278,9 @@ const getImgNameContext = async (params, imgRef) => {
   // Get the tag from the image name
   const nameAndTag = getTagFromName(nameAndUrl.image, tag)
   const baseFromEnv = getBaseFromEnv(
-    getKegContext(tap || context || nameAndTag.image),
+    removeKegPrefix(tap || context || nameAndTag.image),
     params,
   )
-
-  const globalConfig = getKegGlobalConfig()
 
   // The the image name and tag from the passed in params or KEG_IMAGE_FROM
   return buildImgVariants({

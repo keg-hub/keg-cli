@@ -5,7 +5,6 @@ const { Logger } = require('@keg-hub/cli-utils')
 const { imageSelect } = require('KegUtils/docker/imageSelect')
 const { throwRequired, generalError } = require('KegUtils/error')
 const { containerSelect } = require('KegUtils/docker/containerSelect')
-const { getImgNameContext } = require('KegUtils/getters/getImgNameContext')
 const { getWithStringKeys } = require('KegUtils/getters/getWithStringKeys')
 
 
@@ -71,7 +70,7 @@ const inspectContainer = async context => {
  */
 const inspectImg = async context => {
   // Ensure we have the full url of the image
-  const { imageWTag } = await getImgNameContext({ context })
+  const { imageWTag } = await docker.getImgNameContext({ context })
 
   // Get the id of the image, so we can use that for inspecting instead of the url
   // This allows inspecting all images, even ones without the provider url

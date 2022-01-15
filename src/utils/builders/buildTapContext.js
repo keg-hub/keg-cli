@@ -1,8 +1,9 @@
 const { git } = require('@keg-hub/git-lib')
-const { getTapPath } = require('@keg-hub/cli-utils')
-const { generalError, throwNoTapLink } = require('../error')
+const { generalError } = require('../error')
+const { getTapPath, error } = require('@keg-hub/cli-utils')
 const { CONTEXT_TO_CONTAINER } = require('KegConst/constants')
 
+const { throwNoTapLoc } = error
 const internalContexts = Object.keys(CONTEXT_TO_CONTAINER)
 
 /**
@@ -27,12 +28,13 @@ const buildTapContext = async ({ globalConfig, cmdContext, tap, envs }) => {
     `The 'tap' argument is required when no 'context' argument exists or 'context' is set to 'tap' when running this task!`
   )
 
-  const tapPath = getTapPath(globalConfig, tap)
+  const tapPath = getTapPath(tap, globalConfig)
+
 
   const tapUrl = tapPath && await git.utils.remoteUrl(tapPath)
 
   return !tapPath
-    ? throwNoTapLink(globalConfig, tap)
+    ? throwNoTapLoc(globalConfig, tap)
     : {
         ...envs,
         KEG_CONTEXT_PATH: tapPath,

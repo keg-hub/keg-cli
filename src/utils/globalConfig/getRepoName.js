@@ -25,7 +25,7 @@ const getKegRepo = (globalConfig, repoKey) => {
  */
 const getTapRepo = async (globalConfig, tap) => {
 
-  const tapPath = getTapPath(globalConfig, tap)
+  const tapPath = getTapPath(tap, globalConfig)
   const remotes = await git.remote.list(tapPath)
 
   return remotes && remotes.length

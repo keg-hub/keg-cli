@@ -108,6 +108,9 @@ const mutagenCreate = async args => {
     globalConfig,
   })
 
+  console.log(`------- contextData -------`)
+  console.log(contextData)
+
   // Mutagen requires the container be running before the sync can be created
   // So check if the container id exists, if no id then throw
   !contextData.id &&

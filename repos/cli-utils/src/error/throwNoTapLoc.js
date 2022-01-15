@@ -1,7 +1,7 @@
-const { get } = require('@keg-hub/jsutils')
-const { throwTaskFailed } = require('./error')
 const { Logger } = require('../logger/logger')
+const { get, mapObj } = require('@keg-hub/jsutils')
 const { GLOBAL_CONFIG_PATHS } = require('../constants')
+const { throwTaskFailed } = require('./throwTaskFailed')
 
 /*
  * Helper to log an error message when a tap link location can not be found

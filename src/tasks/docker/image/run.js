@@ -5,7 +5,6 @@ const { constants } = require('@keg-hub/cli-utils')
 const { getImageRef } = require('KegUtils/docker/getImageRef')
 const { throwNoDockerImg } = require('KegUtils/error/throwNoDockerImg')
 const { buildContextEnvs } = require('KegUtils/builders/buildContextEnvs')
-const { getImgNameContext } = require('KegUtils/getters/getImgNameContext')
 const { mergeTaskOptions } = require('KegUtils/task/options/mergeTaskOptions')
 const { getImgInspectContext } = require('KegUtils/getters/getImgInspectContext')
 const { throwDupContainerName } = require('KegUtils/error/throwDupContainerName')
@@ -64,7 +63,7 @@ const runDockerImage = async args => {
   * ----------- Step 1 ----------- *
   * Get the Image name context and inspect meta data
   */
-  const imgNameContext = await getImgNameContext(params)
+  const imgNameContext = await docker.getImgNameContext(params)
   const { imgRef, refFrom } = await getImageRef(imgNameContext)
 
   // Ensure we have an image to reference

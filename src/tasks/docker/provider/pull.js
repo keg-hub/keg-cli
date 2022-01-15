@@ -1,6 +1,5 @@
 const docker = require('@keg-hub/docker-lib')
 const { noOpObj } = require('@keg-hub/jsutils')
-const { getImgNameContext } = require('KegUtils/getters/getImgNameContext')
 const { checkPulledNewImage } = require('KegUtils/docker/checkPulledNewImage')
 const { mergeTaskOptions } = require('KegUtils/task/options/mergeTaskOptions')
 
@@ -20,7 +19,7 @@ const providerPull = async args => {
   const { __internal=noOpObj, params } = args
 
   // Get the image name context, so we can pull the image
-  const imgNameContext = __internal.imgNameContext || await getImgNameContext(params)
+  const imgNameContext = __internal.imgNameContext || await docker.getImgNameContext(params)
 
   // Try to pull the image
   const { data, error, exitCode } = await docker.pull({ url: imgNameContext.full, pipe: true })
