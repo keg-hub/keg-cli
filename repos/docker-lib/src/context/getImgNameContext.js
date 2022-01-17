@@ -198,18 +198,18 @@ const findTruthyVal = (...args) => {
  * @returns {Object} - Updated params with image or passed in params
  */
 const checkDockerId = async (params, imgRef) => {
-  const { context, image, tag } = params
+  const { context, imageName, tag } = params
   const docImg = isObj(imgRef) && imgRef.repository && imgRef.rootId
     ? imgRef
-    : isDockerId(image)
-      ? await imgGet(image)
+    : isDockerId(imageName)
+      ? await imgGet(imageName)
       : isDockerId(context) && await imgGet(context)
 
   return !isObj(docImg)
     ? params
     : {
         ...params,
-        image: docImg.repository || docImg.rootId || image,
+        imageName: docImg.repository || docImg.rootId || imageName,
         tag: tag || docImg.tag || isArr(docImg.tags) && docImg.tags[0],
       }
 }
@@ -268,21 +268,22 @@ const checkFromParam = params => {
 const getImgNameContext = async (params, imgRef, globalConfig=getKegGlobalConfig()) => {
   const fromParams = exists(params.from) ? checkFromParam(params) : params
 
+  const docParams = await checkDockerId(fromParams, imgRef)
   const {
     tag,
     tap,
-    image,
     context,
     provider,
     namespace,
-  } = await checkDockerId(fromParams, imgRef)
+    imageName,
+  }  = docParams
 
   const existingContext = cliStore.context.get(`${tap}-${DOC_IMG_NAME_CONTEXT}`)
   if(existingContext) return existingContext
 
   // Separate the url, image and tag if needed
-  const nameAndUrl = image
-    ? getNameFromUrl(image, provider, namespace)
+  const nameAndUrl = imageName
+    ? getNameFromUrl(imageName, provider, namespace)
     : {}
 
   // Get the tag from the image name

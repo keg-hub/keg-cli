@@ -16,15 +16,8 @@ const {
  *
  * @returns {function} - Wrapped service function 
  */
-const serviceWrap = (service, options, existing, parentData) => {
-  const { services, contexts, globalOpts } = parentData
-
-  const wrapped = (...args) => service(
-    ...args,
-    services,
-    contexts,
-    globalOpts,
-  )
+const serviceWrap = (service, options, existing) => {
+  const wrapped = (...args) => service(...args)
 
   const { merge, pipe } = options
 
@@ -77,7 +70,6 @@ class Service {
       service,
       options,
       this.#parentData.services[name],
-      this.#parentData
     )
   }
 

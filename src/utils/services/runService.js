@@ -1,7 +1,6 @@
-const { proxyService } = require('./proxyService')
 const { get, deepMerge } = require('@keg-hub/jsutils')
 const { getServiceArgs } = require('./getServiceArgs')
-const { runInternalTask } = require('@keg-hub/cli-utils')
+const { cliStore, constants, runInternalTask } = require('@keg-hub/cli-utils')
 const { throwContainerNotFound } = require('KegUtils/error/throwContainerNotFound')
 
 /**
@@ -24,6 +23,7 @@ const runService = async (args, exArgs) => {
   const { sync, local, remote, connect, cmd } = params
 
   // Call the proxy service to make sure that is running
+  const proxyService = cliStore.service.get(constants.SERVICES.TAP_PROXY_SRV)
   await proxyService(args)
 
   // Step 1 - Run the docker container, but don't attach to it

@@ -1,7 +1,6 @@
 const { get } = require('@keg-hub/jsutils')
-const { proxyService } = require('./proxyService')
 const { getServiceArgs } = require('./getServiceArgs')
-const { runInternalTask } = require('@keg-hub/cli-utils')
+const { cliStore, constants, runInternalTask } = require('@keg-hub/cli-utils')
 
 /**
  * Creates a docker package for the passed in arguments
@@ -18,6 +17,7 @@ const packageService = async (args, argsExt) => {
   if(!isRun) return runInternalTask('docker.tasks.package', serviceArgs)
 
   // Call the proxy service to make sure that is running
+  const proxyService = cliStore.service.get(constants.SERVICES.TAP_PROXY_SRV)
   await proxyService(args)
 
   // Run the docker package task

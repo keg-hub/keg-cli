@@ -1,6 +1,7 @@
 const docker = require('@keg-hub/docker-lib')
-const { runInternalTask } = require('@keg-hub/cli-utils')
-const { checkEnvConstantValue } = require('KegUtils/helpers/checkEnvConstantValue')
+const { getServiceContext } = require('./utils/getServiceContext')
+const { checkEnvConstantValue } = require('./utils/checkEnvConstantValue')
+const { cliStore, constants, runInternalTask } = require('@keg-hub/cli-utils')
 
 /**
  * Checks if the proxy container exists, and if not, starts it
@@ -9,14 +10,13 @@ const { checkEnvConstantValue } = require('KegUtils/helpers/checkEnvConstantValu
  *
  * @returns {boolean} - True if the proxy container already exists
  */
-const proxyService = async args => {
-  const { params } = args
-  const { tap, context } = params
+const proxyService = async (args, contextData) => {
+  contextData = contextData || getServiceContext(args)
 
   // Check if the container need the keg-proxy started
   // If KEG_USE_PROXY is set to false then don't start the proxy
   // If it's true or not defined, then start the proxy
-  const startProxy = !checkEnvConstantValue(tap || context, 'KEG_USE_PROXY', false)
+  const startProxy = !checkEnvConstantValue(contextData, 'KEG_USE_PROXY', false)
   if(startProxy === false) return false
 
   // Make call to check if the keg-proxy container exists
@@ -38,6 +38,8 @@ const proxyService = async args => {
 
   return true
 }
+
+cliStore.service.set(constants.SERVICES.TAP_PROXY_SRV, proxyService)
 
 module.exports = {
   proxyService

@@ -1,3 +1,4 @@
 module.exports = {
-  ...require('./throwMissingFile')
+  ...require('./throwMissingFile'),
+  ...require('./throwMissingContext')
 }

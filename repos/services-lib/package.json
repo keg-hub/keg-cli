@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@keg-hub/cli-utils": "*",
+    "@keg-hub/docker-lib": "*",
     "@keg-hub/jsutils": "*",
     "@keg-hub/parse-config": "*",
     "@keg-hub/spawn-cmd": "*"

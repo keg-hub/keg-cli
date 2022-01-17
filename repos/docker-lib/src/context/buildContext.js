@@ -1,7 +1,7 @@
 const { get, noOpObj } = require('@keg-hub/jsutils')
+const { getContextEnvs } = require('./getContextEnvs')
 const { inspect:imgInspect } = require('../image/inspect')
 const { getKegGlobalConfig } = require('@keg-hub/cli-utils')
-const { buildContextEnvs } = require('./buildContextEnvs')
 const { getLocationContext } = require('./getLocationContext')
 const { inspect:containerInspect } = require('../container/inspect')
 const { getImgNameContext } = require('../context/getImgNameContext')
@@ -39,10 +39,9 @@ const buildContext = async args => {
 
   const globalConfig = args.globalConfig || getKegGlobalConfig()
   context.imgNameContext = await getImgNameContext(params)
-  context.envs = await buildContextEnvs(
+  context.envs = await getContextEnvs(
     params,
     globalConfig,
-    context.imgNameContext
   )
 
   context.img = await imgInspect({

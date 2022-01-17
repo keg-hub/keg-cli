@@ -1,7 +1,8 @@
-const { pullService } = require('KegUtils/services/pullService')
+
+const { get } = require('@keg-hub/jsutils')
+const { cliStore, constants } = require('@keg-hub/cli-utils')
 const { mergeTaskOptions } = require('KegUtils/task/options/mergeTaskOptions')
 const { updateLocationContext } = require('KegUtils/helpers/updateLocationContext')
-const { get } = require('@keg-hub/jsutils')
 
 /**
  * Pulls a tap image from a registry provider based on tag
@@ -22,7 +23,8 @@ const pullTap = async (args) => {
       tap: get(args, 'params.tap') || 'tap',
     }
   })
-
+  
+  const pullService = cliStore.service.get(constants.SERVICES.TAP_PULL_SRV)
   return pullService({
     ...args,
     params: updatedArgs.params,

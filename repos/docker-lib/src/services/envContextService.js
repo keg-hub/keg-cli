@@ -1,6 +1,6 @@
-const { buildContextEnvs } = require('../context/buildContextEnvs')
-const { getKegGlobalConfig, cliStore, constants } = require('@keg-hub/cli-utils')
 const { noOpObj } = require('@keg-hub/jsutils')
+const { getContextEnvs } = require('../context/getContextEnvs')
+const { getKegGlobalConfig, cliStore, constants } = require('@keg-hub/cli-utils')
 
 const { DOC_ENV_CONTEXT_SRV } = constants.SERVICES
 
@@ -15,15 +15,19 @@ const { DOC_ENV_CONTEXT_SRV } = constants.SERVICES
  *
  * @returns {Void}
  */
-const envContextService = async (args, locationData=noOpObj) => {
+const envContextService = async (args, extraEnvs=noOpObj) => {
   const { params, globalConfig=getKegGlobalConfig() } = args
   const context = params.tap || params.context
 
   // Ensure the context envs are built
-  await buildContextEnvs(params, globalConfig)
+  const contextEnvs = getContextEnvs(params, globalConfig)
 
-  // Add the locationData envs to the contextEnvs
-  cliStore.context.set(`${context}-envs`, locationData.envs, {merge: true})
+  // Add the extraEnvs envs to the contextEnvs
+  cliStore.context.set(
+    `${context}-envs`,
+    {...contextEnvs, ...extraEnvs},
+    {merge: true}
+  )
 
   return cliStore.context.get(`${context}-envs`)
 }

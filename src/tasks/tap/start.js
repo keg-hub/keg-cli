@@ -1,4 +1,4 @@
-const { startService } = require('KegUtils/services')
+const { cliStore, constants } = require('@keg-hub/cli-utils')
 const { mergeTaskOptions } = require('KegUtils/task/options/mergeTaskOptions')
 
 /**
@@ -12,14 +12,9 @@ const { mergeTaskOptions } = require('KegUtils/task/options/mergeTaskOptions')
  * @returns {void}
  */
 const startTap = async (args) => {
-  const { params: { tap } } = args
+  const startService = cliStore.service.get(constants.SERVICES.TAP_START_SRV)
 
-  return startService(args, {
-    tap,
-    context: 'tap',
-    container: 'tap',
-  })
-
+  return startService(args)
 }
 module.exports = {
   start: {

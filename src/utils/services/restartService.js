@@ -1,8 +1,7 @@
-const { Logger } = require('@keg-hub/cli-utils')
-const { proxyService } = require('./proxyService')
-const { get, deepMerge } = require('@keg-hub/jsutils')
+const { deepMerge } = require('@keg-hub/jsutils')
 const { getServiceArgs } = require('./getServiceArgs')
 const { composeService } = require('./composeService')
+const { cliStore, constants } = require('@keg-hub/cli-utils')
 
 /**
  * Runs the build service, then the compose service
@@ -21,6 +20,7 @@ const restartService = async (args, exArgs) => {
   const serviceArgs = getServiceArgs(args, exArgs)
 
   // Call the proxy service to make sure that is running
+  const proxyService = cliStore.service.get(constants.SERVICES.TAP_PROXY_SRV)
   await proxyService(serviceArgs)
 
   // Call the compose service to restart the application

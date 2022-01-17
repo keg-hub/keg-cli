@@ -1,6 +1,6 @@
-const { pullService } = require('KegUtils/services/pullService')
+const { cliStore, constants } = require('@keg-hub/cli-utils')
 const { mergeTaskOptions } = require('KegUtils/task/options/mergeTaskOptions')
-
+  
 /**
  * Pulls the keg base docker image
  * @param {Object} args - arguments passed from the runTask method
@@ -14,6 +14,7 @@ const { mergeTaskOptions } = require('KegUtils/task/options/mergeTaskOptions')
 const pullBase = async (args) => {
   const { params: { branch, tag, version }} = args
 
+  const pullService = cliStore.service.get(constants.SERVICES.TAP_PULL_SRV)
   return await pullService({
     ...args,
     __internal: {
