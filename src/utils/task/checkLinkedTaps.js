@@ -1,16 +1,16 @@
 const { addTapLink } = require('../globalConfig/addTapLink')
-const { injectService } = require('../services/injectService')
 const { get, isFunc, reduceObj } = require('@keg-hub/jsutils')
 const { checkCustomTaskFolder } = require('./checkCustomTaskFolder')
 const {
-  buildTaskData,
-  constants,
-  findTask,
   Logger,
-  parseTaskArgs
+  cliStore,
+  findTask,
+  constants,
+  parseTaskArgs,
+  buildTaskData,
 } = require('@keg-hub/cli-utils')
 
-const { GLOBAL_CONFIG_PATHS } = constants
+const { GLOBAL_CONFIG_PATHS, SERVICES } = constants
 const { TAP_LINKS } = GLOBAL_CONFIG_PATHS
 
 /**
@@ -169,14 +169,13 @@ const checkLinkedTaps = async (globalConfig, tasks, command, options) => {
     globalConfig,
   })
 
-  // Check if the tap task allows injection
-  // If it does, try to load the taps container folder and inject it
-  return !get(taskData, 'task.inject')
+  const tapTaskService = cliStore.service.get(SERVICES.TAP_TASK_SRV)
+  return !tapTaskService
     ? taskData
-    : await injectService({
+    : await tapTaskService({
         taskData,
-        app: command,
-        injectPath: tapObj.path,
+        tap: command,
+        tapPath: tapObj.path,
       })
 }
 

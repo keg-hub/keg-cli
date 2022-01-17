@@ -25,6 +25,7 @@ module.exports = {
   ...require('./process'),
   ...require('./tap'),
   ...require('./globalConfig'),
+  ...require('./store'),
   constants,
   buildTaskData,
   executeTask,

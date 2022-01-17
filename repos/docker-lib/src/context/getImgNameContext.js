@@ -3,7 +3,14 @@ const { getContextEnv } = require('./getContextEnvs')
 const { getImgFrom } = require('../utils/getImgFrom')
 const { isDockerId } = require('../utils/isDockerId')
 const { get, isObj, noOpObj, isStr, exists } = require('@keg-hub/jsutils')
-const { getKegSetting, getKegGlobalConfig } = require('@keg-hub/cli-utils')
+const {
+  cliStore,
+  constants,
+  getKegSetting,
+  getKegGlobalConfig
+} = require('@keg-hub/cli-utils')
+
+const { DOC_IMG_NAME_CONTEXT } = constants.SERVICES
 
 /**
  * Gets a tag from the passed in tag param, image, contextEnvs, or the globalConfig default
@@ -270,6 +277,9 @@ const getImgNameContext = async (params, imgRef, globalConfig=getKegGlobalConfig
     namespace,
   } = await checkDockerId(fromParams, imgRef)
 
+  const existingContext = cliStore.context.get(`${tap}-${DOC_IMG_NAME_CONTEXT}`)
+  if(existingContext) return existingContext
+
   // Separate the url, image and tag if needed
   const nameAndUrl = image
     ? getNameFromUrl(image, provider, namespace)
@@ -283,7 +293,7 @@ const getImgNameContext = async (params, imgRef, globalConfig=getKegGlobalConfig
   )
 
   // The the image name and tag from the passed in params or KEG_IMAGE_FROM
-  return buildImgVariants({
+  const imgNameContext = buildImgVariants({
     ...baseFromEnv,
     ...nameAndUrl,
     ...nameAndTag,
@@ -306,6 +316,10 @@ const getImgNameContext = async (params, imgRef, globalConfig=getKegGlobalConfig
       get(globalConfig, 'docker.namespace'),
     )
   })
+
+  cliStore.context.set(`${tap}-${DOC_IMG_NAME_CONTEXT}`, imgNameContext)
+
+  return imgNameContext
 }
 
 module.exports = {

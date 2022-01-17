@@ -1,13 +1,9 @@
 const path = require('path')
 const { containersPath } = require('./values')
 const { noOpObj } = require('@keg-hub/jsutils')
+const { constants } = require('@keg-hub/cli-utils')
 const { loadConfigs } = require('@keg-hub/parse-config')
 const { buildTemplateData } = require('KegUtils/template/buildTemplateData')
-
-/**
- * TODO: Remove this once all containers are removed from Keg-CLI
- */
-const internalContainers = [`base`, `proxy`, `tap`]
 
 /**
  * Loads the config files for the passed in named container based on the current env
@@ -23,8 +19,9 @@ const loadConfigFiles = args => {
   const { injectPath, containerPath } = __internal
 
   const locations = []
-  internalContainers.includes(name) &&
+  constants.INTERNAL_CONTAINERS.includes(name) &&
     locations.push(path.join(containersPath, name))
+
   injectPath && locations.push(injectPath)
   containerPath && locations.push(containerPath)
   

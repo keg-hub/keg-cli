@@ -2,28 +2,12 @@ const { get, isStr } = require('@keg-hub/jsutils')
 const { loadEnvs } = require('../envs/loadEnvs')
 const { paramsToEnvs } = require('../envs/paramsToEnvs')
 const {
+  cliStore,
   getDefaultEnv,
   resolveBestPath,
   getKegGlobalConfig
 } = require('@keg-hub/cli-utils')
 
-/**
- * Cache holder for loaded context envs
- * @Object
- *
- * @returns {Void}
- */
-let __CONTEXT_CACHE = {}
-
-/**
- * Clears the existing context cache
- * @function
- *
- * @returns {Void}
- */
-const clearContextCache = () => {
-  __CONTEXT_CACHE = {}
-}
 
 /**
  * Ensures the passed in params is an object
@@ -37,7 +21,6 @@ const getParamsObj = params => {
     ? {context: params, env: getDefaultEnv()}
     : params
 }
-
 
 /**
  * Loads a single env value from the context envs
@@ -55,10 +38,10 @@ const getParamsObj = params => {
 const getContextEnv = (params, envName, altVal, globalConfig) => {
   const paramObj = getParamsObj(params)
   const {context} = paramObj
+  const contextEnvs = cliStore.context.get(`${context}-envs`) ||
+    getContextEnvs(paramObj, globalConfig)
 
-  !__CONTEXT_CACHE[context] && getContextEnvs(paramObj, globalConfig)
-
-  return get(__CONTEXT_CACHE, `${context}.${envName.toUpperCase()}`, altVal)
+  return get(contextEnvs, envName.toUpperCase(), altVal)
 }
 
 /**
@@ -76,8 +59,9 @@ const getContextEnvs = (params, globalConfig=getKegGlobalConfig()) => {
   const paramObj = getParamsObj(params)
   const {context, env} = paramObj
 
-  // If the envs were already loaded, then use the cached version
-  if(__CONTEXT_CACHE[context]) return __CONTEXT_CACHE[context]
+  // Check if the context envs already exist in the store
+  const existingEnvs = cliStore.context.get(`${context}-envs`) 
+  if(existingEnvs) return existingEnvs
 
   // Try to find the best path to use for loading envs
   // based in the passed in params
@@ -94,7 +78,7 @@ const getContextEnvs = (params, globalConfig=getKegGlobalConfig()) => {
     envs.KEG_COPY_LOCAL
   )
 
-  __CONTEXT_CACHE[context] = {
+  const contextEnvs = {
     COMPOSE_PROJECT_NAME: context,
     // Set the KEG_CONTEXT_PATH to ensure it gets set
     // But set it before the others so it can be overwritten 
@@ -103,11 +87,13 @@ const getContextEnvs = (params, globalConfig=getKegGlobalConfig()) => {
     ...paramEnvs,
   }
 
-  return __CONTEXT_CACHE[context]
+  // Update the store with the cached envs, so next call can use the cached version
+  cliStore.context.set(`${context}-envs`, contextEnvs, {merge: true})
+
+  return contextEnvs
 }
 
 module.exports = {
   getContextEnv,
   getContextEnvs,
-  clearContextCache,
 }

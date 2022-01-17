@@ -3,6 +3,8 @@
  * So we call require aliases here to ensure the alias still work
 */
 require('../scripts/cli/aliases')
+require('@keg-hub/services-lib')
+require('@keg-hub/docker-lib/services')
 
 const Tasks = require('./tasks')
 const { throwExitError } = require('KegUtils/error')

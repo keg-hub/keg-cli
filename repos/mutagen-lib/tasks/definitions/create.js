@@ -19,12 +19,12 @@ const { throwError, throwRequired } = error
  */
 const getSyncParams = async (contextData, params) => {
   const { local, remote, name, options } = params
-  const service = contextData.name || contextData.image
+  const service = contextData.container.name || contextData.container.image
 
   const { alpha, beta, ...config } = await getMutagenConfig({
     options,
+    context: name,
     __injected: params.__injected,
-    context: contextData.cmdContext,
     configPath: `sync.${ service }`,
     overrides: {
       alpha: local || get(contextData, 'contextEnvs.KEG_CONTEXT_PATH'),
@@ -108,12 +108,9 @@ const mutagenCreate = async args => {
     globalConfig,
   })
 
-  console.log(`------- contextData -------`)
-  console.log(contextData)
-
   // Mutagen requires the container be running before the sync can be created
   // So check if the container id exists, if no id then throw
-  !contextData.id &&
+  !contextData.container.id &&
     throwContainerNotFound(contextData.cmdContext)
 
   // Get the params to create the mutagen sync

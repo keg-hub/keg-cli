@@ -1,5 +1,6 @@
 const path = require('path')
 const homeDir = require('os').homedir()
+const services = require('./services')
 const { deepFreeze, get } = require('@keg-hub/jsutils')
 const { tryRequireSync } = require('@keg-hub/jsutils/src/node')
 
@@ -60,6 +61,7 @@ const GLOBAL_INJECT_FOLDER = path.join(GLOBAL_CONFIG_FOLDER, '.tmp')
  }
 
 module.exports = deepFreeze({
+  SERVICES: services,
   // Cache the root of the CLI for other file to reference
   // All other references to cli root should come from here
   CLI_ROOT: getKegCliPath(),
@@ -123,10 +125,8 @@ module.exports = deepFreeze({
     'tap.config.json',
     'tap.json',
     'app.config.js',
-    'app.js',
     'app.config.json',
-    'app.json',
-    'package.json',
+    'app.json'
   ],
 
   // Tasks settings
@@ -147,5 +147,14 @@ module.exports = deepFreeze({
     `prepatch`,
     `prerelease`,
   ],
+
+/**
+ * TODO: Remove this once all containers are removed from Keg-CLI
+ */
+  INTERNAL_CONTAINERS: [
+    `base`,
+    `proxy`,
+    `tap`
+  ]
 
 })

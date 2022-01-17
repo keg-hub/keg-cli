@@ -1,11 +1,19 @@
 const { get, noOpObj } = require('@keg-hub/jsutils')
-const { getContextEnvs } = require('./getContextEnvs')
 const { inspect:imgInspect } = require('../image/inspect')
 const { getKegGlobalConfig } = require('@keg-hub/cli-utils')
-const { paramsToImgEnv } = require('../envs/paramsToImgEnv')
+const { buildContextEnvs } = require('./buildContextEnvs')
+const { getLocationContext } = require('./getLocationContext')
 const { inspect:containerInspect } = require('../container/inspect')
 const { getImgNameContext } = require('../context/getImgNameContext')
 
+/**
+ * Builds the context envs for the current context based on passed in params
+ * @param {Object} params - Task options parsed into an object
+ * @param {Object} globalConfig - Global config object for the keg-cli
+ * @param {Object} imgNameContext - Images provider, namespace, name, and tag
+ *
+ * @returns {Object} - Build context envs object
+ */
 const resolveContainerName = ({ container, __injected=noOpObj }, envs) => {
   return container ||
     get(__injected, `container`) ||
@@ -13,23 +21,22 @@ const resolveContainerName = ({ container, __injected=noOpObj }, envs) => {
     get(__injected, `serviceName`)
 }
 
-const buildContextEnvs = async (params, globalConfig, imgNameContext) => {
-  const imgEnvs = await paramsToImgEnv(params, globalConfig, imgNameContext)
-  return {
-    ...getContextEnvs(params, globalConfig),
-    ...imgEnvs,
-  }
-}
-
 /**
  * Builds the context for a docker container or image
  * Includes image and container information
- * 
+ * @param {Object} args - Task arguments object
+ * @param {Object} args.params - Task options parsed into an object
+ * @param {Object} args.globalConfig - Global config object for the keg-cli
+ *
+ * @returns {Object} - Build context object
  */
 const buildContext = async args => {
   const { params=noOpObj } = args
 
-  const context = {}
+  const context = {
+    name: params.tap || params.context,
+  }
+
   const globalConfig = args.globalConfig || getKegGlobalConfig()
   context.imgNameContext = await getImgNameContext(params)
   context.envs = await buildContextEnvs(
@@ -38,20 +45,19 @@ const buildContext = async args => {
     context.imgNameContext
   )
 
-  context.imgObj = await imgInspect({
+  context.img = await imgInspect({
     log: false,
     skipError: true,
     image: context.imgNameContext.full,
   })
 
-  context.containerObj = await containerInspect({
+  context.container = await containerInspect({
     log: false,
     skipError: true,
     container: resolveContainerName(params, context.envs)
   })
 
-  // TODO: add getLocationContext
-  // Remove prefix BS
+  context.location = await getLocationContext(params, globalConfig)
 
   return context
 }
