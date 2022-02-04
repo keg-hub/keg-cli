@@ -1,5 +1,7 @@
-const { get, isColl, isObj, isFunc, isStr } = require('@keg-hub/jsutils')
+/** @module Logger */
+
 const colors = require('colors/safe')
+const { get, isColl, isObj, isFunc } = require('@keg-hub/jsutils')
 
 /**
  * State of the log tag
@@ -11,6 +13,7 @@ let TAG_DISABLED = false
 
 /**
  * General logging method for all log types
+ * @function
  * @param {Loc Class} logger - Log class instance
  * @param {string} type - Type of log ( key of Log.colorMap )
  *
@@ -108,6 +111,7 @@ class Log {
 
   /**
    * Helper to print the passed in data
+   * @memberOf Log
    * @function
    *
    * @returns {void}

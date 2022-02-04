@@ -1,8 +1,11 @@
+/** @module Global-Config */
+
 const path = require('path')
 const { GLOBAL_CONFIG_FOLDER, GLOBAL_CONFIG_FILE } = require('../constants')
 
 /**
  * Attempts to load the Keg-CLI global config from the user home directory
+ * @function
  * @param {boolean} [throwError=true] - Should the method throw if the config can not be loaded
  *
  * @return {Object} - Loaded Keg-CLI global config

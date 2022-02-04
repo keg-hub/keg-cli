@@ -1,3 +1,5 @@
+/** @module Task */
+
 const { isObj, isFunc } = require('@keg-hub/jsutils')
 const { throwNoAction, throwNoTask } = require('../error')
 

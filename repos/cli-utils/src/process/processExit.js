@@ -1,3 +1,5 @@
+/** @module Process */
+
 const { Logger } = require('../logger/logger')
 const { exists, isNum, noOpObj } = require('@keg-hub/jsutils')
 
@@ -5,7 +7,7 @@ let eventExitStatus = noOpObj
 
 /**
  * Returns the status of eventExitStatus
- * @type {function}
+ * @function
  * @public
  *
  * @returns {number} eventExitStatus - The error code returned from a child process
@@ -16,7 +18,7 @@ const getEventExitCode = () => {
 
 /**
  * Error handler called when npm test command fails
- * @type {function}
+ * @function
  * @public
  * @exits
  * @param {number} exitCode - The error code returned from the npm test command
@@ -35,7 +37,7 @@ const onProcessExit = (tag, exitCode, message) => {
 /**
  * Helper to automatically add exit listeners to the current process
  * Allows exiting the process in the middle of the task being run
- * @type {function}
+ * @function
  * @private
  *
  * @returns {void}

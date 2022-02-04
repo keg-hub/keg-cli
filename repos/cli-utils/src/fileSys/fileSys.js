@@ -1,3 +1,5 @@
+/** @module FS */
+
 const fs = require('fs-extra')
 const path = require('path')
 const { checkCall, limbo, isFunc } = require('@keg-hub/jsutils')
@@ -5,6 +7,7 @@ const { throwError } = require('../error')
 
 /**
  * Default files that are ignored when searching a directory tree of the filesystem
+ * @private
  * @Array
  */
 const defaultFileExclude = [
@@ -78,6 +81,13 @@ const writeFileSync = (filePath, data, format = 'utf8') => {
   return fs.writeFileSync(filePath, data, format)
 }
 
+/**
+ * Reads the contents of a directory
+ * @function
+ * @param {string} dirPath - Path to the directory to be read
+ *
+ * @returns {Promise|*} - Contents of the directory
+ */
 const readDir = dirPath => {
   return limboify(fs.readdir, dirPath)
 }

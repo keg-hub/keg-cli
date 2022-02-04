@@ -31,6 +31,7 @@ const ensureArray = (data=noPropArr) => (
 /**
  * Normalize the env(s) options by checking for both env && envs
  * Then merges them together
+ * @function
  * @param {Object} options - Options forwarded to the child process
  * 
  * @return {Object} - Merged env from options object
@@ -111,6 +112,7 @@ const shortcutCmds = Array.from([
 
 /**
  * Converts the passed in envs Object into an array of docker argument envs
+ * @function
  * @param {Object} envs - Key value pair of envs
  *
  * @returns {Array} - Formatted array of envs matching docker cli requirements
@@ -125,6 +127,7 @@ const envToStr = envs => Object.keys(envs)
 
 /**
  * Helper to call the docker exec command directly
+ * @function
  * @param {String} containerName - name of container to run command within
  * @param {Array<string>} args - docker exec args
  * @param  {*} opts - docker exec opts
@@ -146,7 +149,8 @@ const dockerExec = (containerName, args, opts=noOpObj, ...extra) => {
 
 /**
  * Runs a command inside the docker container
- * @param {String} containerName - name of container to run command within ( **Ignored** )
+ * @function
+ * @param {string} containerName - name of container to run command within ( **Ignored** )
  * @param {string|Array<string>} args - docker exec args
  * @param  {Object} opts - docker exec opts
  * @param  {Object} opts.envs - docker exec envs
@@ -171,6 +175,14 @@ const containerExec = (_, args, opts=noOpObj, ...extra) => {
  * Checks if inside a docker container.
  * If we are, then cont add call docker executable directly
  * Instead call the command directly inside the container
+ * @function
+ * @param {string} [containerName] - name of container to run command within ( **Ignored** )
+ * @param {string|Array<string>} args - docker exec args
+ * @param  {Object} opts - docker exec opts
+ * @param  {Object} opts.envs - docker exec envs
+ * @param  {Object} opts.env - docker exec envs
+ * @param  {Array<string>} [extra] - Directory to run the command from
+ *
  */
 const dockerCmd = (...args) => inDocker() ? containerExec(...args) : dockerExec(...args)
 

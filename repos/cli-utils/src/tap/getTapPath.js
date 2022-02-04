@@ -1,8 +1,11 @@
+/** @module Tap */
+
 const { get, validate, isObj, isStr } = require('@keg-hub/jsutils')
 const { GLOBAL_CONFIG_PATHS } = require('../constants/constants')
 
 /**
  * Gets a path from the stored paths in the globalConfig object
+ * @function
  * @param {Object} globalConfig - Global config object for the Keg CLI
  * @param {string} tapName - Key name of the linked tap path to get
  *

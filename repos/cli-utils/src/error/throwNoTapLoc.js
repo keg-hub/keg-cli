@@ -1,3 +1,5 @@
+/** @module Error */
+
 const { get } = require('@keg-hub/jsutils')
 const { throwTaskFailed } = require('./error')
 const { Logger } = require('../logger/logger')

@@ -1,9 +1,13 @@
+/** @module Network */
+
 const axios = require('axios')
 const { get } = require('@keg-hub/jsutils')
 
 const IP_API = `https://api.ipify.org?format=json`
 
 /**
+ * Gets the public Ip of the host machine using `https://api.ipify.org?format=json`
+ * @function
  * @returns {string?} public ip address of current machine
  */
 const getPublicIP = async () => {

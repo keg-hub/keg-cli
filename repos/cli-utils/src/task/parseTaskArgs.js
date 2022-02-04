@@ -1,9 +1,12 @@
+/** @module Task */
+
 const { argsParse } = require('@keg-hub/args-parse')
 const { getGlobalOptions } = require('../globalConfig/globalOptions')
 const { getKegGlobalConfig } = require('../globalConfig/getKegGlobalConfig')
 
 /**
  * Wrapper around args parse to allow passing in the globalConfig
+ * @function
  * @param {Object} args - Contains current task and options to be parsed
  * @param {Object} args.task - Current task being run
  * @param {Object} args.options - arguments passed from the cmd line

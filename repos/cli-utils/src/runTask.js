@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+/** @module CLI */
+
 const { throwExitError } = require('./error')
 const { findTask } = require('./task/findTask')
 const { showHelp } = require('./logger/showHelp')
@@ -14,6 +16,7 @@ const defParams = { env: process.env.NODE_ENV || 'local' }
 /**
  * Runs a local task matching the Keg-CLI task definition
  * This allows the tasks to be injected into the Keg-CLI when installed
+ * @function
  * @param {Object} customTasks - Custom tasks to add to the task cache
  * @param {Object} customDefParams - Default params added to all tasks
  *

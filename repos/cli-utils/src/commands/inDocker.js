@@ -1,8 +1,11 @@
+/** @module Commands */
+
 const fs = require('fs')
 let inContainer
 
 /**
  * Wraps a method with try catch, and returns false when it throws
+ * @function
  * @param {function} cb - Method to wrap try catch around
  *
  * @returns {boolean} true if the cb returns a truthy response
@@ -14,6 +17,7 @@ const tryCatch = cb => {
 
 /**
  * Checks if the /.dockerenv file exists
+ * @function
  *
  * @returns {boolean} true if the check for /.dockerenv does not throw
  */
@@ -21,6 +25,7 @@ const dockEnv = () => fs.statSync('/.dockerenv') || true
 
 /**
  * Checks if docker is in the process group
+ * @function
  *
  * @returns {boolean} true if the docker group exists
  */
@@ -28,6 +33,7 @@ const docGroup = () => fs.readFileSync('/proc/self/cgroup', 'utf8').includes('do
 
 /**
  * Checks if the current process is running in a docker container
+ * @function
  *
  * @returns {boolean} true if running in a docker container
  */

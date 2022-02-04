@@ -1,3 +1,5 @@
+/** @module Network */
+
 const os = require('os')
 const { mapFind } = require('@keg-hub/jsutils')
 

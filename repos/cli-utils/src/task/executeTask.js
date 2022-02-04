@@ -1,3 +1,5 @@
+/** @module Task */
+
 const { throwNoAction } = require('../error')
 const { isFunc } = require('@keg-hub/jsutils')
 const { hasHelpArg } = require('./hasHelpArg')

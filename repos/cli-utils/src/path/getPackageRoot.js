@@ -1,8 +1,12 @@
+/** @module FS */
+
 const { tryRequireSync } = require('@keg-hub/jsutils/src/node')
 const path = require('path')
 
 /**
- * @param {string} location 
+ * Gets the root path of a package by searching for the nearest `package.json` file up the file tree 
+ * @function
+ * @param {string} location - Location to start the search from
  * @returns {string} - root package directory of a path located at `location`, or else null if none exists
  */
  const getPackageRoot = location => {

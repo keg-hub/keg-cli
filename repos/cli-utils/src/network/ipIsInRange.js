@@ -1,9 +1,13 @@
+/** @module Network */
+
 const { validate } = require('@keg-hub/jsutils')
 const { isIP } = require('net')
 
 const parseParts = ip => ip.split('.').map(part => parseInt(part))
 
 /**
+ * Checks if an IP is within a range of other IPs
+ * @function
  * @param {string} ip - ipv4 string
  * @param {string} start - start of ip range
  * @param {string} end - end of ip range

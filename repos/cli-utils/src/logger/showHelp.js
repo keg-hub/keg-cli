@@ -1,9 +1,13 @@
+/** @module CLI */
+
 const { get, isStr, isObj, mapObj, isArr } = require('@keg-hub/jsutils')
 const { Logger } = require('./logger')
 const colors = require('colors/safe')
 
 /**
  * Builds different spacer types to better format the task information
+ * @function
+ * @private
  * @param {string} space - Initial start space ( used when printing sub tasks )
  * @param {boolean} header - Is the help header being printed ( adds extra space when it's not )
  *
@@ -20,7 +24,8 @@ const getSpacers = (space, header) => {
 /**
  * Checks if the Help header should be printed
  * and prints it, if needed
- *
+ * @function
+ * @private
  * @param {boolean|string} header - Should the help header be printed
  * @param {string} subHeader - Sub header to print under the header
  */
@@ -38,6 +43,8 @@ const showHelpHeader = (header, subHeader) => {
 
 /**
  * Prints the tasks info header
+ * @function
+ * @private
  * @param {string} key - Name of the task to print
  * @param {boolean} header - Should print the help header
  * @param {string} spacer - Extra space added to the beginning of the line
@@ -57,6 +64,8 @@ const showTaskHeader = (key, header, spacer, dblSpacer) => {
 
 /**
  * Checks if a task has sub tasks and tries to print them when they exist
+ * @function
+ * @private
  * @param {Object} task - Task to have it's sub tasks printed
  * @param {string} infoSpacer - Extra space added to the beginning of the line
  *
@@ -83,6 +92,8 @@ const showSubTasks = (task, opts={}) => {
 
 /**
  * Collects and prints all available task info
+ * @function
+ * @private
  * @param {Object} task - Item to have it's info printed
  * @param {string} infoSpacer - Extra space added to the beginning of the line
  *
@@ -96,6 +107,8 @@ const showTaskInfo = (task, infoSpacer) => {
 
 /**
  * Prints specific info about a specific task
+ * @function
+ * @private
  * @param {string} name - Name of the info
  * @param {string} desc - description of the info
  * @param {string} infoSpacer - Extra space added to the beginning of the line
@@ -128,6 +141,8 @@ const showTaskOptions = (task, infoSpacer, dblSpacer) => {
 
 /**
  * Prints CLI help message with tasks and their description
+ * @function
+ * @private
  * @param {Object} tasks - All possible CLI tasks to run
  * @param {Object} [opts={}] - Options for printing help
  * @param {boolean} opts.header - Should print the help header
@@ -156,6 +171,8 @@ const showAllHelp = (tasks, opts={}) => {
 /**
  * Displays the detail info (if any) of a specific option from a task (alias, description, example)
  * @example keg core start --attached -h
+ * @function
+ * @private
  * @param {Object} task 
  * @param {string} option - option item from the task
  * @param {string} infoSpacer - spacing
@@ -186,7 +203,8 @@ const showTaskOptionDetail = (task, option, infoSpacer, dblSpacer) => {
 
 /**
  * Prints information about a single task 
- *
+ * @function
+ * @private
  * @param {Object} task - Task to print formation about
  * @param {Object} [opts={}] - Options for printing help
  * @param {boolean} opts.header - Should print the help header
@@ -213,6 +231,7 @@ const showTaskHelp = (task, opts={}) => {
 
 /**
  * Prints CLI help message with tasks and their description
+ * @function
  * @param {Object} tasks - All possible CLI tasks to run
  * @param {Object} task - Single task to show help for
  * @param {Object} opts - Options for the show help output

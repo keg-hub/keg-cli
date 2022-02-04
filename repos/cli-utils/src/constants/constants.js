@@ -1,3 +1,5 @@
+/** @module Constants */
+
 const path = require('path')
 const homeDir = require('os').homedir()
 const { deepFreeze, get } = require('@keg-hub/jsutils')

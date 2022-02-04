@@ -1,9 +1,12 @@
+/** @module Task */
+
 const { validateTask } = require('./validateTask')
 const { ensureArgs } = require('@keg-hub/args-parse')
 const { get, isStr, deepClone } = require('@keg-hub/jsutils')
 
 /**
  * Runs an internal task based on passed in arguments
+ * @function
  * @param {Object} taskPath - Path within the tasks object where the internal task exists
  * @param {string} args - Arguments to pass to the internal task
  *
