@@ -159,6 +159,9 @@ const buildEnvFiles = ({ env, name }) => {
 const buildFileNames = ({ ymlName, noYml, noEnv, env, name }) => {
   env = env || process.env.NODE_ENV
 
+  // If name is not set, use the app root's folder name
+  name = name || path.basename(getAppRoot())
+
   const ymlFiles = noYml ? noPropArr : buildYmlFiles(ymlName, { env, name })
 
   const { firstEnvs, envFiles } = noEnv
