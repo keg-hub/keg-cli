@@ -22,6 +22,7 @@ const GLOBAL_INJECT_FOLDER = path.join(GLOBAL_CONFIG_FOLDER, '.tmp')
 
 /**
  * Environment keys mapped to their shortcuts
+ * @private
  * @array
  */
  const ENV_MAP = {
@@ -36,6 +37,7 @@ const GLOBAL_INJECT_FOLDER = path.join(GLOBAL_CONFIG_FOLDER, '.tmp')
 
 /**
  * All env shortcuts mapped to a single array
+ * @private
  * @array
  */
  const ENV_OPTIONS = Object.entries(ENV_MAP)
@@ -45,7 +47,7 @@ const GLOBAL_INJECT_FOLDER = path.join(GLOBAL_CONFIG_FOLDER, '.tmp')
 
  /**
  * Finds the keg-cli directory based on env, parent module or keg-cli global config
- *
+ * @private
  * @return {string} - Directory of the keg-cli on the host machine
  */
  const getKegCliPath = () => {
@@ -62,28 +64,51 @@ const GLOBAL_INJECT_FOLDER = path.join(GLOBAL_CONFIG_FOLDER, '.tmp')
  }
 
 module.exports = deepFreeze({
-  // Cache the root of the CLI for other file to reference
-  // All other references to cli root should come from here
+  /**
+   * Path to the Keg-CLI if installed
+   * <br/>Cache the root of the CLI for other file to reference
+   * <br/>All other references to cli root should come from here
+   * @string
+   */
   CLI_ROOT: getKegCliPath(),
 
-  // --- DOCKER Constants --- //
   // Should be moved to docker-lib
-  // Container context helpers
-  // Mapped prefixes for some tasks that add prefixes when running containers
+  /**
+   * Docker Constants
+   * <br/> Mapped prefixes for some tasks that add prefixes when running containers
+   * @string
+   */
   CONTAINER_PREFIXES: {
     PACKAGE: 'package',
     IMAGE: 'img',
   },
 
-  // Keg Default .env file, stored in ~/.kegConfig folder
+  /**
+   * Keg Default .env file, stored in ~/.kegConfig folder
+   * @string
+   */
   DEFAULT_ENV: `defaults.env`,
   
-  // Global config paths
+  /**
+   * Global config folder path
+   * @string
+   */
   GLOBAL_CONFIG_FOLDER,
+  /**
+   * Global config file path
+   * @string
+   */
   GLOBAL_CONFIG_FILE,
+  /**
+   * Global config injected docker-compose folder path
+   * @string
+   */
   GLOBAL_INJECT_FOLDER,
 
-  // Global config settings
+  /**
+   * Default global config setting locations
+   * @Object
+   */
   GLOBAL_CONFIG_PATHS: {
     CLI: 'cli',
     CLI_PATHS: 'cli.paths',
@@ -93,15 +118,38 @@ module.exports = deepFreeze({
     SETTINGS: 'cli.settings',
     EDITOR_CMD: 'cli.settings.editorCmd'
   },
-
-  // Environment keys mapped to their shortcuts 
+  /**
+   * Environment keys mapped to their shortcuts 
+   * @Object
+   * @example
+   * PRODUCTION: [ 'production', 'prod', 'p' ],
+   * CI: [ 'ci', 'c' ],
+   * QA: [ 'qa', 'q' ],
+   * STAGING: [ 'staging', 'st', 's' ],
+   * DEVELOPMENT: [ 'development', 'dev', 'd' ],
+   * LOCAL: [ 'local', 'loc', 'l' ],
+   * TEST: [ 'test', 'tst', 't' ]
+   */
   ENV_MAP,
-  // ALL Environment keys as an array
+  /**
+   * All Environment keys as an array
+   * @Object
+   */
   ENV_OPTIONS,
-  // Shortcuts to map env to real environment
+  /**
+   * Shortcuts to map env to real environment
+   * @Array
+   * @example
+   * [ 'environment', 'env', 'e' ]
+   */
   ENV_ALIAS: [ 'environment', 'env', 'e' ],
 
-  // Help options. when one is passed as an option, the help menu is printed
+  /**
+   * Help options. when one is passed as an option, the help menu is printed
+   * @Array
+   * @example
+   * ['help', '-help', '--help', 'h', '-h', '--h']
+   */
   HELP_ARGS: [
     'help',
     '-help',
@@ -111,14 +159,32 @@ module.exports = deepFreeze({
     '--h',
   ],
 
-  // private ranges of ip addresses
+  /**
+   * Private ranges of ip addresses
+   * @Object
+   */
   PRIVATE_IPV4_CLASSES: {
     A: [ '10.0.0.0', '10.255.255.255' ],
     B: [ '172.16.0.0', '172.31.255.255' ],
     C: [ '192.168.0.0', '192.168.255.255' ],
   },
 
-  // all supported tap config names
+  /**
+   * All supported tap config names
+   * @Object
+   * @example
+   * [
+   *  'tap.config.js',
+   *  'tap.js',
+   *  'tap.config.json',
+   *  'tap.json',
+   *  'app.config.js',
+   *  'app.js',
+   *  'app.config.json',
+   *  'app.json',
+   *  'package.json'
+   * ]
+   */
   TAP_CONFIG_NAMES: [
     'tap.config.js',
     'tap.js',
@@ -139,6 +205,21 @@ module.exports = deepFreeze({
     'description'
   ],
 
+  /**
+   * Supported semver types when using the keg-cli publishing tasks
+   * @Object
+   * @example
+   * [
+   *  'major',
+   *  'minor',
+   *  'patch',
+   *  'meta',
+   *  `premajor`,
+   *  `preminor`,
+   *  `prepatch`,
+   *  `prerelease`,
+   * ]
+   */
   SEMVER_TYPES: [
     'major',
     'minor',

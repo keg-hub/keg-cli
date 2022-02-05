@@ -2,10 +2,13 @@
   "tags": {
     "allowUnknownTags": true
   },
+  "markdown": {
+    "hardwrap": true
+  },
   "source": {
     "include": [
-      "src/",
-      "README.md"
+      "README.md",
+      "src/"
     ],
     "excludePattern": "(__mocks__|__tests__|node_modules/|docs)"
   },
@@ -16,12 +19,18 @@
     "template": "node_modules/docdash",
     "encoding": "utf8",
     "destination": "docs/",
+    "tutorials": "src/tutorials",
     "recurse": true,
     "verbose": true
   },
   "docdash": {
     "static": true,
     "sort": true,
+    "sectionOrder": [
+      "Tutorials",
+      "Modules",
+      "Classes"
+    ],
     "disqus": "",
     "openGraph": {
       "title": "CLIJS Utils",
@@ -31,17 +40,22 @@
     },
     "meta": {
       "title": "CLI Utils",
-      "description": "Utility methods for writing Node.js CLI's",
+      "description": "Utility methods for building Node.js CLI's",
       "keyword": "utils, cli, task, tasks"
     },
+    "commonNav": true,
     "search": true,
-    "collapse": false,
+    "collapse": true,
     "typedefs": true,
+    "private": false,
     "removeQuotes": "none",
-    "scripts": [],
+    "scripts": [
+      "styles/docs.css",
+      "scripts/docs.js"
+    ],
     "menu": {
       "Github repo": {
-        "href":"https://github.com/keg-hub/keg-hub/tree/develop/repos/jsutils",
+        "href":"https://github.com/keg-hub/keg-cli/tree/develop/repos/cli-utils",
         "target":"_blank",
         "class":"menu-item",
         "id":"repository"

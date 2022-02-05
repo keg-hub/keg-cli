@@ -1,4 +1,4 @@
-/** @module Commands */
+/** @module Helpers */
 
 const { isArr, isStr, exists, isBool } = require('@keg-hub/jsutils')
 

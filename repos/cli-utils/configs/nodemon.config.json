@@ -1,0 +1,6 @@
+{
+  "ext": "js,json",
+  "exec": "yarn docs:serve",
+  "watch": ["src", "configs", "scripts/docs/*"],
+  "ignore": ["src/**/*.spec.*", "src/**/*.test.*", "src/**/__tests__"]
+}

@@ -6,6 +6,7 @@ let inContainer
 /**
  * Wraps a method with try catch, and returns false when it throws
  * @function
+ * @private
  * @param {function} cb - Method to wrap try catch around
  *
  * @returns {boolean} true if the cb returns a truthy response
@@ -18,6 +19,7 @@ const tryCatch = cb => {
 /**
  * Checks if the /.dockerenv file exists
  * @function
+ * @private
  *
  * @returns {boolean} true if the check for /.dockerenv does not throw
  */
@@ -26,6 +28,7 @@ const dockEnv = () => fs.statSync('/.dockerenv') || true
 /**
  * Checks if docker is in the process group
  * @function
+ * @private
  *
  * @returns {boolean} true if the docker group exists
  */
