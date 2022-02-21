@@ -15,6 +15,7 @@ const decryptKey = (key, password) => {
     return decrypt(key, password)
   }
   catch(e){
+    if(password === false) return key 
     error.throwError(`Entered an invalid password!`)
   }
 }
