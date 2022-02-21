@@ -13,7 +13,7 @@ const { runInternalTask } = require('@keg-hub/cli-utils')
  */
 const pullRequest = async args => {
   // Auto call the checkout task if we reach the pull request root task
-  return runInternalTask('tasks.git.tasks.pullrequest.tasks.checkout', args)
+  return runInternalTask('tasks.pullrequest.tasks.checkout', args)
 }
 
 module.exports = {

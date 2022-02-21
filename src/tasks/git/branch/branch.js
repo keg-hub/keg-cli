@@ -90,7 +90,7 @@ const gitBranch = async args => {
 
   // Auto call the list task if we reach the gitBranch root task
   const { branches, location, __internal: { switched } } = await runInternalTask(
-    'tasks.git.tasks.branch.tasks.list',
+    'tasks.branch.tasks.list',
     {
       ...args,
       params: {
