@@ -1,7 +1,6 @@
-const { decrypt } = require('KegCrypto')
 const { get } = require('@keg-hub/jsutils')
-const { throwWrongPassword } = require('../error/throwWrongPassword')
-const { constants: { GLOBAL_CONFIG_PATHS } } = require('@keg-hub/cli-utils')
+const { decrypt } = require('@keg-hub/crypto-lib')
+const { constants: { GLOBAL_CONFIG_PATHS }, error } = require('@keg-hub/cli-utils')
 
 /**
  * Gets a path from the global config, and decrypts it with the passed in password
@@ -17,7 +16,7 @@ const getKeyAndDecrypt = (globalConfig, configPath, password, shouldThrow) => {
     return decrypt(get(globalConfig, configPath), password)
   }
   catch(err){
-    shouldThrow && throwWrongPassword()
+    shouldThrow && error.throwError(`Entered an invalid password!`)
   }
 }
 

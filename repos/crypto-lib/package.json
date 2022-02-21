@@ -1,0 +1,27 @@
+{
+  "name": "@keg-hub/crypto-lib",
+  "version": "0.0.1",
+  "description": "Wrapper around the crypto command line executable",
+  "main": "index.js",
+  "repository": "https://github.com/keg-hub/keg-cli/tree/master/repos/crypto-lib",
+  "author": "Lance Tipton",
+  "license": "MIT",
+  "private": false,
+  "keywords": [
+    "crypto",
+    "keg-hub",
+    "node-crypto"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "NODE_ENV=test jest --no-cache --verbose --config=./configs/jest.config.js"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "jest": "27.3.1",
+    "rimraf": "3.0.2"
+  }
+}

@@ -1,4 +1,4 @@
-const { encrypt } = require('KegCrypto')
+const { encrypt } = require('@keg-hub/crypto-lib')
 const { throwRequired } = require('KegUtils/error')
 const { ask, confirmExec } = require('@keg-hub/ask-it')
 const { gitKeyExists, addGlobalConfigProp } = require('KegUtils')

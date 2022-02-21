@@ -25,5 +25,4 @@ module.exports = {
   ...require('./throwTaskFailed'),
   ...require('./throwMissingFile'),
   ...require('./throwWrap'),
-  ...require('./throwWrongPassword'),
 }

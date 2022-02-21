@@ -7,8 +7,7 @@ const aliases = {
   KegUtils: path.join(rootDir, 'src/utils'),
   KegScripts: path.join(rootDir, 'scripts'),
   KegMocks: path.join(rootDir, 'src/__mocks__'),
-  KegConst: path.join(rootDir, 'src/constants'),
-  KegCrypto: path.join(rootDir, 'src/libs/crypto'),
+  KegConst: path.join(rootDir, 'src/constants')
 }
 
 moduleAlias.addAliases(aliases)
