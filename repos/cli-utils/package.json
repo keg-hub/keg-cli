@@ -1,6 +1,6 @@
 {
   "name": "@keg-hub/cli-utils",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "description": "Utility methods for writing Custom Tasks consumed by the Keg-CLI",
   "main": "index.js",
   "repository": "https://github.com/keg-hub/keg-cli/tree/master/repos/cli-utils",
@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "axios": "0.24.0",
-    "@keg-hub/args-parse": "^7.1.0",
+    "@keg-hub/args-parse": "8.0.0",
     "@keg-hub/ask-it": "^1.1.0",
     "@keg-hub/jsutils": "8.8.0",
     "@keg-hub/spawn-cmd": "^0.3.0",
