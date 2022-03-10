@@ -1,8 +1,7 @@
 const path = require('path')
-const parseRoot = path.join(__dirname, '../../')
 const appRoot = require('app-root-path').path
 const defConfig = require('../../configs/parse.config.js')
-const { deepMerge } = require('@keg-hub/jsutils')
+const { deepMerge, get, noOpObj } = require('@keg-hub/jsutils')
 
 /**
  * Placeholder variable to cache the loaded config
@@ -11,21 +10,95 @@ const { deepMerge } = require('@keg-hub/jsutils')
 let __CONFIG
 
 /**
+ * Builds the environment object for the parse config
+ * Values with higher priority override lower priority
+ * @function
+ * @param {Object} - Custom environment from the custom config
+ * @param {Object} - inline environment from the inline config
+ *
+ * @returns {Object} - Built environment config object
+ */
+const buildEnvironment = (customEnv=noOpObj, inlineEnv=noOpObj) => {
+  return {
+    ...defConfig.environment,
+    ...customEnv,
+    ...inlineEnv,
+    options: inlineEnv.options || customEnv.options || defConfig.environment.options,
+    map: inlineEnv.map || customEnv.map || defConfig.environment.map
+  }
+}
+
+/**
+ * Builds the default args object for the parse config
+ * Values with higher priority override lower priority
+ * @function
+ * @param {Object} - Custom defaultArgs from the custom config
+ * @param {Object} - inline defaultArgs from the inline config
+ *
+ * @returns {Object} - Built defaultArgs config object
+ */
+const buildDefArgs = (customArgs=noOpObj, inlineArgs=noOpObj) => {
+  return {
+    ...defConfig.defaultArgs,
+    ...customArgs,
+    ...inlineArgs
+  }
+}
+
+/**
+ * Builds the default bools object for the parse config
+ * Values with higher priority override lower priority
+ * @function
+ * @param {Object} - Custom bools from the custom config
+ * @param {Object} - inline bools from the inline config
+ *
+ * @returns {Object} - Built bools config object
+ */
+const buildBools = (customBools=noOpObj, inlineBools=noOpObj) => {
+  return {
+    ...defConfig.bools,
+    ...customBools,
+    ...inlineBools
+  }
+}
+
+/**
  * Loads the config object based on PARSE_CONFIG_PATH env or the default
  * @function
+ * @param {Object} - inline config passed from the caller of args-parse
  *
  * @returns {Object} - Loaded config object
  */
-const loadConfig = inlineConfig => {
+const loadConfig = (inlineConfig=noOpObj) => {
   const { PARSE_CONFIG_PATH } = process.env
   const configPath = path.join(appRoot, PARSE_CONFIG_PATH || 'configs/parse.config.js')
 
   let customConfig
   try { customConfig = require(configPath)  }
-  catch(err){ customConfig = {} }
+  catch(err){ customConfig = noOpObj }
 
-  return deepMerge(defConfig, customConfig, inlineConfig)
-
+  return {
+    ...defConfig,
+    ...inlineConfig,
+    ...customConfig,
+    settings: deepMerge(
+      defConfig.settings,
+      get(customConfig, 'settings'),
+      get(inlineConfig, 'settings')
+    ),
+    bools: buildBools(
+      get(customConfig, 'bools'),
+      get(inlineConfig, 'bools')
+    ),
+    environment: buildEnvironment(
+      get(customConfig, 'environment'),
+      get(inlineConfig, 'environment')
+    ),
+    defaultArgs: buildDefArgs(
+      get(customConfig, 'defaultArgs'),
+      get(inlineConfig, 'defaultArgs')
+    )
+  }
 }
 
 /**
