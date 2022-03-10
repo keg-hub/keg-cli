@@ -19,7 +19,7 @@ const defParams = { env: process.env.NODE_ENV || 'local' }
  *
  * @returns {Any} - Output of the executed task
  */
-const runTask = async (customTasks, customDefParams) => {
+const runTask = async (customTasks, customDefParams, parseConfig) => {
   const globalConfig = getKegGlobalConfig(false)
 
   try {
@@ -40,7 +40,7 @@ const runTask = async (customTasks, customDefParams) => {
       task,
       args: [...options],
       params: deepMerge(defParams, customDefParams)
-    })
+    }, parseConfig)
 
     // Call the task action, and pass in args matching the same as the Keg-CLI args
     const response = await task.action({
