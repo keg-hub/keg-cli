@@ -1159,6 +1159,15 @@
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
 
+"@keg-hub/args-parse@8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@keg-hub/args-parse/-/args-parse-8.0.0.tgz#742946d0264a048d40728065177732c5df42b8c6"
+  integrity sha512-lLbT0iU0VGqPygqvP5OKpE02yD/2g+EevRchwXhvcvgMEGJTJYeVsJ+mlPHtV0BAOcXbzHt8Zar2qKAhSKBkxA==
+  dependencies:
+    "@keg-hub/ask-it" "1.1.0"
+    "@keg-hub/jsutils" "8.8.0"
+    app-root-path "3.0.0"
+
 "@keg-hub/args-parse@^7.1.0":
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/@keg-hub/args-parse/-/args-parse-7.1.0.tgz#73b3e1392a80e12d0e6f7f0a358a6dd575574790"
