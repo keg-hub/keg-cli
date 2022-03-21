@@ -25,7 +25,7 @@ module.exports = {
       production: [ 'production', 'prod', 'p' ],
       qa: [ 'qa', 'q' ],
       staging: [ 'staging', 'st', 's' ],
-      development: [ 'development', 'dev', 'd' ],
+      develop: [ 'development', 'develop', 'dev', 'd' ],
       local: [ 'local', 'loc', 'l' ],
       test: [ 'test', 'tst', 't' ]
     },
