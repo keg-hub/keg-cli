@@ -278,7 +278,7 @@ describe('argsParse', () => {
         task: testTask1,
       })
   
-      expect(parsed.env).toBe('development')
+      expect(parsed.env).toBe('develop')
   
     })
 

@@ -128,8 +128,19 @@ keg_fix_key_issue(){
 }
 
 
+keg_install_gh_cli(){
+  curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+  echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+  sudo apt update
+  sudo apt install gh
+}
+
 keg_set_docker_networ_ip(){
   docker --bip 192.168.99.101
+}
+
+keg_config_setup(){
+  node $KEG_CLI_PATH/scripts/cli/configSetup.js
 }
 
 # Runs methods to setup the keg-cli, with docker and vagrant
