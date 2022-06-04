@@ -1,7 +1,7 @@
 const { git } = require('@keg-hub/git-lib')
 const { ask } = require('@keg-hub/ask-it')
 const { generalError } = require('KegUtils/error')
-const { isNum, exists } = require('@keg-hub/jsutils')
+const { isNum, exists, doIt } = require('@keg-hub/jsutils')
 const { Logger, runInternalTask } = require('@keg-hub/cli-utils')
 
 /**
@@ -36,6 +36,38 @@ const getBranchName = async (branches, branch, params) => {
 }
 
 /**
+ * Finds the name of a branch relative to the passed in ref
+ * Check if the ref matches the <num>..<num> pattern
+ * Converts ref into an array of branch indexes that includes enclosing and in-between indexes
+ * @param {Array} branches - Array of all current branches
+ * @param {Object} params - Parsed options from the cmd line
+ * @param {Object} location - Location of the repo for the branches
+ *
+ * @returns {Promise<void>}
+ */
+const findBranchesFromRef = (branches, ref) => {
+  let refs = [ref]
+  if(ref.includes('..')){
+    const [start, end] = ref.split('..')
+    const startNum = parseInt(start)
+    const endNum = parseInt(end)
+
+    if(isNum(startNum) && isNum(endNum)){
+      if(startNum > endNum) generalError(`The end branch index must be greater then the start index`)
+
+      refs = [startNum]
+      doIt(endNum - startNum, global, refs, (index, arr) => arr.push(startNum + index + 1))
+    }
+  }
+
+  return refs.map(ref => (
+    branches[ref] ||
+      branches.find(branch =>  branch.name === ref) ||
+      branches.find(branch =>  branch.commit === ref)
+  ))
+}
+
+/**
  * Creates a new Git branch
  * @param {string} newBranch - Name of new branch to create
  * @param {Object} location - Location of the repo for the branches
@@ -46,6 +78,33 @@ const getBranchName = async (branches, branch, params) => {
  */
 const createNewBranch = async (newBranch, location, params, log=true) => {
   return git.repo.checkout({ ...params, log: false, branch: newBranch, newBranch, location })
+}
+
+
+
+/**
+ * Removes one or many local git branches separated by a ,
+ * @param {Array} branches - Array of all current branches
+ * @param {Object} params - Parsed options from the cmd line
+ * @param {Object} location - Location of the repo for the branches
+ *
+ * @returns {Promise<void>}
+ */
+const removeGitBranches = (branches, params, location) => {
+  const { remove, list, ...gitParams } = params
+  const rmBranches = remove.split(',')
+
+  return rmBranches.reduce(async (toResolve, ref) => {
+    await toResolve
+    return findBranchesFromRef(branches, ref)
+      .reduce(async (childResolve, branch) => {
+        await childResolve
+
+        return branch
+          ? await git.branch.delete({ ...gitParams, log: false, branch: branch.name, location })
+          : Logger.warn(`Could not find branch from reference ${ref}`)
+      }, Promise.resolve())
+  }, Promise.resolve())
 }
 
 /**
@@ -64,10 +123,10 @@ const doBranchAction = async (branch, branches, location, params) => {
 
   Logger.empty()
 
-  ;!exists(useBranch)
+  ;!exists(useBranch) && !remove
     ? generalError(`Git branch task requires a valid branch name or index!\nGot "${ useBranch }" instead!`)
     : remove
-      ? await git.branch.delete({ ...gitParams, log: false, branch: useBranch, location })
+      ? await removeGitBranches(branches, params, location)
       : await git.repo.checkout({ ...gitParams, log: false, branch: useBranch, location })
 
   Logger.empty()
@@ -150,7 +209,7 @@ module.exports = {
       },
       delete: {
         alias: [ 'del', 'remove', 'rm' ],
-        description: 'Delete a branch from the list of branches',
+        description: 'Delete a one or multiple branches from the existing local branches. Branches separated by comma',
         example: 'keg git branch --delete branch-to-remove',
       },
       force: {
