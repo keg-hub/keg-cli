@@ -712,7 +712,7 @@
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
 
-"@keg-hub/args-parse@8.0.0":
+"@keg-hub/args-parse@latest":
   version "8.0.0"
   resolved "https://registry.yarnpkg.com/@keg-hub/args-parse/-/args-parse-8.0.0.tgz#742946d0264a048d40728065177732c5df42b8c6"
   integrity sha512-lLbT0iU0VGqPygqvP5OKpE02yD/2g+EevRchwXhvcvgMEGJTJYeVsJ+mlPHtV0BAOcXbzHt8Zar2qKAhSKBkxA==
@@ -721,7 +721,7 @@
     "@keg-hub/jsutils" "8.8.0"
     app-root-path "3.0.0"
 
-"@keg-hub/ask-it@1.1.0", "@keg-hub/ask-it@^1.1.0":
+"@keg-hub/ask-it@1.1.0", "@keg-hub/ask-it@latest":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@keg-hub/ask-it/-/ask-it-1.1.0.tgz#d165cc099f39b62ec92c168eb70662f9b9e82aea"
   integrity sha512-U4Hzyb1cJcccUKiMiuIaRyWUyDYwoHcP6oMw1sxvCtOFoYJ4pGU8xWmOpK3X0jweFJ5qA3YaRl9vyEZK43zFbA==
@@ -735,7 +735,12 @@
   resolved "https://registry.yarnpkg.com/@keg-hub/jsutils/-/jsutils-8.8.0.tgz#a4172d6530354580379ed816a4e6b3a129f07137"
   integrity sha512-vXfto5/E7ohJkLmpAs3lp78gpf0HwG9TqIyRpAzM6BhGi8ZJAcL86ZFU52Oadfdxk/1EH8FRQ+93FG6BDJ/0fw==
 
-"@keg-hub/spawn-cmd@^0.3.0":
+"@keg-hub/jsutils@latest":
+  version "9.0.3"
+  resolved "https://registry.yarnpkg.com/@keg-hub/jsutils/-/jsutils-9.0.3.tgz#69b5f68602e6b27f98410b0403c2a60274467d40"
+  integrity sha512-jdLMCqkLLHNcMaZo47RrsIp6dR+PNkmxA/xVvd847af9yZBw6mdICc2g0tMKvQqwgq9MCmA6Ps9WxbD3gnl0jw==
+
+"@keg-hub/spawn-cmd@latest":
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/@keg-hub/spawn-cmd/-/spawn-cmd-0.3.0.tgz#f4d974d295b511710fecd9f6bdb7903ee5a82649"
   integrity sha512-ptRmt8UUzzZYeX9VoXjncfDnXxq1ITfC1scA/JTuwCeOpPwAbh1paXj0OQhP2z2tMMUqIk9mgBDG2bBk9Oxppw==
