@@ -1512,7 +1512,7 @@
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
 
-"@keg-hub/ask-it@1.1.0":
+"@keg-hub/ask-it@latest":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@keg-hub/ask-it/-/ask-it-1.1.0.tgz#d165cc099f39b62ec92c168eb70662f9b9e82aea"
   integrity sha512-U4Hzyb1cJcccUKiMiuIaRyWUyDYwoHcP6oMw1sxvCtOFoYJ4pGU8xWmOpK3X0jweFJ5qA3YaRl9vyEZK43zFbA==
@@ -1525,6 +1525,11 @@
   version "8.8.0"
   resolved "https://registry.yarnpkg.com/@keg-hub/jsutils/-/jsutils-8.8.0.tgz#a4172d6530354580379ed816a4e6b3a129f07137"
   integrity sha512-vXfto5/E7ohJkLmpAs3lp78gpf0HwG9TqIyRpAzM6BhGi8ZJAcL86ZFU52Oadfdxk/1EH8FRQ+93FG6BDJ/0fw==
+
+"@keg-hub/jsutils@latest":
+  version "9.0.3"
+  resolved "https://registry.yarnpkg.com/@keg-hub/jsutils/-/jsutils-9.0.3.tgz#69b5f68602e6b27f98410b0403c2a60274467d40"
+  integrity sha512-jdLMCqkLLHNcMaZo47RrsIp6dR+PNkmxA/xVvd847af9yZBw6mdICc2g0tMKvQqwgq9MCmA6Ps9WxbD3gnl0jw==
 
 "@sinonjs/commons@^1", "@sinonjs/commons@^1.6.0", "@sinonjs/commons@^1.7.0", "@sinonjs/commons@^1.7.2":
   version "1.8.1"
