@@ -72,6 +72,7 @@ const getTaskDefinitions = async (customTasks) => {
 }
 
 module.exports = {
-  getTaskDefinitions,
   registerTasks,
+  setTaskFolder,
+  getTaskDefinitions,
 }

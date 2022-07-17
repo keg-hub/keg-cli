@@ -1,14 +1,14 @@
 const { findArg } = require('./args/findArg')
 const { getConfig } = require('./utils/getConfig')
 const { exists, isObj } = require('@keg-hub/jsutils')
+const { parseQuotes } = require('./utils/parseQuotes')
 const { mapKeysToArgs } = require('./args/mapKeysToArgs')
+const { convertNoArgs } = require('./utils/convertNoArgs')
 const { getOptionMeta } = require('./options/getOptionMeta')
 const { ensureArg, ensureArgs } = require('./args/ensureArgs')
 const { hasKeyIdentifier } = require('./utils/hasKeyIdentifier')
 const { addDefaultOptions } = require('./options/addDefaultOptions')
 const { optionsHasIdentifiers } = require('./options/optionsHasIdentifiers')
-const { parseQuotes } = require('./utils/parseQuotes')
-const { convertNoArgs } = require('./utils/convertNoArgs')
 
 /**
  * Loops the task options looking to a match in the passed in options array

@@ -1,7 +1,7 @@
 jest.resetModules()
 jest.resetAllMocks()
 jest.clearAllMocks()
-const { setSharedOptions, sharedOptions } = require('../sharedOptions')
+const { setSharedOptions, sharedOptions, resetSharedOptions } = require('../sharedOptions')
 
 const defArgs = [
   [ 'test-action', {}, null, 'group' ],
@@ -9,6 +9,10 @@ const defArgs = [
 ]
 
 describe('getKegGlobalConfig', () => {
+
+  afterEach(() => {
+    resetSharedOptions()
+  })
 
   describe('setSharedOptions', () => {
 

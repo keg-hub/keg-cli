@@ -70,8 +70,11 @@ const buildBools = (customBools=noOpObj, inlineBools=noOpObj) => {
  * @returns {Object} - Loaded config object
  */
 const loadConfig = (inlineConfig=noOpObj) => {
-  const { PARSE_CONFIG_PATH } = process.env
-  const configPath = path.join(appRoot, PARSE_CONFIG_PATH || 'configs/parse.config.js')
+  const { PARSE_CONFIG_PATH, KEG_TASKS_CONFIG } = process.env
+  const configPath = path.join(
+    appRoot,
+    PARSE_CONFIG_PATH || KEG_TASKS_CONFIG || 'configs/parse.config.js'
+  )
 
   let customConfig
   try { customConfig = require(configPath)  }

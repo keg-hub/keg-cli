@@ -1,3 +1,4 @@
+const { clearConfig } = require('../utils/getConfig')
 const {
   testTask1,
   testTask2,
@@ -109,6 +110,12 @@ describe('argsParse', () => {
 
   describe('parse special edge-cases', () => {
 
+    afterEach(() => {
+      clearConfig()
+      Ask.ask.mockClear()
+      Ask.buildModel.mockClear()
+    })
+
     it('should set the first arg to the first option if no other args are passed', async () => {
   
       const parsed = await argsParse({
@@ -166,7 +173,8 @@ describe('argsParse', () => {
     })
   
     it('should call @keg-hub/ask-it when no value is passed and task.ask is exist', async () => {
-  
+      process.env.PARSE_CONFIG_PATH = 'src/__mocks__/testConfig'
+
       expect(Ask.ask).not.toHaveBeenCalled()
       expect(Ask.buildModel).not.toHaveBeenCalled()
   
@@ -177,6 +185,22 @@ describe('argsParse', () => {
   
       expect(Ask.ask).toHaveBeenCalled()
       expect(Ask.buildModel).toHaveBeenCalled()
+      process.env.PARSE_CONFIG_PATH = ``
+      clearConfig()
+  
+    })
+  
+    it('should not call @keg-hub/ask-it when it is disabled in config', async () => {
+      expect(Ask.ask).not.toHaveBeenCalled()
+      expect(Ask.buildModel).not.toHaveBeenCalled()
+  
+      const parsed = await argsParse({
+        args: [ '--context', 'tap' ],
+        task: testTask2,
+      })
+  
+      expect(Ask.ask).not.toHaveBeenCalled()
+      expect(Ask.buildModel).not.toHaveBeenCalled()
   
     })
   

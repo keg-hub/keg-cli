@@ -16,6 +16,13 @@ let __SHARED_OPTS = {
   groups: {}
 }
 
+const resetSharedOptions = () => {
+  __SHARED_OPTS = {
+    all: {},
+    groups: {}
+  }
+}
+
 /**
  * Sets the shared options object, to allow reusing defined task options
  * @function
@@ -71,7 +78,7 @@ const sharedOptions = (action, taskOps = noOpObj, include = noOpArr, groups) => 
       }), {})
     : __SHARED_OPTS.all
 
-  const addOpts = isArr(include)
+  const addOpts = isArr(include) && include.length
     ? pickKeys(shared, include)
     : shared
 
@@ -82,4 +89,5 @@ const sharedOptions = (action, taskOps = noOpObj, include = noOpArr, groups) => 
 module.exports = {
   sharedOptions,
   setSharedOptions,
+  resetSharedOptions,
 }
