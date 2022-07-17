@@ -1,6 +1,6 @@
 {
   "name": "@keg-hub/spawn-cmd",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Cross platform child_process execution in Node",
   "repository": {
     "url": "git+https://github.com/keg-hub/keg-hub.git",
