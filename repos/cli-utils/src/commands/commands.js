@@ -156,7 +156,7 @@ const dockerExec = (containerName, args, opts=noOpObj, ...extra) => {
  * dockerExec('container', 'npx playwright install firefox')
  */
 const containerExec = (_, args, opts=noOpObj, ...extra) => {
-  const argsArr = ensureArray(args)
+  const argsArr = [...ensureArray(args)]
   const cmd = argsArr.shift()
 
   return runCmd(

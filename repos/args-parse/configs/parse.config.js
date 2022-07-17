@@ -9,13 +9,17 @@ module.exports = {
       't',
       'yes',
       'y',
+      `1`,
+      1
     ],
     falsy: [
       false,
       'false',
       'f',
       'no',
-      'n'
+      'n',
+      `0`,
+      0
     ]
   },
   // Default environment argument to allow short cuts when setting an env
@@ -43,9 +47,10 @@ module.exports = {
   
   // Task parsing settings
   settings: {
-    defaultEnv: 'development',
+    fromEnv: `not-empty`,
+    defaultEnv: 'local',
     task: {
-      optionsAsk: true
+      optionsAsk: false
     }
   }
 

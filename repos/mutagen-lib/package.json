@@ -25,9 +25,9 @@
     "test": "NODE_ENV=test jest --no-cache --verbose --config=./configs/jest.config.js"
   },
   "dependencies": {
-    "@keg-hub/cli-utils": "latest",
-    "@keg-hub/jsutils": "latest",
-    "@keg-hub/spawn-cmd": "latest"
+    "@keg-hub/cli-utils": "*",
+    "@keg-hub/jsutils": "*",
+    "@keg-hub/spawn-cmd": "*"
   },
   "devDependencies": {
     "jest": "27.3.1",

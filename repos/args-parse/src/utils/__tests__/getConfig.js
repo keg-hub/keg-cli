@@ -12,6 +12,10 @@ describe('getConfig', () => {
   beforeEach(() => {
     clearConfig()
     jest.resetModules()
+    process.env.PARSE_CONFIG_PATH = undefined
+    delete process.env.PARSE_CONFIG_PATH
+    process.env.KEG_TASKS_CONFIG = undefined
+    delete process.env.KEG_TASKS_CONFIG
   })
 
   it('should load the config', () => {
@@ -42,7 +46,7 @@ describe('getConfig', () => {
 
   })
 
-  it('should load and merge the config from an ENV when set', () => {
+  it('should load and merge the config from a ENV PARSE_CONFIG_PATH when set', () => {
 
     process.env.PARSE_CONFIG_PATH = 'src/__mocks__/testConfig'
     const config = getConfig()
@@ -51,8 +55,17 @@ describe('getConfig', () => {
     expect(typeof config.test).toBe('object')
     expect(typeof config.environment).toBe('object')
 
-    process.env.PARSE_CONFIG_PATH = undefined
-    delete process.env.PARSE_CONFIG_PATH
+  })
+
+  it('should work with alternate ENV KEG_TASKS_CONFIG', () => {
+
+    expect(process.env.PARSE_CONFIG_PATH).toBe(undefined)
+    process.env.KEG_TASKS_CONFIG = 'src/__mocks__/testConfig'
+    const config = getConfig()
+
+    expect(typeof config).toBe('object')
+    expect(typeof config.test).toBe('object')
+    expect(typeof config.environment).toBe('object')
 
   })
 
