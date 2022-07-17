@@ -37,9 +37,9 @@
     "test": "NODE_ENV=test jest --no-cache --verbose --config=./configs/jest.config.js --maxWorkers=50%"
   },
   "dependencies": {
-    "@keg-hub/cli-utils": "latest",
-    "@keg-hub/jsutils": "latest",
-    "@keg-hub/spawn-cmd": "latest",
+    "@keg-hub/cli-utils": "*",
+    "@keg-hub/jsutils": "*",
+    "@keg-hub/spawn-cmd": "*",
     "js-yaml": "3.14.1",
     "write-yaml-file": "4.2.0"
   },

@@ -18,27 +18,30 @@ const { checkValueType } = require('../options/checkValueType')
  * @returns {Object} - Mapped args object
  */
 const ensureArg = async (task, args, key, meta) => {
-
+  let resolved = args[key]
   // Check if meta-data has an env set
   // If no value exists, then use the ENV value (process.env.<SOME_ENV>)
-  args[key] = checkENVValue(args[key], meta.env)
+  resolved = checkENVValue(resolved, meta.env)
 
   // Ensure any boolean shortcuts are mapped to true or false
   // Allows for using shortcuts like 'yes' or 'no' for 'true' and 'false'
   // See ./configs/parse.config.js for list of boolean shortcuts
-  args[key] = checkBoolValue(args[key])
+  resolved = checkBoolValue(resolved)
 
   // Ensure env shortcuts are mapped to the correct environment
   // Allows for using shortcuts like 'dev' or 'prod' for 'development' and 'production'
   // See ./configs/parse.config.js for list of env options
-  args[key] = checkEnvArg(key, args[key], meta.default)
+  resolved = checkEnvArg(key, resolved, meta.default)
 
   // Validate the metadata type, to ensure it matches the value
   // If no value exists, it will return the meta.default
-  args[key] = checkValueType(key, args[key], meta)
+  resolved = checkValueType(key, resolved, meta)
   
   // If a value is found, then just return
-  if(exists(args[key])) return args
+  if(exists(resolved)){
+    args[key] = resolved
+    return args
+  }
 
   // Check if we should ask the user for an option value
   let value = await optionsAsk(key, meta)

@@ -1,4 +1,24 @@
-const { exists } = require('@keg-hub/jsutils')
+const { exists, get } = require('@keg-hub/jsutils')
+const { getConfig } = require('../utils/getConfig')
+
+/**
+ * Check how envs should be loaded based on the config
+ * @param {string} metaEnv - name of the env from the option meta data
+ */
+const useENVValues = (metaEnv) => {
+  if(!metaEnv) return false
+
+  const envName = metaEnv.trim()
+  const envVal = process.env[envName]
+
+  if(!envName || !exists(envVal)) return false
+
+  const envSetting = get(getConfig(), 'settings.fromEnv')
+
+  return !envSetting || envSetting === false || (envSetting === `not-empty` && envVal.trim() === ``)
+    ? false
+    : true
+}
 
 /**
  * If the option meta-data has an env set, then check if it exists, and use it's value
@@ -11,7 +31,7 @@ const { exists } = require('@keg-hub/jsutils')
  * @return {string} - Found value from value param or process.env[metaEnv]
  */
 const checkENVValue = (value, metaEnv) => {
-  return !exists(value) && exists(process.env[metaEnv])
+  return !exists(value) && useENVValues(metaEnv)
     ? process.env[metaEnv]
     : value
 }
