@@ -26,6 +26,11 @@
   const ymlObj = await loadYml(...)
   const envObj = await loadEnv(...)
   const templateStr = await fillTemplate(...)
+  
+  // Load configs based on environment from both .env and .yaml files
+  const { loadConfigs } = require('@keg-hub/parse-config')
+  const configObj = await loadConfigs(...)
+
 ```
 
 ## Loading Config Files
@@ -78,12 +83,11 @@
   * Custom locations are **ALWAYS** checked after the default locations
   * This allows for any files loaded from the custom locations to override the defaults
 
-
 ### loadConfigs - Config Options
 ```js
-  const { configObj } = require('@keg-hub/parse-config')
+  const { loadConfigs } = require('@keg-hub/parse-config')
 
-  const actions = await loadConfigs({
+  const configObj = await loadConfigs({
     // Environment prefix of the config files to be loaded ( i.e. `production.env` )
     env: `local`,
     // App prefix of the config files to be loaded ( i.e. `my-app.production.env` )
@@ -108,5 +112,7 @@
     pattern: /{{([^}]*)}}/g
     // Extra file path and directories to search for config files
     locations: [...]
+    // How found configs should be merged. Must be one of overwrite | join | unique.
+    mergeStrategy: `overwrite`
   })
 ```
