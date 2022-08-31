@@ -2,7 +2,17 @@ const path = require('path')
 const { loadYmlSync } = require('../yml/yml')
 const { loadEnvSync } = require('../env/env')
 const { constants, getAppRoot } = require('@keg-hub/cli-utils')
-const { noPropArr, noOpObj, exists, get } = require('@keg-hub/jsutils')
+const {
+  get,
+  isArr,
+  isObj,
+  exists,
+  noOpObj,
+  uniqArr,
+  noPropArr,
+  deepEqual,
+  deepMerge,
+} = require('@keg-hub/jsutils')
 
 const { GLOBAL_CONFIG_FOLDER } = constants
 
@@ -186,11 +196,12 @@ const loopFilesNames = (locations, defLocs, fileNames) => {
  * Generates the full locations for the yml and env files to load
  * @return {Object} - Contains the yam and env file locations to load
  */
-const generateLocPath = (locations, defLocs, fileNames) => {
+const generateLocPath = (locations, defLocs, fileNames, opts) => {
+  const { noYml, noEnv } = opts
   return {
-    yml: loopFilesNames(locations, defLocs, fileNames.yml),
-    env: loopFilesNames(locations, defLocs, fileNames.env),
-    first: loopFilesNames(locations, defLocs, fileNames.first),
+    yml: noYml ? noPropArr : uniqArr(loopFilesNames(locations, defLocs, fileNames.yml)),
+    env: noEnv ? noPropArr : uniqArr(loopFilesNames(locations, defLocs, fileNames.env)),
+    first: noEnv ? noPropArr : uniqArr(loopFilesNames(locations, defLocs, fileNames.first)),
   }
 }
 
@@ -206,7 +217,47 @@ const generateLoadPaths = ({ locations = noPropArr, ...opts }) => {
   const fileNames = buildFileNames(opts)
   const defLocs = [ ...getAppLocations(), GLOBAL_CONFIG_FOLDER ]
 
-  return generateLocPath(locations, defLocs, fileNames)
+  return generateLocPath(locations, defLocs, fileNames, opts)
+}
+
+/**
+ * Loops over each value in the merged object looking for array
+ * If it finds an array, it converts it into a unique array
+ * Uses deepEqual to compare values between the merged, current, and toMerge args
+ */
+const loopCheckArr = (merged, current, toMerge) => {
+  return Object.entries(merged)
+    .reduce((updated, [key, value]) => {
+      const curVal = current?.[key]
+      const mergeVal = toMerge?.[key]
+
+      updated[key] = isObj(value)
+        ? loopCheckArr(value, curVal, mergeVal)
+        : !isArr(value) || !isArr(curVal)
+          ? value
+          : uniqArr(value, (item) => {
+              const cItem = curVal.find(cItem => deepEqual(cItem, item))
+              const mItem = cItem || mergeVal.find(mItem => deepEqual(mItem, item))
+              return mItem || item
+            })
+
+      return updated
+    }, isArr(merged) ? [] : {})
+}
+
+/**
+ * Checks the array merge strategy, defaults to join
+ * If join then deep merge and return
+ */
+const mergeObjs = (current, toMerge, opts) => {
+  const { mergeStrategy=`overwrite` } = opts
+  if(mergeStrategy !== `join` && mergeStrategy !== `unique`)
+    return {...current, ...toMerge}
+
+  const merged = deepMerge(current, toMerge)
+  return mergeStrategy === `join`
+    ? merged
+    : loopCheckArr(merged, current, toMerge)
 }
 
 /**
@@ -250,10 +301,9 @@ const loadConfigs = (config = noOpObj) => {
     ? noOpObj
     : loadFrom.yml.reduce((acc, location) => {
       const content = loadYmlSync({ error: false, ...config, location })
-      return {
-        ...acc,
-        ...(ymlPath ? get(content, ymlPath) : content),
-      }
+      const toMerge = ymlPath ? get(content, ymlPath) : content
+
+      return mergeObjs(acc, toMerge, config)
     }, firstEnvs)
 
   // Load the env files, and merge with the yml files
