@@ -27,6 +27,10 @@ const findArg = ({ key, meta={}, index, task, ...args }) => {
     optionSchemas: task.options
   })
 
+  // TODO: Bug where if previous task has an allowed list of items
+  // And current value is in that allowed list at the correct index
+  // Then it will use that value event if it should not
+
   // If value exists or if there's not any allowed, then return it
   if (exists(value) || !isArr(meta.allowed)) return value
 
