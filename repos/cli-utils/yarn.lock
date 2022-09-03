@@ -840,12 +840,7 @@
     colors "1.4.0"
     inquirer "7.3.3"
 
-"@keg-hub/jsutils@*", "@keg-hub/jsutils@latest":
-  version "9.0.3"
-  resolved "https://registry.yarnpkg.com/@keg-hub/jsutils/-/jsutils-9.0.3.tgz#69b5f68602e6b27f98410b0403c2a60274467d40"
-  integrity sha512-jdLMCqkLLHNcMaZo47RrsIp6dR+PNkmxA/xVvd847af9yZBw6mdICc2g0tMKvQqwgq9MCmA6Ps9WxbD3gnl0jw==
-
-"@keg-hub/jsutils@9.6.1":
+"@keg-hub/jsutils@*", "@keg-hub/jsutils@>=9.3.2", "@keg-hub/jsutils@latest", "@keg-hub/jsutils@9.6.1":
   version "9.6.1"
   resolved "https://registry.yarnpkg.com/@keg-hub/jsutils/-/jsutils-9.6.1.tgz#ad30d539173d66b2315563995cfd22a4c1dc5197"
   integrity sha512-/hkXhSRYGrQ76UIpwWO5ed+QRRCDx8zMEwCOnfFzwfCmGv9YijbfnJknUpkgitmhNdNSnfanJEzQdzDzOMOE2g==

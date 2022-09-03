@@ -24,6 +24,9 @@
   "scripts": {
     "test": "NODE_ENV=test jest --no-cache --verbose --config=./configs/jest.config.js"
   },
+  "resolutions": {
+    "@keg-hub/jsutils": ">=9.3.2"
+  },
   "dependencies": {
     "@keg-hub/cli-utils": "*",
     "@keg-hub/jsutils": "*",

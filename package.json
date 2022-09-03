@@ -40,6 +40,9 @@
     "test:jest": "NODE_ENV=test jest --no-cache --verbose --maxWorkers=50%",
     "test:e2e": "NODE_ENV=test node ./scripts/cli/tests/index.js"
   },
+  "resolutions": {
+    "@keg-hub/jsutils": ">=9.3.2"
+  },
   "dependencies": {
     "esbuild": "0.17.6",
     "esbuild-register": "3.4.2",

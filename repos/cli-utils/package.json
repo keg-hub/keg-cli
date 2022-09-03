@@ -30,6 +30,9 @@
     "format": "yarn format:prettier && yarn format:eslint",
     "test": "NODE_ENV=test jest --no-cache --verbose --config=./configs/jest.config.js --maxWorkers=50%"
   },
+  "resolutions": {
+    "@keg-hub/jsutils": ">=9.3.2"
+  },
   "dependencies": {
     "@keg-hub/args-parse": "9.0.0",
     "@keg-hub/jsutils": "9.6.1",

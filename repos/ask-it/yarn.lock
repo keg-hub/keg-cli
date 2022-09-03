@@ -867,9 +867,9 @@
     chalk "^4.0.0"
 
 "@keg-hub/jsutils@*":
-  version "9.0.3"
-  resolved "https://registry.yarnpkg.com/@keg-hub/jsutils/-/jsutils-9.0.3.tgz#69b5f68602e6b27f98410b0403c2a60274467d40"
-  integrity sha512-jdLMCqkLLHNcMaZo47RrsIp6dR+PNkmxA/xVvd847af9yZBw6mdICc2g0tMKvQqwgq9MCmA6Ps9WxbD3gnl0jw==
+  version "9.3.0"
+  resolved "https://registry.npmjs.org/@keg-hub/jsutils/-/jsutils-9.3.0.tgz#eab6835dd4840955da4b7c8238faec911d54899b"
+  integrity sha512-te2B0HmpgAJDV/WoRyyL4xrGw01efr/vrmcoH3CDPyCtpcVuHtwr3ev9lgZ9nQQMX/5XiZkclQvzQ+BKLxms5g==
 
 "@sinonjs/commons@^1.7.0":
   version "1.8.2"

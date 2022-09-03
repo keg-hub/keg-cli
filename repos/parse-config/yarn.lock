@@ -683,47 +683,42 @@
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
 
-"@keg-hub/args-parse@latest":
-  version "8.0.1"
-  resolved "https://registry.yarnpkg.com/@keg-hub/args-parse/-/args-parse-8.0.1.tgz#7fff6618abd4eb59d4e72d1e019be6e5b4ead024"
-  integrity sha512-dmoY5ETnB2F9ufj6b2GRwAoFWmKDcloihgwVBJXA5gvi1IPzfQYTQWuhsLYfBFmAzh65DlKJsht0PuIa2vpIJw==
+"@keg-hub/args-parse@*":
+  version "9.0.0"
+  resolved "https://registry.npmjs.org/@keg-hub/args-parse/-/args-parse-9.0.0.tgz#4525f33a8ccabb968fd8358bb23c49f4caf24c76"
+  integrity sha512-N7/98lGiZDWGbYAWz1Q/EvknrT4GywjQV9gGtxZco0JP2HJR/9rU3fP4Vl7ciGWLxIXikjt4N5t1j8g4rp6FbQ==
   dependencies:
-    "@keg-hub/ask-it" latest
-    "@keg-hub/jsutils" latest
+    "@keg-hub/ask-it" "*"
+    "@keg-hub/jsutils" "*"
     app-root-path "3.0.0"
 
-"@keg-hub/ask-it@latest":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@keg-hub/ask-it/-/ask-it-1.1.1.tgz#4f714a7c8a294ad84fd2dd0998a6ce4fb83ab55a"
-  integrity sha512-oH/dpFSpfwvVJ4P3HL87b2yUdoQ3WMdxYEahT4S1H8UlAzdOUBB+0iD9zC+QZbtCSREqTHJitE3JwwrfxvRa8A==
+"@keg-hub/ask-it@*":
+  version "1.1.2"
+  resolved "https://registry.npmjs.org/@keg-hub/ask-it/-/ask-it-1.1.2.tgz#36708b17c3149d1693817ca3ba160dcbd999d6bd"
+  integrity sha512-i/KMYeNZGOA++LHRM0tsJ57pa2qaFyRMrDq9Q0zCilu3ET+gFBphrrQuzJB+03jA/HNpNUjNwNFc5XjkgfBbjA==
   dependencies:
-    "@keg-hub/jsutils" latest
+    "@keg-hub/jsutils" "*"
     colors "1.4.0"
     inquirer "7.3.3"
 
 "@keg-hub/cli-utils@*":
-  version "0.6.1"
-  resolved "https://registry.yarnpkg.com/@keg-hub/cli-utils/-/cli-utils-0.6.1.tgz#0a818322de07e597de7f52e32f05b7662dfba279"
-  integrity sha512-o1XzCOMmzFFVa3Xa3beDARvCwhzNZuHV9SkTZv7t9xsMUWcQmELAnrQVJYst2gS3SFiAw+Y4+0t7ldzyA7ARWg==
+  version "0.7.0"
+  resolved "https://registry.npmjs.org/@keg-hub/cli-utils/-/cli-utils-0.7.0.tgz#1832a47e4e390d1d92f3a0484e4256fa42ae6a51"
+  integrity sha512-r044xoIcXiYudShalw71+snBywsuGEOCZQ68nc1f17kTGK1qxDu90sL1ktcAa1WEPl22JnJBV9Ts9Y9//f3DnQ==
   dependencies:
-    "@keg-hub/args-parse" latest
-    "@keg-hub/ask-it" latest
-    "@keg-hub/jsutils" latest
-    "@keg-hub/spawn-cmd" latest
+    "@keg-hub/args-parse" "*"
+    "@keg-hub/ask-it" "*"
+    "@keg-hub/jsutils" "*"
+    "@keg-hub/spawn-cmd" "*"
     app-root-path "3.0.0"
     axios "0.24.0"
     colors "1.4.0"
     fs-extra "9.0.1"
 
-"@keg-hub/jsutils@*", "@keg-hub/jsutils@latest":
-  version "9.0.3"
-  resolved "https://registry.yarnpkg.com/@keg-hub/jsutils/-/jsutils-9.0.3.tgz#69b5f68602e6b27f98410b0403c2a60274467d40"
-  integrity sha512-jdLMCqkLLHNcMaZo47RrsIp6dR+PNkmxA/xVvd847af9yZBw6mdICc2g0tMKvQqwgq9MCmA6Ps9WxbD3gnl0jw==
-
-"@keg-hub/jsutils@8.8.0":
-  version "8.8.0"
-  resolved "https://registry.yarnpkg.com/@keg-hub/jsutils/-/jsutils-8.8.0.tgz#a4172d6530354580379ed816a4e6b3a129f07137"
-  integrity sha512-vXfto5/E7ohJkLmpAs3lp78gpf0HwG9TqIyRpAzM6BhGi8ZJAcL86ZFU52Oadfdxk/1EH8FRQ+93FG6BDJ/0fw==
+"@keg-hub/jsutils@*", "@keg-hub/jsutils@>=9.3.2", "@keg-hub/jsutils@latest":
+  version "9.3.2"
+  resolved "https://registry.npmjs.org/@keg-hub/jsutils/-/jsutils-9.3.2.tgz#c2679d59dda837801682c73196377e2a52c8ed20"
+  integrity sha512-GEXTVUEVLU/+ajZTfn5yU0sFW9HW3JALSQmsAS+F3BtIKF7T0BRfXaMSFWl01AB8KxdcoaRQ7jyUm48f0nP9Ww==
 
 "@keg-hub/spawn-cmd@*":
   version "0.3.1"
@@ -731,20 +726,6 @@
   integrity sha512-1xdmpLwkBPO8qDq4YvIUlMGdM0q/LtuOH1vKdY6xNwtF45cj6cDuz9EmMfuRDINkYfpcHfT9ukOkmQi/+cIvDg==
   dependencies:
     "@keg-hub/jsutils" latest
-    app-root-path "3.0.0"
-    cli-progress "3.9.1"
-    cli-spinners "2.6.1"
-    cross-spawn "7.0.3"
-    log-update "4.0.0"
-    shell-exec "1.0.2"
-    tree-kill "1.2.2"
-
-"@keg-hub/spawn-cmd@latest":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@keg-hub/spawn-cmd/-/spawn-cmd-0.3.0.tgz#f4d974d295b511710fecd9f6bdb7903ee5a82649"
-  integrity sha512-ptRmt8UUzzZYeX9VoXjncfDnXxq1ITfC1scA/JTuwCeOpPwAbh1paXj0OQhP2z2tMMUqIk9mgBDG2bBk9Oxppw==
-  dependencies:
-    "@keg-hub/jsutils" "8.8.0"
     app-root-path "3.0.0"
     cli-progress "3.9.1"
     cli-spinners "2.6.1"

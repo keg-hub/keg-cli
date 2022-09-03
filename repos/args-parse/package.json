@@ -32,6 +32,9 @@
     "configs",
     "README.md"
   ],
+  "resolutions": {
+    "@keg-hub/jsutils": ">=9.3.2"
+  },
   "dependencies": {
     "@keg-hub/ask-it": "*",
     "@keg-hub/jsutils": "*",

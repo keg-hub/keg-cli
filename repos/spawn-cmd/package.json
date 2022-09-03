@@ -27,6 +27,9 @@
     "test": "NODE_ENV=test jest --no-cache --verbose",
     "test:reports": "NODE_ENV=test jest --no-cache --verbose --coverage"
   },
+  "resolutions": {
+    "@keg-hub/jsutils": ">=9.3.2"
+  },
   "dependencies": {
     "@keg-hub/jsutils": "*",
     "app-root-path": "3.0.0",
