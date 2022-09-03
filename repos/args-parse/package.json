@@ -33,7 +33,7 @@
     "README.md"
   ],
   "resolutions": {
-    "@keg-hub/jsutils": ">=9.3.2"
+    "@keg-hub/jsutils": "*"
   },
   "dependencies": {
     "@keg-hub/ask-it": "*",

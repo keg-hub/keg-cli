@@ -28,7 +28,7 @@
     "test:reports": "NODE_ENV=test jest --no-cache --verbose --coverage"
   },
   "resolutions": {
-    "@keg-hub/jsutils": ">=9.3.2"
+    "@keg-hub/jsutils": "*"
   },
   "dependencies": {
     "@keg-hub/jsutils": "*",
