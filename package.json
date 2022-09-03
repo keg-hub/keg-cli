@@ -43,6 +43,10 @@
   "resolutions": {
     "@keg-hub/jsutils": ">=9.3.2"
   },
+  "private": true,
+  "workspaces": [
+    "repos/*"
+  ],
   "dependencies": {
     "esbuild": "0.17.6",
     "esbuild-register": "3.4.2",
