@@ -22,5 +22,7 @@ module.exports = {
     "!**/__mocks__/**/*.{js}"
   ],
   coverageDirectory: "reports/coverage",
-  setupFilesAfterEnv: []
+  setupFilesAfterEnv: [
+    "./configs/jest.setup.js"
+  ]
 }

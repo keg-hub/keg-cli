@@ -24,7 +24,6 @@
     "@keg-hub/jsutils": "*"
   },
   "dependencies": {
-    "@keg-hub/ask-it": "*",
     "@keg-hub/cli-utils": "*",
     "@keg-hub/jsutils": "*",
     "@keg-hub/spawn-cmd": "*"

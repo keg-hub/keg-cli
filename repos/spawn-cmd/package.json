@@ -24,8 +24,8 @@
     "clean:install": "yarn clean:full; yarn install --force",
     "clean:nm": "rimraf yarn.lock; rimraf package.lock; rimraf node_modules",
     "format": "exit 0",
-    "test": "NODE_ENV=test jest --no-cache --verbose",
-    "test:reports": "NODE_ENV=test jest --no-cache --verbose --coverage"
+    "test": "NODE_ENV=test jest --no-cache --verbose --config=./configs/jest.config.js --maxWorkers=50%",
+    "test:reports": "NODE_ENV=test jest --no-cache --verbose --coverage --config=./configs/jest.config.js --maxWorkers=50%"
   },
   "resolutions": {
     "@keg-hub/jsutils": "*"
