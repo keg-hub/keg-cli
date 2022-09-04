@@ -8,8 +8,6 @@ const {
   testTask6,
 } = require('../__mocks__/testTasks')
 
-const Ask = require('../__mocks__/ask')
-jest.setMock('@keg-hub/ask-it', Ask)
 
 const { argsParse } = require('../argsParse')
 
@@ -108,7 +106,7 @@ describe('argsParse', () => {
 
   })
 
-  describe('parse special edge-cases', () => {
+  describe.only('parse special edge-cases', () => {
 
     afterEach(() => {
       clearConfig()
@@ -171,39 +169,7 @@ describe('argsParse', () => {
       expect(parsed.quoted).toBe('Quoted string')
   
     })
-  
-    it('should call @keg-hub/ask-it when no value is passed and task.ask is exist', async () => {
-      process.env.PARSE_CONFIG_PATH = 'src/__mocks__/testConfig'
 
-      expect(Ask.ask).not.toHaveBeenCalled()
-      expect(Ask.buildModel).not.toHaveBeenCalled()
-  
-      const parsed = await argsParse({
-        args: [ '--context', 'tap' ],
-        task: testTask2,
-      })
-  
-      expect(Ask.ask).toHaveBeenCalled()
-      expect(Ask.buildModel).toHaveBeenCalled()
-      process.env.PARSE_CONFIG_PATH = ``
-      clearConfig()
-  
-    })
-  
-    it('should not call @keg-hub/ask-it when it is disabled in config', async () => {
-      expect(Ask.ask).not.toHaveBeenCalled()
-      expect(Ask.buildModel).not.toHaveBeenCalled()
-  
-      const parsed = await argsParse({
-        args: [ '--context', 'tap' ],
-        task: testTask2,
-      })
-  
-      expect(Ask.ask).not.toHaveBeenCalled()
-      expect(Ask.buildModel).not.toHaveBeenCalled()
-  
-    })
-  
     it('should map the options to the keys when no identifiers are used', async () => {
   
       const parsed = await argsParse({

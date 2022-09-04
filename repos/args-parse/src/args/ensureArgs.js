@@ -1,5 +1,4 @@
 const { checkEnvArg } = require('./checkEnvArg')
-const { optionsAsk } = require('../options/optionsAsk')
 const { exists, reduceObj } = require('@keg-hub/jsutils')
 const { checkRequired } = require('../utils/checkRequired')
 const { checkENVValue } = require('../options/checkENVValue')
@@ -42,9 +41,6 @@ const ensureArg = async (task, args, key, meta) => {
     args[key] = resolved
     return args
   }
-
-  // Check if we should ask the user for an option value
-  let value = await optionsAsk(key, meta)
 
   // Run final check to ensure the argument exists
   // If no value exist at this point, check to see if it's required

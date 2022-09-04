@@ -36,7 +36,6 @@
     "@keg-hub/jsutils": "*"
   },
   "dependencies": {
-    "@keg-hub/ask-it": "*",
     "@keg-hub/jsutils": "*",
     "app-root-path": "3.0.0"
   },
