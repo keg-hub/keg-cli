@@ -5,7 +5,7 @@ jest.setMock('path', { ...path, join: joinMock })
 
 const { getConfig, clearConfig } = require('../getConfig')
 
-describe('getConfig', () => {
+describe.only('getConfig', () => {
 
   afterAll(() => jest.resetAllMocks())
 
@@ -50,7 +50,6 @@ describe('getConfig', () => {
 
     process.env.PARSE_CONFIG_PATH = 'src/__mocks__/testConfig'
     const config = getConfig()
-
     expect(typeof config).toBe('object')
     expect(typeof config.test).toBe('object')
     expect(typeof config.environment).toBe('object')

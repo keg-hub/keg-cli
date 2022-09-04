@@ -19,9 +19,9 @@ const throwRequired = (task, key, meta={}) => {
     throw new Error()
   }
   catch(err){
-    console.log()
+    console.log(``)
     console.log(wrapRed(`Task failed!`))
-    console.log()
+    console.log(``)
     console.log(
       "Task "
       + wrapYellow(task.name)
@@ -34,10 +34,10 @@ const throwRequired = (task, key, meta={}) => {
     meta.description && logPair(`  * Description:`, meta.description)
     meta.allowed && logPair(`  * Allowed Values:`, meta.allowed.join(' | '))
     meta.example && logPair(`  * Example:`, meta.example)
-    console.log()
+    console.log(``)
 
     console.error(err.stack)
-    console.log()
+    console.log(``)
     process.exit(1)
   }
 
@@ -46,14 +46,3 @@ const throwRequired = (task, key, meta={}) => {
 module.exports = {
   throwRequired
 }
-
-
-throwRequired({
-  name: `duper`,
-}, `scooper`, {
-  require: true,
-  alias: [`ts`],
-  description: `This is a description`,
-  allowed: [`allowed`, `arguments`],
-  example: `I am an example`
-})

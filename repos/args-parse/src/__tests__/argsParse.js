@@ -106,12 +106,10 @@ describe('argsParse', () => {
 
   })
 
-  describe.only('parse special edge-cases', () => {
+  describe('parse special edge-cases', () => {
 
     afterEach(() => {
       clearConfig()
-      Ask.ask.mockClear()
-      Ask.buildModel.mockClear()
     })
 
     it('should set the first arg to the first option if no other args are passed', async () => {

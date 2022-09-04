@@ -64,7 +64,9 @@
     ],
     "testURL": "http://localhost/",
     "coverageDirectory": "reports/coverage",
-    "setupFilesAfterEnv": []
+    "setupFilesAfterEnv": [
+      "./configs/jest.setup.js"
+    ]
   },
   "keywords": [
     "arguments",

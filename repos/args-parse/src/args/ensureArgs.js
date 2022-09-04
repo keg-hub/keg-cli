@@ -7,7 +7,7 @@ const { checkValueType } = require('../options/checkValueType')
 
 /**
  * Ensures a param value exists as needed
- * Asks for the value when ask key is defined, otherwise uses the default
+ * Uses the default when not defined defined
  * @function
  * @param {Object} task - Task Model of current task being run
  * @param {Object} args - Existing mapped args from options
@@ -45,9 +45,9 @@ const ensureArg = async (task, args, key, meta) => {
   // Run final check to ensure the argument exists
   // If no value exist at this point, check to see if it's required
   // We treat empty strings as no value
-  ;!exists(value) || value === ''
+  ;!exists(resolved) || resolved === ''
     ? checkRequired(task, key, meta)
-    : ( args[key] = checkBoolValue(value) )
+    : ( args[key] = checkBoolValue(resolved) )
 
   return args
 }

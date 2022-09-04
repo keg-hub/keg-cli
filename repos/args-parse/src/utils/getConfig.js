@@ -1,7 +1,7 @@
 const path = require('path')
 const appRoot = require('app-root-path').path
 const defConfig = require('../../configs/parse.config.js')
-const { deepMerge, get, noOpObj } = require('@keg-hub/jsutils')
+const { deepMerge, get, noOpObj, toBool } = require('@keg-hub/jsutils')
 
 /**
  * Placeholder variable to cache the loaded config
@@ -70,15 +70,20 @@ const buildBools = (customBools=noOpObj, inlineBools=noOpObj) => {
  * @returns {Object} - Loaded config object
  */
 const loadConfig = (inlineConfig=noOpObj) => {
-  const { PARSE_CONFIG_PATH, KEG_TASKS_CONFIG } = process.env
+  const { PARSE_CONFIG_PATH, KEG_TASKS_CONFIG, TASKS_CONFIG_PATH } = process.env
+  const envConfig = PARSE_CONFIG_PATH || TASKS_CONFIG_PATH || KEG_TASKS_CONFIG
+  
   const configPath = path.join(
     appRoot,
-    PARSE_CONFIG_PATH || KEG_TASKS_CONFIG || 'configs/parse.config.js'
+    PARSE_CONFIG_PATH || TASKS_CONFIG_PATH || KEG_TASKS_CONFIG || 'configs/parse.config.js'
   )
 
   let customConfig
   try { customConfig = require(configPath)  }
-  catch(err){ customConfig = noOpObj }
+  catch(err){
+    toBool(envConfig) && console.error(err.stack)
+    customConfig = noOpObj
+  }
 
   return {
     ...defConfig,
