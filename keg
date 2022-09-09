@@ -1,5 +1,12 @@
 #! /usr/bin/env bash
 
+# Ensure the KEG_CLI_TASK_RUNNING env is unset when a keg task exits
+unsetKegTaskRunning(){
+  unset KEG_CLI_TASK_RUNNING
+}
+
+trap "unsetKegTaskRunning" ERR
+
 KEG_SHELL_TYPE="$(ps -o comm= $$)"
 
 # Check for the shell type
@@ -14,7 +21,6 @@ fi
 # For navigation commands calls node script to load the path from keg.config.json
 # All other commands call the root keg-cli node script
 keg(){
-
   # Check if the keg-cli root dir has been set
   # If not set, then this code will find the root path based on the BASH_SOURCE[0] argument
   # Works when the Keg-CLI installed in the keg-hub/repos and is symlinked into the /usr/local/bin
@@ -127,9 +133,19 @@ keg(){
     export KEG_ENV_LOADED="loaded"
   fi
 
-  # All other commands get passed on to the node keg-cli script
-  node $KEG_CLI_PATH/keg-cli.js $@
+  (
+    set -e
 
-  # return the exit code of the node keg-cli script
-  return "$?"
+    # Set the env so we know a task is coming from the keg-cli and not locally
+    export KEG_CLI_TASK_RUNNING=1
+    # All other commands get passed on to the node keg-cli script
+    node $KEG_CLI_PATH/keg-cli.js $@
+    TASK_RESP="$?"
+    # Unset the KEG_CLI_TASK_RUNNING env
+    unsetKegTaskRunning
+
+    # return the exit code of the node keg-cli script
+    return "$TASK_RESP"
+  )
 }
+
