@@ -23,7 +23,7 @@ fi
 keg(){
   # Check if the keg-cli root dir has been set
   # If not set, then this code will find the root path based on the BASH_SOURCE[0] argument
-  # Works when the Keg-CLI installed in the keg-hub/repos and is symlinked into the /usr/local/bin
+  # Works when the Keg-CLI installed in the ~/repos and is symlinked into the /usr/local/bin
   if [[ -z "$KEG_CLI_PATH" ]]; then
     # Get the KEG-CLI path based on the keg root directory
     local SOURCE

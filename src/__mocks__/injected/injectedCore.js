@@ -2,7 +2,7 @@ const homeDir = require('os').homedir();
 
 const coreEnvs = {
   KEG_PATH: `${homeDir}/keg-hub`,
-  CLI_PATH: `${homeDir}/keg-hub/repos/keg-cli`,
+  CLI_PATH: `${homeDir}/keg-cli`,
   CORE_PATH: `${homeDir}/keg-hub/repos/keg-core`,
   COMPONENTS_PATH: `${homeDir}/keg-hub/repos/keg-components`,
   RESOLVER_PATH: `${homeDir}/keg-hub/repos/tap-resolver`,
