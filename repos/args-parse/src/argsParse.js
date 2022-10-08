@@ -81,7 +81,7 @@ const argsParse = async (toParse, config) => {
   )
 
   // Initialize the config by calling it in the beginning
-  getConfig(config)
+  const builtConfig = getConfig(config)
 
   // Make copy of args, which allows us to know the order at a later time
   toParse.originalOptions = Array.from(args)
@@ -101,10 +101,14 @@ const argsParse = async (toParse, config) => {
 
   // Loop over the task keys and map the task options to the passed in options
   // Otherwise set it as the first key in the task options object
-  return doOptsLoop
+  const parsedArgs = doOptsLoop
     ? taskKeys && await loopTaskOptions(task, taskKeys, args, params)
     : ensureArgs(task, {  ...params, [ taskKeys[0] ]: args[0] })
 
+  // Add getter helper method to get the built args-parse config
+  Object.defineProperty(parsedArgs, `$getConfig`, { value: () => builtConfig })
+
+  return parsedArgs
 }
 
 module.exports = {
