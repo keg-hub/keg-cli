@@ -1,7 +1,25 @@
-const { get } = require('@keg-hub/jsutils')
 const docker = require('@keg-hub/docker-lib')
-const { dockerLog } = require('KegUtils/log/dockerLog')
+const { Logger } = require('@keg-hub/cli-utils')
+const { get } = require('@keg-hub/jsutils')
 const { CONTAINERS } = require('KegConst/docker/containers')
+
+const getFormat = (params) => {
+  const { json, js, short, sm, format } = params
+  return json || js
+    ? `json`
+    : short || sm
+      ? `short`
+      : format || ``
+}
+
+const logImages = (res, params) => {
+  Logger.empty()
+  
+  const format = getFormat(params)
+  if(!format || format === `json`) return Logger.data(res)
+
+
+}
 
 /**
  * Run a docker image command
@@ -14,11 +32,12 @@ const { CONTAINERS } = require('KegConst/docker/containers')
  * @returns {void}
  */
 const dockerImage = async args => {
-  const { command, globalConfig, options, params, task, tasks } = args
-  const { cmd, name, force, format } = params
+  const { params } = args
+  const { cmd, name } = params
   const image = name && get(CONTAINERS, `${name.toUpperCase()}.ENV.IMAGE`)
 
   const cmdArgs = { ...params }
+  cmdArgs.format = getFormat(params)
 
   cmdArgs.opts = cmd
     ? image
@@ -27,9 +46,8 @@ const dockerImage = async args => {
     : [ 'ls' ]
 
   const res = await docker.image(cmdArgs)
-
   // Log the output of the command
-  dockerLog(res, cmd)
+  logImages(res, cmdArgs)
 
   return res
 
@@ -62,8 +80,18 @@ module.exports = {
         description: 'Add the force argument to the docker command',
         example: 'keg docker image --force ',
       },
+      json: {
+        alias: ['js'],
+        description: 'Format docker image output to JSON',
+        example: 'keg docker image --json ',
+      },
+      short: {
+        alias: ['sm'],
+        description: 'Format docker image output to short output',
+        example: 'keg docker image --short',
+      },
       format: {
-        allowed: [ 'json' ],
+        allowed: [ 'json', 'js', `short`, 'sm' ],
         description: 'Change output format of docker cli commands',
         example: 'keg docker image --format json ',
       },

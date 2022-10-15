@@ -1,6 +1,5 @@
 const { get } = require('@keg-hub/jsutils')
 const docker = require('@keg-hub/docker-lib')
-const { dockerLog } = require('KegUtils/log/dockerLog')
 const { CONTAINERS } = require('KegConst/docker/containers')
 
 /**
@@ -36,7 +35,7 @@ const dockerContainer = async args => {
   const res = await docker.container(cmdArgs)
 
   // Log the output of the command
-  dockerLog(res, cmd)
+  docker.logCmd(res, cmd)
 
 }
 

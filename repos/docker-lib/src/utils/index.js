@@ -1,6 +1,7 @@
 module.exports = {
   ...require('./error'),
   ...require('./output'),
+  ...require('./logCmd'),
   ...require('./buidArgs'),
   ...require('./containerEnvs'),
   ...require('./compareItems'),
