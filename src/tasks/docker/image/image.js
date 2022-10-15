@@ -12,12 +12,31 @@ const getFormat = (params) => {
       : format || ``
 }
 
-const logImages = (res, params) => {
+const logImages = (images, params) => {
   Logger.empty()
-  
-  const format = getFormat(params)
-  if(!format || format === `json`) return Logger.data(res)
 
+  const format = getFormat(params)
+  if(!format || format !== `short` || !Array.isArray(images)) return Logger.data(images)
+
+  const idH = `Id              `
+  const sizeH = `Size       `
+  const imgH = `Image:Tag                                `
+  Logger.green(`${idH}${sizeH}${imgH}`)
+
+  const items = images.map(img => {
+
+    let id = img.id.substring(0, 15)
+    if(img.id.length > 15) id = `${img.id.substring(0, 12)}...`
+    Array.apply(' ', Array(15 - id.length)).forEach(() => id += ` `)
+
+    let size = img.size.substring(0, 10)
+    if(img.size.length > 10) size = `${img.size.substring(0, 7)}...`
+    Array.apply(' ', Array(10 - size.length)).forEach(() => size += ` `)
+  
+    let imageT = `${img.repository}:${img.tag}`
+    if(imageT.length > 70) imageT = `${imageT.substring(0, 57)}...`
+    Logger.log(`${id} ${size} ${imageT}`)
+  })
 
 }
 
@@ -37,7 +56,8 @@ const dockerImage = async args => {
   const image = name && get(CONTAINERS, `${name.toUpperCase()}.ENV.IMAGE`)
 
   const cmdArgs = { ...params }
-  cmdArgs.format = getFormat(params)
+  const format = getFormat(params)
+  if(format === 'json' || format === 'short') cmdArgs.format = 'json'
 
   cmdArgs.opts = cmd
     ? image
@@ -87,6 +107,7 @@ module.exports = {
       },
       short: {
         alias: ['sm'],
+        default: true,
         description: 'Format docker image output to short output',
         example: 'keg docker image --short',
       },
