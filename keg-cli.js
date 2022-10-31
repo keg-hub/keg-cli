@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 !process.env.KEG_CLI_PATH && (process.env.KEG_CLI_PATH = __dirname)
 
-const { register } = require('esbuild-register/dist/node')
-register({
+require('esbuild-register/dist/node').register({
   loader: 'ts',
   minify: false,
   target: 'ESNext',
