@@ -67,22 +67,12 @@ const searchForTasks = async () => {
   if(!taskFolder) return noOpObj
 
   try {
-    const jsMod = requireFile(taskFolder, 'index.js', false)
-    if(jsMod) return jsMod
+    const eitherMod = requireFile(taskFolder, 'index', true)
+    if(eitherMod) return eitherMod
   }
-  catch(err){}
-
-  try {
-    
-    
-    if(__USE_TS){
-      const tsMod = requireFile(taskFolder, 'index.ts', false)
-      if(tsMod) return tsMod
-    }
+  catch(err){
+    return noOpObj
   }
-  catch(err){}
-
-  return noOpObj
 }
 
 /**
