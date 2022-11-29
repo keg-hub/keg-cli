@@ -1,6 +1,6 @@
 const docker = require('@keg-hub/docker-lib')
-const { Logger } = require('@keg-hub/cli-utils')
 const { get } = require('@keg-hub/jsutils')
+const { Logger } = require('@keg-hub/cli-utils')
 const { CONTAINERS } = require('KegConst/docker/containers')
 
 const getFormat = (params) => {
@@ -23,7 +23,7 @@ const logImages = (images, params) => {
   const imgH = `Image:Tag                                `
   Logger.green(`${idH}${sizeH}${imgH}`)
 
-  const items = images.map(img => {
+  images.forEach(img => {
 
     let id = img.id.substring(0, 15)
     if(img.id.length > 15) id = `${img.id.substring(0, 12)}...`
@@ -37,7 +37,6 @@ const logImages = (images, params) => {
     if(imageT.length > 70) imageT = `${imageT.substring(0, 57)}...`
     Logger.log(`${id} ${size} ${imageT}`)
   })
-
 }
 
 /**

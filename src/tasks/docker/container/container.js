@@ -1,6 +1,53 @@
 const { get } = require('@keg-hub/jsutils')
 const docker = require('@keg-hub/docker-lib')
+const { Logger } = require('@keg-hub/cli-utils')
 const { CONTAINERS } = require('KegConst/docker/containers')
+
+
+const getFormat = (params) => {
+  const { json, js, short, sm, format } = params
+  return json || js
+    ? `json`
+    : short || sm
+      ? `short`
+      : format || ``
+}
+
+const logContainers = (containers, params) => {
+  Logger.empty()
+
+  const format = getFormat(params)
+  if(!format || format !== `short` || !Array.isArray(containers)) return Logger.data(containers)
+
+  const idH = `Id              `
+  const stateH = `State      `
+  const portsH = `Ports         `
+  const nameH = `Name                                `
+  Logger.green(`${idH}${stateH}${portsH}${nameH}`)
+
+  containers.forEach(cont => {
+    let id = cont.id.substring(0, 15)
+    if(cont.id.length > 15) id = `${cont.id.substring(0, 12)}...`
+    Array.apply(' ', Array(15 - id.length)).forEach(() => id += ` `)
+
+    let state = cont.state.substring(0, 10)
+    if(cont.state.length > 10) state = `${cont.state.substring(0, 7)}...`
+    Array.apply(' ', Array(10 - state.length)).forEach(() => state += ` `)
+    
+    let ports = cont.ports
+      ? cont.ports.substring(0, 13)
+      : `N/A         `
+    if(cont.ports.length > 13) ports = `${cont.ports.substring(0, 10)}...`
+    Array.apply(' ', Array(13 - ports.length)).forEach(() => ports += ` `)
+
+
+    let name = cont.name.substring(0, 50)
+    if(cont.name.length > 50) name = `${cont.name.substring(0, 47)}...`
+    Array.apply(' ', Array(50 - name.length)).forEach(() => name += ` `)
+
+    Logger.log(`${id} ${state} ${ports} ${name}`)
+  })
+}
 
 /**
  * Run a docker container command
@@ -13,8 +60,8 @@ const { CONTAINERS } = require('KegConst/docker/containers')
  * @returns {void}
  */
 const dockerContainer = async args => {
-  const { command, globalConfig, options, params, task, tasks } = args
-  let { cmd, name, force, format } = params
+  const { options, params } = args
+  let { cmd, name, force } = params
   let container = name && get(CONTAINERS, `${name.toUpperCase()}.ENV.CONTAINER_NAME`, name)
 
   const apiMethod = docker.container[cmd]
@@ -26,6 +73,9 @@ const dockerContainer = async args => {
   if(!cmd && first && first.indexOf('=') === -1 && first.indexOf('-') !== 0) cmd = first
   if(!container && options[1]) container = options[1]
 
+  const format = getFormat(params)
+  if(format === 'json' || format === 'short') cmdArgs.format = 'json'
+
   cmdArgs.opts = cmd
     ? container
       ? [ cmd, container ]
@@ -35,7 +85,7 @@ const dockerContainer = async args => {
   const res = await docker.container(cmdArgs)
 
   // Log the output of the command
-  docker.logCmd(res, cmd)
+  logContainers(res, cmdArgs)
 
 }
 
@@ -65,8 +115,19 @@ module.exports = {
         description: 'Add the force argument to the docker command',
         example: 'keg docker container --force',
       },
+      json: {
+        alias: ['js'],
+        description: 'Format docker image output to JSON',
+        example: 'keg docker container --json ',
+      },
+      short: {
+        alias: ['sm'],
+        default: true,
+        description: 'Format docker image output to short output',
+        example: 'keg docker container --short',
+      },
       format: {
-        allowed: [ 'json' ],
+        allowed: [ 'json', 'js', `short`, 'sm' ],
         description: 'Output format of the docker command',
         example: 'keg docker container --format json',
       },
