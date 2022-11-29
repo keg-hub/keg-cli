@@ -92,7 +92,7 @@ const createNewBranch = async (newBranch, location, params, log=true) => {
  */
 const removeGitBranches = (branches, params, location) => {
   const { remove, list, ...gitParams } = params
-  const rmBranches = remove.split(',')
+  const rmBranches = remove.split(',').filter(Boolean)
 
   return rmBranches.reduce(async (toResolve, ref) => {
     await toResolve
