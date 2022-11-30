@@ -103,7 +103,7 @@ const argsParse = async (toParse, config) => {
   // Otherwise set it as the first key in the task options object
   const parsedArgs = doOptsLoop
     ? taskKeys && await loopTaskOptions(task, taskKeys, args, params)
-    : ensureArgs(task, {  ...params, [ taskKeys[0] ]: args[0] })
+    : await ensureArgs(task, {  ...params, [ taskKeys[0] ]: args[0] })
 
   // Add getter helper method to get the built args-parse config
   Object.defineProperty(parsedArgs, `$getConfig`, { value: () => builtConfig })

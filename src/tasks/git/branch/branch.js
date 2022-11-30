@@ -157,9 +157,9 @@ const gitBranch = async args => {
         context,
         log: (list || log || (!branch && !remove && !newBranch)) || false,
         location: params.location,
-        ...(branch && !remove && !newBranch && { branch })
+        ...(exists(branch) && !remove && !newBranch && { branch })
       },
-      __internal: { ...args.__internal },
+      __internal: { __skipLog: exists(branch), ...args.__internal },
   })
 
   // If already switched branches, just return
@@ -185,8 +185,9 @@ module.exports = {
     },
     options: {
       branch: {
-        description: 'Create a new branch for the context or location',
+        type: `string`,
         example: 'keg git branch --branch my-git-branch',
+        description: 'Create a new branch for the context or location',
       },
       context: {
         alias: [ 'name' ],
