@@ -112,6 +112,7 @@ const doGitAction = async (git, action, args, cmdOpts) => {
   toRun.push(withBranch)
 
   args.force && toRun.push('--force')
+  args.skip && toRun.push('--no-verify')
 
   const resp = await gitCmd(toRun, buildCmdOpts(cmdOpts, args))
 

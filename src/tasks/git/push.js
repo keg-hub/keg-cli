@@ -18,16 +18,33 @@ const { generalError } = require('KegUtils/error')
 const gitPushRepo = async args => {
   const { params,  globalConfig, __internal={} } = args
   const { skipLog } = __internal
-  const { context, location: repoPath, tap, env, log, ...pushParams } = params
+  const {
+    tap,
+    env,
+    log,
+    verify=true,
+    skip=!verify,
+    context,
+    location: repoPath,
+    ...pushParams
+  } = params
   const location = repoPath || context && getGitPath(globalConfig, tap || context) || process.cwd()
 
-  const doPush = pushParams.force
+  const doPush = pushParams.force && !skip
     ? await ask.confirm(`Are you sure you want to force push your local changes?`)
     : true
-  
+
   if(!doPush) return Logger.log(`Canceled git push task!`)
 
-  const { data, exitCode } = await git.branch.push({ ...pushParams, log: exists(skipLog) && !skipLog || log, location })
+  // Add HUSKY env for cases when husky is being used for git hooks
+  if(skip) process.env[`HUSKY`] = 1
+
+  const { data, exitCode } = await git.branch.push({
+    ...pushParams,
+    skip,
+    location,
+    log: exists(skipLog) && !skipLog || log,
+  })
   
   // Log the outcome of the git push command
   exitCode === 0
@@ -53,6 +70,14 @@ module.exports = {
       tap: {
         description: 'Name of the tap to build a Docker image for',
         example: 'keg git current --tap visitapps',
+      },
+      verify: {
+        alias: [ `check`],
+        description: `Run the locally installed git hooks`
+      },
+      skip: {
+        alias: [ `bypass`, `husky`, `h`, `pass` ],
+        description: `Skip locally installed git hooks`
       },
       force: {
         description: `Force the git fetch action, including pruning local branches`,
