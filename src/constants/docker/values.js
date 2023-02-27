@@ -16,7 +16,7 @@ let __IMAGES
  * Path to the Keg-CLI containers folder
  * @string
  */
-const containersPath = KEG_ENVS.CONTAINERS_PATH
+const containersPath = KEG_ENVS.CONTAINERS_PATH || KEG_ENVS.KEG_PATH
 
 /**
  * Finds all folders in the CONTAINERS_PATH that have a Dockerfile
