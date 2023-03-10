@@ -1,5 +1,6 @@
-const { get, isColl, isObj, isFunc, isStr } = require('@keg-hub/jsutils')
-const colors = require('colors/safe')
+const { get, isColl, isObj, isFunc } = require('@keg-hub/jsutils')
+const { colors } = require('./colors')
+
 
 /**
  * State of the log tag
@@ -49,21 +50,21 @@ class Log {
 
   constructor(props) {
     this.colorMap = {
-      data: 'brightWhite',
-      dir: 'brightWhite',
-      error: 'brightRed',
-      fail: 'brightRed',
-      info: 'brightCyan',
-      log: 'brightWhite',
-      success: 'brightGreen',
-      text: 'brightWhite',
-      warn: 'brightYellow',
-      green: 'brightGreen',
-      red: 'brightRed',
-      yellow: 'brightYellow',
-      cyan: 'brightCyan',
-      magenta: 'brightMagenta',
-      blue: 'brightBlue',
+      data: 'white',
+      dir: 'white',
+      error: 'red',
+      fail: 'red',
+      info: 'cyan',
+      log: 'white',
+      success: 'green',
+      text: 'white',
+      warn: 'yellow',
+      green: 'green',
+      red: 'red',
+      yellow: 'yellow',
+      cyan: 'cyan',
+      magenta: 'magenta',
+      blue: 'blue',
       gray: 'gray',
     }
 
@@ -165,7 +166,7 @@ class Log {
 
     const line = middle.split('').reduce((line, item, index) => (line += ' '))
 
-    color = color || 'brightGreen'
+    color = color || 'green'
 
     this.empty(``)
     this.print(colors.underline[color](line))
@@ -185,7 +186,7 @@ class Log {
 
     const line = middle.split('').reduce((line, item, index) => (line += ' '))
 
-    color = color || 'brightWhite'
+    color = color || 'white'
 
     this.empty(``)
     this.print(colors[color](middle))

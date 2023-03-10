@@ -1,7 +1,6 @@
 const path = require('path')
 const appPath = require('app-root-path').path
 const cliUtilsRoot = path.join(__dirname, '../').slice(0, -1)
-const { getKegGlobalConfig } = require('./globalConfig/getKegGlobalConfig')
 
 let __APP_ROOT
 

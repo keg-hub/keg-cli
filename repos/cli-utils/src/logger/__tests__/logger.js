@@ -1,3 +1,6 @@
+jest.resetModules()
+jest.resetAllMocks()
+
 const { Logger, Log }  = require('../logger')
 
 const orgLog = console.log
@@ -43,7 +46,7 @@ describe('Logger', () => {
     test(`should log the tag when Logger.table is called`, () => {
       orgTable.apply(console, [{ test: `Test data to be logged`}])
       Logger.setTag(`[Table Test Tag]`)
-      Logger.table({ test: `Test data to be logged`})
+      Logger.table([{ test: `Test data to be logged`}])
       const text = console.table.mock.calls[0][0]
       expect(text.startsWith(`[Table Test Tag]`)).toBe(true)
     })

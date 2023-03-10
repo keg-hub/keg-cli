@@ -1279,7 +1279,7 @@ data-urls@^2.0.0:
     whatwg-mimetype "^2.3.0"
     whatwg-url "^8.0.0"
 
-debug@4, debug@^4.1.0, debug@^4.1.1:
+debug@4, debug@^4.1.0, debug@^4.1.1, debug@^4.3.4:
   version "4.3.4"
   resolved "https://registry.yarnpkg.com/debug/-/debug-4.3.4.tgz#1319f6579357f2338d3337d2cdd4914bb5dcc865"
   integrity sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==
@@ -1510,6 +1510,13 @@ esbuild-plugin-path-alias@^1.0.3:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/esbuild-plugin-path-alias/-/esbuild-plugin-path-alias-1.0.6.tgz#94d576295a97b44a2a668123d1f4c71eba88f81f"
   integrity sha512-cFzLuY+SMDCYy5meq679KBrp89f3rm7R1m8a1SthMf2lZeDmgxdFVDbZ1x/9VrWwiUoj440hHxKzQCf7muNiKg==
+
+esbuild-register@^3.4.2:
+  version "3.4.2"
+  resolved "https://registry.yarnpkg.com/esbuild-register/-/esbuild-register-3.4.2.tgz#1e39ee0a77e8f320a9790e68c64c3559620b9175"
+  integrity sha512-kG/XyTDyz6+YDuyfB9ZoSIOOmgyFCH+xPRtsCa8W85HLRV5Csp+o3jWVbOSHgSLfyLc5DmP+KFDNwty4mEjC+Q==
+  dependencies:
+    debug "^4.3.4"
 
 esbuild-sunos-64@0.14.49:
   version "0.14.49"

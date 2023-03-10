@@ -10,7 +10,9 @@ module.exports = {
   moduleNameMapper: {},
   testMatch: [
     "<rootDir>/src/**/__tests__/**/*.js?(x)",
-    "<rootDir>/scripts/**/__tests__/**/*.js?(x)"
+    "<rootDir>/src/**/__tests__/**/*.ts?(x)",
+    "<rootDir>/scripts/**/__tests__/**/*.js?(x)",
+    "<rootDir>/scripts/**/__tests__/**/*.ts?(x)",
   ],
   transformIgnorePatterns: [
     ".*"

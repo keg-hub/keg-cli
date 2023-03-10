@@ -81,7 +81,21 @@ const throwTaskFailed = () => {
   throw new Error(`Task failed!`)
 }
 
+/**
+ * Throws an error
+ * @function
+ * @throws
+ * @param {string} - Message to display in the thrown error
+ *
+ * @returns {void}
+ */
+const throwErr = (message) => {
+  throw new Error(message)
+}
+
+
 module.exports = {
+  throwErr,
   throwError,
   throwExitError,
   throwNoTask,

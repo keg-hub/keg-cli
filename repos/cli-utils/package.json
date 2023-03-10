@@ -14,10 +14,11 @@
     "__mocks__",
     "mocks.js",
     "index.js",
+    "registerTs.js",
     "src/"
   ],
   "engines": {
-    "node": ">= 12.0.0"
+    "node": ">= 16.0.0"
   },
   "scripts": {
     "build": "exit 0",
@@ -30,14 +31,15 @@
     "test": "NODE_ENV=test jest --no-cache --verbose --config=./configs/jest.config.js --maxWorkers=50%"
   },
   "dependencies": {
-    "axios": "0.24.0",
-    "@keg-hub/args-parse": "*",
-    "@keg-hub/ask-it": "*",
-    "@keg-hub/jsutils": "*",
-    "@keg-hub/spawn-cmd": "*",
+    "@keg-hub/args-parse": "9.0.0",
+    "@keg-hub/jsutils": "9.6.1",
+    "@keg-hub/spawn-cmd": "0.3.2",
     "app-root-path": "3.0.0",
-    "colors": "1.4.0",
     "fs-extra": "9.0.1"
+  },
+  "optionalDependencies": {
+    "esbuild": "0.17.6",
+    "esbuild-register": "3.4.2"
   },
   "devDependencies": {
     "babel-eslint": "10.1.0",

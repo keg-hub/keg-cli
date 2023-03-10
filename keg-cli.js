@@ -1,6 +1,14 @@
 #!/usr/bin/env node
 !process.env.KEG_CLI_PATH && (process.env.KEG_CLI_PATH = __dirname)
 
+const { register } = require('esbuild-register/dist/node')
+register({
+  loader: 'ts',
+  minify: false,
+  target: 'ESNext',
+})
+
+
 // Update the Max listeners, to ensure all processes can exit properly
 require('events').EventEmitter.defaultMaxListeners = 0
 require('./scripts/cli/aliases')

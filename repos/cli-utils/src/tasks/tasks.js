@@ -2,6 +2,7 @@ const { getAppRoot } = require('../appRoot')
 const { isObj, noOpObj } = require('@keg-hub/jsutils')
 const { getFolders, requireFile } = require('../fileSys')
 
+
 /**
  * Task Definition cache
  * @Object
@@ -13,6 +14,21 @@ let __TASK_DEFINITIONS = {}
  * @string
  */
 let __TASK_FOLDER = 'tasks'
+
+/**
+ * Flag for it typescript should be used
+ * @Object
+ */
+let __USE_TS = false
+
+/**
+ * Turn on loading index.ts files
+ * @Object
+ */
+const setUseTS = () => {
+  __USE_TS = true
+}
+
 
 /**
  * Registers tasks with the __TASK_DEFINITIONS cache
@@ -48,7 +64,25 @@ const setTaskFolder = folderName => __TASK_FOLDER = folderName
 const searchForTasks = async () => {
   const appRoot = getAppRoot()
   const [ taskFolder ] = await getFolders(appRoot, { include: [__TASK_FOLDER], full: true })
-  return taskFolder && requireFile(taskFolder, 'index.js', true) || noOpObj
+  if(!taskFolder) return noOpObj
+
+  try {
+    const jsMod = requireFile(taskFolder, 'index.js', false)
+    if(jsMod) return jsMod
+  }
+  catch(err){}
+
+  try {
+    
+    
+    if(__USE_TS){
+      const tsMod = requireFile(taskFolder, 'index.ts', false)
+      if(tsMod) return tsMod
+    }
+  }
+  catch(err){}
+
+  return noOpObj
 }
 
 /**
@@ -72,6 +106,7 @@ const getTaskDefinitions = async (customTasks) => {
 }
 
 module.exports = {
+  setUseTS,
   registerTasks,
   setTaskFolder,
   getTaskDefinitions,
