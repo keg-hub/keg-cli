@@ -7,7 +7,7 @@ const { Logger } = require('@keg-hub/cli-utils')
  *
  * @returns {void}
  */
-const dockerLog = (res, cmd) => {
+const logCmd = (res, cmd) => {
 
   Logger.empty()
   res
@@ -19,7 +19,6 @@ const dockerLog = (res, cmd) => {
 
 }
 
-
 module.exports = {
-  dockerLog
+  logCmd
 }

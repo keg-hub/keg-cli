@@ -2,6 +2,7 @@ const path = require('path')
 const { DOCKER } = require('KegConst/docker')
 const { coreEnvs } = require('KegMocks/injected/injectedCore')
 const kegHubRoot = path.join(__dirname, '../../../../../')
+const homeDir = require('os').homedir()
 
 const containerContexts = {
   base: {
@@ -12,7 +13,7 @@ const containerContexts = {
     cmdContext: 'base',
     image: 'keg-base',
     withPrefix: 'keg-base',
-    location: `${kegHubRoot}/repos/keg-cli`,
+    location: `${homeDir}/keg-cli`,
     contextEnvs: {
       ...DOCKER.CONTAINERS.BASE.ENV,
     },

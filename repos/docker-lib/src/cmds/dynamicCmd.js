@@ -1,5 +1,5 @@
 const { dockerCli } = require('./dockerCli')
-const { isArr, noOpArr } = require('@keg-hub/jsutils')
+const { isArr } = require('@keg-hub/jsutils')
 
 /**
  * Calls the docker cli with dynamic params
@@ -11,7 +11,11 @@ const { isArr, noOpArr } = require('@keg-hub/jsutils')
  */
 const dynamicCmd = async (args, type) => {
   // Ensure options are an array
-  const opts = !args.opts ? noOpArr : isArr(args.opts) ? args.opts : [ args.opts ]
+  const opts = !args.opts
+    ? []
+    : isArr(args.opts)
+    ? [...args.opts]
+    : [ args.opts ]
 
   // Ensure the first option is image
   opts[0] !== type && opts.unshift(type)

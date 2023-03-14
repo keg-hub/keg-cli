@@ -10,4 +10,5 @@ module.exports = {
   container: require('./container'),
   image: require('./image'),
   volume: require('./volume'),
+  logCmd: require('./utils/logCmd').logCmd,
 }

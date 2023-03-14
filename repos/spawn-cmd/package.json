@@ -24,11 +24,11 @@
     "clean:install": "yarn clean:full; yarn install --force",
     "clean:nm": "rimraf yarn.lock; rimraf package.lock; rimraf node_modules",
     "format": "exit 0",
-    "test": "NODE_ENV=test jest --no-cache --verbose",
-    "test:reports": "NODE_ENV=test jest --no-cache --verbose --coverage"
+    "test": "NODE_ENV=test jest --no-cache --verbose --config=./configs/jest.config.js --maxWorkers=50%",
+    "test:reports": "NODE_ENV=test jest --no-cache --verbose --coverage --config=./configs/jest.config.js --maxWorkers=50%"
   },
   "dependencies": {
-    "@keg-hub/jsutils": "*",
+    "@keg-hub/jsutils": ">=9.6.1",
     "app-root-path": "3.0.0",
     "cli-progress": "3.9.1",
     "cli-spinners": "2.6.1",

@@ -120,20 +120,13 @@ describe('tasks', () => {
       expect(defs).toEqual(allTasks)
     })
 
-    it(`should not try to load ts index file if not set`, async () => {
+    it(`should try to load index tasks file`, async () => {
       await getTaskDefinitions(testTasks)
       expect(fileSysMock.requireFile).toHaveBeenCalledTimes(1)
+      const args = fileSysMock.requireFile.mock.calls[0]
+      expect(args[1]).toBe(`index`)
     })
 
-    it(`should try to load ts index file if set`, async () => {
-      loadTSFiles = true
-      setUseTS()
-      await getTaskDefinitions(testTasks)
-      expect(fileSysMock.requireFile).toHaveBeenCalledTimes(2)
-      const args = fileSysMock.requireFile.mock.calls[1]
-      expect(args[1]).toBe(`index.ts`)
-    })
-    
   })
 
 })

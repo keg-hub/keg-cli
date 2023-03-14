@@ -1,3 +1,4 @@
+const { constants, Logger } = require('@keg-hub/cli-utils')
 
 const paramsTest = args => {
   // console.log(`---------- Keg CLI Test Params Parsing ----------`)
@@ -17,8 +18,9 @@ const paramsTest = args => {
  */
 const validateCli = args => {
   const { command, globalConfig, options, params, tasks } = args
-  console.log(`---------- Keg-CLI Validate ----------`)
-  console.log(params)
+
+  Logger.green(`----------`, Logger.colors.yellow(`Keg-CLI Validate`), `----------`)
+  Logger.log(params)
 
 }
 

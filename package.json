@@ -40,20 +40,27 @@
     "test:jest": "NODE_ENV=test jest --no-cache --verbose --maxWorkers=50%",
     "test:e2e": "NODE_ENV=test node ./scripts/cli/tests/index.js"
   },
+  "resolutions": {
+    "@keg-hub/jsutils": ">=9.6.1"
+  },
+  "private": true,
+  "workspaces": [
+    "repos/*"
+  ],
   "dependencies": {
-    "esbuild": "0.17.6",
-    "esbuild-register": "3.4.2",
     "@keg-hub/args-parse": "*",
     "@keg-hub/ask-it": "*",
     "@keg-hub/cli-utils": "*",
     "@keg-hub/docker-lib": "*",
     "@keg-hub/git-lib": "*",
-    "@keg-hub/jsutils": "*",
+    "@keg-hub/jsutils": ">=9.6.1",
     "@keg-hub/mutagen-lib": "file:./repos/mutagen-lib",
     "@keg-hub/parse-config": "*",
     "@keg-hub/spawn-cmd": "*",
     "axios": "0.24.0",
     "colors": "1.4.0",
+    "esbuild": "0.17.6",
+    "esbuild-register": "3.4.2",
     "fs-extra": "10.0.0",
     "module-alias": "2.2.2",
     "ngrok": "4.2.2",

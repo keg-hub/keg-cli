@@ -30,7 +30,7 @@ module.exports = deepMerge(defaultConfig, {
       repos: kegRepos,
       taps: kegTaps,
       cli: path.join(kegRepos, 'keg-cli'),
-      containers: path.join(kegRepos, 'keg-cli/containers'),
+      containers: path.join(cliRoot, 'containers'),
       proxy: path.join(kegRepos, 'keg-proxy'),
       resolver: path.join(kegRepos, 'tap-resolver'),
     },

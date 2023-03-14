@@ -1,7 +1,43 @@
-const { get } = require('@keg-hub/jsutils')
 const docker = require('@keg-hub/docker-lib')
-const { dockerLog } = require('KegUtils/log/dockerLog')
+const { get } = require('@keg-hub/jsutils')
+const { Logger } = require('@keg-hub/cli-utils')
 const { CONTAINERS } = require('KegConst/docker/containers')
+
+const getFormat = (params) => {
+  const { json, js, short, sm, format } = params
+  return json || js
+    ? `json`
+    : short || sm
+      ? `short`
+      : format || ``
+}
+
+const logImages = (images, params) => {
+  Logger.empty()
+
+  const format = getFormat(params)
+  if(!format || format !== `short` || !Array.isArray(images)) return Logger.data(images)
+
+  const idH = `Id              `
+  const sizeH = `Size       `
+  const imgH = `Image:Tag                                `
+  Logger.green(`${idH}${sizeH}${imgH}`)
+
+  images.forEach(img => {
+
+    let id = img.id.substring(0, 15)
+    if(img.id.length > 15) id = `${img.id.substring(0, 12)}...`
+    Array.apply(' ', Array(15 - id.length)).forEach(() => id += ` `)
+
+    let size = img.size.substring(0, 10)
+    if(img.size.length > 10) size = `${img.size.substring(0, 7)}...`
+    Array.apply(' ', Array(10 - size.length)).forEach(() => size += ` `)
+  
+    let imageT = `${img.repository}:${img.tag}`
+    if(imageT.length > 70) imageT = `${imageT.substring(0, 57)}...`
+    Logger.log(`${id} ${size} ${imageT}`)
+  })
+}
 
 /**
  * Run a docker image command
@@ -14,11 +50,13 @@ const { CONTAINERS } = require('KegConst/docker/containers')
  * @returns {void}
  */
 const dockerImage = async args => {
-  const { command, globalConfig, options, params, task, tasks } = args
-  const { cmd, name, force, format } = params
+  const { params } = args
+  const { cmd, name } = params
   const image = name && get(CONTAINERS, `${name.toUpperCase()}.ENV.IMAGE`)
 
   const cmdArgs = { ...params }
+  const format = getFormat(params)
+  if(format === 'json' || format === 'short') cmdArgs.format = 'json'
 
   cmdArgs.opts = cmd
     ? image
@@ -27,9 +65,8 @@ const dockerImage = async args => {
     : [ 'ls' ]
 
   const res = await docker.image(cmdArgs)
-
   // Log the output of the command
-  dockerLog(res, cmd)
+  logImages(res, cmdArgs)
 
   return res
 
@@ -62,8 +99,19 @@ module.exports = {
         description: 'Add the force argument to the docker command',
         example: 'keg docker image --force ',
       },
+      json: {
+        alias: ['js'],
+        description: 'Format docker image output to JSON',
+        example: 'keg docker image --json ',
+      },
+      short: {
+        alias: ['sm'],
+        default: true,
+        description: 'Format docker image output to short output',
+        example: 'keg docker image --short',
+      },
       format: {
-        allowed: [ 'json' ],
+        allowed: [ 'json', 'js', `short`, 'sm' ],
         description: 'Change output format of docker cli commands',
         example: 'keg docker image --format json ',
       },

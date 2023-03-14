@@ -6,12 +6,12 @@ const { exists } = require('@keg-hub/jsutils')
  * @param {Object} addEnvs - Envs to add to the current process
  * 
  */
-const addToProcess = addEnvs => {
+const addToProcess = (addEnvs, override) => {
   Object.entries(addEnvs)
     .map(([ key, value ]) => {
-      exists(value) &&
-        !exists(process.env[key]) &&
-        (process.env[key] = value)
+      exists(value)
+        && (!exists(process.env[key]) || override)
+        && (process.env[key] = value)
     })
 }
 

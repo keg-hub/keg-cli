@@ -1,9 +1,9 @@
 const { ask } = require('@keg-hub/ask-it')
-const { Logger } = require('@keg-hub/cli-utils')
 const { git } = require('@keg-hub/git-lib')
-const { isNum, exists } = require('@keg-hub/jsutils')
-const { getGitPath } = require('KegUtils/git/getGitPath')
+const { Logger } = require('@keg-hub/cli-utils')
 const { generalError } = require('KegUtils/error')
+const { getGitPath } = require('KegUtils/git/getGitPath')
+const { isNum, exists, isBool } = require('@keg-hub/jsutils')
 
 
 /**
@@ -31,7 +31,15 @@ const getBranchByName = (branch, branches) => {
  * @returns {void}
  */
 const branchList = async (args) => {
-  const { globalConfig, params, __internal={} } = args
+  const { options, globalConfig, params, __internal={} } = args
+
+  // TODO - Fix in args-parse
+  // Hack to reset the branch when called from a parent task
+  // If branch is a 0 or 1, it will be converted to true or false
+  // This resets it to the original number
+  if(isBool(params.branch) && options.length === 1)
+    params.branch = options[0]
+
   const { branch, context, location, log, tap } = params
   const { __skipLog } = __internal
   const gitPath = getGitPath(globalConfig, tap || context) || location
@@ -81,8 +89,9 @@ module.exports = {
     action: branchList,
     options: {
       branch: {
-        description: 'Create a new branch for the context or location',
+        type: `string`,
         example: 'keg git branch --branch my-git-branch',
+        description: 'Create a new branch for the context or location',
       },
       context: {
         alias: [ 'name' ],

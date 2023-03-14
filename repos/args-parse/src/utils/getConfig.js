@@ -1,7 +1,7 @@
 const path = require('path')
 const appRoot = require('app-root-path').path
 const defConfig = require('../../configs/parse.config.js')
-const { deepMerge, get, noOpObj } = require('@keg-hub/jsutils')
+const { deepMerge, get, noOpObj, toBool, noPropArr, flatUnion } = require('@keg-hub/jsutils')
 
 /**
  * Placeholder variable to cache the loaded config
@@ -20,11 +20,19 @@ let __CONFIG
  */
 const buildEnvironment = (customEnv=noOpObj, inlineEnv=noOpObj) => {
   return {
-    ...defConfig.environment,
+    ...defConfig?.environment,
     ...customEnv,
     ...inlineEnv,
-    options: inlineEnv.options || customEnv.options || defConfig.environment.options,
-    map: inlineEnv.map || customEnv.map || defConfig.environment.map
+    options: flatUnion([
+      ...defConfig.environment?.options,
+      ...(inlineEnv?.options || noPropArr),
+      ...(customEnv?.options || noPropArr)
+    ]),
+    map: {
+      ...defConfig?.environment?.map,
+      ...(inlineEnv?.map || noOpObj),
+      ...(customEnv?.map || noOpObj),
+    }
   }
 }
 
@@ -38,10 +46,11 @@ const buildEnvironment = (customEnv=noOpObj, inlineEnv=noOpObj) => {
  * @returns {Object} - Built defaultArgs config object
  */
 const buildDefArgs = (customArgs=noOpObj, inlineArgs=noOpObj) => {
+  const { env, ...defArgs } = defConfig?.defaultArgs
+
   return {
-    ...defConfig.defaultArgs,
-    ...customArgs,
-    ...inlineArgs
+    ...deepMerge(defArgs, customArgs, inlineArgs ),
+    env: inlineArgs?.env || customArgs?.env || defConfig?.defaultArgs?.env
   }
 }
 
@@ -56,9 +65,16 @@ const buildDefArgs = (customArgs=noOpObj, inlineArgs=noOpObj) => {
  */
 const buildBools = (customBools=noOpObj, inlineBools=noOpObj) => {
   return {
-    ...defConfig.bools,
-    ...customBools,
-    ...inlineBools
+    truthy: flatUnion([
+    ...defConfig?.bools?.truthy,
+    ...(customBools?.truthy || noPropArr),
+    ...(inlineBools?.truthy || noPropArr)
+    ]),
+    falsy: flatUnion([
+      ...defConfig?.bools?.falsy,
+      ...(customBools?.falsy || noPropArr),
+      ...(inlineBools?.falsy || noPropArr)
+    ])
   }
 }
 
@@ -70,22 +86,27 @@ const buildBools = (customBools=noOpObj, inlineBools=noOpObj) => {
  * @returns {Object} - Loaded config object
  */
 const loadConfig = (inlineConfig=noOpObj) => {
-  const { PARSE_CONFIG_PATH, KEG_TASKS_CONFIG } = process.env
+  const { PARSE_CONFIG_PATH, KEG_TASKS_CONFIG, TASKS_CONFIG_PATH } = process.env
+  const envConfig = PARSE_CONFIG_PATH || TASKS_CONFIG_PATH || KEG_TASKS_CONFIG
+  
   const configPath = path.join(
     appRoot,
-    PARSE_CONFIG_PATH || KEG_TASKS_CONFIG || 'configs/parse.config.js'
+    PARSE_CONFIG_PATH || TASKS_CONFIG_PATH || KEG_TASKS_CONFIG || 'configs/parse.config.js'
   )
 
   let customConfig
   try { customConfig = require(configPath)  }
-  catch(err){ customConfig = noOpObj }
+  catch(err){
+    toBool(envConfig) && console.error(err.stack)
+    customConfig = noOpObj
+  }
 
   return {
     ...defConfig,
     ...inlineConfig,
-    ...customConfig,
+    ...(customConfig || noOpObj),
     settings: deepMerge(
-      defConfig.settings,
+      defConfig?.settings,
       get(customConfig, 'settings'),
       get(inlineConfig, 'settings')
     ),

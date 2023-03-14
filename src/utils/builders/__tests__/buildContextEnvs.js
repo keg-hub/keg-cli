@@ -28,15 +28,15 @@ describe('buildContextEnvs', () => {
         .not.toBe(-1)
 
       expect(contextEnvs.KEG_DOCKER_FILE
-        .indexOf('/keg-hub/repos/keg-cli/containers/base/Dockerfile'))
+        .indexOf('keg-cli/containers/base/Dockerfile'))
         .not.toBe(-1)
 
       expect(contextEnvs.KEG_VALUES_FILE
-        .indexOf('/keg-hub/repos/keg-cli/containers/base/values.yml'))
+        .indexOf('keg-cli/containers/base/values.yml'))
         .not.toBe(-1)
 
       expect(contextEnvs.KEG_COMPOSE_DEFAULT
-        .indexOf('/keg-hub/repos/keg-cli/containers/base/docker-compose.yml'))
+        .indexOf('keg-cli/containers/base/docker-compose.yml'))
         .not.toBe(-1)
 
       expect(contextEnvs.IMAGE).toBe('keg-base')

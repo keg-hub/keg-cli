@@ -35,8 +35,8 @@ const findPathByName = async (contextPath, name, opts={}) => {
  */
 const checkPathExists = async toCheck => {
   // Check if the exists locally
-  const [ error, exists ] = await pathExists(toCheck)
-  return error ? throwError(error.message) : exists
+  const [ _, exists ] = await pathExists(toCheck)
+  return exists
 }
 
 
@@ -62,8 +62,13 @@ const checkCustomTaskFolder = async tapObj => {
   if(!foundPath || !foundPath.length) return false
 
   // Check for the tasks index file
-  const indexFile = path.join(foundPath, 'index.js')
-  const indexFileExists = await checkPathExists(indexFile)
+  let indexFile = path.join(foundPath, 'index.js')
+  let indexFileExists = await checkPathExists(indexFile)
+
+  if(!indexFileExists){
+    indexFile = path.join(foundPath, 'index.ts')
+    indexFileExists = await checkPathExists(indexFile)
+  }
 
   // If a container/tasks folder but no index file, log a warning
   // Otherwise return the indexFile path

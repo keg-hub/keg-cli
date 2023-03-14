@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@keg-hub/cli-utils": "*",
-    "@keg-hub/jsutils": "*",
+    "@keg-hub/jsutils": ">=9.6.1",
     "@keg-hub/spawn-cmd": "*",
     "js-yaml": "3.14.1",
     "write-yaml-file": "4.2.0"

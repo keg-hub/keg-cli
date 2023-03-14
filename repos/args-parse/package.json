@@ -1,6 +1,6 @@
 {
   "name": "@keg-hub/args-parse",
-  "version": "9.0.0",
+  "version": "10.0.0",
   "description": "Parse command line arguments",
   "main": "src/index.js",
   "repository": {
@@ -33,8 +33,7 @@
     "README.md"
   ],
   "dependencies": {
-    "@keg-hub/ask-it": "*",
-    "@keg-hub/jsutils": "*",
+    "@keg-hub/jsutils": ">=9.6.1",
     "app-root-path": "3.0.0"
   },
   "devDependencies": {
@@ -62,7 +61,9 @@
     ],
     "testURL": "http://localhost/",
     "coverageDirectory": "reports/coverage",
-    "setupFilesAfterEnv": []
+    "setupFilesAfterEnv": [
+      "./configs/jest.setup.js"
+    ]
   },
   "keywords": [
     "arguments",

@@ -14,10 +14,14 @@ const { noOpArr, isArr, isObj } = require('@keg-hub/jsutils')
  * @returns {Object} - Found task object
  */
 const getTaskRef = (tasks, task) => {
-  return Object.values(tasks)
-    .find(definition => (
-      definition.name === task || (isArr(definition.alias) && definition.alias.includes(task))
+  const found = Object.entries(tasks)
+    .find(([key, definition]) => (
+      key === task
+        || definition.name === task
+        || (isArr(definition.alias) && definition.alias.includes(task))
     ))
+
+  return found ? found[1] : undefined
 }
 
 /**

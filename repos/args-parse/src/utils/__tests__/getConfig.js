@@ -50,7 +50,6 @@ describe('getConfig', () => {
 
     process.env.PARSE_CONFIG_PATH = 'src/__mocks__/testConfig'
     const config = getConfig()
-
     expect(typeof config).toBe('object')
     expect(typeof config.test).toBe('object')
     expect(typeof config.environment).toBe('object')

@@ -1,7 +1,7 @@
 const { addToProcess } = require('./addToProcess')
 const { loadConfigs } = require('@keg-hub/parse-config')
 
-const loadEnvs = (env, locations, name) => {
+const loadEnvs = (env, locations, name, override) => {
   const mergedEnvs = loadConfigs({
     env,
     name,
@@ -9,7 +9,7 @@ const loadEnvs = (env, locations, name) => {
   })
 
   // Add the loaded envs to the current process.env
-  addToProcess(mergedEnvs)
+  addToProcess(mergedEnvs, override)
 
   return mergedEnvs
 }

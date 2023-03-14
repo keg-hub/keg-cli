@@ -16,21 +16,6 @@ let __TASK_DEFINITIONS = {}
 let __TASK_FOLDER = 'tasks'
 
 /**
- * Flag for it typescript should be used
- * @Object
- */
-let __USE_TS = false
-
-/**
- * Turn on loading index.ts files
- * @Object
- */
-const setUseTS = () => {
-  __USE_TS = true
-}
-
-
-/**
  * Registers tasks with the __TASK_DEFINITIONS cache
  * @function
  * @export
@@ -67,18 +52,8 @@ const searchForTasks = async () => {
   if(!taskFolder) return noOpObj
 
   try {
-    const jsMod = requireFile(taskFolder, 'index.js', false)
-    if(jsMod) return jsMod
-  }
-  catch(err){}
-
-  try {
-    
-    
-    if(__USE_TS){
-      const tsMod = requireFile(taskFolder, 'index.ts', false)
-      if(tsMod) return tsMod
-    }
+    const tasksModule = requireFile(taskFolder, 'index', false)
+    if(tasksModule) return tasksModule
   }
   catch(err){}
 
@@ -106,7 +81,6 @@ const getTaskDefinitions = async (customTasks) => {
 }
 
 module.exports = {
-  setUseTS,
   registerTasks,
   setTaskFolder,
   getTaskDefinitions,

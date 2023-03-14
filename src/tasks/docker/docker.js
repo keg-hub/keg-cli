@@ -2,6 +2,9 @@ const { generalError } = require('KegUtils/error')
 const { isStr, get } = require('@keg-hub/jsutils')
 const { executeTask } = require('@keg-hub/cli-utils')
 const { searchForTask } = require('KegUtils/task/searchForTask')
+const { image } = require('./image') 
+const { provider } = require('./provider')
+const { container } = require('./container')
 
 /**
  * Docker sub task alias map
@@ -71,17 +74,17 @@ module.exports = {
     name: 'docker',
     alias: [ 'doc', 'd', ].concat(Object.keys(dockerSubTasks)),
     tasks: {
+      image,
+      provider,
+      container,
       ...require('./build'),
       ...require('./compose'),
-      ...require('./container'),
       ...require('./copy'),
       ...require('./destroy'),
       ...require('./exec'),
-      ...require('./image'),
       ...require('./inspect'),
       ...require('./log'),
       ...require('./package'),
-      ...require('./provider'),
       ...require('./prune'),
       ...require('./restart'),
       ...require('./test'),
@@ -92,22 +95,26 @@ module.exports = {
     description: 'Keg Docker specific tasks',
     example: 'keg docker <command> <options>',
     options: {
+      ...provider.options,
+      ...container.options,
+      ...image.options,
       cmd: {
         description: 'Docker container command to run. Default ( ls )',
         example: 'keg docker container ls',
       },
       name: {
-        description: 'Name of the container to run the command on',
+        description: 'Name of the container or image to run the command on',
         example: 'keg docker container --name core',
       },
       force: {
         alias: [ 'f' ],
+        example: 'keg docker --force',
         description: 'Force remove the image or container, when remove option is set'
       },
       format: {
-        allowed: [ 'json' ],
-        description: 'Output format of the docker command',
-        example: 'keg docker container --format json',
+        allowed: [ 'json', 'js', `short`, 'sm' ],
+        description: 'Change output format of docker cli commands',
+        example: 'keg docker image --format json ',
       },
     }
   }

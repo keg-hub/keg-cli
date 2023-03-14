@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@keg-hub/cli-utils": "*",
-    "@keg-hub/jsutils": "*",
+    "@keg-hub/jsutils": ">=9.6.1",
     "@keg-hub/parse-config": "*",
     "@keg-hub/spawn-cmd": "*"
   },

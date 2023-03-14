@@ -50,7 +50,7 @@ module.exports = {
     fromEnv: `not-empty`,
     defaultEnv: 'local',
     task: {
-      optionsAsk: false
+
     }
   }
 

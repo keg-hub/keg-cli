@@ -1,6 +1,5 @@
 const { DOCKER } = require('KegConst/docker')
 const docker = require('@keg-hub/docker-lib')
-const { dockerLog } = require('KegUtils/log/dockerLog')
 const { getKegSetting } = require('@keg-hub/cli-utils')
 const { get, isStr, exists } = require('@keg-hub/jsutils')
 const { imageSelect } = require('KegUtils/docker/imageSelect')
@@ -93,7 +92,7 @@ const removeDockerImage = async args => {
 
   // If we have an image(s), then remove it
   const res = await docker.image.remove({ item: ids || image.id, force })
-  dockerLog(res, 'image remove')
+  docker.logCmd(res, 'image remove')
 
   return image
 

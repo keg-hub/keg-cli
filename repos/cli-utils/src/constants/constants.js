@@ -122,11 +122,8 @@ module.exports = deepFreeze({
     'tap.js',
     'tap.config.json',
     'tap.json',
-    'app.config.js',
-    'app.js',
-    'app.config.json',
-    'app.json',
-    'package.json',
+    'keg.config.js',
+    'keg.config.json',
   ],
 
   // Tasks settings
