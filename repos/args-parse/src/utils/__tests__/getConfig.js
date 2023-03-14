@@ -5,7 +5,7 @@ jest.setMock('path', { ...path, join: joinMock })
 
 const { getConfig, clearConfig } = require('../getConfig')
 
-describe.only('getConfig', () => {
+describe('getConfig', () => {
 
   afterAll(() => jest.resetAllMocks())
 
