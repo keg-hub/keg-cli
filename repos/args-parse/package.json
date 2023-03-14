@@ -32,11 +32,8 @@
     "configs",
     "README.md"
   ],
-  "resolutions": {
-    "@keg-hub/jsutils": "*"
-  },
   "dependencies": {
-    "@keg-hub/jsutils": "*",
+    "@keg-hub/jsutils": ">=9.6.1",
     "app-root-path": "3.0.0"
   },
   "devDependencies": {

@@ -36,12 +36,9 @@
     "format": "yarn format:prettier && yarn format:eslint",
     "test": "NODE_ENV=test jest --no-cache --verbose --config=./configs/jest.config.js --maxWorkers=50%"
   },
-  "resolutions": {
-    "@keg-hub/jsutils": "*"
-  },
   "dependencies": {
     "@keg-hub/cli-utils": "*",
-    "@keg-hub/jsutils": "*",
+    "@keg-hub/jsutils": ">=9.6.1",
     "@keg-hub/spawn-cmd": "*",
     "js-yaml": "3.14.1",
     "write-yaml-file": "4.2.0"

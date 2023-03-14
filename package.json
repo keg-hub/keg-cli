@@ -41,7 +41,7 @@
     "test:e2e": "NODE_ENV=test node ./scripts/cli/tests/index.js"
   },
   "resolutions": {
-    "@keg-hub/jsutils": ">=9.3.2"
+    "@keg-hub/jsutils": ">=9.6.1"
   },
   "private": true,
   "workspaces": [
@@ -53,7 +53,7 @@
     "@keg-hub/cli-utils": "*",
     "@keg-hub/docker-lib": "*",
     "@keg-hub/git-lib": "*",
-    "@keg-hub/jsutils": "*",
+    "@keg-hub/jsutils": ">=9.6.1",
     "@keg-hub/mutagen-lib": "file:./repos/mutagen-lib",
     "@keg-hub/parse-config": "*",
     "@keg-hub/spawn-cmd": "*",
