@@ -60,13 +60,12 @@ describe('checkCustomTaskFolder', () => {
     expect(resp).toBe(`${testPath}/index.js`)
   })
 
-  it('should throw an error if the index file does not exist', async () => {
+  it('should return undefined if index file does not exist', async () => {
     existsMock = [{ message: 'Does not exist'}]
-    await checkCustomTaskFolder({
+    const resp = await checkCustomTaskFolder({
       path: testPath
     })
-    expect(throwError).toHaveBeenCalledWith('Does not exist')
-    existsMock = [null, true]
+    expect(resp).toBe(undefined)
   })
   
   it('should return false if not found', async () => {

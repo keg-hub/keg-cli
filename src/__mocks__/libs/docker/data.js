@@ -215,9 +215,9 @@ const dockerObjLabels = {
     'com.keg.env.context': 'keg-base',
     'com.keg.path.context': 'keg-cli',
     'com.keg.path.container': '/keg-hub',
-    'com.keg.path.compose': 'keg-cli/containers/base/docker-compose.yml',
-    'com.keg.path.values': 'keg-cli/containers/base/values.yml',
-    'com.keg.path.docker': 'keg-cli/containers/base/Dockerfile',
+    'com.keg.path.compose': '/keg-cli/containers/base/docker-compose.yml',
+    'com.keg.path.values': '/keg-cli/containers/base/values.yml',
+    'com.keg.path.docker': '/keg-cli/containers/base/Dockerfile',
     'com.keg.proxy.domain': 'base'
   },
   core: {
@@ -234,9 +234,9 @@ const dockerObjLabels = {
   proxy: {
     'com.keg.env.context': 'keg-proxy',
     'com.keg.path.container': '/keg/tap',
-    'com.keg.path.compose': 'keg-cli/containers/proxy/docker-compose.yml',
-    'com.keg.path.values': 'keg-cli/containers/proxy/values.yml',
-    'com.keg.path.docker': 'keg-cli/containers/proxy/Dockerfile',
+    'com.keg.path.compose': '/keg-cli/containers/proxy/docker-compose.yml',
+    'com.keg.path.values': '/keg-cli/containers/proxy/values.yml',
+    'com.keg.path.docker': '/keg-cli/containers/proxy/Dockerfile',
     'com.keg.proxy.domain': 'proxy'
   },
   tap: {
@@ -245,9 +245,9 @@ const dockerObjLabels = {
     'com.keg.env.port': '19006',
     'com.keg.path.context': 'INITIAL',
     'com.keg.path.container': '/keg/tap',
-    'com.keg.path.compose': 'keg-cli/containers/tap/docker-compose.yml',
-    'com.keg.path.values': 'keg-cli/containers/tap/values.yml',
-    'com.keg.path.docker': 'keg-cli/containers/tap/Dockerfile',
+    'com.keg.path.compose': '/keg-cli/containers/tap/docker-compose.yml',
+    'com.keg.path.values': '/keg-cli/containers/tap/values.yml',
+    'com.keg.path.docker': '/keg-cli/containers/tap/Dockerfile',
     'com.keg.proxy.domain': 'tap'
   },
   injected: {
@@ -256,9 +256,9 @@ const dockerObjLabels = {
     'com.keg.env.port': '19006',
     'com.keg.path.context': '/keg-hub/taps/tap-injected-test',
     'com.keg.path.container': '/keg/tap',
-    'com.keg.path.compose': 'keg-cli/containers/tap/docker-compose.yml',
-    'com.keg.path.values': 'keg-cli/containers/tap/values.yml',
-    'com.keg.path.docker': 'keg-cli/containers/tap/Dockerfile',
+    'com.keg.path.compose': '/keg-cli/containers/tap/docker-compose.yml',
+    'com.keg.path.values': '/keg-cli/containers/tap/values.yml',
+    'com.keg.path.docker': '/keg-cli/containers/tap/Dockerfile',
     'com.keg.proxy.domain': 'injected',
   }
 }
