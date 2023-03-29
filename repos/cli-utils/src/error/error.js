@@ -87,7 +87,7 @@ const throwTaskFailed = () => {
 /**
  * Throws an error
  * @function
- * @throws
+ * @throws Error
  * @param {string} - Message to display in the thrown error
  *
  * @returns {void}
