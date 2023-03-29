@@ -168,6 +168,38 @@ describe('argsParse', () => {
   
     })
 
+    it('should convert a multiple entry object to a JS object when its a colon string', async () => {
+      const expected = {
+        foo: "1",
+        bar: "2",
+        baz: 'hello'
+      }
+      const parsed = await argsParse({
+        args: [
+          "--object",
+          "foo:1,bar:2,baz:hello"
+        ],
+        task: testTask3,
+      })
+  
+      expect(parsed.object).toEqual(expected)
+    })
+  
+    it('should convert a single entry object to an JS object when its a colon string', async () => {
+      const expected = {
+        foo: "1",
+      }
+      const parsed = await argsParse({
+        args: [
+          "--object",
+          "foo:1"
+        ],
+        task: testTask3,
+      })
+  
+      expect(parsed.object).toEqual(expected)
+    })
+    
     it('should map the options to the keys when no identifiers are used', async () => {
   
       const parsed = await argsParse({

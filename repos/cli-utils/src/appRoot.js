@@ -1,7 +1,14 @@
+/** @module CLI */
+
 const path = require('path')
 const appPath = require('app-root-path').path
 const cliUtilsRoot = path.join(__dirname, '../').slice(0, -1)
 
+/**
+ * Root directory of the application running cli-utils tasks
+ * @string
+ * @private
+ */
 let __APP_ROOT
 
 /**

@@ -107,12 +107,11 @@ const doGitAction = async (git, action, args, cmdOpts) => {
   remote && toRun.push(remote)
 
   const withBranch = await ensureGitBranch(git, args)
-  if(!withBranch) return { data: `Failed to find branch to push to!`, exitCode: 1 }
+  if(!withBranch) return { data: `Failed to find branch for git ${action}!`, exitCode: 1 }
   
   toRun.push(withBranch)
 
   args.force && toRun.push('--force')
-  args.skip && toRun.push('--no-verify')
 
   const resp = await gitCmd(toRun, buildCmdOpts(cmdOpts, args))
 

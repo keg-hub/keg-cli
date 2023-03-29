@@ -1,3 +1,5 @@
+/** @module Task */
+
 const {
   deepMerge,
   isArr,
@@ -10,6 +12,7 @@ const {
 /**
  * Cache holder for options shared between tasks
  * @Object
+ * @private
  */
 let __SHARED_OPTS = {
   all: {},
@@ -56,7 +59,6 @@ const setSharedOptions = (options = noOpObj, groups, mergeGroups) => {
 /**
  * Gets the shared options to based on passed in arguments
  * @function
- * @private
  * @param {string} action - Name of the task action getting the options
  * @param {Object} taskOps - Task options defined in the task
  * @param {Array} include - Filter to include shared options by name

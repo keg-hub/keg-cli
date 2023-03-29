@@ -1,3 +1,5 @@
+/** @module Global-Config */
+
 const { getDefaultEnv } = require('./configHelpers')
 const { ENV_ALIAS, ENV_OPTIONS } = require('../constants')
 const { deepMerge, get, set } = require('@keg-hub/jsutils')

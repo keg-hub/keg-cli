@@ -1,7 +1,11 @@
+/** @module Network */
+
 const { networkInterfaces } = require('os')
 const { isPrivateIP } = require('./isPrivateIP')
 
 /**
+ * @function
+ * @private
  * @param {String} familyStr  (e.g. IPv6)
  * @returns {Number} 4 or 6, depending on the family string
  */
@@ -11,6 +15,7 @@ const getIPVersion = familyStr => familyStr && parseInt(
 
 /**
  * Gets network addresses matching the filter parameters
+ * @function
  * @param {Object} options
  * @param {Boolean} options.isPrivate - if true, only get private ip addresses
  * @param {Boolean} options.isPublic - if true, only get public ip addresses

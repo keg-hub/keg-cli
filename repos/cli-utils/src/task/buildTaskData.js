@@ -1,3 +1,5 @@
+/** @module Task */
+
 const { addGlobalOptions } = require('../globalConfig')
 const { runInternalTask } = require('./runInternalTask')
 const {
@@ -11,6 +13,8 @@ const {
 
 /**
  * Builds a function for calling the default cli task from a custom task
+ * @function
+ * @private
  * @param {Object} namedTask - Current Task being built, to check for subTasks
  * @param {Object} task - Original task definition of namedTask
  * @param {Object} cliTask - Default task to be called
@@ -48,6 +52,8 @@ const addCliTask = (namedTask, task, cliTask, taskPath) => {
 
 /**
  * Calls buildTaskData on any subTasks of the passed in task
+ * @function
+ * @private
  * @param {Object} namedTask - Current Task being built, to check for subTasks
  * @param {string} task - Original task definition of namedTask
  * @param {Object} cliTasks - Default Keg-CLI tasks ( Only used within custom tap tasks )
@@ -76,8 +82,10 @@ const buildSubTasks = (namedTask, task, cliTasks, taskPath) => {
 
 /**
  * Finds the alias for the task, and sets them to the namedTask object
+ * @function
+ * @private
  * @param {Object} namedTask - Current Task being built, to check for alias
-* @param {string} task - Original task definition of namedTask
+ * @param {string} task - Original task definition of namedTask
  *
  * @returns {Object} - Task object with alias added
  */
@@ -96,6 +104,7 @@ const buildTaskAlias = (namedTask, task) => {
 
 /**
  * Finds the alias of passed in task, and adds it to the task object with reference to same value
+ * @function
  * @param {Object} task - Task with alias
  * @param {string} parent - Name of parent task
  * @param {Object} cliTasks - Default Keg-CLI tasks ( Only used within custom tap tasks )

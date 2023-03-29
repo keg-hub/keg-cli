@@ -1,3 +1,5 @@
+/** @module Global-Config */
+
 const { get } = require('@keg-hub/jsutils')
 const { getKegGlobalConfig } = require('./getKegGlobalConfig')
 const { GLOBAL_CONFIG_FOLDER, GLOBAL_CONFIG_PATHS } = require('../constants')
@@ -14,6 +16,7 @@ const getDefaultEnv = () => {
 
 /**
  * Gets the command to open an editor as configured in the global config
+ * @function
  * @param {Object} globalConfig - Global Keg-CLI config object
  */
 const getEditorCmd = globalConfig => {
@@ -22,6 +25,7 @@ const getEditorCmd = globalConfig => {
 
 /**
  * Gets a path from the stored paths in the globalConfig object
+ * @function
  * @param {Object} globalConfig - Global config object for the Keg CLI
  * @param {string} pathName - Key name of the path to get
  *
@@ -37,6 +41,7 @@ const getPathFromConfig = (globalConfig, pathName) => {
 
 /**
  * Gets a setting from the global config
+ * @function
  * @param {Object} setting - Name of the setting to get
  *
  * @returns {string|number|Object|Array} - Found setting

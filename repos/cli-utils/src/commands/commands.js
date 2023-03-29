@@ -1,3 +1,5 @@
+/** @module Commands */
+
 const { inDocker } = require('./inDocker')
 const { getAppRoot } = require('../appRoot')
 const { Logger } = require('../logger/logger')
@@ -31,6 +33,8 @@ const ensureArray = (data=noPropArr) => (
 /**
  * Normalize the env(s) options by checking for both env && envs
  * Then merges them together
+ * @function
+ * @private
  * @param {Object} options - Options forwarded to the child process
  * 
  * @return {Object} - Merged env from options object
@@ -51,7 +55,7 @@ const normalizeEnv = options => {
  * @param {string} cwd - Directory where the child process should be run from
  * @param {boolean} asExec - Run command with execCmd instead of spawnCmd
  *
- * @returns {Object|undefined} - Object is exec is true, undefined if false
+ * @returns {Object|undefined} - Object if exec is true, undefined if false
  */
 const runCmd = async (cmd, args=noPropArr, options=noOpObj, cwd, asExec) => {
   const {
@@ -91,10 +95,12 @@ const runCmd = async (cmd, args=noPropArr, options=noOpObj, cwd, asExec) => {
 /**
  * Generates helper methods for calling common executables within a child process
  * @Object
+ * @private
  */
 const shortcutCmds = Array.from([
   'npm',
   'npx',
+  'node',
   'yarn',
   'docker',
   'docker-compose',
@@ -102,6 +108,7 @@ const shortcutCmds = Array.from([
 .reduce((cmds, cmd) => {
   /**
    * Creates a helper to call the executable within a child process
+   * @private
    * @param {Array|string} args - Arguments to pass to the npm command
    */
   cmds[camelCase(cmd)] = (args, ...opts) => runCmd(cmd, args, ...opts)
@@ -109,8 +116,11 @@ const shortcutCmds = Array.from([
   return cmds
 }, {})
 
+
 /**
  * Converts the passed in envs Object into an array of docker argument envs
+ * @function
+ * @private
  * @param {Object} envs - Key value pair of envs
  *
  * @returns {Array} - Formatted array of envs matching docker cli requirements
@@ -125,6 +135,7 @@ const envToStr = envs => Object.keys(envs)
 
 /**
  * Helper to call the docker exec command directly
+ * @function
  * @param {String} containerName - name of container to run command within
  * @param {Array<string>} args - docker exec args
  * @param  {*} opts - docker exec opts
@@ -146,7 +157,8 @@ const dockerExec = (containerName, args, opts=noOpObj, ...extra) => {
 
 /**
  * Runs a command inside the docker container
- * @param {String} containerName - name of container to run command within ( **Ignored** )
+ * @function
+ * @param {string} containerName - name of container to run command within ( **Ignored** )
  * @param {string|Array<string>} args - docker exec args
  * @param  {Object} opts - docker exec opts
  * @param  {Object} opts.envs - docker exec envs
@@ -171,6 +183,14 @@ const containerExec = (_, args, opts=noOpObj, ...extra) => {
  * Checks if inside a docker container.
  * If we are, then cont add call docker executable directly
  * Instead call the command directly inside the container
+ * @function
+ * @param {string} [containerName] - name of container to run command within ( **Ignored** )
+ * @param {string|Array<string>} args - docker exec args
+ * @param  {Object} opts - docker exec opts
+ * @param  {Object} opts.envs - docker exec envs
+ * @param  {Object} opts.env - docker exec envs
+ * @param  {Array<string>} [extra] - Directory to run the command from
+ *
  */
 const dockerCmd = (...args) => inDocker() ? containerExec(...args) : dockerExec(...args)
 
@@ -180,5 +200,88 @@ module.exports = {
   spawnCmd,
   dockerCmd,
   dockerExec,
-  ...shortcutCmds,
+  /**
+   * Creates a helper to call the **npx** executable within a child process
+   * @function
+   * @param {Array|string} args - Arguments to pass to the **npx** command
+   * @param {Object} [options] - Options forwarded to the child process
+   * @param {Object} options.env - Environment variables to set in the child process
+   * @param {boolean} options.exec - Execute the command instead of calling child spawn process
+   * @param {string} options.cwd - Directory to execute the command from
+   * @example
+   * await npx(`http-server ./public -p 3000 --cors`)
+   * await npx([`http-server`, `./public`, `-p`, `3000`, `--cors`], { env: { MY_ENV: 'some-value' } })
+   * @returns {Object|undefined} - Object if exec is true, undefined if false
+   */
+  npx: shortcutCmds.npx,
+  /**
+   * Creates a helper to call the **npm** executable within a child process
+   * @function
+   * @param {Array|string} args - Arguments to pass to the **npm** command
+   * @param {Object} [options] - Options forwarded to the child process
+   * @param {Object} options.env - Environment variables to set in the child process
+   * @param {boolean} options.exec - Execute the command instead of calling child spawn process
+   * @param {string} options.cwd - Directory to execute the command from
+   * @example
+   * await npm(`start`)
+   * await npm([`start`], { env: { NODE_ENV: 'staging' } })
+   * @returns {Object|undefined} - Object if exec is true, undefined if false
+   */
+  npm: shortcutCmds.npm,
+  /**
+   * Creates a helper to call the **node** executable within a child process
+   * @function
+   * @param {Array|string} args - Arguments to pass to the **node** command
+   * @param {Object} [options] - Options forwarded to the child process
+   * @param {Object} options.env - Environment variables to set in the child process
+   * @param {boolean} options.exec - Execute the command instead of calling child spawn process
+   * @param {string} options.cwd - Directory to execute the command from
+   * @example
+   * await node(`./index.js`)
+   * await node([`./index.js`], { cwd: process.env.HOME, env: { KEY: 'VALUE' } })
+   * @returns {Object|undefined} - Object if exec is true, undefined if false
+   */
+  node: shortcutCmds.node,
+  /**
+   * Creates a helper to call the **yarn** executable within a child process
+   * @function
+   * @param {Array|string} args - Arguments to pass to the **yarn** command
+   * @param {Object} [options] - Options forwarded to the child process
+   * @param {Object} options.env - Environment variables to set in the child process
+   * @param {boolean} options.exec - Execute the command instead of calling child spawn process
+   * @param {string} options.cwd - Directory to execute the command from
+   * @example
+   * await yarn(`start`)
+   * await yarn([`start`])
+   * @returns {Object|undefined} - Object if exec is true, undefined if false
+   */
+  yarn: shortcutCmds.yarn,
+  /**
+   * Creates a helper to call the **docker** executable within a child process
+   * @function
+   * @param {Array|string} args - Arguments to pass to the **docker** command
+   * @param {Object} [options] - Options forwarded to the child process
+   * @param {Object} options.env - Environment variables to set in the child process
+   * @param {boolean} options.exec - Execute the command instead of calling child spawn process
+   * @param {string} options.cwd - Directory to execute the command from
+   * @example
+   * await docker(`exec my-container /bin/bash`)
+   * await docker([`exec`, `my-container`, `/bin/bash`], { env: {PORT: 1000}, exec: true })
+   * @returns {Object|undefined} - Object if exec is true, undefined if false
+   */
+  docker: shortcutCmds.docker,
+  /**
+   * Creates a helper to call the **docker-compose** executable within a child process
+   * @function
+   * @param {Array|string} args - Arguments to pass to the **docker-compose** command
+   * @param {Object} [options] - Options forwarded to the child process
+   * @param {Object} options.env - Environment variables to set in the child process
+   * @param {boolean} options.exec - Execute the command instead of calling child spawn process
+   * @param {string} options.cwd - Directory to execute the command from
+   * @example
+   * await dockerCompose(`up`)
+   * await dockerCompose([`up`, `-f`, `./path/to/docker-compose.yml`])
+   * @returns {Object|undefined} - Object if exec is true, undefined if false
+   */
+  dockerCompose: shortcutCmds.dockerCompose,
 }

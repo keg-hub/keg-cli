@@ -1,3 +1,5 @@
+/** @module Task */
+
 const { throwNoAction } = require('../error')
 const { isFunc } = require('@keg-hub/jsutils')
 const { hasHelpArg } = require('./hasHelpArg')
@@ -5,10 +7,8 @@ const { showHelp } = require('../logger/showHelp')
 const { parseTaskArgs } = require('./parseTaskArgs')
 
 /**
- * Executes the passed in task.
- * <br/> Checks if a tasks has cmd key as a string, and if so runs it in a child process
- * <br/> Of if the cmd key as a function, it is called
- * <br/> The output of the the child process or function is passed to the task action
+ * Executes the passed in task's action if it is a function.
+ * <br/>Otherwise calls the `throwNoAction` error method
  * @function
  * @param {string} command - Name of the Keg CLI command to run
  * @param {Object} task - task object that's being executed
