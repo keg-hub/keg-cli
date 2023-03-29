@@ -1,7 +1,10 @@
+/** @module Network */
 const http = require('http')
 
 
 /**
+ * Gets the public Ip of the host machine using `https://api.ipify.org?format=json`
+ * @function
  * @returns {string?} public ip address of current machine
  */
 const getPublicIP = async () => {

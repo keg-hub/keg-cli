@@ -12,7 +12,9 @@ let TAG_DISABLED = false
 
 /**
  * General logging method for all log types
- * @param {Loc Class} logger - Log class instance
+ * @function
+ * @private
+ * @param {Object} logger - Log class instance
  * @param {string} type - Type of log ( key of Log.colorMap )
  *
  * @returns {Void}
@@ -44,6 +46,12 @@ const logData = (logger, type) => {
   }
 }
 
+/**
+ * Class with helper methods to log data to the terminal or console
+ * @Class
+ * @param {Object} props - Options for configuring the Log Class instance
+ * @returns {Object} - Instance of the Log Class
+ */
 class Log {
 
   tag = false
@@ -79,6 +87,14 @@ class Log {
     this.log = this.print
   }
 
+  /**
+   * Set a tag value for all logged messages
+   * @instance
+   * @memberof Log
+   * @function
+   * @param {string} tag - Text that should be used as the tag
+   * @param {string} color - Color of tag when logged
+   */
   setTag = (tag, color) => {
     if(!tag) return this.warn(`Tag must be of type string`, tag)
 
@@ -87,17 +103,33 @@ class Log {
       : tag
   }
 
+  /**
+   * Removes the defined tag from the Log instance
+   * @instance
+   * @memberof Log
+   * @function
+   *
+   */
   removeTag = () => {
     this.tag = undefined
   }
-  
+
+  /**
+   * Toggle the Log instance tag on or off
+   * @instance
+   * @memberof Log
+   * @function
+   *
+   */
   toggleTag = () => {
     if(!TAG_DISABLED) TAG_DISABLED = true
     else TAG_DISABLED = false
   }
 
   /**
-   * Helper create string in the passed in color
+   * Helper to create a string in the passed in color
+   * @instance
+   * @memberof Log
    * @function
    * @param {string} colorName - name of the color to use
    * @param {string} data - data to set color for
@@ -109,6 +141,9 @@ class Log {
 
   /**
    * Helper to print the passed in data
+   * <br/>Similar to calling `console.log(...data)`
+   * @instance
+   * @memberof Log
    * @function
    *
    * @returns {void}
@@ -122,6 +157,8 @@ class Log {
 
   /**
    * Helper to change the default colors
+   * @instance
+   * @memberof Log
    * @function
    *
    * @returns {void}
@@ -131,6 +168,8 @@ class Log {
 
   /**
    * Helper to log an empty line
+   * @instance
+   * @memberof Log
    * @function
    *
    * @returns {void}
@@ -139,6 +178,9 @@ class Log {
 
   /**
    * Helper to print out a table.
+   * @instance
+   * @memberof Log
+   * @function
    * @see docs about params here: https://developer.mozilla.org/en-US/docs/Web/API/Console/table
    * @returns {void}
    */
@@ -151,10 +193,13 @@ class Log {
   }
 
   /**
-   * Helper to log out CLI message header
+   * Helper to log out a CLI message header
+   * @instance
+   * @memberof Log
    * @function
    *
-   * @param {string} title
+   * @param {string} title - Text to print as the header
+   * @param {string} color - Color of the header text
    *
    * @returns {void}
    */
@@ -178,6 +223,17 @@ class Log {
     TAG_DISABLED = tagState
   }
 
+  /**
+   * Helper to log out a CLI message sub-header
+   * @instance
+   * @memberof Log
+   * @function
+   *
+   * @param {string} title - Text to print as the sub-header
+   * @param {string} color - Color of the header text
+   *
+   * @returns {void}
+   */
   subHeader = (title, color) => {
     const tagState = TAG_DISABLED
     TAG_DISABLED = true
@@ -198,9 +254,11 @@ class Log {
 
   /**
    * Helper to log a title and message in separate colors
+   * @instance
+   * @memberof Log
    * @function
-   * @param {string} title - Prints the string in cyan
-   * @param {string} message - Prints the string in white
+   * @param {string} title - Prints the string in the color `cyan`
+   * @param {string} message - Prints the string in the color `white`
    *
    * @returns {void}
    */
@@ -213,10 +271,18 @@ class Log {
     toLog.length && this.print(...toLog)
   }
 
+  /**
+   * Alias for `Log.pair`
+   * @instance
+   * @memberof Log
+   * @function
+   */
   label = (...args) => this.pair(...args)
 
   /**
    * Helper to log a spaced title and message in separate colors
+   * @instance
+   * @memberof Log
    * @function
    * @param {string} title - Prints the string in cyan
    * @param {string} message - Prints the string in white
@@ -230,22 +296,36 @@ class Log {
   }
 
   /**
-   * Same as spacedMsg
+   * Alias for `Log.spacedMsg`
+   * @instance
+   * @memberof Log
+   * @function
    */
   spaceMsg = (...args) => this.spacedMsg(...args)
 
   /**
-   * Writes to the process stdout
+   * Writes passed in arguments to the process stdout
+   * @instance
+   * @memberof Log
+   * @function
+   * @param {*} - Items to write to process stdout
    */
   stdout = (...args) => process.stdout.write(...args)
 
   /**
    * Writes to the process stderr
+   * @instance
+   * @memberof Log
+   * @function
+   * @param {*} - Items to write to process stderr
    */
   stderr = (...args) => process.stderr.write(...args)
 
   /**
    * Clears the terminal, does not allow scrolling back
+   * @instance
+   * @memberof Log
+   * @function
    */
   clear = () => {
     process.stdout.write('\u001b[3J\u001b[2J\u001b[1J')
@@ -254,6 +334,8 @@ class Log {
 
   /**
    * Helper to highlight a word in a logged message
+   * @instance
+   * @memberof Log
    * @function
    * @param {string} start - Beginning of the message
    * @param {string} highlight - Part of message to be highlighted
@@ -268,6 +350,7 @@ class Log {
 
 /**
  * Create a Log instance, so we have a singleton through out the application
+ * @private
  */
 const Logger = new Log()
 

@@ -1,3 +1,5 @@
+/** @module Task */
+
 const { getAppRoot } = require('../appRoot')
 const { isObj, noOpObj } = require('@keg-hub/jsutils')
 const { getFolders, requireFile } = require('../fileSys')
@@ -6,12 +8,14 @@ const { getFolders, requireFile } = require('../fileSys')
 /**
  * Task Definition cache
  * @Object
+ * @private
  */
 let __TASK_DEFINITIONS = {}
 
 /**
  * Default Task folder name
  * @string
+ * @private
  */
 let __TASK_FOLDER = 'tasks'
 

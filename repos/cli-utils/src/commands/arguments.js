@@ -1,8 +1,11 @@
+/** @module Helpers */
+
 const { isArr, isStr, exists, isBool } = require('@keg-hub/jsutils')
 
 /**
  * Loop over the passed in ENVs
  * Add them to the process.env if they don't already exist
+ * @function
  * @param {Object} addEnvs - Envs to add to the current process
  * @param {boolean|Array} overwrite - Should the env be overwritten if it already exists
  *                                    When an array, should be ENV's that are allowed to overwrite existing
@@ -23,6 +26,7 @@ const addToProcess = (addEnvs, overwrite) => {
 
 /**
  * Returns a key-value command parameter string
+ * @function
  * @param {string} name - parameter name
  * @param {string} value - param value
  * @returns {string}
@@ -58,6 +62,7 @@ const addFlag = (...args) => {
 
 /**
  * Gets a string of space-separated string values
+ * @function
  * @param {Array<string>|string} values - either array of strings or csv
  * @returns {string} combined string
  */

@@ -1,3 +1,5 @@
+/** @module Error */
+
 const { Logger } = require('../logger/logger')
 const { noOpObj } = require('@keg-hub/jsutils')
 
@@ -16,7 +18,7 @@ const throwError = (...message) => {
 
 /**
  * Helper to print an error on task failed
- *
+ * @function
  * @param {Error|Object} err - Error that was thrown
  *
  * @returns {void}
@@ -56,6 +58,7 @@ const throwNoAction = (task=noOpObj) => {
 
 /**
  * Prints CLI unknown task when task can not be found
+ * @function
  * @param {string} task - Invalid passed in task
  * @param {boolean} unknown - If it's an unknown task
  *

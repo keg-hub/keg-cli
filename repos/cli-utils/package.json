@@ -25,6 +25,13 @@
     "clean:full": "yarn clean && yarn install",
     "clean": "yarn clean:lock && yarn cache clean && rimraf node_modules && npm cache clean --force",
     "clean:lock": "rimraf ./yarn.lock && rimraf ./package.lock",
+    "docs": "rimraf ./docs && ./node_modules/.bin/jsdoc -c ./configs/jsdoc.json --debug && yarn docs:copy",
+    "docs:copy": "node ./scripts/docs/docCopyScripts.js",
+    "docs:web": "npx http-server ./docs -p 8888 --cors",
+    "docs:git": "node ./scripts/docs/docsSetupGit.js",
+    "docs:publish": "yarn docs && yarn docs:git",
+    "docs:serve": "yarn docs && yarn docs:web",
+    "docs:watch": "nodemon --config configs/nodemon.config.json",
     "format:eslint": "eslint --config ./configs/eslintrc.config.js . --fix --quiet",
     "format:prettier": "prettier --config ./configs/prettier.config.js --ignore-path .eslintignore --write '**/*.{js,jsx}'",
     "format": "yarn format:prettier && yarn format:eslint",
@@ -43,10 +50,16 @@
   },
   "devDependencies": {
     "babel-eslint": "10.1.0",
+    "docdash": "^1.2.0",
     "eslint": "8.2.0",
     "eslint-plugin-jest": "25.2.3",
     "jest": "27.3.1",
+    "jsdoc": "3.6.10",
+    "nodemon": "2.0.15",
     "prettier": "2.0.5",
     "rimraf": "3.0.2"
+  },
+  "publish": {
+    "repository": "https://github.com/keg-hub/cli-utils.git"
   }
 }

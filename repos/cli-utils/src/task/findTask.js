@@ -1,3 +1,5 @@
+/** @module Task */
+
 const { throwExitError } = require('../error')
 const { noOpArr, isArr, isObj } = require('@keg-hub/jsutils')
 
