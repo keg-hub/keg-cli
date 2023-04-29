@@ -56,9 +56,8 @@ module.exports = {
         default: false
       },
       confirm: {
-        description: 'Asks the user to confirm the updates before publishing. Set to false for CI/CD environments',
         example: 'keg tap publish --no-confirm',
-        default: true
+        description: 'Asks the user to confirm the updates before publishing. Set to false for CI/CD environments',
       },
       version: {
         alias: [ 'ver' ],
