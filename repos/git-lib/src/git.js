@@ -2,9 +2,10 @@ const gitUtils = require('./utils')
 const { Repo } = require('./repo')
 const { Remote } = require('./remote')
 const { Branch } = require('./branch')
+const { gitCmd } = require('./commands')
 const { Logger } = require('@keg-hub/cli-utils')
-const { gitSSHEnv, buildCmdOpts } = require('./utils/helpers')
 const { getKegGlobalConfig } = require('@keg-hub/cli-utils')
+const { gitSSHEnv, buildCmdOpts } = require('./utils/helpers')
 
 const getGitConfig = () => {
   const globalConfig = getKegGlobalConfig()
