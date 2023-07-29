@@ -25,7 +25,7 @@ const ensureArg = async (task, args, key, meta) => {
   // Ensure any boolean shortcuts are mapped to true or false
   // Allows for using shortcuts like 'yes' or 'no' for 'true' and 'false'
   // See ./configs/parse.config.js for list of boolean shortcuts
-  resolved = checkBoolValue(resolved)
+  resolved = checkBoolValue(resolved, meta.type)
 
   // Ensure env shortcuts are mapped to the correct environment
   // Allows for using shortcuts like 'dev' or 'prod' for 'development' and 'production'
@@ -47,7 +47,7 @@ const ensureArg = async (task, args, key, meta) => {
   // We treat empty strings as no value
   ;!exists(resolved) || resolved === ''
     ? checkRequired(task, key, meta)
-    : ( args[key] = checkBoolValue(resolved) )
+    : ( args[key] = checkBoolValue(resolved, meta.type) )
 
   return args
 }

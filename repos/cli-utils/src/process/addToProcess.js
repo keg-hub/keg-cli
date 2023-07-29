@@ -1,6 +1,5 @@
 /** @module Process */
-
-const { exists, noOpObj } = require('@keg-hub/jsutils')
+const { exists, emptyObj, emptyArr } = require('@keg-hub/jsutils')
 
 /**
  * Loop over the passed in ENVs, and add them to the current process
@@ -12,14 +11,15 @@ const { exists, noOpObj } = require('@keg-hub/jsutils')
  *
  * @returns {Void}
  */
-const addToProcess = (addEnvs, opts=noOpObj) => {
-  const { force } = opts
+const addToProcess = (addEnvs, opts=emptyObj) => {
+  const { force, ignore=emptyArr } = opts
 
   Object.entries(addEnvs)
     .map(([ key, value ]) => {
-      exists(value) &&
-        (!exists(process.env[key]) || force) &&
-        (process.env[key] = value)
+      exists(value)
+        && !ignore.includes(key)
+        && (!exists(process.env[key]) || force)
+        && (process.env[key] = value)
     })
 }
 

@@ -29,9 +29,11 @@ const getBoolOptions = () => {
  *
  * @returns {*} - Boolean or original value
  */
-const checkBoolValue = value => {
+const checkBoolValue = (value, metaType) => {
 
-  if(!exists(value) || isBool(value)) return value
+  const notBoolType = exists(metaType) && (metaType !== `boolean` && metaType !== `bool`)
+
+  if(!exists(value) || isBool(value) || notBoolType) return value
 
   const lowerVal = isStr(value) && value.toLowerCase() || value
   const boolOpts = __BOOL_OPTS || getBoolOptions()

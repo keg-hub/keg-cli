@@ -101,7 +101,7 @@ const checkValueType = (key, value, meta) => {
     }
     case 'boolean':
     case 'bool': {
-      const boolVal = checkBoolValue(value)
+      const boolVal = checkBoolValue(value, meta.type)
       return exists(boolVal) ? toBool(boolVal) : undefined
     }
     default: {
