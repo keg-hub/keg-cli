@@ -122,7 +122,7 @@ importers:
   repos/cli-utils:
     dependencies:
       '@keg-hub/args-parse':
-        specifier: '>=10.0.0'
+        specifier: '>=10.0.1'
         version: link:../args-parse
       '@keg-hub/jsutils':
         specifier: '>=9.6.1'
