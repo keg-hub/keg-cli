@@ -31,6 +31,9 @@ class Git {
     this.utils = gitUtils
   
     options.sshKey && this.setSSHKey(options.sshKey)
+
+    // Expose the git command line helper
+    this.cmd = gitCmd.bind(this)
   }
 
   /**
