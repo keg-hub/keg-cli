@@ -24,11 +24,11 @@ const { copySync, emptyDirSync } = fileSys
  * @return {Boolean} - whether  the call was successful or not
  */
 const runRepoScript = async (repo, script, errorCb, log) => {
-  log && Logger.log(`Running yarn ${script.trim()} for repo ${repo.repo} ...`)
+  log && Logger.log(`Running pnpm ${script.trim()} for repo ${repo.repo} ...`)
 
-  // Run the yarn script from the package.json of the passed in location
+  // Run the pnpm script from the package.json of the passed in location
   const exitCode = await spawnCmd(
-    `yarn ${script.trim()}`.trim(),
+    `pnpm ${script.trim()}`.trim(),
     { cwd: repo.location }
   )
 
@@ -48,7 +48,7 @@ const runRepoScript = async (repo, script, errorCb, log) => {
  * @returns {Void}
  */
 const validatePublishTask = async (repo, runTask, scriptName, errorCB) => {
-  logFormal(repo, `${runTask ? 'Running' : 'Skipping'} yarn ${scriptName}...`)
+  logFormal(repo, `${runTask ? 'Running' : 'Skipping'} pnpm ${scriptName}...`)
   if (runTask) {
     exists(get(repo, `package.scripts.${scriptName}`))
       ? await runRepoScript(repo, scriptName, errorCB)
@@ -63,7 +63,7 @@ const validatePublishTask = async (repo, runTask, scriptName, errorCB) => {
  * @param {Object} publishArgs - Define the state or the repo being published
  * @param {string} publishArgs.currentBranch
  * @param {string} publishArgs.newVersion - i.e '1.0.0'
- * @param {Boolean} publishArgs.wasPublished - whether yarn publish was executed
+ * @param {Boolean} publishArgs.wasPublished - whether pnpm publish was executed
  * @param {{number:Number, name:string}} publishArgs.step - current step information
  * @param {boolean} [confirm=true] - Should the updates be confirmed by the user
  *
@@ -209,7 +209,7 @@ const gitBranchCommitUpdates = async (repo, publishArgs, updated, params) => {
 }
 
 /**
- * Runs a set of yarn commands to test, build and publish a repo
+ * Runs a set of pnpm commands to test, build and publish a repo
  * @function
  * @param {Object} repo - Repo object containing meta-data about the current repo
  * @param {Object} publishContext - Defines how the repo should be published
@@ -218,7 +218,7 @@ const gitBranchCommitUpdates = async (repo, publishArgs, updated, params) => {
  * 
  * @returns {Boolean} - True if the repo was published to npm
  */
-const repoYarnCommands = async (repo, publishContext, publishArgs, params) => {
+const repoCommands = async (repo, publishContext, publishArgs, params) => {
 
   const {
     test,
@@ -247,8 +247,20 @@ const repoYarnCommands = async (repo, publishContext, publishArgs, params) => {
     // Publish to NPM
     publishArgs.step = { number: 4, name: 'publish' }
     const shouldPublish = publish && !dryrun
-    logFormal(repo, `${shouldPublish ? 'Running' : 'Skipping'} yarn publish...`)
-    const isPublished = shouldPublish && await runRepoScript(repo, `publish --access ${access} --new-version ${newVersion}`, scriptError(`publish`))
+    logFormal(repo, `${shouldPublish ? 'Running' : 'Skipping'} pnpm publish...`)
+
+    // CMD for yarn
+    // const cmd = `publish --access ${access} --new-version ${newVersion}`
+
+    // CMD for pnpm
+    const cmd = `publish --access ${access} --no-git-checks`
+
+    const isPublished = shouldPublish
+      && await runRepoScript(
+        repo,
+        cmd,
+        scriptError(`publish`)
+      )
 
     return isPublished
 
@@ -286,7 +298,7 @@ const copyBuildFiles = (currentRepo, repos) => {
 }
 
 /**
- * Runs yarn and git commands to publish the repos defined in the publish context
+ * Runs pnpm and git commands to publish the repos defined in the publish context
  * @function
  * @param {Object} globalConfig - Global cli config object
  * @param {Array} toPublish - Repos to be published
@@ -329,7 +341,7 @@ const publishRepos = async (globalConfig, toPublish, repos, params={}, publishCo
 
       publishArgs.newVersion = versionNumber
       logFormal(repo, `Running publish service`)
-      publishArgs.isPublished = await repoYarnCommands(repo, publishContext, publishArgs, params)
+      publishArgs.isPublished = await repoCommands(repo, publishContext, publishArgs, params)
 
       // Check if we should do the git updates, or just return the updated array
       return commit
@@ -377,19 +389,8 @@ const checkTapPublishOrder = (repos, publishArgs) => {
  */
 const publishService = async (args, publishArgs) => {
   const { params, globalConfig } = args
-  const { context, tap, confirm=true, version, dryrun } = params
+  const { context, tap, version, dryrun } = params
   const publishName = tap || context
-
-  // If running without a confirm, then check that we have a version
-  !confirm &&
-    (!exists(version) || !version) &&
-    generalError(`Can not auto-publish without a valid semver version!`)
-
-  confirm && await confirmPublish(publishName, dryrun)
-
-  const newVersion = !version
-    ? await getValidSemver()
-    : version
 
   // Get all repos / package.json
   const repos = await getHubRepos({
@@ -409,6 +410,21 @@ const publishService = async (args, publishArgs) => {
   // Get all the repo's to be published
   const toPublish = getPublishContextOrder(repos, publishContext, params)
 
+  const confirm = exists(params.confirm)
+    ? params.confirm
+    : exists(publishContext.confirm)
+      ? publishContext.confirm
+      : true
+
+  confirm && await confirmPublish(publishName, dryrun)
+
+  const newVersion = version || await getValidSemver()
+
+  // If running without a confirm, then check that we have a version
+  !confirm &&
+    (!exists(newVersion) || !newVersion) &&
+    generalError(`Can not auto-publish without a valid semver version!`)
+   
   // get the actual version number
   const versionNumber = await getVersionUpdate(toPublish[0], newVersion, publishContext, confirm)
 
@@ -416,12 +432,12 @@ const publishService = async (args, publishArgs) => {
 
   dryrun && Logger.subHeader('dry-run: Will NOT Publish to Npm or Push to GitHub')
 
-  // run yarn install on all toPublish repos prior to any package json updates
+  // run pnpm install on all toPublish repos prior to any package json updates
   // then we can just copy over new build files to their node_modules
   // for cases when: 1. publish == false; 2. possible install delay after publishing to npm
   const { install } = publishContext.tasks
   await Promise.all(toPublish.map(async (repo) => {
-    logFormal(repo, `${install ? 'Running' : 'Skipping'} yarn install...`)
+    logFormal(repo, `${install ? 'Running' : 'Skipping'} pnpm install...`)
     install && await runRepoScript(repo, `install`)
   }))
 
