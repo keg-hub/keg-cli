@@ -10,30 +10,38 @@ jobs:
         shell: bash
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+        uses: actions/checkout@v3
 
-      - name: "Setup node Version"
-        uses: actions/setup-node@v2
+      - name: Install Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: "14"
+          node-version: 20
 
-      - name: "Cache Dependencies"
-        uses: bahmutov/npm-install@v1
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        id: pnpm-install
         with:
-          useLockFile: false
-          install-command: yarn install --frozen-lockfile --silent --force
-          working-directory: |
-            ./
-            repos/args-parse
-            repos/ask-it
-            repos/cli-utils
-            repos/docker-lib
-            repos/git-lib
-            repos/mutagen-lib
-            repos/parse-config
-            repos/spawn-cmd
+          version: 8
+          run_install: false
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install
+        env:
+          NPM_TOKEN: ${{ secrets.GIT_TOKEN }}
 
       - name: "Setup CLI config"
         id: setup-cli-config
