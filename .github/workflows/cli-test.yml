@@ -51,4 +51,4 @@ jobs:
 
       - name: "Run CLI Tests"
         id: run-repo-tests
-        run: bash scripts/ci/runYarnCmd.sh "test"
+        run: bash scripts/ci/runCICmd.sh "test"

@@ -25,7 +25,7 @@ keg_run_yarn_cmd(){
   # This ensures it's in the correct context for running yarn commands
   cd $KEG_CLI_PATH
   echo "::debug::Running yarn cmd $1"
-  yarn "$1"
+  pnpm "$1"
 }
 
 keg_run_yarn_cmd "$@"

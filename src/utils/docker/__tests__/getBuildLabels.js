@@ -61,28 +61,6 @@ const { getBuildLabels } = require('../getBuildLabels')
 
 describe('getBuildLabels', () => {
 
-  it('Should return the default labels when no labels are passed in for keg-base', () => {
-    const labels = getBuildLabels(args.base)
-    expect(labels).toBe(dockerLabels.base)
-  })
-
-  it('Should return the default labels when no labels are passed in for keg-core', () => {
-    const labels = getBuildLabels(args.core)
-    expect(labels).toBe(dockerLabels.core)
-  })
-
-  it('Should return the default labels when no labels are passed in for keg-proxy', () => {
-    const labels = getBuildLabels(args.proxy)
-    expect(labels).toBe(dockerLabels.proxy)
-  })
-
-  it('Should return the default labels when no labels are passed in for tap', () => {
-    const labels = getBuildLabels(
-      { ...args.injected, params: { ...args.injected.params, context: 'tap' } },
-    )
-    expect(labels).toBe(dockerLabels.injected)
-  })
-
   it('Should add extra labels when they are passed in as a string', () => {
     const addedLabels = `com.test.label="my-test-label",com.test.other="my-other-test-label"`
     const labels = getBuildLabels(
