@@ -4,19 +4,24 @@ Parse command line arguments
 ## Setup
 
 ### Install It
-Add to your package.json
 
-  ```js
-    "argsParse": "git+https://github.com/keg-hub/argsParse.git"
-  ```
+* With **yarn**
+```bash
+yarn add @keg-hub/args-parse
+```
+
+* With **npm**
+```bash
+npm install @keg-hub/args-parse
+```
 
 ### Use It
-See test [examples](https://github.com/keg-hub/argsParse/blob/master/__tests__/argsParse.js)
+See test [examples](https://github.com/keg-hub/keg-cli/blob/main/repos/args-parse/src/__tests__/argsParse.js)
 
 ```js
 ;(() => {
 
-  const { argsParse } = require('argsParse')
+  const { argsParse } = require('@keg-hub/args-parse')
   const task = {
     options: {
       // Define required
@@ -53,6 +58,6 @@ See test [examples](https://github.com/keg-hub/argsParse/blob/master/__tests__/a
 ## Custom Config
 * Use the `PARSE_CONFIG_PATH` environment vairable to overwrite the path to the parse config
   * Path should be relative to the applications root directory
-* See default [config](https://github.com/keg-hub/argsParse/blob/master/configs/parse.config.js)
+* See default [config](https://github.com/keg-hub/keg-cli/blob/main/repos/args-parse/configs/parse.config.js)
 * Custom Configs should match the keys within the default config
   * `bools` && `environment`

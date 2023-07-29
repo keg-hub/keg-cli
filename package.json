@@ -24,39 +24,30 @@
   "scripts": {
     "bundle": "node ./scripts/cli/bundle.js",
     "build": "pkg --public --options max-old-space-size=1024 --config ./pkg.config.json ./keg-cli-bundle.js",
-    "clean:full": "yarn clean && yarn clean:repos && yarn install",
-    "clean": "yarn cache clean && rm -rf node_modules && npm cache clean --force",
+    "clean:full": "pnpm clean && pnpm clean:repos && pnpm install",
+    "clean": "rm -rf node_modules && npm cache clean --force",
     "clean:repos": "rm -rf repos/args-parse/node_modules && rm -rf repos/ask-it/node_modules && rm -rf repos/cli-utils/node_modules && rm -rf repos/docker-lib/node_modules && rm -rf repos/git-lib/node_modules && rm -rf repos/mutagen-lib/node_modules && rm -rf repos/parse-config/node_modules && rm -rf repos/spawn-cmd/node_modules",
-    "clean:lock": "rm -rf ./yarn.lock && rm -rf ./package.lock",
+    "clean:lock": "rm -rf ./pnpm.lock && rm -rf ./package.lock",
     "docker:build": "bash scripts/ci/buildPushDockerImages.sh",
     "format": "exit 0",
     "init:bash": "/bin/bash ./scripts/setup/mac-init.sh",
     "keg": "./keg",
-    "postinstall": "node ./scripts/postinstall/index.js",
-    "repos:install": "node ./scripts/postinstall/installRepos.js",
-    "repos:link": "node ./scripts/postinstall/linkRepos.js",
     "test": "bash scripts/test.sh",
-    "test:root": "yarn test:jest",
+    "test:root": "pnpm test:jest",
     "test:jest": "NODE_ENV=test jest --no-cache --verbose --maxWorkers=50%",
     "test:e2e": "NODE_ENV=test node ./scripts/cli/tests/index.js"
   },
-  "resolutions": {
-    "@keg-hub/jsutils": ">=9.6.1"
-  },
   "private": true,
-  "workspaces": [
-    "repos/*"
-  ],
   "dependencies": {
-    "@keg-hub/args-parse": "*",
-    "@keg-hub/ask-it": "*",
-    "@keg-hub/cli-utils": "*",
-    "@keg-hub/docker-lib": "*",
-    "@keg-hub/git-lib": "*",
+    "@keg-hub/args-parse": "workspace:./repos/args-parse",
+    "@keg-hub/ask-it": "workspace:./repos/ask-it",
+    "@keg-hub/cli-utils": "workspace:./repos/cli-utils",
+    "@keg-hub/docker-lib": "workspace:./repos/docker-lib",
+    "@keg-hub/git-lib": "workspace:./repos/git-lib",
     "@keg-hub/jsutils": ">=9.6.1",
-    "@keg-hub/mutagen-lib": "file:./repos/mutagen-lib",
-    "@keg-hub/parse-config": "*",
-    "@keg-hub/spawn-cmd": "*",
+    "@keg-hub/mutagen-lib": "workspace:./repos/mutagen-lib",
+    "@keg-hub/parse-config": "workspace:./repos/parse-config",
+    "@keg-hub/spawn-cmd": "workspace:./repos/spawn-cmd",
     "axios": "0.24.0",
     "colors": "1.4.0",
     "esbuild": "0.17.6",
@@ -75,6 +66,11 @@
     "esbuild-plugin-path-alias": "1.0.3",
     "expect": "26.6.2",
     "jest": "27.3.1"
+  },
+  "pnpm": {
+    "overrides": {
+      "@keg-hub/jsutils": ">=9.6.1"
+    }
   },
   "jest": {
     "testEnvironment": "node",
