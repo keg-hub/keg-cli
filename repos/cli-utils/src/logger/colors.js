@@ -31,8 +31,9 @@ const colors = {
   yellow: (log) => addColor(colorMap.yellow, log),
   magenta: (log) => addColor(colorMap.magenta, log),
   brightRed: (log) => addColor(colorMap.bright, colorMap.red, log),
-  brightCyan: (log) => addColor(colorMap.bright, colorMap.cyan, log),
   brightBlue: (log) => addColor(colorMap.bright, colorMap.blue, log),
+  brightGray: (log) => addColor(colorMap.bright, colorMap.gray, log),
+  brightCyan: (log) => addColor(colorMap.bright, colorMap.cyan, log),
   brightWhite: (log) => addColor(colorMap.bright, colorMap.white, log),
   brightGreen: (log) => addColor(colorMap.bright, colorMap.green, log),
   brightYellow: (log) => addColor(colorMap.bright, colorMap.yellow, log),
@@ -41,6 +42,12 @@ const colors = {
 
 colors.underline = Object.keys(colors).reduce((acc, key) => {
   acc[key] = (log) => addColor(colorMap.underline, colors[key](log))
+
+  return acc
+}, {})
+
+colors.dim = Object.keys(colors).reduce((acc, key) => {
+  acc[key] = (log) => addColor(colorMap.dim, colors[key](log))
 
   return acc
 }, {})

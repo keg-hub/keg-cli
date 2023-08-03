@@ -36,10 +36,7 @@ keg_setup_cli(){
   # Setup the config paths for the global cli config 
   export KEG_CONFIG_PATH=$KEG_CLI_PATH/.kegConfig
   export KEG_CONFIG_FILE=cli.config.json
-  
-  # Setup sub-repo yarn links
-  node $KEG_CLI_PATH/scripts/postinstall/linkRepos.js
-  
+
   node $KEG_CLI_PATH/scripts/ci/setupCLIConfig.js
 
   KEG_GLOBAL_CONFIG=$KEG_CONFIG_PATH/cli.config.json

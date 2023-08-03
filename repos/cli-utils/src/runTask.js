@@ -69,9 +69,4 @@ const runTask = async (customTasks, customDefParams, parseConfig) => {
   }
 }
 
-// Check if the parent module ( task module ) has a parent
-// If it does, then it was called by the Keg-CLI
-// So we should return the task definition instead of running the task action
-module.parent
-  ? (module.exports = { runTask })
-  : runTask()
+module.exports = { runTask }

@@ -9,6 +9,7 @@ module.exports = {
   },
   moduleNameMapper: {},
   testMatch: [
+    "<rootDir>/__tests__/**/*.js?(x)",
     "<rootDir>/src/**/__tests__/**/*.js?(x)",
     "<rootDir>/src/**/__tests__/**/*.ts?(x)",
     "<rootDir>/scripts/**/__tests__/**/*.js?(x)",
