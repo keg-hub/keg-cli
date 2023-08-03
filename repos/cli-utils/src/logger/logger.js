@@ -1,4 +1,4 @@
-const { get, isColl, isObj, isFunc } = require('@keg-hub/jsutils')
+const { get, isColl } = require('@keg-hub/jsutils')
 const { colors } = require('./colors')
 
 
@@ -31,7 +31,7 @@ const logData = (logger, type) => {
     const toLog = args.map(data => {
       return isColl(data)
         ? colors[logColor](JSON.stringify(data, null, 2))
-        : isFunc(data.toString)
+        : typeof data.toString === `function`
           ? colors[logColor](data.toString())
           : colors[logColor](data)
     })
@@ -163,8 +163,10 @@ class Log {
    *
    * @returns {void}
    */
-  setColors = colorMap =>
-    isObj(colorMap) && (this.colorMap = { ...this.colorMap, ...colorMap })
+  setColors = colorMap => {
+    typeof colorMap === `object`
+      && (this.colorMap = { ...this.colorMap, ...colorMap })
+  }
 
   /**
    * Helper to log an empty line
