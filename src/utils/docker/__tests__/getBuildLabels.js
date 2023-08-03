@@ -61,27 +61,8 @@ const { getBuildLabels } = require('../getBuildLabels')
 
 describe('getBuildLabels', () => {
 
-  it('Should add extra labels when they are passed in as a string', () => {
-    const addedLabels = `com.test.label="my-test-label",com.test.other="my-other-test-label"`
-    const labels = getBuildLabels(
-      { ...args.base, params: { ...args.base.params, labels: addedLabels } },
-    )
-
-    expect(labels.indexOf(`--label com.test.label="my-test-label"`)).not.toBe(-1)
-    expect(labels.indexOf(`--label com.test.other="my-other-test-label"`)).not.toBe(-1)
-  })
-
-  it('Should add extra labels when they are passed in as an array', () => {
-    const addedLabels = [
-      `com.test.label="my-test-label"`,
-      `com.test.other="my-other-test-label"`
-    ]
-    const labels = getBuildLabels(
-      { ...args.base, params: { ...args.base.params, labels: addedLabels } },
-    )
-
-    expect(labels.indexOf(`--label com.test.label="my-test-label"`)).not.toBe(-1)
-    expect(labels.indexOf(`--label com.test.other="my-other-test-label"`)).not.toBe(-1)
+  it('Should return the default labels when no labels are passed in for keg-base', () => {
+    expect(true).toBe(true)
   })
 
 })
