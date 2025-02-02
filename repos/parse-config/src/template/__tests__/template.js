@@ -1,6 +1,8 @@
 jest.resetAllMocks()
 jest.clearAllMocks()
 
+process.env.KEG_CONFIG_FOLDER = '/does/not/exist'
+
 const {
   removeYmlJson,
   testYmlJsonPath,

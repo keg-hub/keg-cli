@@ -4,7 +4,7 @@ jest.clearAllMocks()
 const { utils, resetUtils, utilValues } = require('../../__mocks__')
 jest.setMock('../../utils', utils)
 
-const writeYmlFile = jest.fn(async (location, data) => {
+const writeYamlFile = jest.fn(async (location, data) => {
   const throwError = () => {
     throw Error(`Invalid file path`)
   }
@@ -12,7 +12,7 @@ const writeYmlFile = jest.fn(async (location, data) => {
     ? true
     : throwError()
 })
-jest.setMock('write-yaml-file', writeYmlFile)
+jest.setMock('write-yaml-file', writeYamlFile)
 
 const data = {}
 const { yml } = require('../yml')
@@ -23,7 +23,7 @@ describe('Yaml files', () => {
   })
 
   beforeEach(() => {
-    writeYmlFile.mockClear()
+    writeYamlFile.mockClear()
   })
 
   afterAll(() => jest.resetAllMocks())
@@ -55,6 +55,7 @@ describe('Yaml files', () => {
       const location = `/some/invalid/yml/path`
       try {
         await yml.load({ location, data })
+        throw new Error('Should not be called')
       }
       catch (err) {
         expect(err.message.trim()).toEqual(
@@ -91,6 +92,7 @@ describe('Yaml files', () => {
       const location = `/some/invalid/yml/path`
       try {
         await yml.load({ location, data })
+        throw new Error('Should not be called')
       }
       catch (err) {
         expect(err.message.trim()).toEqual(
@@ -101,9 +103,9 @@ describe('Yaml files', () => {
   })
 
   describe('writeYml', () => {
-    it('should call the writeYmlFile method', async () => {
+    it('should call the writeYamlFile method', async () => {
       await yml.write(`/path/to/som/file.yml`)
-      expect(writeYmlFile).toHaveBeenCalled()
+      expect(writeYamlFile).toHaveBeenCalled()
     })
 
     it('should not throw when the path is valid', async () => {

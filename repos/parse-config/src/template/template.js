@@ -1,6 +1,32 @@
+const path = require('path')
 const { throwError } = require('../error')
-const { deepMerge, template, noOpObj } = require('@keg-hub/jsutils')
-const { getKegGlobalConfig, fileSys } = require('@keg-hub/cli-utils')
+const { promises:fs, readFileSync } = require('fs')
+const { limbo, deepMerge, template, noOpObj } = require('@keg-hub/jsutils')
+const { GLOBAL_CONFIG_FOLDER, GLOBAL_CONFIG_FILE } = require('../constants/constants')
+
+
+/**
+ * Attempts to load the Keg-CLI global config from the user home directory
+ * @function
+ * @param {boolean} [throwError=true] - Should the method throw if the config can not be loaded
+ *
+ * @return {Object} - Loaded Keg-CLI global config
+ */
+const getGlobalConfig = (throwError = true) => {
+  const configPath = path.join(GLOBAL_CONFIG_FOLDER, GLOBAL_CONFIG_FILE)
+  try {
+    return require(configPath)
+  }
+  catch (err) {
+    if (throwError)
+      throw new Error(
+        `Keg CLI global config could not be loaded from path: ${configPath}!`
+      )
+
+    return {}
+  }
+}
+
 
 /**
  * Default template replace pattern
@@ -36,12 +62,12 @@ const setTemplateRegex = pattern => {
  * Sources include Keg-CLI global config, process.env, custom data object argument
  * @function
  * @param {Object} data - Custom data with values for filling templates
- * @param {Boolean} expectKegConfig - if true, throws if global keg config is not found
+ * @param {Boolean} expectGlobalConfig - if true, throws if global keg config is not found
  *
  * @returns {Object} - Merge data object
  */
-const buildFillData = (data = noOpObj, expectKegConfig = false) => {
-  const globalConfig = getKegGlobalConfig(expectKegConfig) || noOpObj
+const buildFillData = (data = noOpObj, expectGlobalConfig = false) => {
+  const globalConfig = getGlobalConfig(expectGlobalConfig) || noOpObj
   // Add the globalConfig, and the process.envs as the data objects
   // This allows values in ENV templates from globalConfig || process.env
   return {
@@ -57,15 +83,16 @@ const buildFillData = (data = noOpObj, expectKegConfig = false) => {
  * @param {string} tmp - Template to be filled
  * @param {Object} data - Data used to fill the template
  * @param {RegEx} pattern - Template pattern to override the default
+ * @param {Boolean} expectGlobalConfig - if true, throws if global keg config is not found
  *
  * @returns {string} - Template with the content filled from the passed in data
  */
-const execTemplate = (tmp, data, pattern) => {
+const execTemplate = (tmp, data, pattern, expectGlobalConfig = false) => {
   // Set the template regex to ensure it uses the passed in pattern or default
   setTemplateRegex(pattern)
 
   // Fill the template with the data object
-  const filled = template(tmp, buildFillData(data))
+  const filled = template(tmp, buildFillData(data, expectGlobalConfig))
 
   // Reset the template regex pattern after the template is filled
   setTemplateRegex()
@@ -89,7 +116,7 @@ const fillTemplate = async ({
   data = noOpObj,
   pattern,
 }) => {
-  const [ err, toFill ] = tmp ? [ null, tmp ] : await fileSys.readFile(location)
+  const [ err, toFill ] = tmp ? [ null, tmp ] : await limbo(fs.readFile(location, 'utf-8'))
 
   return err ? throwError(err) : execTemplate(toFill, data, pattern)
 }
@@ -104,7 +131,7 @@ const fillTemplate = async ({
  * @returns {string} - Template with the content filled from the passed in data
  */
 const fillTemplateSync = ({ location, template: tmp, data = {}, pattern }) => {
-  return execTemplate(tmp || fileSys.readFileSync(location), data, pattern)
+  return execTemplate(tmp || readFileSync(location, 'utf-8'), data, pattern)
 }
 
 module.exports = {

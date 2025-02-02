@@ -1,7 +1,7 @@
+const { promises:fs } = require('fs')
 const { throwError } = require('../error')
-const { fileSys } = require('@keg-hub/cli-utils')
 const { parse, stringify } = require('./envParser')
-const { isStr, noOpObj, noPropArr } = require('@keg-hub/jsutils')
+const { limbo, isStr, noOpObj, noPropArr } = require('@keg-hub/jsutils')
 const {
   getContent,
   getContentSync,
@@ -98,7 +98,7 @@ const removeEnv = async location => {
  */
 const writeEnv = async (location, data) => {
   const content = isStr(data) ? data : stringify(data)
-  const [err] = await fileSys.writeFile(location, content)
+  const [err] = await limbo(fs.writeFile(location, content))
   return err ? throwError(err.stack) : true
 }
 
