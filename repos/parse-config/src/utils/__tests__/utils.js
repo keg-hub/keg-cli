@@ -60,16 +60,11 @@ describe('utils', () => {
     it(`should throw from an invalid file path`, async () => {
       try {
         await getContent(`/invalid/file/path`)
+        throw new Error('Should not be called')
       }
       catch (err) {
-        expect(
-          err.message.includes('File path does not exist at /invalid/file/path')
-        ).toBe(true)
-        expect(
-          err.message.includes(
-            `no such file or directory, access '/invalid/file/path'`
-          )
-        ).toBe(true)
+        expect(err.message.includes(`Could not load undefined file!`)).toBe(true)
+        expect(err.message.includes('File path does not exist at /invalid/file/path')).toBe(true)
       }
     })
 

@@ -1,7 +1,8 @@
 const path = require('path')
 const { loadYmlSync } = require('../yml/yml')
 const { loadEnvSync } = require('../env/env')
-const { constants, getAppRoot } = require('@keg-hub/cli-utils')
+const { getAppRoot } = require('../utils/appRoot')
+const { GLOBAL_CONFIG_FOLDER } = require('../constants/constants')
 const {
   get,
   isArr,
@@ -14,7 +15,6 @@ const {
   deepMerge,
 } = require('@keg-hub/jsutils')
 
-const { GLOBAL_CONFIG_FOLDER } = constants
 
 /**
  * Adds the override value to the passed in location

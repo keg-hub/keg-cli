@@ -1,19 +1,21 @@
 jest.resetAllMocks()
 jest.clearAllMocks()
 
-const cliUtils = require('@keg-hub/cli-utils')
+const { promises, ...fs } = require('fs')
+
 const writeFileMock = jest.fn(async (location, data) => {
-  return location.endsWith('.env')
-    ? [ null, true ]
-    : [ new Error(`Invalid file path`), false ]
+  if(location.endsWith('.env')) return true
+  throw new Error(`Invalid file path`)
 })
-jest.setMock('@keg-hub/cli-utils', {
-  ...cliUtils,
-  fileSys: {
-    ...cliUtils.fileSys,
+
+jest.setMock('fs', {
+  ...fs,
+  promises: {
+    ...promises,
     writeFile: writeFileMock,
   },
 })
+
 
 const { utils, resetUtils, utilValues } = require('../../__mocks__')
 jest.setMock('../../utils', utils)
@@ -56,6 +58,7 @@ describe('ENV files', () => {
       const location = `/some/invalid/env/path`
       try {
         await env.load({ location, data })
+        throw new Error('Should not be called')
       }
       catch (err) {
         expect(err.message.trim()).toEqual(
@@ -95,6 +98,7 @@ describe('ENV files', () => {
       const location = `/some/invalid/env/path`
       try {
         await env.loadSync({ location, data })
+        throw new Error('Should not be called')
       }
       catch (err) {
         expect(err.message.trim()).toEqual(
@@ -125,6 +129,7 @@ describe('ENV files', () => {
       const location = `/some/invalid/env/path`
       try {
         await env.write(location, data)
+        throw new Error('Should not be called')
       }
       catch (err) {
         expect(err.message.includes(`Invalid file path`)).toBe(true)

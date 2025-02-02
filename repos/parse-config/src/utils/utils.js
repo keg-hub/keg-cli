@@ -1,21 +1,28 @@
 const { execTemplate } = require('../template')
-const { fileSys } = require('@keg-hub/cli-utils')
 const { throwError, throwNoFile } = require('../error')
-const { noOp, noOpObj, deepMerge, isStr } = require('@keg-hub/jsutils')
-
+const { limbo, noOp, noOpObj, deepMerge, isStr } = require('@keg-hub/jsutils')
 const {
-  pathExists,
-  pathExistsSync,
-  readFile,
+  existsSync,
+  promises:fs,
   readFileSync,
-  removeFile: remove,
-} = fileSys
+} = require('fs')
+
 
 const defLoaderArgs = {
   error: true,
   fill: true,
   data: noOpObj,
   format: 'object',
+}
+
+const pathExists = async (path) => {
+  try {
+    await fs.access(path)
+    return true
+  }
+  catch (err) {
+    return false
+  }
 }
 
 /**
@@ -40,7 +47,7 @@ const stripBom = content =>
  * @returns {boolean} - True if the file exists
  */
 const checkExists = async (location, error = true, type) => {
-  const [ err, exists ] = await pathExists(location)
+  const [ err, exists ] = await limbo(pathExists(location))
 
   return exists
     ? true
@@ -68,8 +75,8 @@ const checkExists = async (location, error = true, type) => {
  * @returns {string} - Loaded file content
  */
 const getContentSync = (location, error = true, type) => {
-  return pathExistsSync(location)
-    ? readFileSync(location, { encoding: 'utf8' })
+  return existsSync(location)
+    ? readFileSync(location, 'utf8')
     : error
       ? throwNoFile(location, `Could not load ${type} file!`)
       : null
@@ -90,7 +97,7 @@ const getContent = async (location, error = true, type) => {
   if (!exists) return null
 
   // Get the content of the file
-  const [ err, content ] = await readFile(location)
+  const [ err, content ] = await limbo(fs.readFile(location, 'utf8'))
 
   return !err
     ? content
@@ -113,7 +120,7 @@ const removeFile = async (location, type) => {
       `Remove ${type} file requires a file location, instead got: ${location}`
     )
 
-  const [err] = await remove(location)
+  const [err] = await limbo(fs.rm(location))
   return err ? throwError(err) : true
 }
 
